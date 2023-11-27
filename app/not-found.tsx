@@ -2,7 +2,7 @@ import NotFound from '@/components/not-found/NotFound'
 import PageLinks from '@/components/common/PageLinks'
 import Preloader from '@/components/common/Preloader'
 
-import FooterOne from '@/components/layout/footers/FooterOne'
+import Footer from '@/components/layout/footers/Footer'
 import Header from '@/components/layout/headers/Header'
 import React from 'react'
 
@@ -20,7 +20,7 @@ export default function page() {
       <div className="content-wrapper js-content-wrapper overflow-hidden">
         <PageLinks />
         <NotFound />
-        <FooterOne />
+        <Footer />
       </div>
     </div>
   )

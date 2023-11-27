@@ -1,6 +1,8 @@
 'use client'
 
 import '../public/assets/sass/styles.scss'
+import "swiper/css";
+import "swiper/css/pagination";
 import Aos from 'aos'
 import './globals.css'
 import 'aos/dist/aos.css'

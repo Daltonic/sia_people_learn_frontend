@@ -1,12 +1,13 @@
-import React from "react";
-import Image from "next/image";
-import Socials from "@/components/common/Socials";
+'use client'
+import React from 'react'
+import Socials from '@/components/common/Socials'
+import Image from 'next/image'
+import Links from '../component/Links'
+import FooterLinks from '../component/FooterLinks2'
 
-import Links from "../component/Links";
-import FooterLinksFour from "../component/FooterLinksFour";
-export default function FooterEight() {
+const Footer = () => {
   return (
-    <footer className="footer -type-5 pt-60 bg-dark-2">
+    <footer className="footer -type-5 pt-60">
       <div className="container">
         <div className="row y-gap-30 pb-60">
           <div className="col-xl-4 col-lg-5 col-md-6">
@@ -14,43 +15,45 @@ export default function FooterEight() {
               <Image
                 width={140}
                 height={50}
-                src="/assets/img/footer/footer-logo.svg"
+                src="/assets/img/general/logo-dark.svg"
                 alt="logo"
               />
             </div>
 
             <div className="mt-30">
-              <div className="text-17 text-white">Call Us</div>
-              <div className="text-17 lh-1 fw-500 text-white mt-5">
+              <div className="text-17 text-dark-1">Call Us</div>
+              <div className="text-17 lh-1 fw-500 text-purple-1 mt-5">
                 800 388 80 90
               </div>
             </div>
 
             <div className="mt-30 pr-20">
-              <div className="lh-17 text-white">
+              <div className="lh-17">
                 329 Queensberry Street, North Melbourne VIC 3051, Australia.
                 hi@educrat.com
               </div>
             </div>
 
             <div className="footer-header-socials mt-30">
-              <div className="footer-header-socials__list d-flex items-center text-white">
+              <div className="footer-header-socials__list d-flex items-center">
                 <Socials
-                  componentsClass={"size-40 d-flex justify-center items-center"}
+                  componentsClass={
+                    'size-40 d-flex justify-center items-center '
+                  }
                 />
               </div>
             </div>
           </div>
 
-          <FooterLinksFour
-            allClasses={"text-17 fw-500 text-white uppercase mb-25"}
+          <FooterLinks
+            allClasses={'text-17 fw-500 text-black uppercase mb-25'}
           />
         </div>
 
-        <div className="py-30 border-top-light-15">
+        <div className="py-30 border-top-light">
           <div className="row justify-between items-center y-gap-20">
             <div className="col-auto">
-              <div className="d-flex items-center h-100 text-white">
+              <div className="footer-footer__copyright d-flex items-center h-100">
                 © {new Date().getFullYear()} Educrat. All Right Reserved.
               </div>
             </div>
@@ -58,18 +61,17 @@ export default function FooterEight() {
             <div className="col-auto">
               <div className="d-flex x-gap-20 y-gap-20 items-center flex-wrap">
                 <div>
-                  <div className="d-flex x-gap-15 text-white">
-                    <Links />
+                  <div className="d-flex x-gap-15">
+                    <Links allClasses="text-black" />
                   </div>
                 </div>
 
                 <div>
                   <a
                     href="#"
-                    className="button px-30 h-50 -dark-6 rounded-200 text-white"
+                    className="button -md -light-4 px-20 -purple-3 text-purple-1"
                   >
-                    <i className="icon-worldwide text-20 mr-15"></i>
-                    <span className="text-15">English</span>
+                    <i className="icon-worldwide mr-5"></i>English
                   </a>
                 </div>
               </div>
@@ -78,5 +80,7 @@ export default function FooterEight() {
         </div>
       </div>
     </footer>
-  );
+  )
 }
+
+export default Footer
