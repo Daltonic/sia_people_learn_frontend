@@ -1,4 +1,5 @@
 import Preloader from '@/components/common/Preloader'
+import CoursesSlider from '@/components/home/CoursesSlider'
 import Hero from '@/components/home/Hero'
 import Header from '@/components/layout/headers/Header'
 import { NextPage } from 'next'
@@ -16,20 +17,20 @@ const Page: NextPage = () => {
 
       <div className="content-wrapper  js-content-wrapper overflow-hidden">
         <Hero />
-        {/* <Features />
-        <CategoriesThree />
+        {/* <Features /> */}
+        {/* <CategoriesThree /> */}
         <CoursesSlider />
-        <StepsOne />
-        <Line />
-        <Instructors />
-        <Testimonials />
-        <CoursesTwo />
-        <Achievements />
-        <SkillsOne />
-        <Line />
-        <BlogsTwo />
-        <JoinTwo />
-        <FooterTwo /> */}
+        {/* <StepsOne /> */}
+        {/* <Line /> */}
+        {/* <Instructors /> */}
+        {/* <Testimonials /> */}
+        {/* <CoursesTwo /> */}
+        {/* <Achievements /> */}
+        {/* <SkillsOne /> */}
+        {/* <Line /> */}
+        {/* <BlogsTwo /> */}
+        {/* <JoinTwo /> */}
+        {/* <FooterTwo /> */}
       </div>
     </main>
   )
