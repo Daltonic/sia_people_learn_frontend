@@ -1,14 +1,14 @@
 import { NextPage } from 'next'
 
 export const metadata = {
-  title: 'Home | Dapp Mentors',
+  title: 'Courses | Dapp Mentors',
   description: 'Lorem Ipsu,',
 }
 
 const Page: NextPage = () => {
   return (
     <main>
-      <h4>Hello World</h4>
+      <h4>Hello World courses</h4>
     </main>
   )
 }
