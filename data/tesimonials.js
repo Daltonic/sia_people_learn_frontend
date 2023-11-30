@@ -48,7 +48,7 @@ export const testimonials = [
 export const testimonialsTwo = [
   {
     id: 1,
-    author: "Ali Tufan",
+    author: "John Doe",
     position: "Product Manager, Apple Inc",
     text: "It is no exaggeration to say this Educrat experience was transformative–both professionally and personally. This workshop will long remain a high point of my life.",
   },

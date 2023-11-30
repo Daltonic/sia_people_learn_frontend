@@ -12,7 +12,7 @@ const HowItWorks = () => {
               <h2 className="sectionTitle__title ">How it works?</h2>
 
               <p className="sectionTitle__text ">
-                10,000+ unique online course list designs
+              Follow this simple steps
               </p>
             </div>
           </div>
@@ -33,7 +33,7 @@ const HowItWorks = () => {
                     <div className="side-badge">
                       <div className="size-35 d-flex justify-center items-center rounded-full bg-dark-1 -dark-bg-purple-1">
                         <span className="text-14 fw-500 text-white">
-                          0{elm.id}
+                          {elm.id}
                         </span>
                       </div>
                     </div>

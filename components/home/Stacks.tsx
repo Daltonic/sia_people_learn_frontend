@@ -15,7 +15,7 @@ const Stacks: React.FC = () => {
     setShowSlider(true)
   }, [])
   return (
-    <section className="layout-pt-lg layout-pb-lg">
+    <section className="layout-pt-lg layout-pb-lg bg-[#F9F9F9]">
       <div className="container">
         <div className="row y-gap-20 justify-center text-center">
           <div className="col-auto">
@@ -23,7 +23,7 @@ const Stacks: React.FC = () => {
               <h2 className="sectionTitle__title ">What will you learn</h2>
 
               <p className="sectionTitle__text ">
-                10,000+ unique online course list designs
+              Learn from our in-demand blockchain stacks
               </p>
             </div>
           </div>
@@ -80,7 +80,7 @@ const Stacks: React.FC = () => {
                               alt="image"
                             />
                           </div>
-                          <h5 className="infoCard__title text-17 lh-15 mt-10">
+                          <h5 className="infoCard__title text-md font-medium lh-15 mt-10">
                             {elm.skill}
                           </h5>
                         </div>

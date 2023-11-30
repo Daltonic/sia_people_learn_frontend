@@ -7,10 +7,10 @@ import FooterLinks from '../component/FooterLinks2'
 
 const Footer = () => {
   return (
-    <footer className="footer -type-5 pt-60">
-      <div className="container">
-        <div className="row y-gap-30 pb-60">
-          <div className="col-xl-4 col-lg-5 col-md-6">
+    <footer className="">
+      <div className="">
+        <div className="flex">
+          <div className="">
             <div className="footer-header__logo">
               <Image
                 width={140}
@@ -27,7 +27,7 @@ const Footer = () => {
               </div>
             </div>
 
-            <div className="mt-30 pr-20">
+            <div className="mt-30">
               <div className="lh-17">
                 329 Queensberry Street, North Melbourne VIC 3051, Australia.
                 hi@educrat.com
@@ -50,7 +50,7 @@ const Footer = () => {
           />
         </div>
 
-        <div className="py-30 border-top-light">
+        {/* <div className="py-30 border-top-light">
           <div className="row justify-between items-center y-gap-20">
             <div className="col-auto">
               <div className="footer-footer__copyright d-flex items-center h-100">
@@ -77,7 +77,7 @@ const Footer = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </footer>
   )

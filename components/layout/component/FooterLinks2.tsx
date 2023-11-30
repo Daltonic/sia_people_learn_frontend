@@ -9,11 +9,11 @@ interface ComponentProps {
 
 const FooterLinks: React.FC<ComponentProps> = ({ allClasses, parentClass }) => {
   return (
-    <>
-      {footerLinks.slice(0, 3).map((elm, i) => (
-        <div key={i} className={parentClass || 'col-xl-4 col-lg-4 col-md-6 '}>
-          <div className={`${allClasses ? allClasses : ''}`}>{elm.title}</div>
-          <div className="d-flex y-gap-10 flex-column text-black">
+    <div className='flex flex-1'>
+      {footerLinks.slice(0, 4).map((elm, i) => (
+        <div key={i} className="">
+          <div className={`${allClasses ? allClasses : 'border-2'}`}>{elm.title}</div>
+          <div className="flex flex-column border text-black">
             {elm.links.map((itm, index) => (
               <Link key={index} href={itm.href}>
                 {itm.label}
@@ -22,7 +22,7 @@ const FooterLinks: React.FC<ComponentProps> = ({ allClasses, parentClass }) => {
           </div>
         </div>
       ))}
-    </>
+    </div>
   )
 }
 

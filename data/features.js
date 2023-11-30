@@ -21,7 +21,7 @@ export const featureTwo = [
   {
     id: 1,
     imgSrc: "/assets/img/home-3/masthead/icons/1.svg",
-    title: "100,000 online courses",
+    title: "100hrs online courses",
     description: "Explore a variety of fresh topics",
   },
   {
@@ -34,7 +34,7 @@ export const featureTwo = [
     id: 3,
     imgSrc: "/assets/img/home-3/masthead/icons/3.svg",
     title: "Lifetime access",
-    description: "Learn on your schedule",
+    description: "Learn at your pace",
   },
 ];
 

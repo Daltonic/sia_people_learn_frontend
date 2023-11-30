@@ -1,64 +1,57 @@
-'use client'
-import React, { MutableRefObject } from 'react'
-import { Navigation, Pagination } from 'swiper'
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { testimonialsTwo } from '@/data/tesimonials'
-import { paginationImages } from '@/data/tesimonials'
-import { useRef, useEffect, useState } from 'react'
-import Image from 'next/image'
-import { Swiper as SwiperProp } from 'swiper/types'
+"use client";
+import React, { MutableRefObject } from "react";
+import { Navigation, Pagination } from "swiper";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { testimonialsTwo } from "@/data/tesimonials";
+import { paginationImages } from "@/data/tesimonials";
+import { useRef, useEffect, useState } from "react";
+import Image from "next/image";
+import { Swiper as SwiperProp } from "swiper/types";
 
 const Testimonials: React.FC<{ backgroundComponent?: boolean }> = ({
   backgroundComponent,
 }) => {
-  const swiperRef = useRef<SwiperProp>(null) as MutableRefObject<SwiperProp>
-  const [currentSlideIndex, setCurrentSlideIndex] = useState(0)
-  const [showSlider, setShowSlider] = useState(false)
+  const swiperRef = useRef<SwiperProp>(null) as MutableRefObject<SwiperProp>;
+  const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+  const [showSlider, setShowSlider] = useState(false);
 
   useEffect(() => {
-    setShowSlider(true)
+    setShowSlider(true);
     if (swiperRef.current) {
-      swiperRef.current.slideTo(0) // Set the initial slide to index 0
+      swiperRef.current.slideTo(0); // Set the initial slide to index 0
     }
-  }, [])
+  }, []);
 
   const handlePaginationClick = (index: number) => {
-    setCurrentSlideIndex(index)
+    setCurrentSlideIndex(index);
     if (swiperRef.current) {
-      swiperRef.current.slideTo(index)
+      swiperRef.current.slideTo(index);
     }
-  }
+  };
 
   const handleSlideChange = (swiper: SwiperProp) => {
-    setCurrentSlideIndex(swiper.activeIndex)
+    setCurrentSlideIndex(swiper.activeIndex);
 
     if (swiper.activeIndex >= 5) {
-      setCurrentSlideIndex(swiper.activeIndex - 5)
+      setCurrentSlideIndex(swiper.activeIndex - 5);
     }
-  }
+  };
 
   return (
     <section className="layout-pt-lg layout-pb-lg section-bg">
       <div
         className={`section-bg__item  ${
-          backgroundComponent ? 'bg-white-two' : 'bg-light-6'
+          backgroundComponent ? "bg-white-two" : "bg-light-6"
         }`}
       ></div>
 
       <div className="container">
-        <div className="row y-gap-20 justify-center text-center">
-          <div className="col-auto">
-            <div className="sectionTitle ">
-              <h2 className="sectionTitle__title ">Testimonials</h2>
-
-              <p className="sectionTitle__text ">
-                10,000+ unique online course list designs
-              </p>
-            </div>
-          </div>
+        <div className="sectionTitle flex flex-col items-center ">
+          <h2 className="sectionTitle__title ">Testimonials</h2>
+          <p className="sectionTitle__text ">Hear directly from our students</p>
         </div>
 
-        <div className="row justify-center pt-60">
+        <div className="flex justify-center pt-60">
           <div className="col-xl-6 col-lg-8 col-md-10">
             <div className="overflow-hidden js-testimonials-slider">
               {showSlider && (
@@ -71,7 +64,7 @@ const Testimonials: React.FC<{ backgroundComponent?: boolean }> = ({
                   speed={1000}
                   slidesPerView={1}
                   onSwiper={(swiper) => {
-                    swiperRef.current = swiper // Store the Swiper instance in the ref
+                    swiperRef.current = swiper; // Store the Swiper instance in the ref
                   }}
                   onSlideChange={handleSlideChange}
                 >
@@ -83,15 +76,15 @@ const Testimonials: React.FC<{ backgroundComponent?: boolean }> = ({
                           data-aos="fade-up"
                           data-aos-duration={600}
                         >
-                          <div className="testimonials__icon">
+                          <div className="testimonials__icon flex justify-center">
                             <Image
-                              width={60}
-                              height={43}
+                              width={40}
+                              height={35}
                               src="/assets/img/misc/quote.svg"
                               alt="quote"
                             />
                           </div>
-                          <div className="testimonials__text md:text-20 fw-500 text-dark-1">
+                          <div className="testimonials__text md:text-lg text-dark-1">
                             {elm.text}
                           </div>
                           <div className="testimonials__author">
@@ -117,7 +110,7 @@ const Testimonials: React.FC<{ backgroundComponent?: boolean }> = ({
                     >
                       <div
                         className={`pagination__item ${
-                          currentSlideIndex == i ? 'is-active' : ''
+                          currentSlideIndex == i ? "is-active" : ""
                         }`}
                       >
                         <Image width={70} height={70} src={elm} alt="image" />
@@ -131,7 +124,7 @@ const Testimonials: React.FC<{ backgroundComponent?: boolean }> = ({
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default Testimonials
+export default Testimonials;

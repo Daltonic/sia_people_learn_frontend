@@ -1,7 +1,6 @@
 'use client'
 
 import React, { FormEvent } from 'react'
-import { HeaderExplore } from '../component/header-explore'
 import CartToggle from '../component/CartToggle'
 import Menu from '../component/Menu'
 import MobileMenu from '../component/MobileMenu'
@@ -18,22 +17,20 @@ const Header: React.FC = () => {
   return (
     <header className="header -type-3 js-header">
       <div className="header__container py-10">
-        <div className="row justify-between items-center">
-          <div className="col-auto">
-            <div className="header-left flex items-center">
+        <div className="flex justify-between items-center">
+          <div>
+            <div className="header-left flex items-center gap-4">
               <div className="header__logo ">
                 <Link href="/">
                   <Image
-                    width={140}
-                    height={50}
-                    src="/assets/img/general/logo-dark.svg"
+                    width={35}
+                    height={35}
+                    src="/assets/images/logoImg.svg"
                     alt="logo"
                   />
                 </Link>
               </div>
-              <HeaderExplore
-                allClasses={'header__explore text-purple-600 ml-30 xl:d-none'}
-              />
+              <p className='text-[#321463] text-md'>Dapp Mentors</p>
 
               <div className="header-search-field ml-30">
                 <form onSubmit={handleSubmit}>
@@ -42,9 +39,10 @@ const Header: React.FC = () => {
                       required
                       type="text"
                       placeholder="What do you want to learn?"
+                      className='placeholder:text-[#4F547B]'
                     />
                     <button type="submit">
-                      <i className="icon icon-search"></i>
+                      <i className="icon icon-search text-[#1A064F]"></i>
                     </button>
                   </div>
                 </form>
@@ -52,7 +50,7 @@ const Header: React.FC = () => {
             </div>
           </div>
 
-          <div className="col-auto">
+          <div>
             <div className="header-right flex items-center">
               <div className="header-right__icons text-white flex items-center">
                 <Menu allClasses={'menu__nav text-dark-1 -is-active'} />
@@ -77,16 +75,16 @@ const Header: React.FC = () => {
                 </div>
               </div>
 
-              <div className="header-right__buttons flex items-center ml-30 xl:ml-20 md:d-none">
+              <div className="header-right__buttons text-[#C5165D] flex items-center ml-30 xl:ml-20 md:d-none">
                 <Link
-                  href="/login"
-                  className="button px-30 h-50 -outline-dark-1 text-dark-1"
+                  href="/signup"
+                  className="button px-30 h-50 border-[#C5165D] border"
                 >
                   Log in
                 </Link>
                 <Link
                   href="/signup"
-                  className="button px-30 h-50 -dark-1 text-white ml-10"
+                  className="button px-30 h-50 bg-[#C5165D] text-white ml-10"
                 >
                   Sign up
                 </Link>

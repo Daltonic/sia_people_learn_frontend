@@ -6,17 +6,17 @@ const Features: React.FC = () => {
   return (
     <section className="layout-pt-sm layout-pb-sm border-bottom-light">
       <div className="container">
-        <div className="row y-gap-30 justify-between">
+        <div className="flex justify-evenly">
           {featureTwo.map((elm, i) => (
-            <div key={i} className="col-xl-3 col-md-6">
-              <div className="d-flex items-center">
-                <div className="mr-20">
-                  <Image width={50} height={50} src={elm.imgSrc} alt="icon" />
+            <div key={i} className="">
+              <div className="flex items-center">
+                <div className="mr-10">
+                  <Image width={40} height={35} src={elm.imgSrc} alt="icon" />
                 </div>
 
-                <div>
-                  <h4 className="text-20 fw-500">{elm.title}</h4>
-                  <div className="text-dark-1">{elm.description}</div>
+                <div className='text-[#321463]'>
+                  <h1 className="text-md text-[#321463]">{elm.title}</h1>
+                  <p className="text-sm">{elm.description}</p>
                 </div>
               </div>
             </div>

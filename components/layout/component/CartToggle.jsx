@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import ShopCart from "./ShopCart";
 import CourseCart from "./CourseCart";
 import EventCart from "./EventCart";
+import { FiShoppingCart } from "react-icons/fi";
 
 const CartToggle = ({ allClasses, parentClassess }) => {
   const { cartProducts, cartCourses, cartEvents } = useContextElement();
@@ -42,7 +43,7 @@ const CartToggle = ({ allClasses, parentClassess }) => {
           className={`${allClasses ? allClasses : ""}`}
           data-el-toggle=".js-cart-toggle"
         >
-          <i className="text-20 icon icon-basket"></i>
+          <FiShoppingCart  className="text-2xl text-black icon icon-basket"/>
           <div className="cartProductCount">
             {submenu == "Shop" && (
               <>{cartProducts.length > 9 ? "9+" : cartProducts.length} </>

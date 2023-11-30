@@ -14,17 +14,17 @@ const CoursesSlider: React.FC = () => {
     setShowSlider(true)
   }, [])
   return (
-    <section className="layout-pt-lg layout-pb-lg section-bg">
-      <div className="section-bg__item bg-light-6"></div>
+    <section className="layout-pt-lg layout-pb-lg section-bg bg-[#F9F9F9]">
+      <div className="section-bg__item"></div>
 
       <div className="container">
-        <div className="row y-gap-15 justify-between items-center">
+        <div className="row y-gap-15  justify-between items-center">
           <div className="col-lg-6">
             <div className="sectionTitle ">
-              <h2 className="sectionTitle__title ">Top courses</h2>
+              <h2 className="sectionTitle__title ">Trending courses</h2>
 
               <p className="sectionTitle__text ">
-                10,000+ unique online course list designs
+              Choose from our popular collections
               </p>
             </div>
           </div>

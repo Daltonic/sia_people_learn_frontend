@@ -13,7 +13,7 @@ const BlogList: React.FC = () => {
               <h2 className="sectionTitle__title ">Blog</h2>
 
               <p className="sectionTitle__text ">
-                10,000+ unique online course list designs
+              Browse through our recent blog posts
               </p>
             </div>
           </div>
@@ -21,9 +21,9 @@ const BlogList: React.FC = () => {
           <div className="col-auto">
             <Link
               href="/blog-list-1"
-              className="button -icon -purple-3 text-purple-1"
+              className="button -icon -purple-3 text-[#1A064F]"
             >
-              Browse Blog
+              All Courses
               <i className="icon-arrow-top-right text-13 ml-10"></i>
             </Link>
           </div>
@@ -51,13 +51,12 @@ const BlogList: React.FC = () => {
                   />
                 </div>
                 <div className="blogCard__content mt-20">
-                  <div className="blogCard__category">{elm.category}</div>
-                  <h4 className="blogCard__title text-17 lh-15 mt-5">
+                  <h4 className="blogCard__title text-md font-medium lh-15 mt-5">
                     <Link className="linkCustom" href={`/blogs/${elm.id}`}>
                       {elm.title}{' '}
                     </Link>
                   </h4>
-                  <div className="blogCard__date text-14 mt-5">{elm.date}</div>
+                  <div className="blogCard__date text-xs mt-5">{elm.date}</div>
                 </div>
               </div>
             </div>
