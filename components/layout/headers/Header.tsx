@@ -15,8 +15,8 @@ const Header: React.FC = () => {
     e.preventDefault()
   }
   return (
-    <header className="fixed top-0 left-0 z-50 bg-white w-full px-16">
-      <div className="relative max-w-[1500px]  py-10 ">
+    <header className="header -type-3 js-header">
+      <div className="header__container py-10">
         <div className="flex justify-between items-center">
           <div>
             <div className="header-left flex items-center gap-4">
@@ -51,13 +51,13 @@ const Header: React.FC = () => {
           </div>
 
           <div>
-            <div className="flex items-center">
-              <div className=" text-white flex items-center">
+            <div className="header-right flex items-center">
+              <div className="header-right__icons text-white flex items-center">
                 <Menu allClasses={'menu__nav text-dark-1 -is-active'} />
-                {/* <MobileMenu
+                <MobileMenu
                   setActiveMobileMenu={setActiveMobileMenu}
                   activeMobileMenu={activeMobileMenu}
-                /> */}
+                />
 
                 <CartToggle
                   parentClassess={'relative ml-30 xl:ml-20'}

@@ -23,7 +23,7 @@ const Page: NextPage = () => {
       <Preloader />
       <Header />
 
-      {/* <div className="content-wrapper js-content-wrapper overflow-hidden">
+      <div className="content-wrapper js-content-wrapper overflow-hidden">
         <Hero />
         <Features />
         <CoursesSlider />
@@ -34,7 +34,7 @@ const Page: NextPage = () => {
         <BlogList />
         <Newsletter />
         <Footer />
-      </div> */}
+      </div>
     </main>
   )
 }
