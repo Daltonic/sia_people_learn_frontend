@@ -39,7 +39,7 @@ const Menu: React.FC<ComponentProps> = ({ allClasses, headerPosition }) => {
         headerPosition ? headerPosition : ''
       }`}
     >
-      <div className="header-menu__content">
+      <div className="flex">
         <div className="mobile-bg js-mobile-bg"></div>
 
         <div className="d-none xl:d-flex items-center px-20 py-20 border-bottom-light">
@@ -110,20 +110,20 @@ const Menu: React.FC<ComponentProps> = ({ allClasses, headerPosition }) => {
         </div>
 
         {/* mobile footer start */}
-        <MobileFooter />
+        {/* <MobileFooter /> */}
         {/* mobile footer end */}
       </div>
 
-      <div
+      {/* <div
         className="header-menu-close"
         data-el-toggle=".js-mobile-menu-toggle"
       >
         <div className="size-40 d-flex items-center justify-center rounded-full bg-white">
           <div className="icon-close text-dark-1 text-16"></div>
         </div>
-      </div>
+      </div> */}
 
-      <div className="header-menu-bg"></div>
+      {/* <div className="header-menu-bg"></div> */}
     </div>
   )
 }
