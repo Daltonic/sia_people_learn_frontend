@@ -8,7 +8,7 @@ interface PageHeaderProps {
 
 const PageHeader: React.FC<PageHeaderProps> = ({ className, children }) => {
   return (
-    <div className={`text-violet-950 text-4xl font-bold ${className}`}>
+    <div className={`text-violet-950 text-3xl md:text-4xl font-bold ${className}`}>
       {children}
     </div>
   );

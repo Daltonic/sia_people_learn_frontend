@@ -13,10 +13,10 @@ const Page: NextPage = () => {
   return (
     <Layout>
       <div className="flex justify-center">
-        <div className="flex flex-col w-[90%] mt-10">
+        <div className="flex flex-col w-[90%] mt-5 md:mt-10">
           <div className="flex flex-col">
             <PageHeader> Trending courses</PageHeader>
-            <div className="text-slate-600 text-lg capitalize w-full mt-1">
+            <div className="text-slate-600 text-sm md:text-lg capitalize w-full mt-1">
               Write an introductory description of the category.
             </div>
           </div>

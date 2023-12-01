@@ -21,13 +21,13 @@ const CourseLayer: React.FC<ComponentProps> = ({ data }) => {
   return (
     <div className="flex flex-col items-stretch mt-10">
       {coursesData.map((data, i) => (
-        <div className="border-b border-[#EDEDED] py-5">
+        <div className="bo-[#EDEDED] py-5">
           <div className="w-full">
-            <div className=" flex">
-              <div className="flex flex-col items-stretch w-4/5">
+            <div className=" flex md:flex-row flex-col">
+              <div className="flex flex-col items-stretch md:w-4/5">
                 <div className="">
-                  <div className="flex items-start">
-                    <div className="flex flex-col items-stretch w-[28%]">
+                  <div className="flex md:flex-row flex-col items-start">
+                    <div className="flex flex-col items-stretch w-full md:w-[28%]">
                       <Image
                         width={500}
                         height={500}
@@ -37,8 +37,8 @@ const CourseLayer: React.FC<ComponentProps> = ({ data }) => {
                         alt="image"
                       />
                     </div>
-                    <div className="ml-3 flex flex-col items-stretch w-[70%]">
-                      <div className="flex flex-col gap-1.5 my-auto px-5 items-start">
+                    <div className="md:ml-3 flex flex-col items-stretch md:w-[70%]">
+                      <div className="flex flex-col gap-1.5 my-auto md:px-5 items-start">
                         <div className="flex items-center text-sm gap-3">
                           <div className="flex items-center gap-1">
                             <p className="text-[#E59819]">{data.rating}</p>
@@ -60,7 +60,7 @@ const CourseLayer: React.FC<ComponentProps> = ({ data }) => {
                         <div className="text-slate-600 text-sm leading-6 self-stretch ">
                           {data.desc}
                         </div>
-                        <div className="flex items-center gap-3  mt-3">
+                        <div className="flex flex-wrap items-center gap-3 mt-3">
                           <Image
                             width={30}
                             height={30}
@@ -112,12 +112,12 @@ const CourseLayer: React.FC<ComponentProps> = ({ data }) => {
                   </div>
                 </div>
               </div>
-              <div className="flex flex-col items-stretch w-1/5 ml-5">
-                <div className="flex items-stretch justify-between gap-5 my-auto max-md:mt-10">
-                  <div className="self-center flex pl-5 flex-col my-auto items-end border-l border-[#EDEDED]">
+              <div className="flex flex-col items-stretch md:w-1/5 md:ml-5">
+                <div className="flex items-stretch justify-between gap-5 mt-3 md:mt-0">
+                  <div className="md:self-center flex md:pl-5 flex-col my-auto items-start md:items-end md:border-l md:border-[#EDEDED]">
                     <div className="">
                       {data.paid ? (
-                        <div className="flex flex-col items-end">
+                        <div className="flex flex-col md:items-end">
                           <p className="text-sm text-[#4F547B] line-through">
                             ${data.originalPrice}
                           </p>
@@ -132,7 +132,7 @@ const CourseLayer: React.FC<ComponentProps> = ({ data }) => {
                         </>
                       )}
                     </div>
-                    <div className="flex items-center justify-between gap-5 mt-7">
+                    <div className="flex items-center justify-between gap-5 mt-3 md:mt-7">
                       <button className="text-pink-700 font-medium bg-violet-600 bg-opacity-10 justify-center h-12 px-3 rounded-lg ">
                         Add to cart
                       </button>
