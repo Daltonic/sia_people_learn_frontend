@@ -7,11 +7,11 @@ const Newsletter: React.FC = () => {
     e.preventDefault()
   }
   return (
-    <section className="bg-[#F9F9F9] mx-10 rounded-2xl p-24 flex justify-center">
+    <section className="bg-[#F9F9F9] md:mx-10 rounded-2xl px-5 py-10 md:p-24 flex justify-center">
 
       <div >
         <div className="flex justify-center text-center">
-            <div className="w-2/3">
+            <div className="md:w-2/3">
               <h2 className="text-[#1A064F] font-bold text-2xl">
                 Subscribe our Newsletter &
               </h2>
@@ -23,7 +23,7 @@ const Newsletter: React.FC = () => {
             </div>
         </div>
 
-        <div className="flex mt-10 justify-center">
+        <div className="flex mt-10 justify-center ">
             <form
               className="relative h-14 flex"
               action="post"

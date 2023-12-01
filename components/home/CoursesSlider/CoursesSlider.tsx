@@ -17,9 +17,9 @@ const CoursesSlider: React.FC = () => {
     setShowSlider(true);
   }, []);
   return (
-    <section className="relative z-10 mx-10">
-      <div className="px-36 py-10 bg-[#F9F9F9] relative rounded-2xl">
-        <div className="flex justify-between items-center">
+    <section className="relative z-10 md:mx-10">
+      <div className="px-5 md:px-36 py-12 md:py-10 bg-[#F9F9F9] relative md:rounded-2xl">
+        <div className="md:flex justify-between items-center">
           <div>
             <h2 className="text-[#321463] font-bold text-2xl">
               Trending courses
@@ -33,10 +33,10 @@ const CoursesSlider: React.FC = () => {
           <div className="">
             <Link
               href="/courses-list-1"
-              className="font-medium text-sm text-center px-3 flex items-center rounded-md bg-[#6440FB12] text-[#1A064F]  hover:text-[#C5165D] border-2 border-transparent hover:border-[#C5165D] hover:bg-transparent "
+              className="font-medium text-sm text-center px-3 flex items-center rounded-md bg-[#6440FB12] text-[#1A064F]  hover:text-[#C5165D] border-2 border-transparent hover:border-[#C5165D] hover:bg-transparent w-fit"
             >
               <Button className=""> All Courses </Button>
-              <GoArrowUpRight className="-ml-4 text-lg font-bold" />
+              <GoArrowUpRight className="md:-ml-4 text-lg font-bold" />
             </Link>
           </div>
         </div>
@@ -59,6 +59,10 @@ const CoursesSlider: React.FC = () => {
                   spaceBetween={20}
                   slidesPerView={1}
                   loop={true}
+                  autoplay={{
+                    delay: 3000, 
+                    disableOnInteraction: false, 
+                  }}
                   breakpoints={{
                     450: {
                       slidesPerView: 2,
@@ -80,16 +84,17 @@ const CoursesSlider: React.FC = () => {
               )}
             </div>
           </div>
+          <div className="hidden md:flex">
+            {/* Left button */}
+            <button className="absolute left-20  top-1/2 transform -translate-y-1/2 bg-[#1A064F] text-white w-10 h-10 p-2 flex justify-center items-center rounded-full z-10">
+              <FaArrowLeft className="icon-arrow-left " />
+            </button>
 
-          {/* Left button */}
-          <button className="absolute left-20  top-1/2 transform -translate-y-1/2 bg-[#1A064F] text-white w-10 h-10 p-2 flex justify-center items-center rounded-full z-10">
-            <FaArrowLeft className="icon-arrow-left " />
-          </button>
-
-          {/* Right button */}
-          <button className="absolute right-20 top-1/2 transform -translate-y-1/2 bg-[#1A064F] text-white w-10 h-10 p-2 flex justify-center items-center rounded-full z-10">
-            <FaArrowRight className="icon-arrow-right" />
-          </button>
+            {/* Right button */}
+            <button className="absolute right-20 top-1/2 transform -translate-y-1/2 bg-[#1A064F] text-white w-10 h-10 p-2 flex justify-center items-center rounded-full z-10">
+              <FaArrowRight className="icon-arrow-right" />
+            </button>
+          </div>
         </div>
       </div>
     </section>

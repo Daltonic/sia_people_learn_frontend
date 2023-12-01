@@ -15,10 +15,10 @@ const Stacks: React.FC = () => {
     setShowSlider(true);
   }, []);
   return (
-    <section className=" bg-[#F9F9F9] py-16 px-32 mx-10 rounded-2xl">
+    <section className=" bg-[#F9F9F9] py-10 md:py-16 px-5 md:px-32 md:mx-10 md:rounded-2xl">
       <div className="">
         <div className="flex flex-col justify-center text-center mb-10">
-            <h2 className="text-[#321463] font-bold text-2xl">What will you learn</h2>
+            <h2 className="text-[#321463] font-bold text-3xl md:text-2xl">What will you learn</h2>
             <p className="text-[#4F547B] text-sm">
               Learn from our in-demand blockchain stacks
             </p>
@@ -75,7 +75,7 @@ const Stacks: React.FC = () => {
                             className=""
                           />
                         </div>
-                        <h5 className="text-[#321463] text-md font-medium">{elm.skill}</h5>
+                        <h5 className="text-[#321463] text-lg md:text-md font-medium">{elm.skill}</h5>
                       </div>
                     </div>
                   </SwiperSlide>

@@ -13,10 +13,9 @@ const Header: React.FC = () => {
     e.preventDefault();
   };
   return (
-    <header className="px-10 py-3">
+    <header className="px-5 md:px-10 py-5">
       <div className="">
         <div className="flex justify-between items-center">
-          <div className=" flex items-center gap-20">
             <div className="flex items-center gap-2">
               <Link href="/">
                 <Image
@@ -29,7 +28,7 @@ const Header: React.FC = () => {
               <p className="text-[#321463] text-md">Dapp Mentors</p>
             </div>
 
-            <div className="">
+            <div className="hidden md:flex">
               <form onSubmit={handleSubmit}>
                 <div className="flex bg-[#F7F8FB] pl-5 py-2 pr-2 rounded-md w-80">
                   <input
@@ -44,13 +43,12 @@ const Header: React.FC = () => {
                 </div>
               </form>
             </div>
-          </div>
 
-          <div className="text-white flex items-center gap-10">
+          <div className="text-white flex items-center gap-10 ">
             <Navbar />
 
             <FiShoppingCart className="text-2xl text-black icon icon-basket" />
-            <div className="flex gap-2">
+            <div className=" gap-2 hidden md:flex">
               <Button variant="pinkoutline">Log in</Button>
               <Button variant="pink" className="">Sign Up</Button>
             </div>

@@ -40,7 +40,7 @@ const Testimonials: React.FC<{ backgroundComponent?: boolean }> = ({
   return (
     <section className="flex justify-center relative z-10 mx-10 py-16">
 
-      <div className=" w-1/2 ">
+      <div className="w-[99%] md:w-1/2 ">
         <div className="text-center ">
           <h2 className="text-[#321463] font-bold text-2xl">Testimonials</h2>
           <p className="text-[#4F547B] text-sm">Hear directly from our students</p>
@@ -70,7 +70,7 @@ const Testimonials: React.FC<{ backgroundComponent?: boolean }> = ({
                           data-aos="fade-up"
                           data-aos-duration={600}
                         >
-                          <div className="testimonials__icon flex justify-center">
+                          <div className="flex md:justify-center">
                             <Image
                               width={40}
                               height={35}
@@ -78,14 +78,14 @@ const Testimonials: React.FC<{ backgroundComponent?: boolean }> = ({
                               alt="quote"
                             />
                           </div>
-                          <div className="text-[#321463] font-medium px-10">
+                          <div className="text-[#321463] font-medium md:px-10">
                             {elm.text}
                           </div>
                           <div className="mt-5">
-                            <h5 className="text-[#321463] font-medium text-xs">
+                            <h5 className="text-[#321463] font-medium text-sm md:text-xs">
                               {elm.author}
                             </h5>
-                            <p className="text-[#4F547B] text-xs">{elm.position}</p>
+                            <p className="text-[#4F547B] text-sm md:text-xs">{elm.position}</p>
                           </div>
                         </div>
                       </div>
@@ -94,7 +94,7 @@ const Testimonials: React.FC<{ backgroundComponent?: boolean }> = ({
                 </Swiper>
               )}
 
-                <div className="flex justify-center space-x-4 mt-5">
+                <div className="flex justify-between md:justify-center space-x-4 mt-5">
                   {paginationImages.map((elm, i) => (
                     <div
                       key={i}
@@ -106,7 +106,7 @@ const Testimonials: React.FC<{ backgroundComponent?: boolean }> = ({
                           currentSlideIndex == i ? "is-active" : ""
                         }`}
                       >
-                        <Image width={40} height={40} className="rounded-full border" src={elm} alt="image" />
+                        <Image width={40} height={40} className="rounded-full border w-16 h-16 md:w-12 md:h-12" src={elm} alt="image" />
                       </div>
                     </div>
                   ))}

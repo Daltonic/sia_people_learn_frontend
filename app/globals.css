@@ -9,3 +9,6 @@
   font-family: "DM Sans", sans-serif;
 }
 
+body {
+  overflow-x: hidden;
+}

@@ -3,8 +3,8 @@ import Button from '../ReusableComponents/Button'
 
 const CTA: React.FC = () => {
   return (
-    <div className="bg-black px-10 py-16 flex justify-center">
-      <div className="flex justify-between w-4/5 items-center">
+    <div className="bg-black px-5 md:px-10 py-16 flex md:justify-center">
+      <div className="flex justify-between md:w-4/5 items-center">
         <div className="font-medium">
           <h4 className="text-white text-2xl">
             Become a part of the global learning community at

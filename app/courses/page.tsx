@@ -1,16 +1,31 @@
-import { NextPage } from 'next'
+import PageHeader from "@/components/ReusableComponents/PageHeader";
+import CourseLayer from "@/components/courses/CourseLayer";
+import Filterlayer from "@/components/courses/Filterlayer";
+import Layout from "@/components/layout/Layout";
+import { NextPage } from "next";
 
 export const metadata = {
-  title: 'Courses | Dapp Mentors',
-  description: 'Lorem Ipsu,',
-}
+  title: "Courses | Dapp Mentors",
+  description: "Lorem Ipsu,",
+};
 
 const Page: NextPage = () => {
   return (
-    <main>
-      <h4>Hello World courses</h4>
-    </main>
-  )
-}
+    <Layout>
+      <div className="flex justify-center">
+        <div className="flex flex-col w-[90%] mt-10">
+          <div className="flex flex-col">
+            <PageHeader> Trending courses</PageHeader>
+            <div className="text-slate-600 text-lg capitalize w-full mt-1">
+              Write an introductory description of the category.
+            </div>
+          </div>
+        <Filterlayer/>
+        <CourseLayer />
+        </div>
+      </div>
+    </Layout>
+  );
+};
 
-export default Page
+export default Page;

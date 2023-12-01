@@ -5,7 +5,7 @@ const Navbar: React.FC = ({  }) => {
 
   return (
     <div className="">
-        <ul className=" flex text-[#321463] text-md gap-5">
+        <ul className=" hidden md:flex text-[#321463] text-md gap-5">
           <li className="text-[15px]">
             <Link
               data-barba

@@ -63,7 +63,7 @@ const CourceCardSlider: React.FC<ComponentProps> = ({ data, index }) => {
                   alt="icon"
                 />
               </div>
-              <div className="text-xs">{data.lessonCount} lesson</div>
+              <p className="text-xs">{data.lessonCount} lesson</p>
             </div>
 
             <div className="flex items-center">
