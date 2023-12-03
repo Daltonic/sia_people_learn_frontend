@@ -4,6 +4,7 @@ import { coursesData } from "@/data/courses";
 import Image from "next/image";
 import { IoIosStar } from "react-icons/io";
 import { FiHeart } from "react-icons/fi";
+import Link from "next/link";
 
 interface ComponentProps {
   data: any;
@@ -20,8 +21,8 @@ const CourseLayer: React.FC<ComponentProps> = ({ data }) => {
 
   return (
     <div className="flex flex-col items-stretch mt-10">
-      {coursesData.map((data, i) => (
-        <div className="bo-[#EDEDED] py-5">
+      {coursesData.slice(0, 8).map((data, i) => (
+        <Link href="/coursedetail" className="border-b border-[#EDEDED] py-5">
           <div className="w-full">
             <div className=" flex md:flex-row flex-col">
               <div className="flex flex-col items-stretch md:w-4/5">
@@ -145,7 +146,7 @@ const CourseLayer: React.FC<ComponentProps> = ({ data }) => {
               </div>
             </div>
           </div>
-        </div>
+        </Link>
       ))}
     </div>
   );

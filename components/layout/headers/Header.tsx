@@ -13,7 +13,7 @@ const Header: React.FC = () => {
     e.preventDefault();
   };
   return (
-    <header className="px-5 md:px-10 py-5">
+    <header className="px-5 md:px-10 py-5 fixed h-20 bg-white top-0 w-full">
       <div className="">
         <div className="flex justify-between items-center">
             <div className="flex items-center gap-2">
