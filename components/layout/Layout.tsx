@@ -9,6 +9,7 @@ interface LayoutProps {
   return (
     <div >
       <Header />
+      <div className='md:mb-24 '></div>
       <main>{children}</main>
       <Footer />
     </div>

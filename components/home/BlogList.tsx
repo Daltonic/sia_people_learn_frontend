@@ -1,5 +1,5 @@
 import React from 'react'
-import { blogs } from '@/data/blog'
+import { blogs } from '@/data/blogs'
 import Image from 'next/image'
 import Link from 'next/link'
 import Button from "@/components/ReusableComponents/Button";
@@ -48,12 +48,13 @@ const BlogList: React.FC = () => {
                     height={465}
                     src={elm.imageSrc}
                     alt="image"
+                    className=''
                   />
                 </div>
                 <div className="mt-3 pr-2">
                   <h4 className="text-[#321463] font-bold md:text-sm">
                     <Link className="linkCustom" href={`/blogs/${elm.id}`}>
-                      {elm.title}{' '}
+                      {elm.title}
                     </Link>
                   </h4>
                   <p className="mt-1 text-[#4F547B] text-sm md:text-xs">{elm.date}</p>

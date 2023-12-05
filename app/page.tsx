@@ -21,7 +21,7 @@ const Page: NextPage = () => {
     <main className="">
       <Header />
 
-      <div className="">
+      <div className="mt-20">
         <Hero />
         <Features />
         <CoursesSlider />

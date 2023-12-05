@@ -9,7 +9,7 @@ interface InputFieldProps {
 }
 
 const InputField: React.FC<InputFieldProps> = ({ label, name, placeholder, required, inputType = 'text'}) => (
- <div className="flex flex-col w-1/2 my-4">
+ <div className="flex flex-col w-full my-4">
    <label className="text-violet-950 font-medium">{label}</label>
    <input
     required={required}

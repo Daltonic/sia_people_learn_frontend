@@ -9,8 +9,8 @@ const Navbar: React.FC = ({  }) => {
           <li className="text-[15px]">
             <Link
               data-barba
-              href="/home"
-              className={('/home')}
+              href="/"
+              className={('/')}
             >
               Home
             </Link>
