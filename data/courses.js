@@ -18,6 +18,7 @@ export const coursesData = [
         "authorName": "Jane Cooper",
         "viewStatus": "Good",
         "difficulty": "Easy",
+        "quantity": 1,
         "desc": "Introductory course on web hosting, domain registration, and how you can easily publish and edit your website online."
     },
     {
@@ -42,6 +43,7 @@ export const coursesData = [
         "state": "Fetured",
         "viewStatus": "Low",
         "difficulty": "Easy",
+        "quantity": 1,
         "desc": "Introductory course on web hosting, domain registration, and how you can easily publish and edit your website online."
     },
     {
@@ -63,6 +65,7 @@ export const coursesData = [
         "state": "Trending",
         "viewStatus": "Great",
         "difficulty": "Easy",
+        "quantity": 1,
         "desc": "Introductory course on web hosting, domain registration, and how you can easily publish and edit your website online."
     },
     {
@@ -84,6 +87,7 @@ export const coursesData = [
         "state": "Trending",
         "viewStatus": "Good",
         "difficulty": "Easy",
+        "quantity": 1,
         "desc": "Introductory course on web hosting, domain registration, and how you can easily publish and edit your website online."
     },
     {
@@ -105,6 +109,7 @@ export const coursesData = [
         "state": "Popular",
         "viewStatus": "Low",
         "difficulty": "Meduium",
+        "quantity": 1,
         "desc": "Introductory course on web hosting, domain registration, and how you can easily publish and edit your website online."
     },
     {
@@ -127,6 +132,7 @@ export const coursesData = [
         "state": "Fetured",
         "viewStatus": "Good",
         "difficulty": "Meduium",
+        "quantity": 1,
         "desc": "Introductory course on web hosting, domain registration, and how you can easily publish and edit your website online."
     },
     {
@@ -149,6 +155,7 @@ export const coursesData = [
         "state": "Popular",
         "viewStatus": "Great",
         "difficulty": "Hard",
+        "quantity": 1,
         "desc": "Introductory course on web hosting, domain registration, and how you can easily publish and edit your website online."
     },
     {
@@ -171,6 +178,7 @@ export const coursesData = [
         "state": "Fetured",
         "viewStatus": "Medium",
         "difficulty": "Meduium",
+        "quantity": 1,
         "desc": "Introductory course on web hosting, domain registration, and how you can easily publish and edit your website online."
     },
     {
@@ -193,6 +201,7 @@ export const coursesData = [
         "state": "Popular",
         "viewStatus": "Great",
         "difficulty": "Hard",
+        "quantity": 1,
         "desc": "Introductory course on web hosting, domain registration, and how you can easily publish and edit your website online."
     },
     {
@@ -215,6 +224,7 @@ export const coursesData = [
         "state": "Trending",
         "viewStatus": "Medium",
         "difficulty": "Meduium",
+        "quantity": 1,
         "desc": "Introductory course on web hosting, domain registration, and how you can easily publish and edit your website online."
     },
     {
@@ -237,6 +247,7 @@ export const coursesData = [
         "state": "Popular",
         "viewStatus": "Medium",
         "difficulty": "Hard",
+        "quantity": 1,
         "desc": "Introductory course on web hosting, domain registration, and how you can easily publish and edit your website online."
     },
     {
@@ -259,6 +270,7 @@ export const coursesData = [
         "state": "Popular",
         "viewStatus": "Medium",
         "difficulty": "Hard",
+        "quantity": 1,
         "desc": "Introductory course on web hosting, domain registration, and how you can easily publish and edit your website online."
     },
     {
@@ -280,6 +292,7 @@ export const coursesData = [
         "authorName": "Albert Flores",
         "viewStatus": "Good",
         "difficulty": "Easy",
+        "quantity": 1,
         "desc": "Introductory course on web hosting, domain registration, and how you can easily publish and edit your website online."
     },
     {
@@ -304,6 +317,7 @@ export const coursesData = [
         "state": "Fetured",
         "viewStatus": "Low",
         "difficulty": "Easy",
+        "quantity": 1,
         "desc": "Introductory course on web hosting, domain registration, and how you can easily publish and edit your website online."
     },
     {
@@ -325,6 +339,7 @@ export const coursesData = [
         "state": "Trending",
         "viewStatus": "Great",
         "difficulty": "Easy",
+        "quantity": 1,
         "desc": "Introductory course on web hosting, domain registration, and how you can easily publish and edit your website online."
     },
     {
@@ -346,6 +361,7 @@ export const coursesData = [
         "state": "Trending",
         "viewStatus": "Good",
         "difficulty": "Easy",
+        "quantity": 1,
         "desc": "Introductory course on web hosting, domain registration, and how you can easily publish and edit your website online."
     },
     {
@@ -367,6 +383,7 @@ export const coursesData = [
         "state": "Popular",
         "viewStatus": "Low",
         "difficulty": "Meduium",
+        "quantity": 1,
         "desc": "Introductory course on web hosting, domain registration, and how you can easily publish and edit your website online."
     },
     {
@@ -389,6 +406,7 @@ export const coursesData = [
         "state": "Fetured",
         "viewStatus": "Good",
         "difficulty": "Meduium",
+        "quantity": 1,
         "desc": "Introductory course on web hosting, domain registration, and how you can easily publish and edit your website online."
     },
     {
@@ -411,6 +429,7 @@ export const coursesData = [
         "state": "Popular",
         "viewStatus": "Great",
         "difficulty": "Hard",
+        "quantity": 1,
         "desc": "Introductory course on web hosting, domain registration, and how you can easily publish and edit your website online."
     },
     {
@@ -433,6 +452,7 @@ export const coursesData = [
         "state": "Fetured",
         "viewStatus": "Medium",
         "difficulty": "Meduium",
+        "quantity": 1,
         "desc": "Introductory course on web hosting, domain registration, and how you can easily publish and edit your website online."
     },
     {
@@ -455,6 +475,7 @@ export const coursesData = [
         "state": "Popular",
         "viewStatus": "Great",
         "difficulty": "Hard",
+        "quantity": 1,
         "desc": "Introductory course on web hosting, domain registration, and how you can easily publish and edit your website online."
     },
     {
@@ -477,6 +498,7 @@ export const coursesData = [
         "state": "Trending",
         "viewStatus": "Medium",
         "difficulty": "Meduium",
+        "quantity": 1,
         "desc": "Introductory course on web hosting, domain registration, and how you can easily publish and edit your website online."
     },
     {
@@ -499,6 +521,7 @@ export const coursesData = [
         "state": "Popular",
         "viewStatus": "Medium",
         "difficulty": "Hard",
+        "quantity": 1,
         "desc": "Introductory course on web hosting, domain registration, and how you can easily publish and edit your website online."
     },
     {
@@ -521,6 +544,7 @@ export const coursesData = [
         "state": "Popular",
         "viewStatus": "Medium",
         "difficulty": "Hard",
+        "quantity": 1,
         "desc": "Introductory course on web hosting, domain registration, and how you can easily publish and edit your website online."
     },
     {
@@ -542,6 +566,7 @@ export const coursesData = [
         "authorName": "Robert Fox",
         "viewStatus": "Good",
         "difficulty": "Easy",
+        "quantity": 1,
         "desc": "Introductory course on web hosting, domain registration, and how you can easily publish and edit your website online."
     },
     {
@@ -566,6 +591,7 @@ export const coursesData = [
         "state": "Fetured",
         "viewStatus": "Low",
         "difficulty": "Easy",
+        "quantity": 1,
         "desc": "Introductory course on web hosting, domain registration, and how you can easily publish and edit your website online."
     },
     {
@@ -587,6 +613,7 @@ export const coursesData = [
         "state": "Trending",
         "viewStatus": "Great",
         "difficulty": "Easy",
+        "quantity": 1,
         "desc": "Introductory course on web hosting, domain registration, and how you can easily publish and edit your website online."
     },
     {
@@ -608,6 +635,7 @@ export const coursesData = [
         "state": "Trending",
         "viewStatus": "Good",
         "difficulty": "Easy",
+        "quantity": 1,
         "desc": "Introductory course on web hosting, domain registration, and how you can easily publish and edit your website online."
     },
     {
@@ -629,6 +657,7 @@ export const coursesData = [
         "state": "Popular",
         "viewStatus": "Low",
         "difficulty": "Meduium",
+        "quantity": 1,
         "desc": "Introductory course on web hosting, domain registration, and how you can easily publish and edit your website online."
     },
     {
@@ -651,6 +680,7 @@ export const coursesData = [
         "state": "Fetured",
         "viewStatus": "Good",
         "difficulty": "Meduium",
+        "quantity": 1,
         "desc": "Introductory course on web hosting, domain registration, and how you can easily publish and edit your website online."
     },
     {
@@ -673,6 +703,7 @@ export const coursesData = [
         "state": "Popular",
         "viewStatus": "Great",
         "difficulty": "Hard",
+        "quantity": 1,
         "desc": "Introductory course on web hosting, domain registration, and how you can easily publish and edit your website online."
     },
     {
@@ -695,6 +726,7 @@ export const coursesData = [
         "state": "Fetured",
         "viewStatus": "Medium",
         "difficulty": "Meduium",
+        "quantity": 1,
         "desc": "Introductory course on web hosting, domain registration, and how you can easily publish and edit your website online."
     },
     {
@@ -717,6 +749,7 @@ export const coursesData = [
         "state": "Popular",
         "viewStatus": "Great",
         "difficulty": "Hard",
+        "quantity": 1,
         "desc": "Introductory course on web hosting, domain registration, and how you can easily publish and edit your website online."
     },
     {
@@ -739,6 +772,7 @@ export const coursesData = [
         "state": "Trending",
         "viewStatus": "Medium",
         "difficulty": "Meduium",
+        "quantity": 1,
         "desc": "Introductory course on web hosting, domain registration, and how you can easily publish and edit your website online."
     },
     {
@@ -761,6 +795,7 @@ export const coursesData = [
         "state": "Popular",
         "viewStatus": "Medium",
         "difficulty": "Hard",
+        "quantity": 1,
         "desc": "Introductory course on web hosting, domain registration, and how you can easily publish and edit your website online."
     },
     {
@@ -783,6 +818,7 @@ export const coursesData = [
         "state": "Popular",
         "viewStatus": "Medium",
         "difficulty": "Hard",
+        "quantity": 1,
         "desc": "Introductory course on web hosting, domain registration, and how you can easily publish and edit your website online."
     },
     {
@@ -804,6 +840,7 @@ export const coursesData = [
         "authorName": "Jane Cooper",
         "viewStatus": "Good",
         "difficulty": "Easy",
+        "quantity": 1,
         "desc": "Introductory course on web hosting, domain registration, and how you can easily publish and edit your website online."
     },
     {
@@ -828,6 +865,7 @@ export const coursesData = [
         "state": "Fetured",
         "viewStatus": "Low",
         "difficulty": "Easy",
+        "quantity": 1,
         "desc": "Introductory course on web hosting, domain registration, and how you can easily publish and edit your website online."
     },
     {
@@ -849,6 +887,7 @@ export const coursesData = [
         "state": "Trending",
         "viewStatus": "Great",
         "difficulty": "Easy",
+        "quantity": 1,
         "desc": "Introductory course on web hosting, domain registration, and how you can easily publish and edit your website online."
     },
     {
@@ -870,6 +909,7 @@ export const coursesData = [
         "state": "Trending",
         "viewStatus": "Good",
         "difficulty": "Easy",
+        "quantity": 1,
         "desc": "Introductory course on web hosting, domain registration, and how you can easily publish and edit your website online."
     },
     {
@@ -891,6 +931,7 @@ export const coursesData = [
         "state": "Popular",
         "viewStatus": "Low",
         "difficulty": "Meduium",
+        "quantity": 1,
         "desc": "Introductory course on web hosting, domain registration, and how you can easily publish and edit your website online."
     },
     {
@@ -913,6 +954,7 @@ export const coursesData = [
         "state": "Fetured",
         "viewStatus": "Good",
         "difficulty": "Meduium",
+        "quantity": 1,
         "desc": "Introductory course on web hosting, domain registration, and how you can easily publish and edit your website online."
     },
     {
@@ -935,6 +977,7 @@ export const coursesData = [
         "state": "Popular",
         "viewStatus": "Great",
         "difficulty": "Hard",
+        "quantity": 1,
         "desc": "Introductory course on web hosting, domain registration, and how you can easily publish and edit your website online."
     }
   ]

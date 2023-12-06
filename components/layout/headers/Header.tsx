@@ -13,7 +13,7 @@ const Header: React.FC = () => {
     e.preventDefault();
   };
   return (
-    <header className="px-5 md:px-10 py-5 fixed h-20 bg-white top-0 w-full bg-white z-50">
+    <header className="px-5 md:px-10 py-5 fixed h-20 bg-white top-0 w-full z-50">
       <div className="">
         <div className="flex justify-between items-center">
           <Link href="/">
@@ -49,11 +49,14 @@ const Header: React.FC = () => {
 
             <FiShoppingCart className="text-2xl text-black icon icon-basket" />
             <div className=" gap-2 hidden md:flex">
-              <Link href="/login">   <Button variant="pinkoutline">Log in</Button></Link>
-            
-              <Button variant="pink" className="">
-                Sign Up
-              </Button>
+              <Link href="/login">
+                <Button variant="pinkoutline">Log in</Button>
+              </Link>
+              <Link href="/signup">
+                <Button variant="pink" className="">
+                  Sign Up
+                </Button>
+              </Link>
             </div>
           </div>
         </div>

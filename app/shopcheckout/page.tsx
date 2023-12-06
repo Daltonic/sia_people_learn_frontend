@@ -1,7 +1,7 @@
 "use client";
 import Layout from "@/components/layout/Layout";
 import { NextPage } from "next";
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React from "react";
 import InputField from "@/components/ReusableComponents/InputField";
 import Image from "next/image";
 
@@ -12,7 +12,7 @@ const Page: NextPage = () => {
 
   return (
     <Layout>
-      <div className="flex flex-col items-center md:px-5 mt-10">
+      <div className="flex flex-col items-center md:px-5 md:mt-10">
         <div className="text-violet-950 text-center text-3xl md:text-4xl font-bold">
           Shop Checkout
         </div>
@@ -21,18 +21,17 @@ const Page: NextPage = () => {
           reasonable price.
         </div>
       </div>
-      <section className="px-16 mt-16 flex gap-10">
-        <div className="w-[70%] flex-1">
-          <div >
+      <section className="px-5 md:px-16 mt-8 md:mt-16 md:flex gap-10">
+        <div className="md:w-[70%] flex-1">
             <div className="">
               <form
                 onSubmit={handleSubmit}
                 className=""
               >
                 <div className="">
-                  <h5 className="">Billing details</h5>
+                  <h5 className="text-violet-950 font-medium text-lg">Billing details</h5>
                 </div>
-                <div className="flex justify-between gap-4">
+                <div className="md:flex justify-between gap-4">
                   <InputField
                     label="First name"
                     name="firstName"
@@ -52,7 +51,7 @@ const Page: NextPage = () => {
                   <label className="text-violet-950 font-medium">
                     Card number
                   </label>
-                  <div className="flex justify-between border border-[color:var(--border-2,#E1DDDD)] w-full px-6 py-3">
+                  <div className="flex justify-between border border-[color:var(--border-2,#E1DDDD)] w-full px-3 md:px-6 py-3">
                     <input
                       required
                       className="text-slate-600 flex-1 justify-center mt-3 focus:outline-none rounded-lg items-start"
@@ -60,7 +59,7 @@ const Page: NextPage = () => {
                       name="card number"
                       placeholder="1234 1234 1234"
                     />
-                    <div className="flex gap-2">
+                    <div className="hidden md:flex items-center gap-2">
                       <Image
                         width={40}
                         height={18}
@@ -88,7 +87,7 @@ const Page: NextPage = () => {
                     </div>
                   </div>
                 </div>
-                <div className="flex justify-between gap-4">
+                <div className="md:flex justify-between gap-4">
                   <InputField
                     label="Exp Date"
                     name="number"
@@ -118,9 +117,8 @@ const Page: NextPage = () => {
                 </div>
               </form>
             </div>
-          </div>
         </div>
-        <div className="flex flex-col w-[30%]">
+        <div className="flex flex-col md:w-[30%]">
           <div className="border border-[color:var(--border-1,#EDEDED)] bg-slate-50 flex w-full flex-col items-stretch py-5 rounded-lg">
             <div className="self-center flex w-full max-w-[340px] items-stretch justify-between gap-5 border-b border-[#EDEDED] pb-4 px-5">
               <div className="flex grow basis-[0%] flex-col items-stretch">
