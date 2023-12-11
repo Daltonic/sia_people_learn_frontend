@@ -46,8 +46,9 @@ const Header: React.FC = () => {
 
           <div className="text-white flex items-center gap-10 ">
             <Navbar />
-
-            <FiShoppingCart className="text-2xl text-black icon icon-basket" />
+            <Link href="/shop-cart">
+              <FiShoppingCart className="text-2xl text-black icon icon-basket" />
+            </Link>
             <div className=" gap-2 hidden md:flex">
               <Link href="/login">
                 <Button variant="pinkoutline">Log in</Button>

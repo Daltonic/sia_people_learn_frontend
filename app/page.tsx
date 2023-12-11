@@ -29,9 +29,9 @@ const Page: NextPage = () => {
         <CTA />
         <Testimonials />
         <Stacks />
-          <BlogList />
-         <Newsletter />
-         <Footer />
+        <BlogList />
+        <Newsletter />
+        <Footer />
       </div>
     </main>
   );

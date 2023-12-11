@@ -1,6 +1,15 @@
 import React, { ReactNode } from 'react';
 import Footer from "./footers/Footer";
 import Header from "./headers/Header";
+// Import AOS styles
+import 'aos/dist/aos.css';
+
+// Import AOS library
+import AOS from 'aos';
+
+// Initialize AOS
+AOS.init();
+
 interface LayoutProps {
     children: ReactNode;
   }

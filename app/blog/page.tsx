@@ -6,23 +6,17 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-const metadata = {
-    title: "Courses | Dapp Mentors",
-    description: "Lorem Ipsu,",
-   };
-   
-
 type Blog = {
-    id: number;
-    imageSrc: string;
-    category: string;
-    title: string;
-    date: string;
-    desc: string;
-   };
+  id: number;
+  imageSrc: string;
+  category: string;
+  title: string;
+  date: string;
+  desc: string;
+};
 
 const Page: NextPage = () => {
-    const [pageItems, setPageItems] = useState<Blog[]>([]);
+  const [pageItems, setPageItems] = useState<Blog[]>([]);
   const [currentCategory, setCurrentCategory] = useState("All Categories");
   useEffect(() => {
     if (currentCategory == "All Categories") {
@@ -51,7 +45,11 @@ const Page: NextPage = () => {
               {categories.map((elm, i) => (
                 <div key={i} onClick={() => setCurrentCategory(elm)}>
                   <button
-                     className={`rounded-md p-3 md:p-4 ${currentCategory == elm ? "bg-[#6440FB12] is-active text-[#C5165D]" : ""}`}
+                    className={`rounded-md p-3 md:p-4 ${
+                      currentCategory == elm
+                        ? "bg-[#6440FB12] is-active text-[#C5165D]"
+                        : ""
+                    }`}
                     data-tab-target=".-tab-item-1"
                     type="button"
                   >
@@ -61,7 +59,7 @@ const Page: NextPage = () => {
               ))}
             </div>
 
-            <div className="relative pt-10">
+            <div className="relative pt-10 ">
               <div className="top-0 is-active">
                 <div className="flex gap-6 flex-wrap">
                   {pageItems.map((elm, i) => (

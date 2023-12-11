@@ -7,6 +7,7 @@ import 'react-calendar/dist/Calendar.css'
 import Aos from 'aos'
 import 'aos/dist/aos.css'
 import { useEffect } from 'react'
+import Context from '@/context/Context'
 
 export default function RootLayout({
   children,
@@ -24,7 +25,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="">
       <head></head>
-      <body>{children}</body>
+      <main> {children}</main>
     </html>
   )
 }

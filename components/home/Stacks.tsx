@@ -59,7 +59,7 @@ const Stacks: React.FC = () => {
               >
                 {skillsOne.map((elm, i) => (
                   <SwiperSlide key={i}>
-                    <div className="bg-white overflow-visible flex flex-col items-center p-4 rounded-md py-5 "
+                    <div className="bg-white overflow-visible flex flex-col items-center p-4 rounded-md py-5 h-32 w-36 border border-[#EDEDED] shadow-md shadow-[#EDEDED]"
                     >
                       <div
                         className="flex flex-col items-center"
@@ -75,7 +75,7 @@ const Stacks: React.FC = () => {
                             className=""
                           />
                         </div>
-                        <h5 className="text-[#321463] text-lg md:text-md font-medium">{elm.skill}</h5>
+                        <h5 className="text-[#321463] text-md md:text-md font-medium">{elm.skill}</h5>
                       </div>
                     </div>
                   </SwiperSlide>

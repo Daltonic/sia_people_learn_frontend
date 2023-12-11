@@ -28,10 +28,7 @@ export default function BlogDetails({ id }: BlogDetailsProps) {
     e.preventDefault();
   };
 
-  // const data = blogs.filter((elm) => elm.id == id)[0] || blogs[0];
-  // const handleSubmit = (e: React.FormEvent) => {
-  //   e.preventDefault();
-  // };
+  
   return (
     <Layout>
       <section className="pt-10">
