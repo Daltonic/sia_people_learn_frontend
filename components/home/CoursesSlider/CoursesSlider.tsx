@@ -1,21 +1,22 @@
-"use client";
+'use client'
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react'
 
-import CourceCardSlider from "./CourseCardSlider";
-import { coursesData } from "@/data/courses";
-import { Navigation, Pagination } from "swiper";
-import { Swiper, SwiperSlide } from "swiper/react";
-import Link from "next/link";
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
-import Button from "@/components/ReusableComponents/Button";
-import { GoArrowUpRight } from "react-icons/go";
+import CourceCardSlider from './CourseCardSlider'
+import { coursesData } from '@/data/courses'
+import { Navigation, Pagination } from 'swiper'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import Link from 'next/link'
+import { FaArrowLeft, FaArrowRight } from 'react-icons/fa'
+import Button from '@/components/ReusableComponents/Button'
+import { GoArrowUpRight } from 'react-icons/go'
 
 const CoursesSlider: React.FC = () => {
-  const [showSlider, setShowSlider] = useState(false);
+  const [showSlider, setShowSlider] = useState(false)
   useEffect(() => {
-    setShowSlider(true);
-  }, []);
+    setShowSlider(true)
+  }, [])
+
   return (
     <section className="relative z-10 md:mx-10">
       <div className="px-5 md:px-36 py-12 md:py-10 bg-[#F9F9F9] relative md:rounded-2xl">
@@ -53,15 +54,15 @@ const CoursesSlider: React.FC = () => {
                 <Swiper
                   modules={[Navigation, Pagination]}
                   navigation={{
-                    nextEl: ".icon-arrow-right",
-                    prevEl: ".icon-arrow-left",
+                    nextEl: '.icon-arrow-right',
+                    prevEl: '.icon-arrow-left',
                   }}
                   spaceBetween={20}
                   slidesPerView={1}
                   loop={true}
                   autoplay={{
-                    delay: 3000, 
-                    disableOnInteraction: false, 
+                    delay: 3000,
+                    disableOnInteraction: false,
                   }}
                   breakpoints={{
                     450: {
@@ -75,7 +76,7 @@ const CoursesSlider: React.FC = () => {
                     },
                   }}
                 >
-                  {coursesData.slice(0, 12).map((elm, i) => (
+                  {coursesData.slice(0, 12).map((elm, i: number) => (
                     <SwiperSlide key={i}>
                       <CourceCardSlider data={elm} index={i} />
                     </SwiperSlide>
@@ -84,6 +85,7 @@ const CoursesSlider: React.FC = () => {
               )}
             </div>
           </div>
+
           <div className="hidden md:flex">
             {/* Left button */}
             <button className="absolute left-20  top-1/2 transform -translate-y-1/2 bg-[#1A064F] text-white w-10 h-10 p-2 flex justify-center items-center rounded-full z-10">
@@ -98,7 +100,7 @@ const CoursesSlider: React.FC = () => {
         </div>
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default CoursesSlider;
+export default CoursesSlider

@@ -21,8 +21,8 @@ const CourseLayer: React.FC<ComponentProps> = ({ data }) => {
 
   return (
     <div className="flex flex-col items-stretch mt-10">
-      {coursesData.slice(0, 8).map((data, i) => (
-        <Link href="/coursedetail" className="border-b border-[#EDEDED] py-5">
+      {coursesData.slice(0, 8).map((data, i: number) => (
+        <Link key={i} href="/coursedetail" className="border-b border-[#EDEDED] py-5">
           <div className="w-full">
             <div className=" flex md:flex-row flex-col">
               <div className="flex flex-col items-stretch md:w-4/5">
@@ -44,7 +44,7 @@ const CourseLayer: React.FC<ComponentProps> = ({ data }) => {
                           <div className="flex items-center gap-1">
                             <p className="text-[#E59819]">{data.rating}</p>
                             <div className="flex items-center">
-                              {rating.map((itm, i) => (
+                              {rating.map((itm, i: number) => (
                                 <div key={i} className="text-[#E59819]">
                                   <IoIosStar className="text-sm text-[#E59819] mx-0.5" />
                                 </div>

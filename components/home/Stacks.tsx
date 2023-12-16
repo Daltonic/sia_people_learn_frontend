@@ -57,14 +57,14 @@ const Stacks: React.FC = () => {
                 }}
                 loop={true}
               >
-                {skillsOne.map((elm, i) => (
+                {skillsOne.map((elm, i: number) => (
                   <SwiperSlide key={i}>
                     <div className="bg-white overflow-visible flex flex-col items-center p-4 rounded-md py-5 h-32 w-36 border border-[#EDEDED] shadow-md shadow-[#EDEDED]"
                     >
                       <div
                         className="flex flex-col items-center"
-                        // data-aos="fade-left"
-                        // data-aos-duration={(i + 1) * 300}
+                        data-aos="fade-left"
+                        data-aos-duration={(i + 1) * 300}
                       >
                         <div className="h-10 mb-6">
                           <Image

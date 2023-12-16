@@ -47,7 +47,7 @@ const BestInstructors: React.FC<TeamMembersProps> = () => {
         </div>
       </div>
       <div className="flex justify-between flex-wrap mt-10">
-     {teamMembers.slice(0, 4).map((elm, i) => (
+     {teamMembers.slice(0, 4).map((elm, i: number) => (
        <div key={i} className="w-full sm:w-64">
          <div className="relative">
             <div className="w-full h-72">
@@ -60,7 +60,7 @@ const BestInstructors: React.FC<TeamMembersProps> = () => {
            />
            </div>
            <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center">
-             {elm.socialProfile?.map((itm, i) => (
+             {elm.socialProfile?.map((itm, i: number) => (
                <Link key={i} href={itm.url ? itm.url : "#"}>
                 <i className={`${itm.icon} text-white`}></i>
                </Link>

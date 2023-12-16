@@ -1,34 +1,38 @@
-"use client";
+'use client'
 
-import React from "react";
-import { blogs, tags } from "@/data/blogs";
-import Image from "next/image";
-import Layout from "@/components/layout/Layout";
-import { ImQuotesLeft } from "react-icons/im";
-import { FaFacebookF, FaInstagram, FaLinkedinIn, FaTwitter } from "react-icons/fa";
+import React from 'react'
+import { blogs, tags } from '@/data/blogs'
+import Image from 'next/image'
+import Layout from '@/components/layout/Layout'
+import { ImQuotesLeft } from 'react-icons/im'
+import {
+  FaFacebookF,
+  FaInstagram,
+  FaLinkedinIn,
+  FaTwitter,
+} from 'react-icons/fa'
+import { NextPage } from 'next'
 
 type Blog = {
-  id: number;
-  imageSrc: string;
-  category: string;
-  title: string;
-  date: string;
-  desc: string;
-};
+  id: number
+  imageSrc: string
+  category: string
+  title: string
+  date: string
+  desc: string
+}
 
 type BlogDetailsProps = {
-  id: number;
-};
+  id: number
+}
 
-export default function BlogDetails({ id }: BlogDetailsProps) {
-  const data =
-    blogs.filter((elm: Blog) => elm.id === Number(id))[0] || blogs[0];
+const Page: NextPage = () => {
+  const data = blogs[0]
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-  };
+    e.preventDefault()
+  }
 
-  
   return (
     <Layout>
       <section className="pt-10">
@@ -41,9 +45,9 @@ export default function BlogDetails({ id }: BlogDetailsProps) {
                 </div>
 
                 <h1 className="text-violet-950 text-center text-4xl font-medium leading-[55px] capitalize w-full mt-3 max-md:max-w-full">
-                  {data.title.split(" ").slice(0, 4).join(" ")}
+                  {data.title.split(' ').slice(0, 4).join(' ')}
                   <br />
-                  {data.title.split(" ").slice(4, -1).join(" ")}
+                  {data.title.split(' ').slice(4, -1).join(' ')}
                 </h1>
 
                 <p className="text-xs text-[#4F547B] mt-3">{data.date}</p>
@@ -59,10 +63,10 @@ export default function BlogDetails({ id }: BlogDetailsProps) {
             className="border"
             style={{
               backgroundImage: `url(${data.imageSrc})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              width: "100%",
-              height: "100vh",
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              width: '100%',
+              height: '100vh',
             }}
             data-bg="/assets/img/coursesCards/1.png"
           ></div>
@@ -180,31 +184,31 @@ export default function BlogDetails({ id }: BlogDetailsProps) {
               </div>
             </div>
 
-                <div className="flex justify-between items-center mt-5 border-b border-[#EEEEEE] pb-10">
-                    <div className="flex gap-5 items-center">
-                      <div className="">Share</div>
+            <div className="flex justify-between items-center mt-5 border-b border-[#EEEEEE] pb-10">
+              <div className="flex gap-5 items-center">
+                <div className="">Share</div>
 
-                      <div className="flex gap-2 items-center">
-                      <FaFacebookF />
-                      <FaTwitter />
-                      <FaInstagram />
-                      <FaLinkedinIn />
-                      </div>
-                    </div>
-
-                    <div className="flex gap-5 ">
-                      {tags.slice(0, 4).map((elm, i) => (
-                        <div className="">
-                          <a
-                            href={elm.href}
-                            className="text-violet-950 text-xs font-medium whitespace-nowrap items-stretch bg-stone-50 aspect-[2.1] justify-center px-4 py-2 rounded-[60px]"
-                          >
-                            {elm.name}
-                          </a>
-                        </div>
-                      ))}
-                    </div>
+                <div className="flex gap-2 items-center">
+                  <FaFacebookF />
+                  <FaTwitter />
+                  <FaInstagram />
+                  <FaLinkedinIn />
                 </div>
+              </div>
+
+              <div className="flex gap-5 ">
+                {tags.slice(0, 4).map((elm, i: number) => (
+                  <div key={i} className="">
+                    <a
+                      href={elm.href}
+                      className="text-violet-950 text-xs font-medium whitespace-nowrap items-stretch bg-stone-50 aspect-[2.1] justify-center px-4 py-2 rounded-[60px]"
+                    >
+                      {elm.name}
+                    </a>
+                  </div>
+                ))}
+              </div>
+            </div>
 
             <div className="row justify-center pt-30">
               <div className="col-xl-8 col-lg-9 col-md-11">
@@ -333,7 +337,7 @@ export default function BlogDetails({ id }: BlogDetailsProps) {
                               className="bg-image rounded-full js-lazy"
                               style={{
                                 backgroundImage:
-                                  "url(/assets/img/avatars/1.png)",
+                                  'url(/assets/img/avatars/1.png)',
                               }}
                             ></div>
                           </div>
@@ -385,7 +389,7 @@ export default function BlogDetails({ id }: BlogDetailsProps) {
                               className="bg-image rounded-full js-lazy"
                               style={{
                                 backgroundImage:
-                                  "url(/assets/img/avatars/1.png)",
+                                  'url(/assets/img/avatars/1.png)',
                               }}
                             ></div>
                           </div>
@@ -493,5 +497,7 @@ export default function BlogDetails({ id }: BlogDetailsProps) {
         </div>
       </section>
     </Layout>
-  );
+  )
 }
+
+export default Page

@@ -1,36 +1,40 @@
-"use client";
+'use client'
 
-import React, { FormEvent, useEffect, useState } from "react";
-import Image from "next/image";
-import Link from "next/link";
-import { CiSearch } from "react-icons/ci";
-import Navbar from "@/components/layout/headers/Navbar";
-import { FiShoppingCart } from "react-icons/fi";
-import Button from "@/components/ReusableComponents/Button";
+import React, { FormEvent, useEffect, useState } from 'react'
+import Image from 'next/image'
+import Link from 'next/link'
+import { CiSearch } from 'react-icons/ci'
+import Navbar from '@/components/layout/headers/Navbar'
+import { FiShoppingCart } from 'react-icons/fi'
+import Button from '@/components/ReusableComponents/Button'
 
 const Header: React.FC = () => {
   const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-  };
-  const [isScrolled, setIsScrolled] = useState(false);
+    e.preventDefault()
+  }
+  const [isScrolled, setIsScrolled] = useState(false)
 
-useEffect(() => {
- const handleScroll = () => {
-   const scrolled = window.scrollY > 0;
-   if (scrolled !== isScrolled) {
-     setIsScrolled(scrolled);
-   }
- };
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrolled = window.scrollY > 0
+      if (scrolled !== isScrolled) {
+        setIsScrolled(scrolled)
+      }
+    }
 
- window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('scroll', handleScroll, { passive: true })
 
- return () => {
-   window.removeEventListener('scroll', handleScroll);
- };
-}, [isScrolled]);
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [isScrolled])
 
-return (
- <header className={`px-5 md:px-10 py-5 sticky h-20 top-0 w-full z-50 ${isScrolled ? 'bg-white' : 'bg-transparent'}`}>
+  return (
+    <header
+      className={`px-5 md:px-10 py-5 sticky h-20 top-0 w-full z-50 mb-5 ${
+        isScrolled ? 'bg-white shadow-md' : 'bg-transparent'
+      }`}
+    >
       <div className="">
         <div className="flex justify-between items-center">
           <Link href="/">
@@ -80,7 +84,7 @@ return (
         </div>
       </div>
     </header>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header

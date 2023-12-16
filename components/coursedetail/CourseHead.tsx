@@ -28,8 +28,8 @@ const CourseHead: React.FC<ComponentProps> = ({ data }) => {
           POPULAR
         </div>
       </div>
-      {coursesData.slice(0, 1).map((data, i) => (
-        <div className="flex flex-col gap-2.5 md:gap-5 mt-5 md:mt-0">
+      {coursesData.slice(0, 1).map((data, i: number) => (
+        <div key={i} className="flex flex-col gap-2.5 md:gap-5 mt-5 md:mt-0">
           <div className="text-violet-950 text-3xl font-medium leading-10 capitalize self-stretch w-full max-md:max-w-full border md:mt-4">
             {data.title}
           </div>
@@ -41,7 +41,7 @@ const CourseHead: React.FC<ComponentProps> = ({ data }) => {
             <div className="flex items-center gap-2">
               <p className="text-[#E59819]">{data.rating}</p>
               <div className="flex items-center">
-                {rating.map((itm, i) => (
+                {rating.map((itm, i: number) => (
                   <div key={i} className="text-[#E59819]">
                     <IoIosStar className="text-sm text-[#E59819] mx-0.5" />
                   </div>

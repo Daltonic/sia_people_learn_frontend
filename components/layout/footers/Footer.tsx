@@ -43,8 +43,8 @@ const Footer: React.FC = () => {
             <h1 className="text-[#321463] text-lg font-semibold md:text-sm mb-3 md:mb-4 md:font-medium">
               USEFUL LINKS
             </h1>
-            {footerData1.map((elm, i) => (
-              <div>
+            {footerData1.map((elm, i: number) => (
+              <div key={i}>
                 <div className="flex items-center gap-2 md:gap-1 mt-2">
                   <Image
                     width={16}
@@ -59,8 +59,8 @@ const Footer: React.FC = () => {
             ))}
           </div>
           <div className="md:mt-8">
-            {footerData2.map((elm, i) => (
-              <div className="flex items-center gap-2 md:gap-1 mt-2">
+            {footerData2.map((elm, i: number) => (
+              <div key={i} className="flex items-center gap-2 md:gap-1 mt-2">
                 <Image
                   width={16}
                   height={16}
@@ -77,8 +77,8 @@ const Footer: React.FC = () => {
               {" "}
               OTHER RESOURCES
             </h1>
-            {footerData3.map((elm, i) => (
-              <div>
+            {footerData3.map((elm, i: number) => (
+              <div key={i}>
                 <div className="flex items-center gap-2 md:gap-1 mt-2">
                   <Image
                     width={16}

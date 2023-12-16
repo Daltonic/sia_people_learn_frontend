@@ -6,7 +6,7 @@ const Features: React.FC = () => {
   return (
     <section className="md:py-10 flex md:justify-center p-6 md:px-0">
         <div className="flex flex-col md:flex-row gap-6 md:gap-0 justify-evenly flex-1">
-          {featureTwo.map((elm, i) => (
+          {featureTwo.map((elm, i: number) => (
             <div key={i} className="">
               <div className="flex items-center md:items-start">
                 <div className="mr-4">

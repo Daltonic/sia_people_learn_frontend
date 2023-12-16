@@ -1,31 +1,31 @@
-"use client";
-import Layout from "@/components/layout/Layout";
-import { NextPage } from "next";
-import { blogs, categories } from "@/data/blogs";
-import { useEffect, useState } from "react";
-import Image from "next/image";
-import Link from "next/link";
+'use client'
+import Layout from '@/components/layout/Layout'
+import { NextPage } from 'next'
+import { blogs, categories } from '@/data/blogs'
+import { useEffect, useState } from 'react'
+import Image from 'next/image'
+import Link from 'next/link'
 
 type Blog = {
-  id: number;
-  imageSrc: string;
-  category: string;
-  title: string;
-  date: string;
-  desc: string;
-};
+  id: number
+  imageSrc: string
+  category: string
+  title: string
+  date: string
+  desc: string
+}
 
 const Page: NextPage = () => {
-  const [pageItems, setPageItems] = useState<Blog[]>([]);
-  const [currentCategory, setCurrentCategory] = useState("All Categories");
+  const [pageItems, setPageItems] = useState<Blog[]>([])
+  const [currentCategory, setCurrentCategory] = useState('All Categories')
   useEffect(() => {
-    if (currentCategory == "All Categories") {
-      setPageItems(blogs);
+    if (currentCategory == 'All Categories') {
+      setPageItems(blogs)
     } else {
-      let filtered = blogs.filter((elm) => elm.category == currentCategory);
-      setPageItems(filtered);
+      let filtered = blogs.filter((elm) => elm.category == currentCategory)
+      setPageItems(filtered)
     }
-  }, [currentCategory]);
+  }, [currentCategory])
 
   return (
     <Layout>
@@ -34,7 +34,7 @@ const Page: NextPage = () => {
           Latest News
         </h1>
         <p className="text-slate-600 text-center text-md mt-3 capitalize w-full">
-          We're on a mission to deliver engaging, curated courses at a
+          We are on a mission to deliver engaging, curated courses at a
           reasonable price.
         </p>
       </div>
@@ -42,13 +42,13 @@ const Page: NextPage = () => {
         <div className="px-5 md:px-20">
           <div className="font-medium">
             <div className="flex md:justify-center flex-wrap md:gap-3">
-              {categories.map((elm, i) => (
+              {categories.map((elm, i: number) => (
                 <div key={i} onClick={() => setCurrentCategory(elm)}>
                   <button
                     className={`rounded-md p-3 md:p-4 ${
                       currentCategory == elm
-                        ? "bg-[#6440FB12] is-active text-[#C5165D]"
-                        : ""
+                        ? 'bg-[#6440FB12] is-active text-[#C5165D]'
+                        : ''
                     }`}
                     data-tab-target=".-tab-item-1"
                     type="button"
@@ -62,7 +62,7 @@ const Page: NextPage = () => {
             <div className="relative pt-10 ">
               <div className="top-0 is-active">
                 <div className="flex gap-6 flex-wrap">
-                  {pageItems.map((elm, i) => (
+                  {pageItems.map((elm, i: number) => (
                     <div key={i} className="w-full md:w-[31%] mb-4">
                       <div className="w-full">
                         <div className="">
@@ -124,7 +124,7 @@ const Page: NextPage = () => {
         </div>
       </section>
     </Layout>
-  );
-};
+  )
+}
 
-export default Page;
+export default Page

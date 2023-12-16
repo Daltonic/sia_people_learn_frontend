@@ -1,72 +1,8 @@
-"use client";
-import Layout from "@/components/layout/Layout";
-import { NextPage } from "next";
-import Link from "next/link";
-import React, { useEffect, useState } from "react";
-import { useContextElement } from "@/context/Context";
-import { FaMinus, FaPlus, FaTimes } from "react-icons/fa";
+'use client'
+import Layout from '@/components/layout/Layout'
+import { NextPage } from 'next'
 
-interface Course {
-  id: string;
-  title: string;
-  imageSrc: string;
-  originalPrice: number;
-  quantity: number;
-  price: number;
-  // Add other properties as needed
-}
-
-interface ComponentProps {
-  data: any;
-  index?: number;
-}
-
-const Page: NextPage<ComponentProps> = () => {
-  const { cartProducts, setCartProducts } = useContextElement();
-  const [totalPrice, setTotalPrice] = useState<number>(0);
-
-  const handleIncrease = (index: number) => {
-    const item = cartProducts[index];
-
-    item.quantity += 1;
-    const updated = [...cartProducts];
-    updated[index] = item;
-
-    setCartProducts(updated);
-  };
-
-  const handleDecrease = (index: number) => {
-    const item = cartProducts[index];
-
-    if (item.quantity > 1) {
-      item.quantity -= 1;
-      const updated = [...cartProducts];
-      updated[index] = item;
-
-      setCartProducts(updated);
-    }
-  };
-
-  const handleRemoveCart = (index: number) => {
-    setCartProducts((pre: Course[]) => [
-      ...pre.filter((elm: Course) => elm !== cartProducts[index]),
-    ]);
-  };
-
-  useEffect(() => {
-    const sum = cartProducts.reduce(
-      (accumulator: number, currentValue: Course) => {
-        return accumulator + currentValue.price * currentValue.quantity;
-      },
-      0
-    );
-    setTotalPrice(sum);
-  }, [cartProducts]);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-  };
-
+const Page: NextPage = () => {
   return (
     <Layout>
       <div className="flex flex-col items-center">
@@ -75,7 +11,7 @@ const Page: NextPage<ComponentProps> = () => {
             Shop Cart
           </div>
           <div className="text-slate-600 text-center text-md mt-3 capitalize w-full">
-            We're on a mission to deliver engaging, curated courses at a
+            We are on a mission to deliver engaging, curated courses at a
             reasonable price.
           </div>
         </div>
@@ -96,7 +32,7 @@ const Page: NextPage<ComponentProps> = () => {
             <p className="">Remove</p>
           </div>
         </div>
-        <div>
+        {/* <div>
           {cartProducts.map((elm: Course, i: number) => (
             <div key={i} className="">
               <div className="">
@@ -131,11 +67,11 @@ const Page: NextPage<ComponentProps> = () => {
                   />
 
                   <div className="">
-                    <button className="" onClick={() => handleDecrease(i)}>
+                    <button className="">
                       <FaMinus />
                     </button>
 
-                    <button className="" onClick={() => handleIncrease(i)}>
+                    <button className="">
                       <FaPlus />
                     </button>
                   </div>
@@ -148,13 +84,13 @@ const Page: NextPage<ComponentProps> = () => {
                 <p>${(elm.quantity * elm.price).toFixed(2)}</p>
               </div>
 
-              <div className="m" onClick={() => handleRemoveCart(i)}>
+              <div className="m">
                 <FaTimes />
               </div>
             </div>
           ))}
 
-          <div >
+          <div>
             {cartProducts.length > 0 ? (
               <div>
                 <div>
@@ -198,10 +134,10 @@ const Page: NextPage<ComponentProps> = () => {
 
             <Link href="/shop-checkout">Proceed to checkout</Link>
           </div>
-        </div>
+        </div> */}
       </div>
     </Layout>
-  );
-};
+  )
+}
 
-export default Page;
+export default Page

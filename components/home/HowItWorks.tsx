@@ -12,9 +12,9 @@ const HowItWorks = () => {
       </div>
 
       <div className="flex flex-col md:flex-row justify-center items-center  md:pt-10 mt-5 md:mt-0" >
-        {stepsTwo.map((elm, i) => (
-          <>
-            <div key={i} className="flex flex-col items-center text-center md:w-1/3 ">
+        {stepsTwo.map((elm, i: number) => (
+          <div key={i}>
+            <div className="flex flex-col items-center text-center md:w-1/3 ">
               <div className="relative w-24 h-24 md:w-20 md:h-20 flex justify-center items-center rounded-full bg-[#F9F9F9]">
                 <Image width={35} height={35} src={elm.imageSrc} alt="image" className="w-12 h-12 md:w-10 md:h-10" />
                 <div className="absolute top-0 w-6 h-6 rounded-full left-0 bg-[#1A064F]">
@@ -50,7 +50,7 @@ const HowItWorks = () => {
               </div>
             )}
             </div>
-          </>
+          </div>
         ))}
       </div>
     </section>

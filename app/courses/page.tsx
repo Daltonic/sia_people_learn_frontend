@@ -1,13 +1,14 @@
-import PageHeader from "@/components/ReusableComponents/PageHeader";
-import CourseLayer from "@/components/courses/CourseLayer";
-import Filterlayer from "@/components/courses/Filterlayer";
-import Layout from "@/components/layout/Layout";
-import { NextPage } from "next";
+// "use client";
+import PageHeader from '@/components/ReusableComponents/PageHeader'
+import CourseLayer from '@/components/courses/CourseLayer'
+import Filterlayer from '@/components/courses/Filterlayer'
+import Layout from '@/components/layout/Layout'
+import { NextPage } from 'next'
 
 export const metadata = {
-  title: "Courses | Dapp Mentors",
-  description: "Lorem Ipsu,",
-};
+  title: 'Courses | Dapp Mentors',
+  description: 'Lorem Ipsu,',
+}
 
 const Page: NextPage = () => {
   return (
@@ -20,12 +21,12 @@ const Page: NextPage = () => {
               Write an introductory description of the category.
             </div>
           </div>
-        <Filterlayer/>
-        <CourseLayer />
+          <Filterlayer />
+          {/* <CourseLayer /> */}
         </div>
       </div>
     </Layout>
-  );
-};
+  )
+}
 
-export default Page;
+export default Page

@@ -50,11 +50,11 @@ export default function Overview() {
       </div>
 
       <div className="mt-60">
-        <h4 className="text-20 mb-30">What you'll learn</h4>
+        <h4 className="text-20 mb-30">What you wll learn</h4>
         <div className="row x-gap-100 justfiy-between">
           <div className="col-md-6">
             <div className="y-gap-20">
-              {learnList.slice(0, 6).map((elm, i) => (
+              {learnList.slice(0, 6).map((elm, i: number) => (
                 <div key={i} className="d-flex items-center">
                   <div className="d-flex justify-center items-center border-light rounded-full size-20 mr-10">
                     <FaCheck />
@@ -67,7 +67,7 @@ export default function Overview() {
 
           <div className="col-md-6">
             <div className="y-gap-20">
-              {learnList.slice(6).map((elm, i) => (
+              {learnList.slice(6).map((elm, i: number) => (
                 <div key={i} className="d-flex items-center">
                   <div className="d-flex justify-center items-center border-light rounded-full size-20 mr-10">
                     <FaCheck />
@@ -83,7 +83,7 @@ export default function Overview() {
       <div className="mt-60">
         <h4 className="text-20">Requirements</h4>
         <ul className="ul-list y-gap-15 pt-30">
-          {requirements.map((elm, i) => (
+          {requirements.map((elm, i: number) => (
             <li key={i}>{elm}</li>
           ))}
         </ul>

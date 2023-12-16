@@ -20,8 +20,8 @@ const LearningJourney: React.FC = ({
            <p className="text-md mt-3 capitalize w-full">Your learning description</p>
          </div>
        <div className="flex gap-8 mt-10 -bottom-20">
-         {learningJourney.map((item: LearningJourneyProps) => (
-           <LearningJourneyItem item={item} />
+         {learningJourney.map((item: LearningJourneyProps, i: number) => (
+           <LearningJourneyItem key={i} item={item} />
          ))}
        </div>
    </div>

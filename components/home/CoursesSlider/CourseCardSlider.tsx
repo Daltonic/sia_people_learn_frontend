@@ -37,7 +37,7 @@ const CourceCardSlider: React.FC<ComponentProps> = ({ data, index }) => {
             <div className="flex items-center gap-1">
               <p className="text-[#E59819]">{data.rating}</p>
               <div className="flex items-center">
-                {rating.map((itm, i) => (
+                {rating.map((itm, i: number) => (
                   <div key={i} className="text-[#E59819]">
                     <IoIosStar />
                   </div>

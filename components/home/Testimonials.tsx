@@ -62,7 +62,7 @@ const Testimonials: React.FC<{ backgroundComponent?: boolean }> = ({
                   }}
                   onSlideChange={handleSlideChange}
                 >
-                  {testimonialsTwo.map((elm, i) => (
+                  {testimonialsTwo.map((elm, i: number) => (
                     <SwiperSlide key={i} className="">
                       <div className="swiper-slide h-100">
                         <div
@@ -95,7 +95,7 @@ const Testimonials: React.FC<{ backgroundComponent?: boolean }> = ({
               )}
 
                 <div className="flex justify-between md:justify-center space-x-4 mt-5">
-                  {paginationImages.map((elm, i) => (
+                  {paginationImages.map((elm, i: number) => (
                     <div
                       key={i}
                       onClick={() => handlePaginationClick(i)}

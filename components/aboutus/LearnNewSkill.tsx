@@ -22,7 +22,7 @@ const LearnNewSkill: React.FC = ({}) => {
             </span>
           </h1>
           <p className="text-violet-950 text-base leading-7 self-stretch mt-5 max-md:max-w-full">
-            Use the list below to bring attention to your product's key
+            Use the list below to bring attention to your products key
             differentiator.
           </p>
           <Button variant="pink">Join Free</Button>

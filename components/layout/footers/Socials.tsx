@@ -9,9 +9,9 @@ interface ComponentProps {
 const Socials: React.FC<ComponentProps> = ({ componentsClass, textSize }) => {
   return (
     <>
-      {socialMediaLinks.map((link, index) => (
+      {socialMediaLinks.map((link, i: number) => (
         <a
-          key={index}
+          key={i}
           className={componentsClass ? componentsClass : ''}
           href={link.href}
         >

@@ -25,7 +25,7 @@ const Instructor: React.FC = () => {
           Become an Instructor Today
           </h1>
           <p className="text-violet-950 text-base my-4">
-          Use the list below to bring attention to your product's key differentiator.
+          Use the list below to bring attention to your products key differentiator.
           </p>
           <Button variant="pinkoutline"  >
           Join Our Team
