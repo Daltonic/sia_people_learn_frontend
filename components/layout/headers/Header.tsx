@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FormEvent } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { CiSearch } from "react-icons/ci";
@@ -12,8 +12,25 @@ const Header: React.FC = () => {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
   };
-  return (
-    <header className="px-5 md:px-10 py-5 fixed h-20 bg-white top-0 w-full z-50">
+  const [isScrolled, setIsScrolled] = useState(false);
+
+useEffect(() => {
+ const handleScroll = () => {
+   const scrolled = window.scrollY > 0;
+   if (scrolled !== isScrolled) {
+     setIsScrolled(scrolled);
+   }
+ };
+
+ window.addEventListener('scroll', handleScroll, { passive: true });
+
+ return () => {
+   window.removeEventListener('scroll', handleScroll);
+ };
+}, [isScrolled]);
+
+return (
+ <header className={`px-5 md:px-10 py-5 sticky h-20 top-0 w-full z-50 ${isScrolled ? 'bg-white' : 'bg-transparent'}`}>
       <div className="">
         <div className="flex justify-between items-center">
           <Link href="/">

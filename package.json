@@ -15,6 +15,7 @@
     "@fullcalendar/daygrid": "^6.1.9",
     "@fullcalendar/react": "^6.1.9",
     "@mui/material": "^5.14.18",
+    "@types/swiper": "^6.0.0",
     "aos": "^2.3.4",
     "gsap": "^3.12.2",
     "leaflet": "^1.9.4",
@@ -31,7 +32,7 @@
     "sass": "^1.69.5",
     "sharp": "^0.32.6",
     "svg": "^0.1.0",
-    "swiper": "8.0.0",
+    "swiper": "^8.0.0",
     "tsparticles": "^2.12.0"
   },
   "devDependencies": {
@@ -39,7 +40,6 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
-    "@types/swiper": "^6.0.0",
     "autoprefixer": "^10.0.1",
     "eslint": "^8",
     "eslint-config-next": "14.0.3",

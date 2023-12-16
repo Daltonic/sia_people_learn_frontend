@@ -12,7 +12,7 @@ const Page: NextPage = () => {
     <Layout >
       <Hero />
       <HowItWorks />
-      <LearningJourney  title="Start your Learning Journey Today!" description="Your learning description"/>
+      <LearningJourney />
       <Testimonials/>
       <LearnNewSkill/>
     </Layout>

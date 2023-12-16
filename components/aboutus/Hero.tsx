@@ -22,8 +22,8 @@ const Hero: React.FC = () => {
             className="h-full object-cover w-1/2"
           />
         <div className="w-1/2 h-full flex flex-col gap-5">
-          <Image className="h-full object-cover w-full"  src="/images/bitcoin.svg" width={150} height={200} alt=""></Image>
-          <Image className="h-full object-cover w-full"  src="/images/bitcoin.svg" width={150} height={200} alt="" ></Image>
+          <Image className="h-full object-cover w-full"  src="/images/bitcoin.svg" width={150} height={200} alt=""/>
+          <Image className="h-full object-cover w-full"  src="/images/bitcoin.svg" width={150} height={200} alt="" />
         </div>
       </div>
       <div className="flex flex-col px-5 w-[45%]">

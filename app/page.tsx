@@ -20,8 +20,6 @@ const Page: NextPage = () => {
   return (
     <main className="">
       <Header />
-
-      <div className="mt-20">
         <Hero />
         <Features />
         <CoursesSlider />
@@ -32,7 +30,6 @@ const Page: NextPage = () => {
         <BlogList />
         <Newsletter />
         <Footer />
-      </div>
     </main>
   );
 };

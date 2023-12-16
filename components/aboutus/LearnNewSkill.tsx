@@ -2,6 +2,7 @@ import React from "react";
 import Button from "../ReusableComponents/Button";
 import Image from "next/image";
 import { FaCheck } from "react-icons/fa";
+import Link from "next/link";
 
 const LearnNewSkill: React.FC = ({}) => {
   const backgroundImageUrl = "/images/bitcoin.svg";
@@ -68,6 +69,7 @@ const LearnNewSkill: React.FC = ({}) => {
           height={0}
           className="h-full object-cover w-[40%] rounded-lg"
         />
+
         <div className="w-[45%] ">
           <h1 className="text-violet-950 text-2xl font-bold">
             Become an Instructor
@@ -76,11 +78,14 @@ const LearnNewSkill: React.FC = ({}) => {
             Join millions of people from around the world learning together.
             Online learning is as easy and natural as chatting.
           </p>
+          <Link href="/become-instructor" >
           <Button variant="pinkoutline" >
             Apply Now
           </Button>
+          </Link>
         </div>
       </div>
+
       <div className="flex items-center justify-between w-3/4 mt-16">
        
         <div className="w-[45%] ">

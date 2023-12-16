@@ -63,8 +63,8 @@ const Stacks: React.FC = () => {
                     >
                       <div
                         className="flex flex-col items-center"
-                        data-aos="fade-left"
-                        data-aos-duration={(i + 1) * 300}
+                        // data-aos="fade-left"
+                        // data-aos-duration={(i + 1) * 300}
                       >
                         <div className="h-10 mb-6">
                           <Image

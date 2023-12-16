@@ -1,24 +1,21 @@
-import React, { ReactNode } from 'react';
+"use client"
+import React, { ReactNode, useEffect } from 'react';
 import Footer from "./footers/Footer";
 import Header from "./headers/Header";
-// Import AOS styles
 import 'aos/dist/aos.css';
-
-// Import AOS library
 import AOS from 'aos';
 
-// Initialize AOS
-AOS.init();
-
 interface LayoutProps {
-    children: ReactNode;
-  }
-  
-  const Layout: React.FC<LayoutProps> = ({ children }) => {
+   children: ReactNode;
+}
+
+const Layout: React.FC<LayoutProps> = ({ children }) => {
+ useEffect(() => {
+   AOS.init();
+ }, []);
   return (
     <div >
       <Header />
-      <div className='mb-24 '></div>
       <main>{children}</main>
       <Footer />
     </div>

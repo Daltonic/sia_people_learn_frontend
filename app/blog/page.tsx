@@ -30,13 +30,13 @@ const Page: NextPage = () => {
   return (
     <Layout>
       <div className="flex flex-col items-center md:px-5 mt-10">
-        <div className="text-violet-950 text-center text-3xl md:text-4xl font-bold">
+        <h1 className="text-violet-950 text-center text-3xl md:text-4xl font-bold">
           Latest News
-        </div>
-        <div className="text-slate-600 text-center text-md mt-3 capitalize w-full">
+        </h1>
+        <p className="text-slate-600 text-center text-md mt-3 capitalize w-full">
           We're on a mission to deliver engaging, curated courses at a
           reasonable price.
-        </div>
+        </p>
       </div>
       <section className="mt-14">
         <div className="px-5 md:px-20">
