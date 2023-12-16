@@ -9,12 +9,9 @@ import 'react-calendar/dist/Calendar.css'
 import Aos from 'aos'
 import 'aos/dist/aos.css'
 import { useEffect } from 'react'
+import { AppProps } from 'next/app'
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function App({ Component, pageProps }: AppProps) {
   useEffect(() => {
     Aos.init({
       duration: 700,
@@ -23,10 +20,6 @@ export default function RootLayout({
       once: true,
     })
   }, [])
-  return (
-    <html lang="en" className="">
-      <head></head>
-      <main> {children}</main>
-    </html>
-  )
+
+  return <Component {...pageProps} />
 }

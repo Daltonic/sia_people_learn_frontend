@@ -1,4 +1,3 @@
-// 'use client'
 import LearningJourneyItem from '@/components/aboutus/LearningJourneyItem'
 import PageHeading from '@/components/becomeInstructor/PageHeading'
 import Tabs from '@/components/becomeInstructor/Tabs'
@@ -27,13 +26,6 @@ const Page: React.FC = () => {
       </div>
     </div>
   )
-}
-
-export const metadata = {
-  title:
-    'Instructors-become || Educrat - Professional LMS Online Education Course NextJS Template',
-  description:
-    'Elevate your e-learning content with Educrat, the most impressive LMS template for online courses, education and LMS platforms.',
 }
 
 export default Page

@@ -1,14 +1,8 @@
-// "use client";
 import PageHeader from '@/components/ReusableComponents/PageHeader'
 import CourseLayer from '@/components/courses/CourseLayer'
 import Filterlayer from '@/components/courses/Filterlayer'
 import Layout from '@/components/layout/Layout'
 import { NextPage } from 'next'
-
-export const metadata = {
-  title: 'Courses | Dapp Mentors',
-  description: 'Lorem Ipsu,',
-}
 
 const Page: NextPage = () => {
   return (
