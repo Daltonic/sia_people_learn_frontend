@@ -10,7 +10,8 @@ interface ComponentProps {
   index?: number;
 }
 
-const CourceCardSlider: React.FC<ComponentProps> = ({ data, index }) => {
+const CourceCard
+: React.FC<ComponentProps> = ({ data, index }) => {
   const [rating, setRating] = useState<string[]>([]);
 
   useEffect(() => {
@@ -129,4 +130,5 @@ const CourceCardSlider: React.FC<ComponentProps> = ({ data, index }) => {
   );
 };
 
-export default CourceCardSlider;
+export default CourceCard
+;

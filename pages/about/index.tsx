@@ -9,12 +9,12 @@ import { NextPage } from "next";
 
 const Page: NextPage = () => {
   return (
-    <Layout >
+    <Layout>
       <Hero />
       <HowItWorks />
       <LearningJourney />
-      <Testimonials/>
-      <LearnNewSkill/>
+      <Testimonials />
+      <LearnNewSkill />
     </Layout>
   );
 };

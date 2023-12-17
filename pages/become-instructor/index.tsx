@@ -21,7 +21,7 @@ const Page: React.FC = () => {
           ))}
         </div>
         <Instructor />
-        {/* <BestInstructors/> */}
+        <BestInstructors/>
         <Footer />
       </div>
     </div>

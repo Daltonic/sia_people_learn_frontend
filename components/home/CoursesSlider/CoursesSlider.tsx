@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react'
 
-import CourceCardSlider from './CourseCardSlider'
+import CourceCard from './CourseCard'
 import { coursesData } from '@/data/courses'
 import { Navigation, Pagination } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -78,7 +78,7 @@ const CoursesSlider: React.FC = () => {
                 >
                   {coursesData.slice(0, 12).map((elm, i: number) => (
                     <SwiperSlide key={i}>
-                      <CourceCardSlider data={elm} index={i} />
+                      <CourceCard data={elm} index={i} />
                     </SwiperSlide>
                   ))}
                 </Swiper>
