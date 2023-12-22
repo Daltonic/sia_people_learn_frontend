@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { coursesData } from "@/data/courses";
-import CourceCard from "../../components/home/CoursesSlider/CourseCard";
+import CourseCard from "../../components/home/CoursesSlider/CourseCard";
 
 const Tabs: React.FC = () => {
   const [activeTab, setActiveTab] = useState<number>(1);
@@ -70,7 +70,7 @@ const Tabs: React.FC = () => {
           {activeTab === 2 && (
             <div className="flex justify-between">
               {coursesData.slice(0, 4).map((elm, i: number) => (
-                <CourceCard data={elm} index={i} key={i} />
+                <CourseCard data={elm} index={i} key={i} />
               ))}
             </div>
           )}

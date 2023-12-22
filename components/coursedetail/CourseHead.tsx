@@ -75,11 +75,11 @@ const CourseHead: React.FC<ComponentProps> = ({ data }) => {
           </div>
           <div className="flex items-center gap-2.5 mt-2 md:mt-0">
             <Image
-              width={30}
-              height={30}
+              width={0}
+              height={0}
               src={data.authorImageSrc}
               alt="image"
-              className="object-cover"
+              className="object-cover rounded-full w-10 h-10"
             />
             <p className="text-sm text-[#4F547B]">{data.authorName}</p>
           </div>

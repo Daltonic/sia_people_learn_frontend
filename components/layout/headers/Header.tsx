@@ -31,7 +31,7 @@ const Header: React.FC = () => {
 
   return (
     <header
-      className={`px-5 md:px-10 py-5 sticky h-20 top-0 w-full z-50 mb-5 ${
+      className={`px-5 md:px-10 py-5 sticky h-20 top-0 w-full z-50 ${
         isScrolled ? 'bg-white shadow-md' : 'bg-transparent'
       }`}
     >
@@ -65,7 +65,7 @@ const Header: React.FC = () => {
             </form>
           </div>
 
-          <div className="text-white flex items-center gap-10 ">
+          <div className="text-white flex items-center gap-10">
             <Navbar />
             <Link href="/shop-cart">
               <FiShoppingCart className="text-2xl text-black icon icon-basket" />

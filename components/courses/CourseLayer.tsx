@@ -67,7 +67,7 @@ const CourseLayer: React.FC<ComponentProps> = ({ data }) => {
                             height={30}
                             src={data.authorImageSrc}
                             alt="image"
-                            className="object-cover"
+                            className="object-cover rounded-full h-10 w-10"
                           />
                           <p className="text-sm text-[#4F547B]">
                             {data.authorName}

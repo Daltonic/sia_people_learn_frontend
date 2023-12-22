@@ -16,7 +16,7 @@ const Page: NextPage = () => {
             </div>
           </div>
           <Filterlayer />
-          {/* <CourseLayer /> */}
+          <CourseLayer  />
         </div>
       </div>
     </Layout>

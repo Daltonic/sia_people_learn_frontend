@@ -10,7 +10,7 @@ interface ComponentProps {
   index?: number;
 }
 
-const CourceCard
+const CourseCard
 : React.FC<ComponentProps> = ({ data, index }) => {
   const [rating, setRating] = useState<string[]>([]);
 
@@ -97,11 +97,11 @@ const CourceCard
           <div className="flex justify-between bottom-0">
             <div className="flex gap-2">
               <Image
-                width={25}
-                height={25}
+                width={0}
+                height={0}
                 src={data.authorImageSrc}
                 alt="image"
-                className="object-cover"
+                className="object-cover rounded-full w-10 h-10"
               />
               <p className="text-xs text-[#4F547B]">{data.authorName}</p>
             </div>
@@ -130,5 +130,5 @@ const CourceCard
   );
 };
 
-export default CourceCard
+export default CourseCard
 ;
