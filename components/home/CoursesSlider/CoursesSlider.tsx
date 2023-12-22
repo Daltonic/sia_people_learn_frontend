@@ -19,7 +19,7 @@ const CoursesSlider: React.FC = () => {
 
   return (
     <section className="relative z-10 md:mx-10">
-      <div className="px-5 md:px-36 py-12 md:py-10 bg-[#F9F9F9] relative md:rounded-2xl">
+      <div className="px-5 md:px-28 py-12 md:py-10 bg-[#F9F9F9] relative md:rounded-2xl">
         <div className="md:flex justify-between items-center">
           <div>
             <h2 className="text-[#321463] font-bold text-2xl">
@@ -88,12 +88,12 @@ const CoursesSlider: React.FC = () => {
 
           <div className="hidden md:flex">
             {/* Left button */}
-            <button className="absolute left-20  top-1/2 transform -translate-y-1/2 bg-[#1A064F] text-white w-10 h-10 p-2 flex justify-center items-center rounded-full z-10">
+            <button className="absolute left-16  top-1/2 transform -translate-y-1/2 bg-[#1A064F] text-white w-10 h-10 p-2 flex justify-center items-center rounded-full z-10">
               <FaArrowLeft className="icon-arrow-left " />
             </button>
 
             {/* Right button */}
-            <button className="absolute right-20 top-1/2 transform -translate-y-1/2 bg-[#1A064F] text-white w-10 h-10 p-2 flex justify-center items-center rounded-full z-10">
+            <button className="absolute right-16 top-1/2 transform -translate-y-1/2 bg-[#1A064F] text-white w-10 h-10 p-2 flex justify-center items-center rounded-full z-10">
               <FaArrowRight className="icon-arrow-right" />
             </button>
           </div>

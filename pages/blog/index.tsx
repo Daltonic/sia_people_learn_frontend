@@ -1,31 +1,31 @@
-'use client'
-import Layout from '@/components/layout/Layout'
-import { NextPage } from 'next'
-import { blogs, categories } from '@/data/blogs'
-import { useEffect, useState } from 'react'
-import Image from 'next/image'
-import Link from 'next/link'
+"use client";
+import Layout from "@/components/layout/Layout";
+import { NextPage } from "next";
+import { blogs, categories } from "@/data/blogs";
+import { useEffect, useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
 
 type Blog = {
-  id: number
-  imageSrc: string
-  category: string
-  title: string
-  date: string
-  desc: string
-}
+  id: number;
+  imageSrc: string;
+  category: string;
+  title: string;
+  date: string;
+  desc: string;
+};
 
 const Page: NextPage = () => {
-  const [pageItems, setPageItems] = useState<Blog[]>([])
-  const [currentCategory, setCurrentCategory] = useState('All Categories')
+  const [pageItems, setPageItems] = useState<Blog[]>([]);
+  const [currentCategory, setCurrentCategory] = useState("All Categories");
   useEffect(() => {
-    if (currentCategory == 'All Categories') {
-      setPageItems(blogs)
+    if (currentCategory == "All Categories") {
+      setPageItems(blogs);
     } else {
-      let filtered = blogs.filter((elm) => elm.category == currentCategory)
-      setPageItems(filtered)
+      let filtered = blogs.filter((elm) => elm.category == currentCategory);
+      setPageItems(filtered);
     }
-  }, [currentCategory])
+  }, [currentCategory]);
 
   return (
     <Layout>
@@ -47,8 +47,8 @@ const Page: NextPage = () => {
                   <button
                     className={`rounded-md p-3 md:p-4 ${
                       currentCategory == elm
-                        ? 'bg-[#6440FB12] is-active text-[#C5165D]'
-                        : ''
+                        ? "bg-[#6440FB12] is-active text-[#C5165D]"
+                        : ""
                     }`}
                     data-tab-target=".-tab-item-1"
                     type="button"
@@ -63,33 +63,30 @@ const Page: NextPage = () => {
               <div className="top-0 is-active">
                 <div className="flex gap-6 flex-wrap">
                   {pageItems.map((elm, i: number) => (
-                    <div key={i} className="w-full md:w-[31%] mb-4">
+                    <div key={i} className="w-full md:w-[31%] mb-4 ">
                       <div className="w-full">
-                        <div className="">
-                          <Image
-                            width={530}
-                            height={450}
-                            className="rounded-md"
-                            src={elm.imageSrc}
-                            alt="image"
-                          />
-                        </div>
-                        <div className="mt-3">
-                          <div className="text-[#C5165D] text-sm uppercase">
-                            {elm.category.toUpperCase()}
+                        <Link className="linkCustom" href={`/blogs/${elm.id}`}>
+                          <div className="">
+                            <Image
+                              width={530}
+                              height={450}
+                              className="rounded-md"
+                              src={elm.imageSrc}
+                              alt="image"
+                            />
                           </div>
-                          <h4 className="text-[#242239] text-lg font-medium md:mt-1">
-                            <Link
-                              className="linkCustom"
-                              href={`/blogs/${elm.id}`}
-                            >
+                          <div className="mt-3">
+                            <div className="text-[#C5165D] text-sm uppercase">
+                              {elm.category.toUpperCase()}
+                            </div>
+                            <h4 className="text-[#242239] text-lg font-medium md:mt-1">
                               {elm.title}
-                            </Link>
-                          </h4>
-                          <div className="text-xs text-[#4F547B] mt-2 md:mt-3">
-                            {elm.date}
+                            </h4>
+                            <div className="text-xs text-[#4F547B] mt-2 md:mt-3">
+                              {elm.date}
+                            </div>
                           </div>
-                        </div>
+                        </Link>
                       </div>
                     </div>
                   ))}
@@ -124,7 +121,7 @@ const Page: NextPage = () => {
         </div>
       </section>
     </Layout>
-  )
-}
+  );
+};
 
-export default Page
+export default Page;

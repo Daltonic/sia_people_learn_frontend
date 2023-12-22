@@ -20,7 +20,7 @@ const BestInstructors: React.FC = () => {
 
         <div className="">
           <Link
-            href="/instructors"
+            href="/instructor"
             className="font-medium text-sm text-center px-3 flex items-center rounded-md bg-[#6440FB12] hover:text-[#1A064F]  text-[#C5165D]-2 border-transparent hover:border-[#C5165D] hover:bg-transparent w-fit"
           >
             <Button className=""> View All instructors</Button>

@@ -1,6 +1,7 @@
 import InstructorCard from "@/components/becomeInstructor/InstructorCard"
 import { teamMembers } from "../../data/instructors";
 import Layout from "@/components/layout/Layout";
+import Link from "next/link";
 
 const Page: React.FC = () => {
   return (
@@ -16,7 +17,9 @@ const Page: React.FC = () => {
       </div>
       <div className="flex justify-between flex-wrap mt-10">
         {teamMembers.slice(0, 12).map((data, i: number) => (
+           <Link className="linkCustom" href={`/instructors/${data.id}`}>
           <InstructorCard data={data} key={i} />
+          </Link>
         ))}
       </div>
     </div>

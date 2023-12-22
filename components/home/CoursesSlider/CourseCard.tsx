@@ -20,8 +20,8 @@ const CourceCard
   }, [data.rating]);
 
   return (
-    <div className="p-2 bg-white rounded-md" style={{ height: "fit-content" }}>
-      <div className="h-68">
+    <div className="p-2 bg-white rounded-md w-full md:w-56 border-[#EDEDED] border-2" style={{ height: "fit-content" }}>
+      <div className="">
         <div className="">
           <Image
             width={500}

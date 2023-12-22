@@ -32,7 +32,7 @@ const InstructorCard: React.FC<InstructorProps> = ({ data, index }) => {
       </div>
       <div className="flex flex-col gap-1 mt-2">
         <h4 className="font-bold">
-          <Link href={`/instructors/${data.id}`}>
+          <Link href={`/instructor/${data.id}`}>
             <p className="font-medium text-[#321463] text-lg">{data.name}</p>
           </Link>
         </h4>
