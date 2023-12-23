@@ -65,7 +65,7 @@ const Header: React.FC = () => {
             </form>
           </div>
 
-          <div className="text-white flex items-center gap-10">
+          <div className="text-white flex items-center gap-5 md:gap-10">
             <Navbar />
             <Link href="/shop-cart">
               <FiShoppingCart className="text-2xl text-black icon icon-basket" />
