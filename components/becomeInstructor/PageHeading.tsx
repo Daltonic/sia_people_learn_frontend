@@ -1,7 +1,7 @@
 const PageHeading: React.FC = () => {
   return (
     <div>
-      <div className="flex flex-col items-center md:px-5 mt-10">
+      <div className="flex flex-col items-center px-5 mt-10">
         <h1 className="text-violet-950 text-center text-3xl md:text-4xl font-bold">
           Become an Instructor
         </h1>

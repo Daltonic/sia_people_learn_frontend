@@ -36,8 +36,8 @@ const InstructorCard: React.FC<InstructorProps> = ({ data, index }) => {
             <p className="font-medium text-[#321463] text-lg">{data.name}</p>
           </Link>
         </h4>
-        <p className="text-sm text-[#4F547B]">{data.role}</p>
-        <div className="flex items-center text-xs gap-4">
+        <p className="md:text-sm text-[#4F547B]">{data.role}</p>
+        <div className="flex items-center md:text-xs gap-4">
           <div className="text-[#E59819] flex items-center gap-1">
             <div>
               <IoIosStar />

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { FaBars } from 'react-icons/fa';
+import { HiMiniBars3BottomRight } from "react-icons/hi2";
 
 
 const Navbar: React.FC = () => {
@@ -12,7 +12,7 @@ const Navbar: React.FC = () => {
   <div className="">
    <div className="block md:hidden">
      <button onClick={() => setMenuOpen(!menuOpen)} className="p-2 text-lg text-gray-950">
-       <FaBars size={24} />
+       <HiMiniBars3BottomRight size={24} />
      </button>
      {menuOpen && (
        <ul className="fixed top-0 left-0 w-full h-full bg-white p-4 text-[#321463]">
