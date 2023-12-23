@@ -12,7 +12,7 @@ const Button: React.FC<ButtonProps> = ({
 }) => {
   // Define the button's default styles
   let buttonClasses =
-    "font-medium text-center px-2 md:px-5 py-2 rounded-md ease-in-out delay-150 hover:-translate-y-0.5 hover:scale-105 duration-300 text-sm md:text-md";
+    "font-medium text-center px-10 w-fit md:px-5 py-4 md:py-2 rounded-md ease-in-out delay-150 hover:-translate-y-0.5 hover:scale-105 duration-300 text-md";
 
   // Apply different styles based on the variant prop
   switch (variant) {

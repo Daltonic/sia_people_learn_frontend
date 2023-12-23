@@ -12,8 +12,8 @@ const LearnNewSkill: React.FC = ({}) => {
     backgroundPosition: "top",
   };
   return (
-    <div className="flex flex-col items-center p-20">
-      <div className="flex justify-between">
+    <div className="flex flex-col items-center pt-10 px-5 md:p-20">
+      <div className="hidden md:flex justify-between">
         <div className="w-[45%]">
           <h1 className="text-violet-950 text-5xl font-bold md:text-4xl">
             <span className="text-pink-700">Learn</span>
@@ -61,16 +61,16 @@ const LearnNewSkill: React.FC = ({}) => {
           </div>
         </div>
       </div>
-      <div className="flex items-center justify-between w-3/4 mt-16">
+      <div className="flex flex-col md:flex-row md:items-center justify-between md:w-3/4 md:mt-16">
         <Image
           src="/images/bitcoin.svg"
           alt=""
           width={0}
           height={0}
-          className="h-full object-cover w-[40%] rounded-lg"
+          className="md:h-full object-cover w-full md:w-[40%] rounded-lg mb-5 md:mb-0"
         />
 
-        <div className="w-[45%] ">
+        <div className="md:w-[45%] ">
           <h1 className="text-violet-950 text-2xl font-bold">
             Become an Instructor
           </h1>
@@ -86,9 +86,9 @@ const LearnNewSkill: React.FC = ({}) => {
         </div>
       </div>
 
-      <div className="flex items-center justify-between w-3/4 mt-16">
+      <div className="flex flex-col-reverse mb-16 md:mb-0 md:flex-row items-center justify-between md:w-3/4 mt-10 gap-5 md:gap-0 md:mt-16">
        
-        <div className="w-[45%] ">
+        <div className="md:w-[45%] ">
           <h1 className="text-violet-950 text-2xl font-bold">
           Become a Student
           </h1>
@@ -105,7 +105,7 @@ const LearnNewSkill: React.FC = ({}) => {
           alt=""
           width={0}
           height={0}
-          className="h-full object-cover w-[40%] rounded-lg"
+          className="md:h-full object-cover w-full md:w-[40%] rounded-lg"
         />
       </div>
     </div>

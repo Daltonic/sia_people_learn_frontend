@@ -4,7 +4,7 @@ import Button from '../ReusableComponents/Button'
 const Hero: React.FC = () => {
   return (
     <div>
-      <div className="text-center w-full mb-16 p-5 bg-[#F9F9F9] h-96 flex flex-col justify-center">
+      <div className="text-center w-full md:mb-16 p-5 bg-[#F9F9F9] h-56 md:h-96 flex flex-col justify-center">
         <h1 className="text-3xl md:text-4xl font-bold">About Us</h1>
         <p className="text-md mt-3 capitalize w-full">
           We are on a mission to deliver engaging, curated courses at a
@@ -12,8 +12,8 @@ const Hero: React.FC = () => {
         </p>
       </div>
       <div className="flex justify-center w-full">
-        <div className="flex justify-between my-16 px-20">
-          <div className="flex w-[45%] items-start gap-5">
+        <div className="flex flex-col md:flex-row justify-between md:my-16 px-5 py-10 md:px-20">
+          <div className="flex w-full md:w-[45%] items-start gap-5">
             <Image
               src="/images/bitcoin.svg"
               alt=""
@@ -38,7 +38,7 @@ const Hero: React.FC = () => {
               />
             </div>
           </div>
-          <div className="flex flex-col px-5 w-[45%]">
+          <div className="flex flex-col md:px-5 md:w-[45%] mt-10 md:mt-0">
             <div className="text-violet-950 text-3xl font-bold leading-10">
               Welcome to Educrat Enhance your skills with best Online courses
             </div>

@@ -82,10 +82,10 @@ const Testimonials: React.FC<{ backgroundComponent?: boolean }> = ({
                             {elm.text}
                           </div>
                           <div className="mt-5">
-                            <h5 className="text-[#321463] font-medium text-sm md:text-xs">
+                            <h5 className="text-[#321463] font-medium text-md md:text-xs">
                               {elm.author}
                             </h5>
-                            <p className="text-[#4F547B] text-sm md:text-xs">{elm.position}</p>
+                            <p className="text-[#4F547B] text-md md:text-xs">{elm.position}</p>
                           </div>
                         </div>
                       </div>
@@ -94,7 +94,7 @@ const Testimonials: React.FC<{ backgroundComponent?: boolean }> = ({
                 </Swiper>
               )}
 
-                <div className="flex justify-between md:justify-center space-x-4 mt-5">
+                <div className="flex justify-between flex-wrap gap-5 md:justify-center mt-5">
                   {paginationImages.map((elm, i: number) => (
                     <div
                       key={i}

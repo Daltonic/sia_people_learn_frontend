@@ -13,13 +13,13 @@ interface LearningJourneyProps {
 const LearningJourney: React.FC = ({
 }) => {
  return (
-   <section className="h-full mb-40 ">
-   <div className="bg-black px-16 h-80 py-20 flex items-center flex-col">
+   <section className="h-full md:mb-40 ">
+   <div className="bg-black md:px-16 md:h-80 px-5 py-20 flex items-center flex-col">
          <div className="text-white text-center">
            <h2 className="text-3xl md:text-4xl font-bold">Start your Learning Journey Today!</h2>
            <p className="text-md mt-3 capitalize w-full">Your learning description</p>
          </div>
-       <div className="flex gap-8 mt-10 -bottom-20">
+       <div className="flex flex-col md:flex-row gap-8 mt-10 md:-bottom-20">
          {learningJourney.map((item: LearningJourneyProps, i: number) => (
            <LearningJourneyItem key={i} item={item} />
          ))}

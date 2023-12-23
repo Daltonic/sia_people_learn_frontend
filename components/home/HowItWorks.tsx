@@ -6,12 +6,11 @@ const HowItWorks = () => {
   return (
     <section className="my-16 flex flex-col items-center justify-center">
       <div className="text-center">
-        <h2 className="text-[#321463] font-bold text-2xl">How it works?</h2>
-
-        <p className="text-[#4F547B] text-xs">Follow this simple steps</p>
+        <h2 className="text-[#321463] font-bold text-3xl md:text-2xl">How it works?</h2>
+        <p className="text-[#4F547B] md:text-xs">Follow this simple steps</p>
       </div>
 
-      <div className="flex flex-col md:flex-row justify-center items-center md:pt-10 mt-5 md:mt-0" >
+      <div className="flex flex-col md:flex-row justify-center items-center pt-5 md:pt-10 mt-5 md:mt-0" >
         {stepsTwo.map((elm, i: number) => (
           <div key={i} className="flex items-center ">
             <div className="flex flex-col items-center text-center ">
@@ -21,7 +20,7 @@ const HowItWorks = () => {
                   <p className="text-sm font-medium text-white">{elm.id}</p>
                 </div>
               </div>
-              <p className="text-sm font-medium mt-3 mb-8 md:mb-0 md:mt-6 capitalize text-[#1A064F] w-44">
+              <p className="md:text-sm font-medium mt-3 mb-8 md:mb-0 md:mt-6 capitalize text-[#1A064F] w-72 md:w-44">
                 {elm.text}
               </p>
             </div>
