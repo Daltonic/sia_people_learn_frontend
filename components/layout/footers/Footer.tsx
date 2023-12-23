@@ -8,7 +8,7 @@ import Socials from "./Socials";
 
 const Footer: React.FC = () => {
   return (
-    <div className="px-5 md:px-10 py-10">
+    <div className="px-5 md:px-10 py-10 mt-10 md:mt-0">
       <div className="flex flex-col md:items-center border-b border-[#EDEDED] w-full pb-8">
         <section className="flex flex-col md:flex-row gap-8 justify-between w-[80%] flex-1">
           <div className="">

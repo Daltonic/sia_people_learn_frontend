@@ -9,9 +9,8 @@ const Page: React.FC = () => {
   
   return (
     <Layout>
-      <div className="px-20">
+      <div className="md:px-20">
        <Profile/>
-       
        <Tabs/>
       </div>
     </Layout>
