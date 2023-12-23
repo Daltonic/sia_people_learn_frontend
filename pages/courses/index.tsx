@@ -2,6 +2,7 @@ import PageHeader from '@/components/ReusableComponents/PageHeader'
 import CourseLayer from '@/components/courses/CourseLayer'
 import Filterlayer from '@/components/courses/Filterlayer'
 import Layout from '@/components/layout/Layout'
+import { coursesData } from '@/data/courses'
 import { NextPage } from 'next'
 
 const Page: NextPage = () => {
@@ -16,7 +17,7 @@ const Page: NextPage = () => {
             </div>
           </div>
           <Filterlayer />
-          <CourseLayer  />
+          <CourseLayer data={coursesData} />
         </div>
       </div>
     </Layout>

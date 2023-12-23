@@ -20,6 +20,7 @@ const Page: NextPage = () => {
   return (
     <main className="">
       <Header />
+      
       <Hero />
       <Features />
       <CoursesSlider />

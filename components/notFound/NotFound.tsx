@@ -1,9 +1,11 @@
 import React from 'react'
 import Image from 'next/image'
 import Button from '../ReusableComponents/Button'
+import Layout from '../layout/Layout'
 
 const NotFound: React.FC = () => {
   return (
+    <Layout>
     <div className="flex justify-center w-full p-20">
       <div className="flex gap-20">
         <div className="">
@@ -37,6 +39,7 @@ const NotFound: React.FC = () => {
         </div>
       </div>
     </div>
+    </Layout>
   )
 }
 

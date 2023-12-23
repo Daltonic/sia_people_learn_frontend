@@ -1,4 +1,3 @@
-// import Preloader from '@/components/common/Preloader';
 import Footer from '@/components/layout/footers/Footer'
 import Header from '@/components/layout/headers/Header'
 import NotFound from '@/components/notFound/NotFound'
@@ -7,7 +6,6 @@ import React from 'react'
 const Page: React.FC = () => {
   return (
     <div className="bg-[#F9F9F9]">
-      {/* <Preloader /> */}
       <Header />
       <div className="">
         <NotFound />

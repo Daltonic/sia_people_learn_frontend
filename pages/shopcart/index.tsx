@@ -7,13 +7,13 @@ const Page: NextPage = () => {
     <Layout>
       <div className="flex flex-col items-center">
         <div className="flex flex-col items-center md:px-5 md:mt-10">
-          <div className="text-violet-950 text-center text-3xl md:text-4xl font-bold">
+          <h1 className="text-violet-950 text-3xl md:text-4xl font-bold">
             Shop Cart
-          </div>
-          <div className="text-slate-600 text-center text-md mt-3 capitalize w-full">
+          </h1>
+          <p className="text-slate-600 text-md mt-3 capitalize">
             We are on a mission to deliver engaging, curated courses at a
             reasonable price.
-          </div>
+          </p>
         </div>
         <div className="flex justify-between items-center bg-[#F5F7FE] text-[#C5165D] font-medium h-20 p-10 rounded-md w-5/6 mt-14">
           <div className="">
