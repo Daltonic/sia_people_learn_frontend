@@ -15,7 +15,7 @@ const Page: NextPage = () => {
   return (
     <Layout>
       <div className="flex flex-col items-center">
-        <div className=" md:px-5 md:mt-10 text-center">
+        <div className="px-5 mt-10 text-center">
           <h1 className="text-violet-950 text-3xl md:text-4xl font-bold">
             How can we help you?
           </h1>
@@ -34,7 +34,7 @@ const Page: NextPage = () => {
               required
               type="text"
               placeholder="Enter a question, topic or keyword"
-              className="w-[30rem] rounded-lg h-full border border-[#EDEDED] px-4"
+              className="w-full md:w-[30rem] rounded-lg h-full border border-[#EDEDED] px-4"
             />
             <button
               className="absolute right-2 top-1.5 rounded-md bg-[#C5165D] text-white font-medium h-[80%] px-4 flex gap-2 items-center"
