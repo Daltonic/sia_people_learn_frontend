@@ -4,12 +4,25 @@ import { IoIosStar } from "react-icons/io";
 import { coursesData } from "@/data/courses";
 import Image from "next/image";
 
-interface ComponentProps {
-  data: any;
-  clickedCardIndex: number;
+interface Course {
+  id: number;
+  imageSrc: string;
+  authorImageSrc: string;
+  title: string;
+  rating: number;
+  ratingCount: number;
+  lessonCount: number;
+  duration: number;
+  level: string;
+  originalPrice: number;
 }
 
-const CourseHead: React.FC<ComponentProps> = ({ data, clickedCardIndex  }) => {
+interface ComponentProps {
+  data: Course[];
+  index?: number;
+ }
+
+const CourseHead: React.FC<ComponentProps> = ({ data  }) => {
   const [rating, setRating] = React.useState<string[]>([]);
 
   useEffect(() => {

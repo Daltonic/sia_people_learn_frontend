@@ -8,7 +8,7 @@ const Page: NextPage = () => {
   return (
     <Layout>
       <div className="flex flex-col items-center">
-        <div className=" md:px-5 md:mt-10 text-center">
+        <div className=" px-5 mt-10 text-center">
           <h1 className="text-violet-950 text-3xl md:text-4xl font-bold">
             Pricing
           </h1>
@@ -17,7 +17,7 @@ const Page: NextPage = () => {
             reasonable price.
           </p>
         </div>
-        <div className="flex justify-between w-4/5 mt-16">
+        <div className="flex flex-col md:flex-row items-center justify-between w-4/5 mt-16 gap-10 md:gap-0">
           {pricingData.map((item, i) => (
             <PriceCard key={i} {...item} />
           ))}

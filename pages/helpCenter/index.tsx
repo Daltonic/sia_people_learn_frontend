@@ -24,7 +24,7 @@ const Page: NextPage = () => {
             reasonable price.
           </p>
         </div>
-        <div className="flex mt-10 justify-center ">
+       <div className="flex mt-10 justify-center ">
           <form
             className="relative h-14 flex"
             action="post"
@@ -33,8 +33,8 @@ const Page: NextPage = () => {
             <input
               required
               type="text"
-              placeholder="Enter a question, topic or keyword"
-              className="w-full md:w-[30rem] rounded-lg h-full border border-[#EDEDED] px-4"
+              placeholder="Enter a question"
+              className="w-[20rem] md:w-[30rem] rounded-lg h-full border border-[#EDEDED] px-4"
             />
             <button
               className="absolute right-2 top-1.5 rounded-md bg-[#C5165D] text-white font-medium h-[80%] px-4 flex gap-2 items-center"
@@ -45,7 +45,7 @@ const Page: NextPage = () => {
             </button>
           </form>
         </div>
-        <div className="flex justify-between flex-wrap gap-5 mt-16 px-20">
+         <div className="flex justify-center md:justify-between flex-wrap gap-5 mt-16 md:px-20">
           {helpItems.map((item, i) => (
             <HelpCenterCard key={i} {...item} />
           ))}

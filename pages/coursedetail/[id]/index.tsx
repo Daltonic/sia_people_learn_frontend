@@ -18,7 +18,7 @@ const Page: NextPage = () => {
   return (
     <Layout>
       <div className="md:px-14 md:py-10 px-5 py-10">
-        <CourseHead data={coursesData} clickedCardIndex={clickedCardIndex} />
+        <CourseHead data={coursesData} />
         <Tabs />
         <div className="mt-14 relative">
           <div className="mb-5">
