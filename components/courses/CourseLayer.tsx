@@ -22,7 +22,7 @@ const CourseLayer: React.FC<ComponentProps> = ({ data }) => {
   return (
     <div className="flex flex-col items-stretch mt-10">
       {coursesData.slice(0, 8).map((data, i: number) => (
-        <Link key={i} href="/coursedetail" className="border-b border-[#EDEDED] py-5">
+        <Link key={i} href={`/coursedetail/${data.id}`} className="border-b border-[#EDEDED] py-5">
           <div className="w-full">
             <div className=" flex md:flex-row flex-col">
               <div className="flex flex-col items-stretch md:w-4/5">

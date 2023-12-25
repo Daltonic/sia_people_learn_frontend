@@ -6,10 +6,10 @@ import Image from "next/image";
 
 interface ComponentProps {
   data: any;
-  index?: number;
+  clickedCardIndex: number;
 }
 
-const CourseHead: React.FC<ComponentProps> = ({ data }) => {
+const CourseHead: React.FC<ComponentProps> = ({ data, clickedCardIndex  }) => {
   const [rating, setRating] = React.useState<string[]>([]);
 
   useEffect(() => {
@@ -30,10 +30,10 @@ const CourseHead: React.FC<ComponentProps> = ({ data }) => {
       </div>
       {coursesData.slice(0, 1).map((data, i: number) => (
         <div key={i} className="flex flex-col gap-2.5 md:gap-5 mt-5 md:mt-0">
-          <div className="text-violet-950 text-3xl font-medium leading-10 capitalize self-stretch w-full max-md:max-w-full border md:mt-4">
+          <div className="text-violet-950 text-3xl font-medium leading-10 capitalize self-stretch w-full max-md:max-w-full md:mt-4">
             {data.title}
           </div>
-          <div className="text-slate-600 text-base leading-7 self-stretch w-full max-md:max-w-full md:mt-2 border">
+          <div className="text-slate-600 text-base leading-7 self-stretch w-full max-md:max-w-full md:mt-2">
             {data.desc}
           </div>
 

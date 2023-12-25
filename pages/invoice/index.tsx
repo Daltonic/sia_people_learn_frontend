@@ -85,7 +85,7 @@ const Page: NextPage = () => {
                   <td className="w-10 md:text-center p-2 md:p-4">$9243</td>
                 </tr>
                 <tr className="border-b border-[#F5F7FE]">
-                  <td className="w-10 tex-center p-2 md:p-4">Extra Plan</td>
+                  <td className="w-10 text-center p-2 md:p-4">Extra Plan</td>
                   <td className="w-10 md:text-center p-2 md:p-4">$423.00 </td>
                   <td className="w-10 md:text-center p-2 md:p-4">$912.80 </td>
                   <td className="w-10 md:text-center p-2 md:p-4">$5943</td>
