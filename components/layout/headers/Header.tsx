@@ -67,7 +67,7 @@ const Header: React.FC = () => {
 
           <div className="text-white flex items-center gap-5 md:gap-10">
             <Navbar />
-            <Link href="/shop-cart">
+            <Link href="/shopcart">
               <FiShoppingCart className="text-2xl text-black icon icon-basket" />
             </Link>
             <div className=" gap-2 hidden md:flex">

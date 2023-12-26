@@ -1,6 +1,7 @@
 'use client'
 import Layout from '@/components/layout/Layout'
 import { NextPage } from 'next'
+// import { cartProducts } from "../../data/cartProducts";
 
 const Page: NextPage = () => {
   return (

@@ -78,7 +78,7 @@ const LearnNewSkill: React.FC = ({}) => {
             Join millions of people from around the world learning together.
             Online learning is as easy and natural as chatting.
           </p>
-          <Link href="/become-instructor" >
+          <Link href="/becomeinstructor" >
           <Button variant="pinkoutline" >
             Apply Now
           </Button>

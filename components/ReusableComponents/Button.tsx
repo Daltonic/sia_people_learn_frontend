@@ -30,7 +30,7 @@ const Button: React.FC<ButtonProps> = ({
       break;
     case "lightpurple":
       buttonClasses +=
-        " bg-[#6440FB12] text-#1A064F text-sm hover:text-[#C5165D] border-2 border-transparent hover:border-[#C5165D] hover:bg-transparent ";
+        " bg-[#6440FB12] text-[#1A064F] text-sm hover:text-[#C5165D] border-2 border-transparent hover:border-[#C5165D] hover:bg-transparent ";
       break;
   }
 

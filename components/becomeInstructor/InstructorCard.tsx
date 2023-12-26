@@ -20,7 +20,7 @@ const InstructorCard: React.FC<InstructorProps> = ({ data, index }) => {
             className="w-full h-full object-cover rounded-lg"
           />
         </div>
-        <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center">
+        {/* <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center">
           {data.socialProfile?.map(
             (itm: { url: string; icon: string }, i: number) => (
               <Link key={i} href={itm.url ? itm.url : "#"}>
@@ -28,7 +28,7 @@ const InstructorCard: React.FC<InstructorProps> = ({ data, index }) => {
               </Link>
             )
           )}
-        </div>
+        </div> */}
       </div>
       <div className="flex flex-col gap-1 mt-2">
         <h4 className="font-bold">

@@ -76,9 +76,9 @@ const Page: NextPage = () => {
                             />
                           </div>
                           <div className="mt-3">
-                            <div className="text-[#C5165D] text-sm uppercase">
+                            <h1 className="text-[#C5165D] text-sm uppercase">
                               {elm.category.toUpperCase()}
-                            </div>
+                            </h1>
                             <h4 className="text-[#242239] text-lg font-medium md:mt-1">
                               {elm.title}
                             </h4>

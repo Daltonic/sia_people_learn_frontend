@@ -3,14 +3,16 @@ import Tabs from "@/components/coursedetail/Tabs";
 import CourseCard from "@/components/home/CoursesSlider/CourseCard";
 import Layout from "@/components/layout/Layout";
 import { coursesData } from "../../../data/courses";
-import { NextPage } from "next";
+import { GetServerSidePropsContext, NextPage } from "next";
 import { Navigation, Pagination } from "swiper";
 import { useEffect, useState } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { SwiperSlide, Swiper } from "swiper/react";
+import { CourseStruct } from "@/utils/type.dt";
 
-const Page: NextPage = () => {
-  const [showSlider, setShowSlider] = useState(false);
+const Page: NextPage<{ courseData: CourseStruct }> = ({ courseData }) => {
+  const [showSlider, setShowSlider] = useState<boolean>(false);
+
   useEffect(() => {
     setShowSlider(true);
   }, []);
@@ -18,7 +20,8 @@ const Page: NextPage = () => {
   return (
     <Layout>
       <div className="md:px-14 md:py-10 px-5 py-10">
-        <CourseHead data={coursesData} />
+        <CourseHead course={courseData} />
+
         <Tabs />
         <div className="mt-14 relative">
           <div className="mb-5">
@@ -90,3 +93,17 @@ const Page: NextPage = () => {
 };
 
 export default Page;
+
+export const getServerSideProps = async (
+  context: GetServerSidePropsContext
+) => {
+  const { id } = context.query;
+
+  const courseData = coursesData.find((data) => data.id === Number(id));
+
+  return {
+    props: {
+      courseData: JSON.parse(JSON.stringify(courseData)),
+    },
+  };
+};
