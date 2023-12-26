@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { SwiperSlide, Swiper } from "swiper/react";
 import { CourseStruct } from "@/utils/type.dt";
+import CourseCardDetail from "@/components/coursedetail/CourseCardDetail";
 
 const Page: NextPage<{ courseData: CourseStruct }> = ({ courseData }) => {
   const [showSlider, setShowSlider] = useState<boolean>(false);
@@ -19,9 +20,11 @@ const Page: NextPage<{ courseData: CourseStruct }> = ({ courseData }) => {
 
   return (
     <Layout>
-      <div className="md:px-14 md:py-10 px-5 py-10">
+      <div className="md:px-14 md:py-10 px-5 py-10 md:relative">
+        <div className="flex flex-col md:flex-row justify-between ">
         <CourseHead course={courseData} />
-
+        <CourseCardDetail course={courseData} />
+        </div>
         <Tabs />
         <div className="mt-14 relative">
           <div className="mb-5">

@@ -10,9 +10,9 @@ const HowItWorks = () => {
         <p className="text-[#4F547B] md:text-xs">Follow this simple steps</p>
       </div>
 
-      <div className="flex flex-col md:flex-row justify-center items-center pt-5 md:pt-10 mt-5 md:mt-0" >
+      <div className="flex flex-col md:flex-row justify-center lg:justify-between lg:w-[60%] items-center pt-5 md:pt-10 mt-5 md:mt-0" >
         {stepsTwo.map((elm, i: number) => (
-          <div key={i} className="flex items-center ">
+          <div key={i} className="flex items-center">
             <div className="flex flex-col items-center text-center ">
               <div className="relative w-24 h-24 md:w-20 md:h-20 flex justify-center items-center rounded-full bg-[#F9F9F9]">
                 <Image width={35} height={35} src={elm.imageSrc} alt="image" className="w-12 h-12 md:w-10 md:h-10" />

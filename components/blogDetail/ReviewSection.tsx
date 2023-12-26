@@ -10,16 +10,16 @@ import Button from "@/components/ReusableComponents/Button";
 const ReviewSection: React.FC = () => {
     
  return (
-    <div className="py-6">
-    <h1 className="text-[#321463] font-medium text-lg md:text-base"> Reviews</h1>
+    <div className="pt-6">
+    <h1 className="text-[#321463] font-semibold text-lg md:text-base"> Reviews</h1>
     <div className="border-b-2 border-[#EEEEEE] flex gap-5 items-start py-5">
       <div className="">
         <Image
-          width={0}
-          height={0}
+          width={20}
+          height={10}
           src="/images/blog-list/2.png"
           alt="image"
-          className="w-[12rem] h-[2rem] md:w-20 md:h-10 object-cover rounded-full"
+          className="w-56 h-10 md:w-20 md:h-10 object-cover rounded-full"
         />
       </div>
       <div className="space-y-2 md:space-y-3">
