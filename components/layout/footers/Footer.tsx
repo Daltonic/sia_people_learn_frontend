@@ -1,86 +1,103 @@
-'use client'
-import React from 'react'
-import Socials from '@/components/common/Socials'
-import Image from 'next/image'
-import Links from '../component/Links'
-import FooterLinks from '../component/FooterLinks2'
+"use client";
 
-const Footer = () => {
+import Image from "next/image";
+import Link from "next/link";
+import React from "react";
+import { footerData1, footerData2, footerData3 } from "@/data/footer";
+import Socials from "./Socials";
+
+const Footer: React.FC = () => {
   return (
-    <footer className="footer -type-5 pt-60">
-      <div className="container">
-        <div className="row y-gap-30 pb-60">
-          <div className="col-xl-4 col-lg-5 col-md-6">
-            <div className="footer-header__logo">
-              <Image
-                width={140}
-                height={50}
-                src="/assets/img/general/logo-dark.svg"
-                alt="logo"
-              />
+    <div className="px-5 md:px-10 py-10 mt-10 md:mt-0">
+      <div className="flex flex-col md:items-center border-b border-[#EDEDED] w-full pb-8">
+        <section className="flex flex-col md:flex-row gap-8 justify-between w-[80%] flex-1">
+          <div className="">
+            <div className="flex items-center gap-2">
+              <Link href="/">
+                <Image
+                  width={35}
+                  height={35}
+                  src="/images/logoImg.svg"
+                  alt="logo"
+                />
+              </Link>
+              <p className="text-[#321463] font-semibold text-lg md:text-md md:font-medium">Dapp Mentors</p>
             </div>
-
-            <div className="mt-30">
-              <div className="text-17 text-dark-1">Call Us</div>
-              <div className="text-17 lh-1 fw-500 text-purple-1 mt-5">
-                800 388 80 90
-              </div>
-            </div>
-
-            <div className="mt-30 pr-20">
-              <div className="lh-17">
-                329 Queensberry Street, North Melbourne VIC 3051, Australia.
-                hi@educrat.com
-              </div>
-            </div>
-
-            <div className="footer-header-socials mt-30">
-              <div className="footer-header-socials__list d-flex items-center">
+            <p className="text-[#4F547B] md:text-xs mt-2 md:mt-0">
+              Connect with us through  the <br /> followings.
+            </p>
+            <div className="flex items-center">
                 <Socials
                   componentsClass={
-                    'size-40 d-flex justify-center items-center '
+                    'flex justify-center items-center '
                   }
                 />
               </div>
-            </div>
           </div>
-
-          <FooterLinks
-            allClasses={'text-17 fw-500 text-black uppercase mb-25'}
-          />
-        </div>
-
-        <div className="py-30 border-top-light">
-          <div className="row justify-between items-center y-gap-20">
-            <div className="col-auto">
-              <div className="footer-footer__copyright d-flex items-center h-100">
-                © {new Date().getFullYear()} Educrat. All Right Reserved.
-              </div>
-            </div>
-
-            <div className="col-auto">
-              <div className="d-flex x-gap-20 y-gap-20 items-center flex-wrap">
-                <div>
-                  <div className="d-flex x-gap-15">
-                    <Links allClasses="text-black" />
-                  </div>
-                </div>
-
-                <div>
-                  <a
-                    href="#"
-                    className="button -md -light-4 px-20 -purple-3 text-purple-1"
-                  >
-                    <i className="icon-worldwide mr-5"></i>English
-                  </a>
+          <div>
+            <h1 className="text-[#321463] text-lg font-semibold md:text-sm mb-3 md:mb-4 md:font-medium">ABOUT</h1>
+            <p className="text-[#4F547B] text-sm md:text-xs mb-2">About Us</p>
+            <p className="text-[#4F547B] text-sm md:text-xs">Contact Us</p>
+          </div>
+          <div>
+            <h1 className="text-[#321463] text-lg font-semibold md:text-sm mb-3 md:mb-4 md:font-medium">
+              USEFUL LINKS
+            </h1>
+            {footerData1.map((elm, i: number) => (
+              <div key={i}>
+                <div className="flex items-center gap-2 md:gap-1 mt-2">
+                  <Image
+                    width={16}
+                    height={16}
+                    src={elm.imageSrc}
+                    alt="Academy"
+                    className="w-6 md:w-4"
+                  />
+                  <p className="text-[#4F547B] md:text-xs"> {elm.title}</p>
                 </div>
               </div>
-            </div>
+            ))}
           </div>
-        </div>
+          <div className="md:mt-8">
+            {footerData2.map((elm, i: number) => (
+              <div key={i} className="flex items-center gap-2 md:gap-1 mt-2">
+                <Image
+                  width={16}
+                  height={16}
+                  src={elm.imageSrc}
+                  alt="Academy"
+                  className="w-6 md:w-4"
+                />
+                <p className="text-[#4F547B] md:text-xs"> {elm.title}</p>
+              </div>
+            ))}
+          </div>
+          <div>
+            <h1 className="text-[#321463] text-lg font-semibold md:text-sm mb-3 md:mb-4 md:font-medium">
+              {" "}
+              OTHER RESOURCES
+            </h1>
+            {footerData3.map((elm, i: number) => (
+              <div key={i}>
+                <div className="flex items-center gap-2 md:gap-1 mt-2">
+                  <Image
+                    width={16}
+                    height={16}
+                    src={elm.imageSrc}
+                    alt="Academy"
+                    className="w-6 md:w-4"
+                  />
+                  <p className="text-[#4F547B] md:text-xs"> {elm.title}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+       
       </div>
-    </footer>
-  )
-}
+      <p className="text-[#4F547B] text-xs pl-28 mt-8">© 2023 Dapp Mentors. All Right Reserved.</p>
+    </div>
+  );
+};
 
-export default Footer
+export default Footer;

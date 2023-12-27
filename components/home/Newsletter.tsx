@@ -1,53 +1,39 @@
 'use client'
 
 import React, { FormEvent } from 'react'
-import Image from 'next/image'
 
 const Newsletter: React.FC = () => {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
   }
   return (
-    <section className="layout-pt-lg layout-pb-lg mb-90 section-bg">
-      <div className="section-bg__item">
-        <Image
-          width={1200}
-          height={1200}
-          className="img-full rounded-16"
-          src="/assets/img/home-3/cta/bg.png"
-          alt="image"
-        />
-      </div>
+    <section className="bg-[#F9F9F9] md:mx-10 rounded-2xl px-5 py-10 md:p-24 flex justify-center">
 
-      <div className="container">
-        <div className="row justify-center text-center">
-          <div className="col-xl-5 col-lg-6 col-md-11">
-            <div className="sectionTitle -light">
-              <h2 className="sectionTitle__title ">
+      <div >
+        <div className="flex justify-center text-center">
+            <div className="md:w-2/3">
+              <h2 className="text-[#1A064F] font-bold text-2xl">
                 Subscribe our Newsletter &
               </h2>
 
-              <p className="sectionTitle__text ">
+              <p className="text-sm text-[#1A064F] mt-2">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                 eiusmod tempor incididunt ut labore et dolore magna aliqua.
               </p>
             </div>
-          </div>
         </div>
 
-        <div className="row mt-30 justify-center">
-          <div className="col-lg-6">
+        <div className="flex mt-10 justify-center ">
             <form
-              className="form-single-field -help"
+              className="relative h-14 flex"
               action="post"
               onSubmit={handleSubmit}
             >
-              <input required type="text" placeholder="Your Email..." />
-              <button className="button -purple-1 text-white" type="submit">
+              <input required type="text" placeholder="Your Email..." className='w-96 rounded-lg h-full border border-[#EDEDED] px-4'/>
+              <button className="absolute right-2 top-1.5 rounded-md bg-[#C5165D] text-white font-medium h-[80%] px-4" type="submit">
                 Submit
               </button>
             </form>
-          </div>
         </div>
       </div>
     </section>

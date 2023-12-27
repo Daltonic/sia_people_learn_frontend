@@ -1,79 +1,59 @@
-import React from 'react'
-import { stepsTwo } from '@/data/steps'
-import Image from 'next/image'
+import React from "react";
+import { stepsTwo } from "@/data/steps";
+import Image from "next/image";
 
 const HowItWorks = () => {
   return (
-    <section className="layout-pt-lg layout-pb-lg">
-      <div className="container">
-        <div className="row y-gap-20 justify-center text-center">
-          <div className="col-auto">
-            <div className="sectionTitle ">
-              <h2 className="sectionTitle__title ">How it works?</h2>
+    <section className="my-16 flex flex-col items-center justify-center">
+      <div className="text-center">
+        <h2 className="text-[#321463] font-bold text-3xl md:text-2xl">How it works?</h2>
+        <p className="text-[#4F547B] md:text-xs">Follow this simple steps</p>
+      </div>
 
-              <p className="sectionTitle__text ">
-                10,000+ unique online course list designs
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div className="row y-gap-30 justify-between pt-60 lg:pt-40">
-          {stepsTwo.map((elm, i) => (
-            <>
-              <div key={i} className="col-xl-2 col-lg-3 col-md-6">
-                <div className="d-flex flex-column items-center text-center">
-                  <div className="relative size-120 d-flex justify-center items-center rounded-full bg-light-4">
-                    <Image
-                      width={50}
-                      height={50}
-                      src={elm.imageSrc}
-                      alt="image"
-                    />
-                    <div className="side-badge">
-                      <div className="size-35 d-flex justify-center items-center rounded-full bg-dark-1 -dark-bg-purple-1">
-                        <span className="text-14 fw-500 text-white">
-                          0{elm.id}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="text-17 fw-500 text-dark-1 mt-30">
-                    {elm.text}
-                  </div>
+      <div className="flex flex-col md:flex-row justify-center items-center pt-5 md:pt-10 mt-5 md:mt-0" >
+        {stepsTwo.map((elm, i: number) => (
+          <div key={i} className="flex items-center ">
+            <div className="flex flex-col items-center text-center ">
+              <div className="relative w-24 h-24 md:w-20 md:h-20 flex justify-center items-center rounded-full bg-[#F9F9F9]">
+                <Image width={35} height={35} src={elm.imageSrc} alt="image" className="w-12 h-12 md:w-10 md:h-10" />
+                <div className="absolute top-0 w-6 h-6 rounded-full left-0 bg-[#1A064F]">
+                  <p className="text-sm font-medium text-white">{elm.id}</p>
                 </div>
               </div>
+              <p className="md:text-sm font-medium mt-3 mb-8 md:mb-0 md:mt-6 capitalize text-[#1A064F] w-72 md:w-44">
+                {elm.text}
+              </p>
+            </div>
 
-              {i == 0 && (
-                <div className="col-auto xl:d-none">
-                  <div className="pt-30">
-                    <Image
-                      width={142}
-                      height={21}
-                      src="/assets/img/misc/lines/1.svg"
-                      alt="icon"
-                    />
-                  </div>
-                </div>
-              )}
-              {i == 1 && (
-                <div className="col-auto xl:d-none">
-                  <div className="pt-30">
-                    <Image
-                      width={142}
-                      height={21}
-                      src="/assets/img/misc/lines/2.svg"
-                      alt="icon"
-                    />
-                  </div>
-                </div>
-              )}
-            </>
-          ))}
-        </div>
+            <div className="hidden md:flex">
+
+            {i == 0 && (
+              <div className="">
+                <Image
+                  width={142}
+                  height={21}
+                  src="/images/home/works/lines/1.svg"
+                  alt="icon"
+
+                />
+              </div>
+            )}
+            {i == 1 && (
+              <div className="">
+                <Image
+                  width={142}
+                  height={21}
+                  src="/images/home/works/lines/2.svg"
+                  alt="icon"
+                />
+              </div>
+            )}
+            </div>
+          </div>
+        ))}
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default HowItWorks
+export default HowItWorks;

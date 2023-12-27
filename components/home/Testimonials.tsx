@@ -1,66 +1,53 @@
-'use client'
-import React, { MutableRefObject } from 'react'
-import { Navigation, Pagination } from 'swiper'
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { testimonialsTwo } from '@/data/tesimonials'
-import { paginationImages } from '@/data/tesimonials'
-import { useRef, useEffect, useState } from 'react'
-import Image from 'next/image'
-import { Swiper as SwiperProp } from 'swiper/types'
+"use client";
+import React, { MutableRefObject } from "react";
+import { Navigation, Pagination } from "swiper";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { testimonialsTwo } from "@/data/tesimonials";
+import { paginationImages } from "@/data/tesimonials";
+import { useRef, useEffect, useState } from "react";
+import Image from "next/image";
+import { Swiper as SwiperProp } from "swiper/types";
 
 const Testimonials: React.FC<{ backgroundComponent?: boolean }> = ({
   backgroundComponent,
 }) => {
-  const swiperRef = useRef<SwiperProp>(null) as MutableRefObject<SwiperProp>
-  const [currentSlideIndex, setCurrentSlideIndex] = useState(0)
-  const [showSlider, setShowSlider] = useState(false)
+  const swiperRef = useRef<SwiperProp>(null) as MutableRefObject<SwiperProp>;
+  const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+  const [showSlider, setShowSlider] = useState(false);
 
   useEffect(() => {
-    setShowSlider(true)
+    setShowSlider(true);
     if (swiperRef.current) {
-      swiperRef.current.slideTo(0) // Set the initial slide to index 0
+      swiperRef.current.slideTo(0); // Set the initial slide to index 0
     }
-  }, [])
+  }, []);
 
   const handlePaginationClick = (index: number) => {
-    setCurrentSlideIndex(index)
+    setCurrentSlideIndex(index);
     if (swiperRef.current) {
-      swiperRef.current.slideTo(index)
+      swiperRef.current.slideTo(index);
     }
-  }
+  };
 
   const handleSlideChange = (swiper: SwiperProp) => {
-    setCurrentSlideIndex(swiper.activeIndex)
+    setCurrentSlideIndex(swiper.activeIndex);
 
     if (swiper.activeIndex >= 5) {
-      setCurrentSlideIndex(swiper.activeIndex - 5)
+      setCurrentSlideIndex(swiper.activeIndex - 5);
     }
-  }
+  };
 
   return (
-    <section className="layout-pt-lg layout-pb-lg section-bg">
-      <div
-        className={`section-bg__item  ${
-          backgroundComponent ? 'bg-white-two' : 'bg-light-6'
-        }`}
-      ></div>
+    <section className="flex justify-center relative z-10 mx-10 py-16">
 
-      <div className="container">
-        <div className="row y-gap-20 justify-center text-center">
-          <div className="col-auto">
-            <div className="sectionTitle ">
-              <h2 className="sectionTitle__title ">Testimonials</h2>
-
-              <p className="sectionTitle__text ">
-                10,000+ unique online course list designs
-              </p>
-            </div>
-          </div>
+      <div className="w-[99%] md:w-1/2 ">
+        <div className="text-center ">
+          <h2 className="text-[#321463] font-bold text-2xl">Testimonials</h2>
+          <p className="text-[#4F547B] text-sm">Hear directly from our students</p>
         </div>
 
-        <div className="row justify-center pt-60">
-          <div className="col-xl-6 col-lg-8 col-md-10">
-            <div className="overflow-hidden js-testimonials-slider">
+        <div className="mt-5">
+            <div className="overflow-hidden">
               {showSlider && (
                 <Swiper
                   className="overflow-visible"
@@ -71,34 +58,34 @@ const Testimonials: React.FC<{ backgroundComponent?: boolean }> = ({
                   speed={1000}
                   slidesPerView={1}
                   onSwiper={(swiper) => {
-                    swiperRef.current = swiper // Store the Swiper instance in the ref
+                    swiperRef.current = swiper; // Store the Swiper instance in the ref
                   }}
                   onSlideChange={handleSlideChange}
                 >
-                  {testimonialsTwo.map((elm, i) => (
-                    <SwiperSlide key={i} className="swiper-slide">
+                  {testimonialsTwo.map((elm, i: number) => (
+                    <SwiperSlide key={i} className="">
                       <div className="swiper-slide h-100">
                         <div
                           className="testimonials -type-2 text-center"
                           data-aos="fade-up"
                           data-aos-duration={600}
                         >
-                          <div className="testimonials__icon">
+                          <div className="flex md:justify-center">
                             <Image
-                              width={60}
-                              height={43}
-                              src="/assets/img/misc/quote.svg"
+                              width={40}
+                              height={35}
+                              src="/images/home/quotes.svg"
                               alt="quote"
                             />
                           </div>
-                          <div className="testimonials__text md:text-20 fw-500 text-dark-1">
+                          <div className="text-[#321463] font-medium md:px-10">
                             {elm.text}
                           </div>
-                          <div className="testimonials__author">
-                            <h5 className="text-17 lh-15 fw-500">
+                          <div className="mt-5">
+                            <h5 className="text-[#321463] font-medium text-md md:text-xs">
                               {elm.author}
                             </h5>
-                            <div className="mt-5">{elm.position}</div>
+                            <p className="text-[#4F547B] text-md md:text-xs">{elm.position}</p>
                           </div>
                         </div>
                       </div>
@@ -107,31 +94,28 @@ const Testimonials: React.FC<{ backgroundComponent?: boolean }> = ({
                 </Swiper>
               )}
 
-              <div className="pt-60 lg:pt-40">
-                <div className="pagination -avatars row x-gap-40 y-gap-20 justify-center js-testimonials-pagination">
-                  {paginationImages.map((elm, i) => (
+                <div className="flex justify-between flex-wrap gap-5 md:justify-center mt-5">
+                  {paginationImages.map((elm, i: number) => (
                     <div
                       key={i}
                       onClick={() => handlePaginationClick(i)}
-                      className="col-auto "
+                      className=" "
                     >
                       <div
                         className={`pagination__item ${
-                          currentSlideIndex == i ? 'is-active' : ''
+                          currentSlideIndex == i ? "is-active" : ""
                         }`}
                       >
-                        <Image width={70} height={70} src={elm} alt="image" />
+                        <Image width={40} height={40} className="rounded-full border w-16 h-16 md:w-12 md:h-12" src={elm} alt="image" />
                       </div>
                     </div>
                   ))}
                 </div>
-              </div>
             </div>
-          </div>
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default Testimonials
+export default Testimonials;

@@ -1,71 +1,42 @@
-import React from 'react'
-import { blogs } from '@/data/blog'
-import Image from 'next/image'
-import Link from 'next/link'
+import React from "react";
+import { blogs } from "@/data/blogs";
+import Link from "next/link";
+import Button from "@/components/ReusableComponents/Button";
+import { GoArrowUpRight } from "react-icons/go";
+import BlogCard from "../blog/BlogCard";
 
 const BlogList: React.FC = () => {
   return (
-    <section className="layout-pt-lg layout-pb-lg">
-      <div className="container">
-        <div className="row y-gap-20 justify-between items-center">
-          <div className="col-lg-6">
-            <div className="sectionTitle ">
-              <h2 className="sectionTitle__title ">Blog</h2>
-
-              <p className="sectionTitle__text ">
-                10,000+ unique online course list designs
-              </p>
-            </div>
-          </div>
-
-          <div className="col-auto">
-            <Link
-              href="/blog-list-1"
-              className="button -icon -purple-3 text-purple-1"
-            >
-              Browse Blog
-              <i className="icon-arrow-top-right text-13 ml-10"></i>
-            </Link>
-          </div>
+    <section className="my-16 flex flex-col items-center justify-center px-5 md:px-36">
+      <div className="md:flex justify-between items-center w-full">
+        <div className=" ">
+          <h2 className="text-[#321463] font-bold text-3xl md:text-2xl">
+            Blog
+          </h2>
+          <p className="text-[#4F547B] text-sm">
+            Browse through our recent blog posts
+          </p>
         </div>
 
-        <div className="row y-gap-30 pt-60">
-          {blogs.slice(0, 4).map((elm, i) => (
-            <div
-              key={i}
-              className="col-lg-3 col-md-6"
-              data-aos="fade-left"
-              data-aos-duration={(i + 1) * 500}
-            >
-              <div
-                className="blogCard -type-1"
-                data-aos="fade-left"
-                data-aos-duration={(i + 1) * 400}
-              >
-                <div className="blogCard__image">
-                  <Image
-                    width={550}
-                    height={465}
-                    src={elm.imageSrc}
-                    alt="image"
-                  />
-                </div>
-                <div className="blogCard__content mt-20">
-                  <div className="blogCard__category">{elm.category}</div>
-                  <h4 className="blogCard__title text-17 lh-15 mt-5">
-                    <Link className="linkCustom" href={`/blogs/${elm.id}`}>
-                      {elm.title}{' '}
-                    </Link>
-                  </h4>
-                  <div className="blogCard__date text-14 mt-5">{elm.date}</div>
-                </div>
-              </div>
-            </div>
-          ))}
+        <div className="mt-4 md:mt-0">
+          <Link
+            href="/blog"
+            className="font-medium text-sm text-center px-3 flex items-center rounded-md bg-[#6440FB12] text-[#1A064F]  hover:text-[#C5165D] border-2 border-transparent hover:border-[#C5165D] hover:bg-transparent w-fit"
+          >
+            <Button className=""> All Courses </Button>
+            <GoArrowUpRight className="md:-ml-4 text-lg font-bold" />
+            <i className="icon-arrow-top-right text-13 ml-10"></i>
+          </Link>
         </div>
       </div>
-    </section>
-  )
-}
 
-export default BlogList
+      <div className="flex flex-col md:flex-row gap-9 md:gap-4 mt-14">
+        {blogs.slice(0, 4).map((blog, i: number) => (
+          <BlogCard key={i} blog={blog} />
+        ))}
+      </div>
+    </section>
+  );
+};
+
+export default BlogList;
