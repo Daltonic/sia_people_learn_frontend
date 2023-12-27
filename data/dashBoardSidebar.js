@@ -7,7 +7,7 @@ export const sidebarItems = [
     },
     {
       id: 2,
-      href: "/dshb-courses",
+      href: "/(dashboard)/courses",
       iconClass: "/images/dashBoard/sideBarIcons/play-button.svg",
       text: "My Courses",
     },
