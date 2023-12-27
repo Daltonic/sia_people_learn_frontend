@@ -14,7 +14,7 @@ export const sidebarItems = [
   
     {
       id: 3,
-      href: "/(dashboard)/bookmarks",
+      href: "/(dashboard)/wishlist",
       iconClass: "/images/dashBoard/sideBarIcons/bookmark.svg",
       text: "Bookmarks",
     },

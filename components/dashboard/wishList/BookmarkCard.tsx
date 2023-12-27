@@ -1,8 +1,6 @@
-"use client";
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useState, useEffect } from "react";
 import { IoIosStar } from "react-icons/io";
 
 interface ComponentProps {
@@ -10,43 +8,48 @@ interface ComponentProps {
   index?: number;
 }
 
-const CourseCard
-: React.FC<ComponentProps> = ({ data, index }) => {
-  const [rating, setRating] = useState<string[]>([]);
-
-  useEffect(() => {
-    const newRating = Array(5).fill("star");
-    setRating(newRating);
-  }, [data.rating]);
-
+const BookmarkCard: React.FC<ComponentProps> = ({ data, index }) => {
   return (
-    <div className=" bg-white rounded-lg w-full md:w-56 border-[#EDEDED] border-1 p-2 shadow-[#EDEDED] shadow-xl" style={{ height: "fit-content" }}>
-      <div className="">
-        <div className="">
+    <div
+      className="w-full md:w-[48%] bg-white rounded-lg border-[#EDEDED] border p-2 pb-0 shadow-[#EDEDED] shadow-md"
+      style={{ height: "fit-content" }}
+    >
+      <div className="md:flex gap-4 relative">
+        <div className="md:w-1/2">
           <Image
-            width={500}
+            width={300}
             height={400}
-            style={{ height: "100%", width: "100%" }}
-            className="rounded-lg"
+            style={{ height: "90%", width: "100%" }}
+            className="rounded-lg object-cover"
             src={data.imageSrc}
             alt="image"
           />
         </div>
 
-        <div className="my-2 p-2">
+        <div className="my-2 p-2 space-y-3">
+          <div className="flex justify-between ">
           <div className="flex items-center md:md:text-xs gap-4">
             <div className="flex items-center gap-1">
               <p className="text-[#E59819]">{data.rating}</p>
               <div className="flex items-center">
-                {rating.map((itm, i: number) => (
+                {Array.from({ length: 5 }).map((_, i) => (
                   <div key={i} className="text-[#E59819]">
                     <IoIosStar />
                   </div>
                 ))}
               </div>
-            <p className="text-[#4F547B]">({data.ratingCount})</p>
-
             </div>
+            <p className="text-[#4F547B]">({data.ratingCount})</p>
+          </div>
+          <div className="bg-white p-3 rounded-full shadow-md absolute right-0 top-0">
+          <Image
+                width={0}
+                height={0}
+                src="/images/dashBoard/dashBoardMain/bookmark.svg"
+                alt="image"
+                className="object-cover rounded-full w-4 h-4 "
+              />
+          </div>
           </div>
 
           <div className="md:text-sm font-medium text-[#321463] mt-2">
@@ -54,7 +57,6 @@ const CourseCard
               {data.title}
             </Link>
           </div>
-
           <div className="flex justify-between items-center my-2 border-b border-[#EDEDED] pb-1">
             <div className="flex items-center">
               <div className="mr-2 md:mr-1">
@@ -105,18 +107,18 @@ const CourseCard
                 height={0}
                 src={data.authorImageSrc}
                 alt="image"
-                className="object-cover rounded-full w-10 h-10"
+                className="object-cover rounded-full w-8 h-8"
               />
               <p className="md:text-xs text-[#4F547B]">{data.authorName}</p>
             </div>
 
             <div className="">
               {data.paid ? (
-                <div className="flex items-center gap-1">
+                <div className="flex items-center gap-1 font-medium">
                   <p className="md:text-xs text-[#4F547B] line-through">
                     ${data.originalPrice}
                   </p>
-                  <p className="text-lg md:text-sm  text-[#321463]">
+                  <p className="text-lg md:text-sm text-[#321463]">
                     ${data.discountedPrice}
                   </p>
                 </div>
@@ -134,5 +136,4 @@ const CourseCard
   );
 };
 
-export default CourseCard
-;
+export default BookmarkCard;

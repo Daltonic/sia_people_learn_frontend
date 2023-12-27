@@ -1,22 +1,20 @@
 import DashBoardHeader from "@/components/dashboard/dashboardLayout/DashBoardHeader";
 import DashBoardSidebar from "@/components/dashboard/dashboardLayout/DashBoardSidebar";
-import React, { useState } from "react";
-import MyCourses from "@/components/dashboard/courses/MyCourses";
+import React from "react";
+import Bookmarks from "@/components/dashboard/wishList/Bookmarks";
 
-const Courses: React.FC = () => {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-
+const WishList: React.FC = () => {
   return (
     <div className="bg-white">
       <DashBoardHeader />
       <div className="flex justify-between md:pr-5">
-        <DashBoardSidebar isOpen={sidebarOpen}   />
+        <DashBoardSidebar />
         <main className="flex-1 bg-[#F7F8FB] p-5 md:px-10 md:py-16 md:rounded-xl">
-          <MyCourses/>
+          <Bookmarks/>
         </main>
       </div>
     </div>
   );
 };
 
-export default Courses;
+export default WishList;

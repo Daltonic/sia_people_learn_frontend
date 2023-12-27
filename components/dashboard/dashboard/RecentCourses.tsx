@@ -47,8 +47,8 @@ const RecentCourses: React.FC<Props> = ({ resentCourses }) => {
                 </div>
                 <div className="ml-3 w-full">
                   <h4 className="font-semibold text-[#321463]">{elm.title}</h4>
-                  <div className="flex items-center space-x-5 mt-2">
-                    <div className="flex items-center">
+                  <div className="flex gap-1 justify-between md:gap-0 md:justify-start items-center md:space-x-5 mt-2 flex-wrap md:flex-nowrap">
+                    <div className="flex items-center w-full md:w-fit">
                       <Image
                         width={24}
                         height={20}

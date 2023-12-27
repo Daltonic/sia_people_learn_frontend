@@ -10,7 +10,7 @@ const Traffic: React.FC = () => {
  };
 
  return (
-  <div className="w-1/3">
+  <div className="w-full md:w-1/3">
     <div className="rounded-lg bg-white shadow-lg h-full">
       <div className="flex justify-between items-center py-5 px-7 border-b border-gray-200">
         <h2 className="font-semibold">Traffic</h2>

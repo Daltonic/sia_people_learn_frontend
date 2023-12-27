@@ -9,7 +9,7 @@ const Statistics: React.FC = () => {
  };
 
  return (
-   <div className="w-3/5">
+   <div className="w-full md:w-3/5">
        <div className="rounded-lg bg-white shadow-lg h-full">
          <div className="flex justify-between items-center py-5 px-7 border-b border-gray-200">
            <h2 className="text-sm font-semibold">Earning Statistics</h2>

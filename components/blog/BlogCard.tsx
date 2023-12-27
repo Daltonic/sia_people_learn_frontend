@@ -15,13 +15,13 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog, i}) => {
       data-aos="fade-left"
       data-aos-duration={(i + 1) * 500}
     >
-        <div className="w-full">
+        <div className="w-full ">
           <Image
-            width={550}
-            height={465}
+            width={0}
+            height={0}
             src={blog.imageSrc}
             alt="image"
-            className="rounded:lg"
+            className="rounded:lg w-full h-full object-cover"
           />
         </div>
         <div className="mt-3 pr-2">

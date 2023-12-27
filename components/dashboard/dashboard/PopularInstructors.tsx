@@ -19,8 +19,8 @@ const PopularInstructors: React.FC<Props> = ({ teamMembers }) => {
   return (
     <div className="w-full">
       <div className="rounded-lg bg-white shadow-lg  px-3 py-6">
-        <div className="flex justify-between items-center border-b border-gray-200">
-          <h2 className="font-semibold">Popular Instructor</h2>
+        <div className="flex justify-between items-center border-b border-gray-200 pb-3">
+          <h2 className="font-semibold text-[#321463] text-lg">Popular Instructor</h2>
           <Link
             href="/instructors-list-2"
             className="text-sm text-purple-500 underline"
@@ -39,13 +39,13 @@ const PopularInstructors: React.FC<Props> = ({ teamMembers }) => {
                   <Image
                     width={40}
                     height={40}
-                    className="object-cover"
+                    className="object-cover rounded-full"
                     src={elm.image}
                     alt="image"
                   />
                 </div>
                 <div className="ml-2 w-full ">
-                  <h4 className="font-semibold">
+                  <h4 className="font-semibold text-[#321463]">
                     <Link href={`/instructors/${elm.id}`}>{elm.name}</Link>
                   </h4>
                   <div className="flex items-center space-x-5 mt-2 text-[#4F547B]">

@@ -30,7 +30,7 @@ const BlogList: React.FC = () => {
         </div>
       </div>
 
-      <div className="flex flex-col md:flex-row gap-8  md:gap-10 lg:gap-16 mt-16">
+      <div className="flex flex-col md:flex-row gap-8 md:gap-10 lg:gap-16 mt-16">
         {blogs.slice(0, 4).map((blog, i: number) => (
           <BlogCard key={i} blog={blog} />
         ))}

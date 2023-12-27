@@ -11,7 +11,7 @@ const Tabs: React.FC = () => {
   };
 
   return (
-    <div className="bg-white p-5 rounded-lg">
+    <div className="bg-white p-5 rounded-xl">
       <div className="px-5 md:px-0">
         <div className="flex space-x-5 border-b">
           <button

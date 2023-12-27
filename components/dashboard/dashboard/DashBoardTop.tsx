@@ -16,24 +16,24 @@ const DashBoardTop: React.FC<Props> = ({ states }) => {
   return (
     <div>
       <div className="mb-16">
-        <h1 className="font-bold text-[#321463] md:text-3xl">Dashboard</h1>
+        <h1 className="font-bold text-[#321463] text-3xl">Dashboard</h1>
         <p className="text-[#4F547B] text-lg">
           Lorem ipsum dolor sit amet, consectetur.
         </p>
       </div>
-      <div className="flex justify-between">
+      <div className="flex flex-col md:flex-row justify-between gap-5 md:gap-0">
         {states.map((elm, i) => (
           <div>
             <div
               key={i}
-              className="flex justify-between items-center py-10 px-4  rounded-lg bg-white shadow-lg w-56"
+              className="flex justify-between items-center md:py-10 p-8 md:px-4  rounded-lg bg-white shadow-lg w-full md:w-56"
             >
               <div className="space-y-2">
-                <h1 className="font-medium text-[#4F547B] text-sm">{elm.title}</h1>
-                <p className="text-xl text-[#321463] font-bold">
+                <h1 className="font-medium text-[#4F547B] md:text-sm">{elm.title}</h1>
+                <p className="text-2xl md:text-xl text-[#321463] font-bold">
                   ${elm.value}
                 </p>
-                <p className="text-sm text-[#4F547B]" >
+                <p className="md:text-sm text-[#4F547B]" >
                   <span className="text-[#C5165D]">${elm.new}</span> New Sales
                 </p>
               </div>
