@@ -29,7 +29,7 @@
     "react-leaflet": "^4.2.1",
     "react-modal-video": "^2.0.1",
     "react-particles": "^2.10.1",
-    "recharts": "^2.7.2",
+    "recharts": "^2.10.3",
     "sass": "^1.63.4",
     "sharp": "^0.32.4",
     "svg": "^0.1.0",

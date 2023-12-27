@@ -14,40 +14,40 @@ export const sidebarItems = [
   
     {
       id: 3,
-      href: "/dshb-bookmarks",
+      href: "/(dashboard)/bookmarks",
       iconClass: "/images/dashBoard/sideBarIcons/bookmark.svg",
       text: "Bookmarks",
     },
     {
       id: 4,
-      href: "/dshb-messages",
+      href: "/(dashboard)/messages",
       iconClass: "/images/dashBoard/sideBarIcons/message.svg",
       text: "Messages",
     },
     {
       id: 5,
-      href: "/dshb-listing",
+      href: "/(dashboard)/listing",
       iconClass: "/images/dashBoard/sideBarIcons/list.svg",
       text: "Create Course",
     },
     {
       id: 6,
-      href: "/dshb-reviews",
+      href: "/(dashboard)/reviews",
       iconClass: "/images/dashBoard/sideBarIcons/comment.svg",
       text: "Reviews",
     },
     {
       id: 7,
-      href: "/dshb-settings",
+      href: "/(dashboard)/settings",
       iconClass: "/images/dashBoard/sideBarIcons/setting.svg",
       text: "Settings",
     },
   
     {
       id: 8,
-      href: "/dshb-settings",
+      href: "/(dashboard)/Logout",
       iconClass: "/images/dashBoard/sideBarIcons/power.svg",
-      text: "Settings",
+      text: "Logout",
     },
   
    

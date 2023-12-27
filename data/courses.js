@@ -224,7 +224,7 @@ export const coursesData = [
   export const resentCourses = [
     {
       id: 1,
-      imageSrc: "/images/dashboard/recent-courses/1.png",
+      imageSrc: "/images/courseCard/card1.svg",
       title: "Complete Python Bootcamp From Zero to Hero in Python",
       author: "Ali Tufan",
       authorImg: `/images/instructors/instructor1.svg`,
@@ -233,7 +233,7 @@ export const coursesData = [
     },
     {
       id: 2,
-      imageSrc: "/images/dashboard/recent-courses/2.png",
+      imageSrc: "/images/courseCard/card4.svg",
       title: "The Ultimate Drawing Course Beginner to Advanced",
       author: "Ali Tufan",
       authorImg: `/images/instructors/instructor1.svg`,
@@ -242,7 +242,7 @@ export const coursesData = [
     },
     {
       id: 3,
-      imageSrc: "/images/dashboard/recent-courses/3.png",
+      imageSrc: "/images/courseCard/card3.svg",
       title: "Instagram Marketing 2021: Complete Guide To Instagram Growth",
       author: "Ali Tufan",
       authorImg: `/images/instructors/instructor1.svg`,
