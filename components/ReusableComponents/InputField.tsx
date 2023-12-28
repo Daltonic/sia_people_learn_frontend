@@ -6,9 +6,10 @@ interface InputFieldProps {
  placeholder: string;
  required: boolean;
  inputType?: string;
+ style?: React.CSSProperties;
 }
 
-const InputField: React.FC<InputFieldProps> = ({ label, name, placeholder, required, inputType = 'text'}) => (
+const InputField: React.FC<InputFieldProps> = ({ label, name, placeholder, required, inputType = 'text',  style }) => (
  <div className="flex flex-col w-full my-4">
    <label className="text-violet-950 font-medium">{label}</label>
    <input
@@ -17,6 +18,7 @@ const InputField: React.FC<InputFieldProps> = ({ label, name, placeholder, requi
     type={inputType}
     name={name}
     placeholder={placeholder}
+    style={style}
   />
  </div>
 );

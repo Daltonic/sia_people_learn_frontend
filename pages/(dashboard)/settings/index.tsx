@@ -1,12 +1,12 @@
-import MyCourses from "@/components/dashboard/courses/MyCourses";
 import DashboardLayout from "@/components/dashboard/dashboardLayout/DashboardLayout";
+import MySettings from "@/components/dashboard/settings/MySettings";
 
-const App: React.FC = () => {
+const Settings: React.FC = () => {
  return (
    <DashboardLayout>
-     <MyCourses />
+    <MySettings/>
    </DashboardLayout>
  );
 };
 
-export default App;
+export default Settings;

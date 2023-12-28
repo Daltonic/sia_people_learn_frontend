@@ -26,7 +26,7 @@ export const sidebarItems = [
     },
     {
       id: 5,
-      href: "/(dashboard)/listing",
+      href: "/(dashboard)/createCourse",
       iconClass: "/images/dashBoard/sideBarIcons/list.svg",
       text: "Create Course",
     },
