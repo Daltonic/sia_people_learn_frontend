@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import DashBoardHeader from "@/components/dashboard/dashboardLayout/DashBoardHeader";
 import DashBoardSidebar from "@/components/dashboard/dashboardLayout/DashBoardSidebar";
+import DashBoardFooter from "./DashBoardFooter";
 
 interface DashboardLayoutProps {
     children: React.ReactNode;
@@ -18,6 +19,7 @@ interface DashboardLayoutProps {
          {children}
        </main>
      </div>
+     <DashBoardFooter/>
    </div>
  );
 };

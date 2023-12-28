@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { footerData1, footerData2, footerData3 } from "@/data/footer";
-import Socials from "./Socials";
+import SocialMediaIcons from "@/components/ReusableComponents/SocialMediaIcons";
 
 const Footer: React.FC = () => {
   return (
@@ -21,23 +21,43 @@ const Footer: React.FC = () => {
                   alt="logo"
                 />
               </Link>
-              <p className="text-[#321463] font-semibold text-lg md:text-md md:font-medium">Dapp Mentors</p>
+              <p className="text-[#321463] font-semibold text-lg md:text-md md:font-medium">
+                Dapp Mentors
+              </p>
             </div>
-            <p className="text-[#4F547B] md:text-xs mt-2 md:mt-0">
-              Connect with us through  the <br /> followings.
+            <p className="text-[#4F547B] md:text-sm mt-2">
+              Connect with us through the <br /> followings.
             </p>
-            <div className="flex items-center">
-                <Socials
-                  componentsClass={
-                    'flex justify-center items-center '
-                  }
-                />
-              </div>
+            <SocialMediaIcons />
           </div>
           <div>
-            <h1 className="text-[#321463] text-lg font-semibold md:text-sm mb-3 md:mb-4 md:font-medium">ABOUT</h1>
-            <p className="text-[#4F547B] text-sm md:text-xs mb-2">About Us</p>
-            <p className="text-[#4F547B] text-sm md:text-xs">Contact Us</p>
+            <h1 className="text-[#321463] text-lg font-semibold md:text-sm mb-3 md:mb-4 md:font-medium">
+              ABOUT
+            </h1>
+            <div className="space-y-2 text-[#4F547B] text-sm ">
+              <p className="hover:text-[#C5165D]">
+                <Link href="/about">About Us</Link>
+              </p>
+              <p className="hover:text-[#C5165D]">
+                <Link href="contact">Contact Us</Link>
+              </p>
+            </div>
+          </div>
+          <div>
+            <h1 className="text-[#321463] text-lg font-semibold md:text-sm mb-3 md:mb-4 md:font-medium">
+              OTHER
+            </h1>
+            <div className="space-y-2 text-[#4F547B] text-sm ">
+              <p className="hover:text-[#C5165D]">
+                <Link href="/pricing">Pricing</Link>
+              </p>
+              <p className="hover:text-[#C5165D]">
+                <Link href="helpCenter">Help Center</Link>
+              </p>
+              <p className="hover:text-[#C5165D]">
+                <Link href="terms">Terms</Link>
+              </p>
+            </div>
           </div>
           <div>
             <h1 className="text-[#321463] text-lg font-semibold md:text-sm mb-3 md:mb-4 md:font-medium">
@@ -53,7 +73,7 @@ const Footer: React.FC = () => {
                     alt="Academy"
                     className="w-6 md:w-4"
                   />
-                  <p className="text-[#4F547B] md:text-xs"> {elm.title}</p>
+                  <p className="text-[#4F547B] md:text-sm"> {elm.title}</p>
                 </div>
               </div>
             ))}
@@ -68,14 +88,14 @@ const Footer: React.FC = () => {
                   alt="Academy"
                   className="w-6 md:w-4"
                 />
-                <p className="text-[#4F547B] md:text-xs"> {elm.title}</p>
+                <p className="text-[#4F547B] md:text-sm"> {elm.title}</p>
               </div>
             ))}
           </div>
           <div>
             <h1 className="text-[#321463] text-lg font-semibold md:text-sm mb-3 md:mb-4 md:font-medium">
               {" "}
-              OTHER RESOURCES
+              RESOURCES
             </h1>
             {footerData3.map((elm, i: number) => (
               <div key={i}>
@@ -87,15 +107,17 @@ const Footer: React.FC = () => {
                     alt="Academy"
                     className="w-6 md:w-4"
                   />
-                  <p className="text-[#4F547B] md:text-xs"> {elm.title}</p>
+                  <p className="text-[#4F547B] md:text-sm"> {elm.title}</p>
                 </div>
               </div>
             ))}
           </div>
         </section>
-       
       </div>
-      <p className="text-[#4F547B] text-xs pl-28 mt-8">© 2023 Dapp Mentors. All Right Reserved.</p>
+      <div className="pl-28 flex justify-between text-sm text-[#4F547B] px-10 mt-8">
+        <p>© 2023 Dapp Mentors. All Right Reserved.</p>
+        <p>Supported by a Sia Foundation grant.</p>
+      </div>
     </div>
   );
 };
