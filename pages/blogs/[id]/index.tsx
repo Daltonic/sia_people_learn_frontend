@@ -18,6 +18,7 @@ import { requirements } from "@/data/aboutcourses";
 import BlogDetail from "@/components/blogDetail/BlogDetail";
 import ReviewSection from "@/components/blogDetail/ReviewSection";
 import ReviewForm from "@/components/blogDetail/ReviewForm";
+import RelatedPosts from "@/components/blogDetail/RelatedPosts";
 
 const Page: NextPage<{ blogData: BlogStruct }> = ({ blogData }) => {
   return (
@@ -191,7 +192,7 @@ const Page: NextPage<{ blogData: BlogStruct }> = ({ blogData }) => {
           </div>
         </section>
       </div>
-      {/* <RelatedPosts/> */}
+      <RelatedPosts/>
     </Layout>
   );
 };

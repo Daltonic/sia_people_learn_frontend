@@ -12,14 +12,14 @@ const Page: React.FC = () => {
             Instructors
           </h1>
           <p className="text-slate-600 text-center text-md mt-3 capitalize w-full">
-            We're on a mission to deliver engaging, curated courses at a
+            We are on a mission to deliver engaging, curated courses at a
             reasonable price.
           </p>
         </div>
         <div className="flex flex-col md:flex-row items-center justify-between flex-wrap mt-10">
           {teamMembers.slice(0, 12).map((data, i: number) => (
-            <Link className="linkCustom w-full md:w-fit" href={`/instructors/${data.id}`}>
-              <InstructorCard data={data} key={i} />
+            <Link key={i} className="linkCustom w-full md:w-fit" href={`/instructors/${data.id}`}>
+              <InstructorCard data={data} />
             </Link>
           ))}
         </div>

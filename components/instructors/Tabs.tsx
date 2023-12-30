@@ -50,7 +50,7 @@ const Tabs: React.FC = () => {
                 at tempor justo sodales. Quisque tincidunt laoreet malesuada.
                 Cum sociis natoque penatibus et magnis dis parturient montes,
                 nascetur. This course is aimed at people interested in UI/UX
-                Design. We'll start from the very beginning and work all the way
+                Design. We will start from the very beginning and work all the way
                 through, step by step. If you already have some UI/UX Design
                 experience but want to get up to speed using Adobe XD then this
                 course is perfect for you too! First, we will go over the

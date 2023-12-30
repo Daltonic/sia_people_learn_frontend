@@ -16,13 +16,13 @@ const AllReviews: React.FC = () => {
         </h1>
         <div className="p-5">
           {" "}
-          {[...Array(5)].map(() => (
-            <ReviewSection />
+          {[...Array(5)].map((_, i) => (
+            <ReviewSection key={i} />
           ))}
         </div>
         <div className="text-center pb-5">
-        <p className="underline text-[#C5165D] text-sm">View All Reviews</p>
-      </div>
+          <p className="underline text-[#C5165D] text-sm">View All Reviews</p>
+        </div>
       </div>
     </div>
   );

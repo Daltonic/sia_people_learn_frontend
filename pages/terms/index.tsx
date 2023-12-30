@@ -11,7 +11,7 @@ const Page: NextPage = () => {
           Terms & Conditions
         </h1>
         <p className="text-slate-600 text-md mt-3 capitalize">
-          We're on a mission to deliver engaging, curated courses at a
+          We are on a mission to deliver engaging, curated courses at a
           reasonable price.
         </p>
       </div>
@@ -32,7 +32,7 @@ const Page: NextPage = () => {
           <h1 className="text-[#321463] font-medium text-xl md:text-lg mb-2"> Using our services</h1>
           <p className="text-[#4F547B] text-lg md:text-base">
             You must follow any policies made available to you within the
-            Services. Don't misuse our Services. For example, don't interfere
+            Services. Do not misuse our Services. For example, do not interfere
             with our Services or try to access them using a method other than
             the interface and the instructions that we provide. You may use our
             Services only as permitted by law, including applicable export and
@@ -44,7 +44,7 @@ const Page: NextPage = () => {
             content from our Services unless you obtain permission from its
             owner or are otherwise permitted by law. These terms do not grant
             you the right to use any branding or logos used in our Services.
-            Don't remove, obscure, or alter any legal notices displayed in or
+            Do not remove, obscure, or alter any legal notices displayed in or
             along with our Services.
           </p>
         </div>
