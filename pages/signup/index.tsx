@@ -1,45 +1,21 @@
 "use client";
+import { NextPage } from "next";
 import Button from "@/components/ReusableComponents/Button";
 import InputField from "@/components/ReusableComponents/InputField";
-import AuthNavbar from "@/components/layout/headers/AuthNavbar";
-import { NextPage } from "next";
-import Image from "next/image";
+import AuthLayout from "@/components/layout/AuthLayout/AuthenticationLayout";
 import Link from "next/link";
 
-const Page: NextPage = () => {
+const LoginPage: NextPage = () => {
   return (
-    <div className="md:flex md:h-screen">
-      <div className="bg-[#321463] h-[30vh] md:h-full w-full md:w-1/3 py-5 px-10 flex flex-col">
-        <Link href="/">
-          <div className="hidden md:flex items-center gap-2 cursor-pointer">
-            <Image
-              width={35}
-              height={35}
-              src="/images/logoImg.svg"
-              alt="logo"
-            />
-            <p className="text-white text-md">Dapp Mentors</p>
-          </div>
-        </Link>
-        <div className="flex justify-center items-center flex-1 border">
-          <Image
-            width={400}
-            height={400}
-            src="/images/login/images-bg.svg"
-            alt=""
-          />
-        </div>
-      </div>
-      <div className="flex-1 bg-[#F9F9F9] overflow-scroll">
-        <AuthNavbar />
-        <div className="flex justify-center items-center w-full h-full">
+    <AuthLayout>
+         <div className="flex justify-center items-center w-full h-full md:mt-16">
           <form
             action=""
             className="bg-white p-5 md:p-10 w-full md:w-4/5 rounded-md "
             // onSubmit={handleSubmit}
           >
             <h3 className="font-medium text-3xl text-[#321463]">Sign Up</h3>
-            <p className="text-sm text-[#4F547B] mt-1">
+            <p className="md:text-sm text-[#4F547B] mt-1">
               Already have an account?
               <Link href="/login" className="text-[#C5165D] ml-2">
                 Log in
@@ -83,12 +59,12 @@ const Page: NextPage = () => {
             <div className="md:flex justify-between">
               <div className="flex gap-2">
                 <input type="checkbox" name="" id="" />
-                <p className="text-sm text-[#4F547B]">
+                <p className="md:text-sm text-[#4F547B]">
                   Accept the Terms and Privacy Policy
                 </p>
               </div>
               <div>
-                <p className="text-sm text-[#C5165D] underline">
+                <p className="md:text-sm text-[#C5165D] underline">
                   Forgot your password?{" "}
                 </p>
               </div>
@@ -102,9 +78,8 @@ const Page: NextPage = () => {
             </Button>
           </form>
         </div>
-      </div>
-    </div>
+    </AuthLayout>
   );
 };
 
-export default Page;
+export default LoginPage;

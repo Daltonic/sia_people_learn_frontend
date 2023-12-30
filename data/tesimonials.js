@@ -1,7 +1,7 @@
 export const testimonials = [
     {
       id: 0,
-      imageSrc: "/images/logoImg.svg",
+      imageSrc: "images/testimonials/testimonial1.svg",
       name: "Courtney Henry",
       position: "Web Designer",
       comment: "Great Work",
@@ -12,7 +12,7 @@ export const testimonials = [
     },
     {
       id: 1,
-      imageSrc: "/assets/img/testimonials/2.png",
+      imageSrc: "images/testimonials/testimonial2.svg",
       name: "Ronald Richards",
       position: "Software Developer",
       comment: "Great Work",
@@ -23,7 +23,7 @@ export const testimonials = [
     },
     {
       id: 2,
-      imageSrc: "/assets/img/testimonials/3.png",
+      imageSrc: "images/testimonials/testimonial3.svg",
       name: "Annette Black",
       position: "Software Developer",
       comment: "Great Work",
@@ -34,7 +34,7 @@ export const testimonials = [
     },
     {
       id: 3,
-      imageSrc: "/assets/img/testimonials/4.png",
+      imageSrc: "images/testimonials/testimonial7.svg",
       name: "Courtney Henry",
       position: "Web Designer",
       comment: "Great Work",
@@ -50,7 +50,7 @@ export const testimonials = [
       id: 1,
       author: "John Doe",
       position: "Product Manager, Apple Inc",
-      text: "It is no exaggeration to say this Educrat experience was transformative–both professionally and personally. This workshop will long remain a high point of my life.",
+      text: "It is no exaggeration to say this Educrat experience was transformative both professionally and personally. This workshop will long remain a high point of my life.",
     },
     {
       id: 2,
@@ -80,11 +80,12 @@ export const testimonials = [
   ];
   
   export const paginationImages = [
-    "/images/home/testimonials/1.png",
-    "/images/home/testimonials/2.png",
-    "/images/home/testimonials/3.png",
-    "/images/home/testimonials/4.png",
-    "/images/home/testimonials/5.png",
+    "images/testimonials/testimonial1.svg",
+    "images/testimonials/testimonial2.svg",
+    "images/testimonials/testimonial3.svg",
+    "images/testimonials/testimonial7.svg",
+    "images/testimonials/testimonial5.svg",
+    "images/testimonials/testimonial6.svg",
   ];
   
   export const testimonialsTwoFour = [

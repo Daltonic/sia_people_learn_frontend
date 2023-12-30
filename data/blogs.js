@@ -1,7 +1,7 @@
 export const blogs = [
   {
     id: 1,
-    imageSrc: "/images/blog-list/1.png",
+    imageSrc: "/images/blog-list/1.svg",
     category: "Writing",
     title: "Eco-Education in Our Lives: We Can Change the Future",
     date: "January 5, 2023",
@@ -9,7 +9,7 @@ export const blogs = [
   },
   {
     id: 2,
-    imageSrc: "/images/blog-list/2.png",
+    imageSrc: "/images/blog-list/2.svg",
     category: "EDUCATION",
     title: "Engendering a culture of professional development",
     date: "February 18, 2023",
@@ -17,7 +17,7 @@ export const blogs = [
   },
   {
     id: 3,
-    imageSrc: "/images/blog-list/3.png",
+    imageSrc: "/images/blog-list/3.svg",
     category: "Business",
     title: "Increasing engagement with Instagram",
     date: "March 27, 2023",
@@ -25,7 +25,7 @@ export const blogs = [
   },
   {
     id: 4,
-    imageSrc: "/images/blog-list/4.png",
+    imageSrc: "/images/blog-list/4.svg",
     category: "Business",
     title: "How to design a simple, yet unique and memorable brand identity",
     date: "April 14, 2023",
@@ -33,7 +33,7 @@ export const blogs = [
   },
   {
     id: 5,
-    imageSrc: "/images/blog-list/5.png",
+    imageSrc: "/images/blog-list/1.svg",
     category: "Photo & Film",
     title: "5 marketing trends that you should be prepared for in 2022",
     date: "May 22, 2023",
@@ -41,7 +41,7 @@ export const blogs = [
   },
   {
     id: 6,
-    imageSrc: "/images/blog-list/6.png",
+    imageSrc: "/images/blog-list/2.svg",
     category: "Lifestyle",
     title: "8 great design trends that are making a come-back in 2021",
     date: "June 8, 2023",
@@ -49,7 +49,7 @@ export const blogs = [
   },
   {
     id: 7,
-    imageSrc: "/images/blog-list/7.png",
+    imageSrc: "/images/blog-list/3.svg",
     category: "Illustration",
     title:
       "How to be more creative: 5 cool tips to find inspiration everywhere",
@@ -58,7 +58,7 @@ export const blogs = [
   },
   {
     id: 8,
-    imageSrc: "/images/blog-list/8.png",
+    imageSrc: "/images/blog-list/4.svg",
     category: "Design",
     title:
       "8 interesting programming languages you should be paying attention to",
@@ -67,7 +67,7 @@ export const blogs = [
   },
   {
     id: 9,
-    imageSrc: "/images/blog-list/9.png",
+    imageSrc: "/images/blog-list/5.svg",
     category: "Animation",
     title: "19 ways to optimize your ad marketing budget efficiently",
     date: "September 12, 2023",

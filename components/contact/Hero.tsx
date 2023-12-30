@@ -12,8 +12,8 @@ const Hero: React.FC = () => {
         </p>
       </div>
       <div className="bg-white p-8 md:rounded-md w-full md:w-1/2 border mt-5 z-10 h-fit shadow-xl shadow-[#EDEDED]">
-        <h1 className="text-[#321463] font-medium text-lg">Send a Message</h1>
-        <p className="text-[#4F547B] text-sm mb-6">
+        <h1 className="text-[#321463] font-medium text-xl md:text-lg">Send a Message</h1>
+        <p className="text-[#4F547B] md:text-sm mb-6">
           Neque convallis a cras semper auctor. Libero id faucibus nisl
           tincidunt egetnvallis.
         </p>

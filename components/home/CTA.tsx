@@ -4,7 +4,7 @@ import Button from '../ReusableComponents/Button'
 const CTA: React.FC = () => {
   return (
     <div className="bg-black px-5 md:px-10 py-16 flex md:justify-center">
-      <div className="flex justify-between md:w-4/5 items-center">
+      <div className="flex flex-col md:flex-row gap-5 md:gap-0 justify-between md:w-4/5 md:items-center">
         <div className="font-medium">
           <h4 className="text-white text-2xl">
             Become a part of the global learning community at

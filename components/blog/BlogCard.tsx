@@ -11,32 +11,30 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog, i}) => {
   return (
     <div
       key={i}
-      className=""
+      className="w-full md:w-64"
       data-aos="fade-left"
       data-aos-duration={(i + 1) * 500}
     >
-      <div className="" data-aos="fade-left" data-aos-duration={(i + 1) * 400}>
-        <div className="w-full md:w-64">
+        <div className="w-full ">
           <Image
-            width={550}
-            height={465}
+            width={0}
+            height={0}
             src={blog.imageSrc}
             alt="image"
-            className="rounded;md"
+            className="rounded:lg w-full h-full object-cover"
           />
         </div>
         <div className="mt-3 pr-2">
-          <h1 className="text-[#C5165D] text-sm uppercase">
+          <h1 className="text-[#C5165D] text-sm uppercase font-medium">
             {blog.category.toUpperCase()}
           </h1>
-          <h4 className="text-[#321463] font-bold md:text-sm">
+          <h4 className="text-[#321463] font-medium md:text-sm">
             <Link className="linkCustom" href={`/blogs/${blog.id}`}>
               {blog.title}
             </Link>
           </h4>
           <p className="mt-1 text-[#4F547B] text-sm md:text-xs">{blog.date}</p>
         </div>
-      </div>
     </div>
   );
 };

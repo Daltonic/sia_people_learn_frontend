@@ -26,8 +26,8 @@ const LearningJourneyItem: React.FC<LearningJourneyItemProps> = ({ item }) => {
          />
        </div>
        <div className="mt-5">
-         <h5 className="text-violet-950 text-lg font-medium">{item.title}</h5>
-         <p className="text-slate-600 text-sm mt-2">{item.text}</p>
+         <h5 className="text-violet-950 text-xl md:text-lg font-medium">{item.title}</h5>
+         <p className="text-slate-600 md:text-sm mt-2">{item.text}</p>
        </div>
      </div>
    </div>

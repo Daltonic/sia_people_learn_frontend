@@ -5,7 +5,7 @@ import { FaCheck } from "react-icons/fa";
 import Link from "next/link";
 
 const LearnNewSkill: React.FC = ({}) => {
-  const backgroundImageUrl = "/images/bitcoin.svg";
+  const backgroundImageUrl = "/images/instructors/instructor1.svg";
 
   const divStyle = {
     backgroundImage: `url(${backgroundImageUrl})`,
@@ -63,7 +63,7 @@ const LearnNewSkill: React.FC = ({}) => {
       </div>
       <div className="flex flex-col md:flex-row md:items-center justify-between md:w-3/4 md:mt-16">
         <Image
-          src="/images/bitcoin.svg"
+          src="/images/instructors/instructor3.svg"
           alt=""
           width={0}
           height={0}
@@ -101,7 +101,7 @@ const LearnNewSkill: React.FC = ({}) => {
           </Button>
         </div>
         <Image
-          src="/images/bitcoin.svg"
+          src="/images/instructors/instructor4.svg"
           alt=""
           width={0}
           height={0}

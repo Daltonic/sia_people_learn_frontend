@@ -20,14 +20,14 @@ const CourseCard
   }, [data.rating]);
 
   return (
-    <div className=" bg-white rounded-md w-full md:w-56 border-[#EDEDED] border-2 shadow-[#EDEDED] shadow-xl" style={{ height: "fit-content" }}>
+    <div className=" bg-white rounded-lg w-full md:w-56 border-[#EDEDED] border-1 p-2 shadow-[#EDEDED] shadow-xl" style={{ height: "fit-content" }}>
       <div className="">
         <div className="">
           <Image
             width={500}
-            height={500}
+            height={400}
             style={{ height: "100%", width: "100%" }}
-            className=""
+            className="rounded-lg"
             src={data.imageSrc}
             alt="image"
           />
@@ -44,11 +44,12 @@ const CourseCard
                   </div>
                 ))}
               </div>
+            <p className="text-[#4F547B]">({data.ratingCount})</p>
+
             </div>
-            <div className="text-[#4F547B]">({data.ratingCount})</div>
           </div>
 
-          <div className="md:md:text-xs font-medium text-[#321463] mt-2">
+          <div className="md:text-sm font-medium text-[#321463] mt-2">
             <Link className="linkCustom" href={`/courses/${data.id}`}>
               {data.title}
             </Link>
@@ -97,7 +98,7 @@ const CourseCard
             </div>
           </div>
 
-          <div className="flex justify-between items-center bottom-0">
+          <div className="flex justify-between items-center bottom-0 mb-0">
             <div className="flex items-center gap-2">
               <Image
                 width={0}
@@ -109,7 +110,7 @@ const CourseCard
               <p className="md:text-xs text-[#4F547B]">{data.authorName}</p>
             </div>
 
-            <div className="coursesCard-footer__price">
+            <div className="">
               {data.paid ? (
                 <div className="flex items-center gap-1">
                   <p className="md:text-xs text-[#4F547B] line-through">

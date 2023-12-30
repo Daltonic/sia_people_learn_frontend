@@ -23,7 +23,7 @@ const BlogDetail: React.FC<ComponentProps> = ({ blogData }) => {
              {blogData.title.split(" ").slice(4, -1).join(" ")}
            </h1>
 
-           <p className="text-xs text-[#4F547B] mt-3">{blogData.date}</p>
+           <p className="md:text-xs text-[#4F547B] mt-3">{blogData.date}</p>
          </div>
        </div>
      </section>

@@ -9,7 +9,6 @@ import Image from "next/image";
 import { Swiper as SwiperProp } from "swiper/types";
 
 const Testimonials: React.FC<{ backgroundComponent?: boolean }> = ({
-  backgroundComponent,
 }) => {
   const swiperRef = useRef<SwiperProp>(null) as MutableRefObject<SwiperProp>;
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);

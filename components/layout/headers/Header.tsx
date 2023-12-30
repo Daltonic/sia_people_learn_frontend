@@ -31,7 +31,7 @@ const Header: React.FC = () => {
 
   return (
     <header
-      className={`px-5 md:px-10 py-5 sticky h-20 top-0 w-full z-50 ${
+      className={`px-5 md:px-10 lg:px-20 py-5 sticky h-20 top-0 w-full z-50 ${
         isScrolled ? 'bg-white shadow-md' : 'bg-transparent'
       }`}
     >
@@ -44,14 +44,15 @@ const Header: React.FC = () => {
                 height={35}
                 src="/images/logoImg.svg"
                 alt="logo"
+                className='object-cover w-10 h-10 rounded-full'
               />
-              <p className="text-[#321463] text-md">Dapp Mentors</p>
+              <p className="text-[#321463] text-lg md:text-md font-medium">Dapp Mentors</p>
             </div>
           </Link>
 
           <div className="hidden md:flex">
             <form onSubmit={handleSubmit}>
-              <div className="flex bg-[#F7F8FB] pl-5 py-2 pr-2 rounded-md w-80">
+              <div className="flex bg-[#F7F8FB] pl-5 py-2 pr-2 rounded-md w-80 lg:w-[40rem]">
                 <input
                   required
                   type="text"

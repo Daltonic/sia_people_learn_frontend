@@ -18,7 +18,6 @@ import { requirements } from "@/data/aboutcourses";
 import BlogDetail from "@/components/blogDetail/BlogDetail";
 import ReviewSection from "@/components/blogDetail/ReviewSection";
 import ReviewForm from "@/components/blogDetail/ReviewForm";
-import RelatedPosts from "@/components/blogDetail/RelatedPosts";
 
 const Page: NextPage<{ blogData: BlogStruct }> = ({ blogData }) => {
   return (
@@ -31,7 +30,7 @@ const Page: NextPage<{ blogData: BlogStruct }> = ({ blogData }) => {
             <div className="md:flex justify-center">
               <div>
                 <div>
-                  <h4 className="font-medium text-[#321463]">
+                  <h4 className="font-medium text-lg text-[#321463]">
                     {blogData.title}
                   </h4>
                   <p className="mt-2 md:mt-5 text-[#4F547B]">{blogData.desc}</p>
@@ -86,7 +85,7 @@ const Page: NextPage<{ blogData: BlogStruct }> = ({ blogData }) => {
                     <Image
                       width={530}
                       height={450}
-                      src="/images/blog-list/1.png"
+                      src="/images/blog-list/1.svg"
                       alt="image"
                       className=" rounded-md"
                     />
@@ -95,7 +94,7 @@ const Page: NextPage<{ blogData: BlogStruct }> = ({ blogData }) => {
                     <Image
                       width={530}
                       height={450}
-                      src="/images/blog-list/2.png"
+                      src="/images/blog-list/2.svg"
                       alt="image"
                       className=" rounded-md"
                     />
@@ -164,20 +163,18 @@ const Page: NextPage<{ blogData: BlogStruct }> = ({ blogData }) => {
             </div>
 
             <div className="border-b-2 border-[#EEEEEE] flex gap-5 items-start py-5">
-              <div className="">
                 <Image
                   width={0}
                   height={0}
-                  src="/images/blog-list/2.png"
+                  src="/images/testimonials/testimonial2.svg"
                   alt="image"
-                  className="w-[12rem] h-[2rem] md:w-20 md:h-10 object-cover rounded-full"
+                  className="w-12 h-12 object-cover rounded-full"
                 />
-              </div>
               <div>
                 <div>
                   <h1 className="text-[#321463] font-medium">
                     {" "}
-                    Brooklyn Simmons
+                    Brooklyn Simmons 
                   </h1>
                   <p className="md:text-sm text-[#4F547B]">Medical Assistant</p>
                 </div>

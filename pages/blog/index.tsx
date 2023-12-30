@@ -45,7 +45,7 @@ const Page: NextPage = () => {
               {categories.map((elm, i: number) => (
                 <div key={i} onClick={() => setCurrentCategory(elm)}>
                   <button
-                    className={`rounded-md p-3 md:p-4 ${
+                    className={`rounded-md p-3 md:p-4 text-[#4F547B] ${
                       currentCategory == elm
                         ? "bg-[#6440FB12] is-active text-[#C5165D]"
                         : ""
