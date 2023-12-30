@@ -51,7 +51,7 @@ const Stacks: React.FC = () => {
                     slidesPerView: 2,
                   },
                   768: {
-                    slidesPerView: 3,
+                    slidesPerView: 4,
                   },
                   1200: {
                     slidesPerView: 4,
@@ -79,7 +79,7 @@ const Stacks: React.FC = () => {
                             className=""
                           />
                         </div>
-                        <h5 className="text-[#321463] text-md md:text-md font-medium">
+                        <h5 className="text-[#321463] font-medium">
                           {elm.skill}
                         </h5>
                       </div>
