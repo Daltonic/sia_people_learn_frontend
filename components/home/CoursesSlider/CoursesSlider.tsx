@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 
 import CourseCard from './CourseCard'
 import { coursesData } from '@/data/courses'
-import { Navigation, Pagination } from 'swiper'
+import { Navigation, Pagination, Autoplay } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import Link from 'next/link'
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa'
@@ -52,7 +52,7 @@ const CoursesSlider: React.FC = () => {
             <div className="p-0">
               {showSlider && (
                 <Swiper
-                  modules={[Navigation, Pagination]}
+                  modules={[Navigation, Pagination, Autoplay]}
                   navigation={{
                     nextEl: '.icon-arrow-right',
                     prevEl: '.icon-arrow-left',

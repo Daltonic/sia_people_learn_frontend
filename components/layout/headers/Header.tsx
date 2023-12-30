@@ -52,7 +52,7 @@ const Header: React.FC = () => {
 
           <div className="hidden md:flex">
             <form onSubmit={handleSubmit}>
-              <div className="flex bg-[#F7F8FB] pl-5 py-2 pr-2 rounded-md w-80 lg:w-[40rem]">
+              <div className="flex bg-[#F7F8FB] pl-5 py-2 pr-2 rounded-md w-80 lg:w-[10rem]">
                 <input
                   required
                   type="text"
