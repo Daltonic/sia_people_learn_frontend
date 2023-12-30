@@ -15,7 +15,7 @@ const Hero: React.FC = () => {
         <div className="flex flex-col md:flex-row justify-between md:my-16 px-5 py-10 md:px-20">
           <div className="flex w-full md:w-[45%] items-start gap-5">
             <Image
-              src="/images/bitcoin.svg"
+              src="/images/courseCard/card1.svg"
               alt=""
               width={0}
               height={0}
@@ -24,14 +24,14 @@ const Hero: React.FC = () => {
             <div className="w-1/2 h-full flex flex-col gap-5">
               <Image
                 className="h-full object-cover w-full"
-                src="/images/bitcoin.svg"
+                src="/images/courseCard/card2.svg"
                 width={150}
                 height={200}
                 alt=""
               />
               <Image
                 className="h-full object-cover w-full"
-                src="/images/bitcoin.svg"
+                src="/images/courseCard/card3.svg"
                 width={150}
                 height={200}
                 alt=""

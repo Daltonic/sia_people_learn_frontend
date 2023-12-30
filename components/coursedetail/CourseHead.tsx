@@ -28,21 +28,21 @@ const CourseHead: React.FC<ComponentProps> = ({ course }) => {
           POPULAR
         </div>
       </div>
-      <div className="flex flex-col gap-2.5 md:gap-5 mt-5 md:mt-0">
-        <div className="text-violet-950 text-3xl font-medium leading-10 capitalize self-stretch w-full max-md:max-w-full md:mt-4">
+      <div className="flex flex-col gap-2.5 md:gap-5 mt-3 md:mt-0">
+        <div className="text-violet-950 text-2xl md:text-3xl font-medium md:leading-10 capitalize self-stretch w-full max-md:max-w-full md:mt-4">
           {course.desc}
         </div>
-        <div className="text-slate-600 text-base leading-7 self-stretch w-full max-md:max-w-full md:mt-2">
+        <div className="text-[#4F547B] text-base leading-7 self-stretch w-full max-md:max-w-full md:mt-2">
           {course.title}
         </div>
 
-        <div className="flex flex-col md:flex-row md:items-center text-sm gap-3">
+        <div className="flex flex-col md:flex-row md:items-center md:text-sm gap-3">
           <div className="flex items-center gap-2">
             <p className="text-[#E59819]">{course.rating}</p>
             <div className="flex items-center">
               {rating.map((itm, i: number) => (
                 <div key={i} className="text-[#E59819]">
-                  <IoIosStar className="text-sm text-[#E59819] mx-0.5" />
+                  <IoIosStar className="md:text-sm text-[#E59819] mx-0.5" />
                 </div>
               ))}
             </div>
@@ -55,7 +55,7 @@ const CourseHead: React.FC<ComponentProps> = ({ course }) => {
               src="/images/home/coursesCards/icons/4.svg"
               alt="icon"
             />
-            <p className="text-sm text-[#4F547B]">
+            <p className="md:text-sm text-[#4F547B]">
               {course.lessonCount} enrolled on this course
             </p>
           </div>
@@ -69,7 +69,7 @@ const CourseHead: React.FC<ComponentProps> = ({ course }) => {
                 alt="icon"
               />
             </div>
-            <div className="text-sm text-[#4F547B]">Last updated 11/2021</div>
+            <div className="md:text-sm text-[#4F547B]">Last updated 11/2021</div>
           </div>
         </div>
         <div className="flex items-center gap-2.5 mt-2 md:mt-0">
@@ -80,7 +80,7 @@ const CourseHead: React.FC<ComponentProps> = ({ course }) => {
             alt="image"
             className="object-cover rounded-full w-10 h-10"
           />
-          <p className="text-sm text-[#4F547B]">{course.desc}</p>
+          <p className="md:text-sm text-[#4F547B]">{course.authorName}</p>
         </div>
       </div>
     </div>

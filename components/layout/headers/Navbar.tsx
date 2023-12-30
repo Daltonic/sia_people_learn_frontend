@@ -26,12 +26,15 @@ const Navbar: React.FC = () => {
             >
               <FaTimes />
             </button>
-            <ul className="fixed top-0 left-0 h-full bg-white text-[#321463] text-medium text-lg  w-[85%] p-5">
-              <div className="flex justify-between border-b border-[#e7ecfa] pb-2 mb-6 ">
-                <p>Log in</p>
-                <p>Sign Up</p>
+            <ul className="fixed top-0 left-0 h-full bg-white text-[#321463] font-medium text-xl w-[85%]">
+              <div className="flex justify-between border-b border-[#e7ecfa] p-5 mb-8">
+                <p>
+                  <Link href="/login">Log in</Link>
+                </p>
+                <p>
+                <Link href="/signup">Sign Up</Link></p>
               </div>
-              <div className="text-xl font-medium space-y-6">
+              <div className="text-2xl font-medium space-y-8 p-5">
                 <li>
                   <Link href="/" onClick={closeMenu}>
                     <span

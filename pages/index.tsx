@@ -18,7 +18,7 @@ export const metadata = {
 
 const Page: NextPage = () => {
   return (
-    <main className="">
+    <main className="overflow-x-hidden">
       <Header />
       
       <Hero />

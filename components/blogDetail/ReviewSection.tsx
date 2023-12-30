@@ -13,15 +13,13 @@ const ReviewSection: React.FC = () => {
     <div className="pt-6">
     <h1 className="text-[#321463] font-semibold text-lg md:text-base"> Reviews</h1>
     <div className="border-b-2 border-[#EEEEEE] flex gap-5 items-start py-5">
-      <div className="">
         <Image
-          width={20}
-          height={10}
-          src="/images/blog-list/2.png"
+          width={0}
+          height={0}
+          src="/images/testimonials/testimonial1.svg"
           alt="image"
-          className="w-56 h-10 md:w-20 md:h-10 object-cover rounded-full"
+          className="w-12 h-12 object-cover rounded-full"
         />
-      </div>
       <div className="space-y-2 md:space-y-3">
         <div className="flex gap-2 items-center">
           <h1 className="text-[#321463] font-medium">
@@ -47,12 +45,12 @@ const ReviewSection: React.FC = () => {
         </p>
         <div className="md:flex gap-5">
           <p className='text-[#C5165D] text-sm md:text-md'>Was this review helpful?</p>
-          <div className="flex items-center gap-5 mt-2 md:mt-0">
+          <div className="flex items-center gap-5 mt-2 md:mt-0 font-medium">
             <div>
-              <Button variant="pink">Yes</Button>
+              <button className='bg-[#C5165D] p-1 px-4 rounded-md text-white'>Yes</button>
             </div>
             <div>
-              <Button variant="lightpurple">No</Button>
+              <button className='bg-[#E5F0FD] p-1 px-4 rounded-md text-[#C5165D]'>No</button>
             </div>
           </div>
         </div>

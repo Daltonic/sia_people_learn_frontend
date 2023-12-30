@@ -8,7 +8,6 @@ const Offices: React.FC = () => {
         <p>328 Queensberry Street, North Melbourne VIC 3051, Australia.</p>
         <p>+(1) 123 456 7890</p>
         <p>hi@educrat.com</p>
-        
         </div>
       </div>
       

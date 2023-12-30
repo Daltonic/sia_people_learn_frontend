@@ -19,12 +19,12 @@ const CourseCardDetail: React.FC<ComponentProps> = ({ course }) => {
   return (
     <div className="bg-white w-full md:w-[25%] md:right-10 md:top-0 md:absolute md:border border-[#EDEDED] p-2 space-y-2 mt-10 md:mt-0 rounded-md">
       <div className="relative flex justify-center items-center">
-        <div >
+        <div className="w-full">
           <Image
             width={250}
             height={250}
             style={{ height: "30%", width: "100%" }}
-            className="rounded-md "
+            className="rounded-md w-full"
             src={course.imageSrc}
             alt="image"
           />
@@ -97,7 +97,7 @@ const CourseCardDetail: React.FC<ComponentProps> = ({ course }) => {
             />
             <p className="text-[#321463]">Duration</p>
           </div>
-          <p className="text-[#4F547B]">{course.lessonCount}</p>
+          <p className="text-[#4F547B]">{course.duration}</p>
         </div>
         <div className="flex justify-between items-center border-b py-2 border-[#EDEDED]">
           <div className="flex gap-2 items-center">
@@ -110,7 +110,7 @@ const CourseCardDetail: React.FC<ComponentProps> = ({ course }) => {
             />
             <p className="text-[#321463]">Skill level</p>
           </div>
-          <p className="text-[#4F547B]">{course.lessonCount}</p>
+          <p className="text-[#4F547B]">{course.level}</p>
         </div>
         <div className="flex justify-between items-center border-b py-2 border-[#EDEDED]">
           <div className="flex gap-2 items-center">
@@ -123,7 +123,7 @@ const CourseCardDetail: React.FC<ComponentProps> = ({ course }) => {
             />
             <p className="text-[#321463]">Language</p>
           </div>
-          <p className="text-[#4F547B]">{course.lessonCount}</p>
+          <p className="text-[#4F547B]">{course.languange}</p>
         </div>
         <div className="flex justify-between items-center border-b py-2 border-[#EDEDED]">
           <div className="flex gap-2 items-center">
@@ -149,7 +149,7 @@ const CourseCardDetail: React.FC<ComponentProps> = ({ course }) => {
             />
             <p className="text-[#321463]">Full lifetime access</p>
           </div>
-          <p className="text-[#4F547B]">{course.lessonCount}</p>
+          <p className="text-[#4F547B]">{course.viewStatus}</p>
         </div>
         <div className="flex justify-center gap-2 items-center">
           <div className="p-4 rounded-full hover:bg-[#F9F9F9] text-[#4F547B] hover:bg-opacity-50 transition duration-500 ease-in-out cursor-pointer">

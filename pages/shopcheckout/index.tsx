@@ -4,6 +4,7 @@ import { NextPage } from 'next'
 import React from 'react'
 import InputField from '@/components/ReusableComponents/InputField'
 import Image from 'next/image'
+import Link from 'next/link'
 
 const Page: NextPage = () => {
   const handleSubmit = (e: React.FormEvent) => {
@@ -26,7 +27,7 @@ const Page: NextPage = () => {
           <div className="">
             <form onSubmit={handleSubmit} className="">
               <div className="">
-                <h5 className="text-violet-950 font-medium text-lg">
+                <h5 className="text-violet-950 font-medium text-xl md:text-lg">
                   Billing details
                 </h5>
               </div>
@@ -117,43 +118,43 @@ const Page: NextPage = () => {
             </form>
           </div>
         </div>
-        <div className="flex flex-col md:w-[30%]">
-          <div className="border border-[color:var(--border-1,#EDEDED)] bg-slate-50 flex w-full flex-col items-stretch py-5 rounded-lg">
-            <div className="self-center flex w-full max-w-[340px] items-stretch justify-between gap-5 border-b border-[#EDEDED] pb-4 px-5">
-              <div className="flex grow basis-[0%] flex-col items-stretch">
-                <div className="text-violet-950 text-xl font-medium">
+        <div className="flex flex-col gap-5 md:w-[30%]">
+          <div className="border-1 border-[#EDEDED] bg-slate-50 flex w-full flex-col p-5 rounded-lg">
+            <div className="flex w-full items-end justify-between gap-5 border-b border-[#EDEDED] border">
+              <div className="text-[#321463]">
+                <h1 className="text-xl font-medium pb-4">
                   Your order
-                </div>
-                <div className="text-violet-950 text-base font-medium mt-4">
+                </h1>
+                <p className="font-medium">
                   Product
-                </div>
+                </p>
               </div>
-              <div className="text-violet-950 text-right text-base font-medium grow mt-12 self-end max-md:mt-10">
+              <p className="font-medium">
                 Subtotal
-              </div>
+              </p>
             </div>
 
             <div className=" w-full">
-              <div className="flex justify-between px-5 py-4">
-                <div className="text-slate-600 text-base">Hoodie x2</div>
-                <div className="text-slate-600 text-right text-base">
+              <div className="flex justify-between text-[#4F547B]">
+                <p>Hoodie x2</p>
+                <p>
                   $59.00
-                </div>
+                </p>
               </div>
-              <div className=" flex justify-between px-5 py-">
-                <div className="text-violet-950 text-base font-medium">
+              <div className=" flex justify-between text-[#321463]">
+                <p className=" font-medium">
                   Subtotal
-                </div>
-                <div className="text-violet-950 text-right text-base font-medium">
+                </p>
+                <p className=" text-right font-medium">
                   $178.00
-                </div>
+                </p>
               </div>
             </div>
-            <div className="self-center flex w-full max-w-[341px] justify-between gap-5 mt-6 px-5 items-start">
-              <div className="text-violet-950 text-base font-medium">Total</div>
-              <div className="text-violet-950 text-right text-base font-medium self-stretch">
+            <div className="flex justify-between gap-5 items-start text-[#321463]">
+              <p className=" font-medium">Total</p>
+              <p className=" text-right font-medium self-stretch">
                 $9,218.0
-              </div>
+              </p>
             </div>
           </div>
           <div className="border border-[color:var(--border-1,#EDEDED)] bg-slate-50 flex w-full flex-col mt-8 px-5 py-5 rounded-lg border-solid max-md:px-5">
@@ -162,7 +163,7 @@ const Page: NextPage = () => {
             </div>
             <div className="flex gap-4 mt-4 self-start items-center">
               <input type="radio" name="radio" checked={true} />
-              <div className="text-violet-950 text-base font-medium grow">
+              <div className="text-violet-950 font-medium grow">
                 Card Payment
               </div>
             </div>
@@ -173,14 +174,16 @@ const Page: NextPage = () => {
             </div>
             <div className="flex justify-between gap-4 mt-4 items-center">
               <input type="radio" name="radio" checked={false} />
-              <div className="text-violet-950 text-base font-medium leading-[50px] grow">
+              <div className="text-violet-950 font-medium leading-[50px] grow">
                 Crypto payments
               </div>
             </div>
           </div>
-          <button className="text-white text-center text-base font-medium whitespace-nowrap bg-pink-700 justify-center items-center px-16 py-4 rounded-lg max-md:px-5 mt-6">
+          <Link href="/shoporder">
+          <button className="text-white text-center font-medium whitespace-nowrap bg-pink-700 justify-center items-center px-16 py-4 rounded-lg max-md:px-5 mt-6">
             Place Order
           </button>
+          </Link>
         </div>
       </section>
     </Layout>

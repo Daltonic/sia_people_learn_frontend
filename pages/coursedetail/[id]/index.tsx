@@ -20,7 +20,7 @@ const Page: NextPage<{ courseData: CourseStruct }> = ({ courseData }) => {
 
   return (
     <Layout>
-      <div className="md:px-14 md:py-10 px-5 py-10 md:relative">
+      <div className="md:px-14 md:py-10 p-5 md:relative overflow-x-hidden">
         <div className="flex flex-col md:flex-row justify-between ">
         <CourseHead course={courseData} />
         <CourseCardDetail course={courseData} />

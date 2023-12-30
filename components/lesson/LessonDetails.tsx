@@ -15,7 +15,7 @@ const LessonDetails: React.FC = () => {
           width={0}
           height={0}
           className="rounded-md w-full h-[20rem] object-cover"
-          src="/images/bitcoin.svg"
+          src="/images/courseCard/card2.svg"
           alt="image"
         />
           <div className="p-4 bg-[#ffffff] rounded-full absolute">

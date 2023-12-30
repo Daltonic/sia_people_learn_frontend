@@ -38,7 +38,7 @@ const CourseLayer: React.FC<ComponentProps> = ({ data }) => {
                         alt="image"
                       />
                     </div>
-                    <div className="md:ml-3 flex flex-col items-stretch md:w-[70%]">
+                    <div className="md:ml-3 flex flex-col items-stretch md:w-[70%] mt-3 md:mt-0">
                       <div className="flex flex-col gap-1.5 my-auto md:px-5 items-start">
                         <div className="flex items-center text-sm gap-3">
                           <div className="flex items-center gap-1">

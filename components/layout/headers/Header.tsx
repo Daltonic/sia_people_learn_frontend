@@ -44,8 +44,9 @@ const Header: React.FC = () => {
                 height={35}
                 src="/images/logoImg.svg"
                 alt="logo"
+                className='object-cover w-10 h-10 rounded-full'
               />
-              <p className="text-[#321463] text-md font-medium">Dapp Mentors</p>
+              <p className="text-[#321463] text-lg md:text-md font-medium">Dapp Mentors</p>
             </div>
           </Link>
 

@@ -22,12 +22,12 @@ const Hero: React.FC = () => {
         </h1>
         <div className="flex gap-4 mt-2 md:mt-8">
           <div className="">
-           <Link href="/explore">
+           <Link href="/courses">
             <Button variant="pink">Explore Courses</Button>
             </Link>
           </div>
           <div className="">
-           <Link href="/hireUs">
+           <Link href="/contact">
             <Button variant="whiteoutline">Hire Us</Button>
             </Link>
           </div>
