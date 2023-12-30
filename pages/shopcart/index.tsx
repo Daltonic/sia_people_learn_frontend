@@ -1,7 +1,10 @@
-'use client'
-import Layout from '@/components/layout/Layout'
-import { NextPage } from 'next'
-// import { cartProducts } from "../../data/cartProducts";
+"use client";
+import Layout from "@/components/layout/Layout";
+import { NextPage } from "next";
+import { coursesData } from "@/data/courses";
+import Link from "next/link";
+import { FaMinus, FaPlus, FaTimes } from "react-icons/fa";
+import Image from "next/image";
 
 const Page: NextPage = () => {
   return (
@@ -16,74 +19,60 @@ const Page: NextPage = () => {
             reasonable price.
           </p>
         </div>
-        <div className="flex justify-between items-center bg-[#F5F7FE] text-[#C5165D] font-medium h-20 p-10 rounded-md w-5/6 mt-14">
-          <div className="">
-            <p className="">Product</p>
-          </div>
-          <div className="">
-            <p className="">Price</p>
-          </div>
-          <div className="">
-            <p className="">Quantity</p>
-          </div>
-          <div className="">
-            <p className="">Subtotal</p>
-          </div>
-          <div className="">
-            <p className="">Remove</p>
-          </div>
-        </div>
-        {/* <div>
-          {cartProducts.map((elm: Course, i: number) => (
-            <div key={i} className="">
-              <div className="">
-                <div className="">
-                  <div
-                    className=""
-                    style={{ backgroundImage: `url(${elm.imageSrc})` }}
-                  ></div>
-                </div>
-                <div className="">
+        <table className="w-5/6">
+        <thead className="flex justify-between items-center bg-[#F5F7FE] text-[#C5165D] font-medium h-20 p-10 rounded-md  mt-14">
+            <th className="">Product</th>
+            <th className="">Price</th>
+            <th className="">Quantity</th>
+            <th className="">Subtotal</th>
+            <th className="">Remove</th>
+        </thead>
+        <tbody className="mt-10">
+          {coursesData.map((elm, i: number) => (
+            <div
+              key={i}
+              className="flex justify-between items-center w-full border py-4"
+            >
+              <td className="flex items-center gap-5">
+                  <Image
+                    width={100}
+                    height={100}
+                    src={elm.imageSrc}
+                    alt="image"
+                    className="rounded-md "
+                  />
+                <h1 className="text-lg md:text-base font-medium  text-[#321463]">
                   <Link className="" href={`/shop/${elm.id}`}>
                     {elm.title}
                   </Link>
-                </div>
-              </div>
+                </h1>
+              </td>
 
-              <div className="">
-                <div className="">Price</div>
-                <p>${elm.originalPrice}</p>
-              </div>
+              <td className="flex items-center gap-2 text-[#4F547B]">
+                ${elm.originalPrice}
+              </td>
 
-              <div className="">
-                <div className="">Quantity</div>
+              <td className="flex gap-1 border border-[#E1DDDD] rounded-md">
+             
+                <button className="text-xs ">
+                  <FaMinus />
+                </button>
+                <input
+                  required
+                  className="w-8"
+                  type="number"
+                  placeholder="value..."
+                  value={elm.quantity}
+                />
+                <button className="text-xs">
+                  <FaPlus />
+                </button>
+              </td>
 
-                <div className="">
-                  <input
-                    required
-                    className=""
-                    type="number"
-                    placeholder="value..."
-                    value={elm.quantity}
-                  />
+              <td className="">
 
-                  <div className="">
-                    <button className="">
-                      <FaMinus />
-                    </button>
-
-                    <button className="">
-                      <FaPlus />
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              <div className="">
-                <div className="">Subtotal</div>
-
-                <p>${(elm.quantity * elm.price).toFixed(2)}</p>
-              </div>
+              ${(elm.quantity * elm.price).toFixed(2)}F
+              </td>
 
               <div className="m">
                 <FaTimes />
@@ -91,7 +80,7 @@ const Page: NextPage = () => {
             </div>
           ))}
 
-          <div>
+          {/* <div>
             {cartProducts.length > 0 ? (
               <div>
                 <div>
@@ -131,14 +120,14 @@ const Page: NextPage = () => {
                 <div>Total</div>
                 <div>${totalPrice.toFixed(2)}</div>
               </div>
-            </div>
+            </div> */}
 
-            <Link href="/shop-checkout">Proceed to checkout</Link>
-          </div>
-        </div> */}
+          <Link href="/shop-checkout">Proceed to checkout</Link>
+        </tbody>
+        </table>
       </div>
     </Layout>
-  )
-}
+  );
+};
 
-export default Page
+export default Page;
