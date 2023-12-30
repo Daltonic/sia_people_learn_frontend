@@ -7,7 +7,7 @@ const Hero: React.FC = () => {
       <div className="px-5 ">
         <h1 className="text-3xl md:text-4xl font-bold">Contact Us</h1>
         <p className="text-md mt-3 capitalize text-[#4F547B]">
-          We're on a mission to deliver engaging, curated courses at a
+          We are on a mission to deliver engaging, curated courses at a
           reasonable price.
         </p>
       </div>

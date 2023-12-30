@@ -20,7 +20,7 @@ const Page: NextPage = () => {
             How can we help you?
           </h1>
           <p className="text-slate-600 text-md mt-3 capitalize">
-            We're on a mission to deliver engaging, curated courses at a
+            We are on a mission to deliver engaging, curated courses at a
             reasonable price.
           </p>
         </div>

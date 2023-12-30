@@ -1,7 +1,7 @@
 import Profile from "@/components/instructors/Profile";
 import Tabs from "@/components/instructors/Tabs";
 import Layout from "@/components/layout/Layout";
-import React from 'react'
+import React from "react"
 
 
 

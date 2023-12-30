@@ -14,7 +14,7 @@ const RelatedPosts: React.FC = () => {
       </div>
       <div className="flex flex-col md:flex-row gap-9 md:gap-4 mt-14">
         {blogs.slice(0, 4).map((blog, i: number) => (
-          <BlogCard key={i} blog={blog} />
+          <BlogCard i={i} key={i} blog={blog} />
         ))}
       </div>
     </div>
