@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import Button from "../ReusableComponents/Button";
+import Button from "../reusableComponents/Button";
 import { GoArrowUpRight } from "react-icons/go";
 import { teamMembers } from "../../data/instructors";
 import InstructorCard from "./InstructorCard";

@@ -1,5 +1,5 @@
 import React from "react";
-import Button from "../ReusableComponents/Button";
+import Button from "../reusableComponents/Button";
 import Image from "next/image";
 import { FaCheck } from "react-icons/fa";
 import Link from "next/link";

@@ -2,7 +2,7 @@
 import Layout from '@/components/layout/Layout'
 import { NextPage } from 'next'
 import React from 'react'
-import InputField from '@/components/ReusableComponents/InputField'
+import InputField from '@/components/reusableComponents/InputField'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -119,8 +119,8 @@ const Page: NextPage = () => {
           </div>
         </div>
         <div className="flex flex-col gap-5 md:w-[30%]">
-          <div className="border-1 border-[#EDEDED] bg-slate-50 flex w-full flex-col p-5 rounded-lg">
-            <div className="flex w-full items-end justify-between gap-5 border-b border-[#EDEDED] border">
+          <div className="border border-[#EDEDED] bg-slate-50 flex w-full flex-col p-5 rounded-lg gap-5">
+            <div className="flex w-full items-end justify-between gap-5 border-b border-[#EDEDED]">
               <div className="text-[#321463]">
                 <h1 className="text-xl font-medium pb-4">
                   Your order
@@ -134,7 +134,7 @@ const Page: NextPage = () => {
               </p>
             </div>
 
-            <div className=" w-full">
+            <div className="w-full space-y-5">
               <div className="flex justify-between text-[#4F547B]">
                 <p>Hoodie x2</p>
                 <p>

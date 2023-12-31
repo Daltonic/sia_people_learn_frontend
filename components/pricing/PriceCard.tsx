@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import Button from '../ReusableComponents/Button';
+import Button from '../reusableComponents/Button';
 import { FaCheck } from 'react-icons/fa';
 
 interface PricingItem {

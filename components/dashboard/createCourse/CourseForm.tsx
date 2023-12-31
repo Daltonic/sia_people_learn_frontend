@@ -1,6 +1,6 @@
-import InputField from "@/components/ReusableComponents/InputField";
-import SelectField from "@/components/ReusableComponents/SelectField";
-import TextAreaField from "@/components/ReusableComponents/TextAreaField";
+import InputField from "@/components/reusableComponents/InputField";
+import SelectField from "@/components/reusableComponents/SelectField";
+import TextAreaField from "@/components/reusableComponents/TextAreaField";
 import React, { useState } from "react";
 
 const CourseForm: React.FC = () => {

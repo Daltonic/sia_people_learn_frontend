@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import Button from '../ReusableComponents/Button'
+import Button from '../reusableComponents/Button'
 
 const Hero: React.FC = () => {
   return (

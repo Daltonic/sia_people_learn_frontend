@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import Button from "@/components/ReusableComponents/Button";
+import Button from "@/components/reusableComponents/Button";
 
 const AuthNavbar: React.FC = ({}) => {
   return (

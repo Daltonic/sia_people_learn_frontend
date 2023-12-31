@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import MyCourseCard from "./MyCourseCard";
 import { coursesData } from "@/data/courses";
+import SearchAndFilterBar from "@/components/reusableComponents/SearchAndFilterBar";
 
 const Tabs: React.FC = () => {
   const [activeTab, setActiveTab] = useState<number>(1);
@@ -13,6 +14,7 @@ const Tabs: React.FC = () => {
   return (
     <div className="bg-white p-5 rounded-xl">
       <div className="px-5 md:px-0">
+        <SearchAndFilterBar/>
         <div className="flex space-x-5 border-b">
           <button
             onClick={() => handleTabClick(1)}
@@ -51,7 +53,7 @@ const Tabs: React.FC = () => {
 
         <div className="py-4 text-[#4F547B]">
           {activeTab === 1 && (
-            <div className="flex gap-5 justify-center w-full flex-wrap">
+            <div className="flex gap-5 w-full flex-wrap">
               {coursesData.map((elm, i: number) => (
                 <MyCourseCard data={elm} index={i} key={i} />
               ))}

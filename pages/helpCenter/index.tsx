@@ -34,7 +34,7 @@ const Page: NextPage = () => {
               required
               type="text"
               placeholder="Enter a question"
-              className="w-[20rem] md:w-[30rem] rounded-lg h-full border border-[#EDEDED] px-4"
+              className="w-[20rem] md:w-[30rem] rounded-lg h-full border border-[#EDEDED] px-4 focus:outline-none"
             />
             <button
               className="absolute right-2 top-1.5 rounded-md bg-[#C5165D] text-white font-medium h-[80%] px-4 flex gap-2 items-center"

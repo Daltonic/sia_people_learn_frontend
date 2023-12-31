@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { footerData1, footerData2, footerData3 } from "@/data/footer";
-import SocialMediaIcons from "@/components/ReusableComponents/SocialMediaIcons";
+import SocialMediaIcons from "@/components/reusableComponents/SocialMediaIcons";
 
 const Footer: React.FC = () => {
   return (

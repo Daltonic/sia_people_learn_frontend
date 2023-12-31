@@ -1,4 +1,4 @@
-import PageHeader from '@/components/ReusableComponents/PageHeader'
+import PageHeader from '@/components/reusableComponents/PageHeader'
 import CourseLayer from '@/components/courses/CourseLayer'
 import Filterlayer from '@/components/courses/Filterlayer'
 import Layout from '@/components/layout/Layout'

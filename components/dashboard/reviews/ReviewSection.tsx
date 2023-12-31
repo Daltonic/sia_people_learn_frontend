@@ -1,13 +1,13 @@
 import React from "react";
 import Image from "next/image";
 import { IoIosStar } from "react-icons/io";
-import Button from "@/components/ReusableComponents/Button";
+import Button from "@/components/reusableComponents/Button";
 import { FaRegFlag } from "react-icons/fa";
 // import { ReviewStruct } from "@/utils/type.dt";
 
 const ReviewSection: React.FC = () => {
   return (
-    <div className="pt-6">
+    <div>
       <div className="border-b border-[#EEEEEE] flex gap-5 items-start py-5">
         <div className="">
           <Image
@@ -34,7 +34,7 @@ const ReviewSection: React.FC = () => {
             ))}
           </div>
           <h1 className="text-[#321463] font-medium">The best LMS Design</h1>
-          <p className="text-[#4F547B]  pr-10">
+          <p className="text-[#4F547B]  md:pr-10">
             Etiam vitae leo et diam pellentesque porta. Sed eleifend ultricies
             risus, vel rutrum erat commodo ut. Praesent finibus congue euismod.
             Nullam scelerisque massa vel augue placerat, a tempor sem egestas.

@@ -1,4 +1,4 @@
-import Button from "../ReusableComponents/Button";
+import Button from "../reusableComponents/Button";
 
 const Instructor: React.FC = () => {
   const backgroundImageUrl = "/images/courseCard/card1.svg";

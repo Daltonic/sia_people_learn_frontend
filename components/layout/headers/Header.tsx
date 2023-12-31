@@ -6,14 +6,14 @@ import Link from 'next/link'
 import { CiSearch } from 'react-icons/ci'
 import Navbar from '@/components/layout/headers/Navbar'
 import { FiShoppingCart } from 'react-icons/fi'
-import Button from '@/components/ReusableComponents/Button'
+import Button from '@/components/reusableComponents/Button'
 
 const Header: React.FC = () => {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
   }
   const [isScrolled, setIsScrolled] = useState(false)
-
+ 
   useEffect(() => {
     const handleScroll = () => {
       const scrolled = window.scrollY > 0
@@ -57,7 +57,7 @@ const Header: React.FC = () => {
                   required
                   type="text"
                   placeholder="Type a course name"
-                  className="bg-transparent flex-1 placeholder:text-[#4F547B] placeholder:text-sm"
+                  className="bg-transparent flex-1 placeholder:text-[#4F547B] placeholder:text-sm focus:outline-none"
                 />
                 <button type="submit">
                   <CiSearch className="text-[#1A064F] font-semiboldtext-xl" />

@@ -2,7 +2,7 @@
 import React, { useEffect } from "react";
 import { CourseStruct } from "@/utils/type.dt";
 import Image from "next/image";
-import Button from "../ReusableComponents/Button";
+import Button from "../reusableComponents/Button";
 import {
   FaFacebookF,
   FaInstagram,

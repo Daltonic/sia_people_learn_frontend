@@ -1,5 +1,5 @@
 import React from 'react'
-import Button from '../ReusableComponents/Button'
+import Button from '../reusableComponents/Button'
 
 const CTA: React.FC = () => {
   return (

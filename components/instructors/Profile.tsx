@@ -4,7 +4,7 @@ import { IoIosStar } from "react-icons/io";
 import Image from "next/image";
 import { teamMembers } from "../../data/instructors";
 
-import Button from "@/components/ReusableComponents/Button";
+import Button from "@/components/reusableComponents/Button";
 
 const Profile: React.FC = () => {
   const data = teamMembers[0];

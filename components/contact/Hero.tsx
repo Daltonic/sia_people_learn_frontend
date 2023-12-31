@@ -1,5 +1,5 @@
-import Button from "../ReusableComponents/Button";
-import InputField from "../ReusableComponents/InputField";
+import Button from "../reusableComponents/Button";
+import InputField from "../reusableComponents/InputField";
 
 const Hero: React.FC = () => {
   return (

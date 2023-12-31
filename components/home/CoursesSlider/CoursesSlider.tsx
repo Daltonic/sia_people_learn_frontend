@@ -8,7 +8,7 @@ import { Navigation, Pagination, Autoplay } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import Link from 'next/link'
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa'
-import Button from '@/components/ReusableComponents/Button'
+import Button from '@/components/reusableComponents/Button'
 import { GoArrowUpRight } from 'react-icons/go'
 
 const CoursesSlider: React.FC = () => {
