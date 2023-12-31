@@ -1,12 +1,14 @@
 import Layout from "@/components/layout/Layout";
+import LessonAccordion from "@/components/lesson/LessonAccordion";
 import LessonDetails from "@/components/lesson/LessonDetails";
 import { NextPage } from "next";
 
 const Page: NextPage = () => {
   return (
     <Layout>
-      <div>
+      <div className="flex justify-between items-start">
         <LessonDetails  />
+        <LessonAccordion/>
       </div>
     </Layout>
   );

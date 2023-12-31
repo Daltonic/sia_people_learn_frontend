@@ -9,7 +9,7 @@ import ReviewForm from "../blogDetail/ReviewForm";
 const LessonDetails: React.FC = () => {
   const [showMore, setShowMore] = useState(false);
   return (
-    <div className="md:pl-20 p-5 md:w-[65%]">
+    <div className="md:pl-20 p-5 md:w-[65%] flex-1">
       <div className="w-full relative flex items-center justify-center">
         <Image
           width={0}
