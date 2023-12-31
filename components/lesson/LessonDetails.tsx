@@ -5,6 +5,7 @@ import { FaCheck, FaCircle } from "react-icons/fa";
 import Image from "next/image";
 import ReviewSection from "../blogDetail/ReviewSection";
 import ReviewForm from "../blogDetail/ReviewForm";
+import LessonAccordion from "./LessonAccordion";
 
 const LessonDetails: React.FC = () => {
   const [showMore, setShowMore] = useState(false);
@@ -73,13 +74,16 @@ const LessonDetails: React.FC = () => {
             </div>
           </div>
         </div>
+        <div className="block md:hidden">
+          <LessonAccordion/>
+        </div>
         <div className="mt-15">
           <h4 className="text-xl md:text-lg text-[#321463] font-semibold mb-3 md:mb-5">
             Requirements
           </h4>
           <ul className="space-y-5">
             {requirements.map((elm, i: number) => (
-              <div key={i} className="flex items-start gap-2 md:gap-5">
+              <div key={i} className="flex items-center gap-2 md:gap-5">
                 <div>
                   <FaCircle className="text-[10px] text-[#4F547B]" />
                 </div>

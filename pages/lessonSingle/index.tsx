@@ -7,8 +7,10 @@ const Page: NextPage = () => {
   return (
     <Layout>
       <div className="flex justify-between items-start">
-        <LessonDetails  />
-        <LessonAccordion/>
+        <LessonDetails />
+        <div className=" hidden md:block">
+          <LessonAccordion />
+        </div>
       </div>
     </Layout>
   );

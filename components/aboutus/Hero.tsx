@@ -5,8 +5,8 @@ const Hero: React.FC = () => {
   return (
     <div>
       <div className="text-center w-full md:mb-16 p-5 bg-[#F9F9F9] h-56 md:h-96 flex flex-col justify-center">
-        <h1 className="text-3xl md:text-4xl font-bold">About Us</h1>
-        <p className="text-md mt-3 capitalize w-full">
+        <h1 className="text-3xl md:text-4xl font-bold text-[#321463]">About Us</h1>
+        <p className="text-md mt-3 capitalize w-full text-[#4F547B]">
           We are on a mission to deliver engaging, curated courses at a
           reasonable price.
         </p>

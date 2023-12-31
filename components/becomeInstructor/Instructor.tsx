@@ -1,7 +1,7 @@
 import Button from "../reusableComponents/Button";
 
 const Instructor: React.FC = () => {
-  const backgroundImageUrl = "/images/courseCard/card1.svg";
+  const backgroundImageUrl = "/images/instructors/instructor.svg";
 
   const divStyle = {
     backgroundImage: `url(${backgroundImageUrl})`,

@@ -9,8 +9,8 @@ const Tabs: React.FC = () => {
   }
 
   return (
-    <div className="flex justify-center">
-      <div className="md:w-5/6 px-5 md:px-0">
+    <div className="flex justify-center w-full">
+      <div className="md:w-4/5 px-5 md:px-0 h-46">
         <div className="flex space-x-3 border-b">
           <button
             onClick={() => handleTabClick(1)}
