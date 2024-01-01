@@ -1,36 +1,68 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Monthly Project Report (December 2023): SiaPeopleLearn
 
-## Getting Started
+## Progress Update
 
-First, run the development server:
+In December 2023, the SiaPeopleLearn project made substantial progress, including:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Translating the Figma design into frontend code using NextJs, Tailwind CSS, and Typescript
+- Open-sourcing the frontend code on GitHub and [Vercel](https://sia-people-learn-frontend.vercel.app/)
+- Developing 60% of the backend API services using NodeJs and Typescript
+- Open-sourcing the backend API services on GitHub
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+These achievements marked the completion of the frontend development phase and the beginning of the backend integration stage.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Current Milestone
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+The team is now focusing on backend code development, adding various endpoints to the existing codebase, and implementing two major services: Payment services and File upload service. These tasks are crucial in streamlining the workload for future milestones.
 
-## Learn More
+## Accomplishments
 
-To learn more about Next.js, take a look at the following resources:
+Frontend development accomplishments include:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- [Home page](https://github.com/Daltonic/sia_people_learn_frontend/blob/main/pages/index.tsx)
+- [Dashboard and all its subpages (Course creation, settings, reviews, etc.)](https://github.com/Daltonic/sia_people_learn_frontend/tree/main/pages/(dashboard))
+- [About page](https://github.com/Daltonic/sia_people_learn_frontend/blob/main/pages/about/index.tsx)
+- [Blog and blog details page](https://github.com/Daltonic/sia_people_learn_frontend/blob/main/pages/blog/index.tsx) 
+- [Instructors and become Instructor Page](https://github.com/Daltonic/sia_people_learn_frontend/blob/main/pages/instructor/index.tsx) 
+- [Contact Page](https://github.com/Daltonic/sia_people_learn_frontend/blob/main/pages/contact/index.tsx)
+- [Course and course details page](https://github.com/Daltonic/sia_people_learn_frontend/blob/main/pages/courses/index.tsx)
+- [Lessons page](https://github.com/Daltonic/sia_people_learn_frontend/blob/main/pages/lessonSingle/index.tsx)
+- [Login and Signup page](https://github.com/Daltonic/sia_people_learn_frontend/blob/main/pages/login/index.tsx)
+- [404 Page](https://github.com/Daltonic/sia_people_learn_frontend/blob/main/pages/not-found/index.tsx)
+- [Shopping cart, checkout, and orders page](https://github.com/Daltonic/sia_people_learn_frontend/blob/main/pages/shopcart/index.tsx)
+- [Pricing page](https://github.com/Daltonic/sia_people_learn_frontend/blob/main/pages/pricing/index.tsx)
+- [Terms and Condition page](https://github.com/Daltonic/sia_people_learn_frontend/blob/main/pages/terms/index.tsx)
+- etc.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Backend development accomplishments include:
 
-## Deploy on Vercel
+- [Endpoints for Academies](https://github.com/Daltonic/sia_people_learn_backend/blob/main/src/resources/academy/academy.controller.ts)
+- [Endpoints for Courses](https://github.com/Daltonic/sia_people_learn_backend/blob/main/src/resources/course/course.controller.ts)
+- [Endpoints for Lessons](https://github.com/Daltonic/sia_people_learn_backend/blob/main/src/resources/lesson/lesson.controller.ts)
+- [Endpoints for Orders](https://github.com/Daltonic/sia_people_learn_backend/blob/main/src/resources/order/order.controller.ts)
+- [Endpoints for Blog posts](https://github.com/Daltonic/sia_people_learn_backend/blob/main/src/resources/post/post.controller.ts)
+- [Endpoints for Promo Codes](https://github.com/Daltonic/sia_people_learn_backend/blob/main/src/resources/promo/promo.controllers.ts)
+- [Endpoints for Reviews](https://github.com/Daltonic/sia_people_learn_backend/blob/main/src/resources/review/review.controller.ts)
+- [Endpoints for Sessions](https://github.com/Daltonic/sia_people_learn_backend/blob/main/src/resources/session/session.controller.ts)
+- [Endpoints for Settings](https://github.com/Daltonic/sia_people_learn_backend/blob/main/src/resources/settings/settings.controller.ts)
+- [Endpoints for Cart](https://github.com/Daltonic/sia_people_learn_backend/blob/main/src/resources/subscription/subscription.controller.ts)
+- [Endpoints for Testimonies](https://github.com/Daltonic/sia_people_learn_backend/blob/main/src/resources/testimony/testimony.controller.ts)
+- [Endpoints for Users](https://github.com/Daltonic/sia_people_learn_backend/blob/main/src/resources/user/user.controller.ts)
+- [Endpoints for Wishlists](https://github.com/Daltonic/sia_people_learn_backend/blob/main/src/resources/wishlist/wishlist.controller.ts)
+- etc.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Challenges
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Challenges faced include maintaining code quality and managing the workload of completing two milestones simultaneously. The team overcame these by sacrificing some leisure time, which allowed for more feature development.
+
+## Next Steps
+
+In January 2024, the team plans to:
+
+- Integrate the developed API endpoints with the frontend
+- Add critical services including Payment service, Email service, and Sia Renterd service
+
+**For any queries or more information:**
+Please contact: darlingtongospel@gmail.com
+Darlington Gospel
+Lead Developer at Dapp Mentors
