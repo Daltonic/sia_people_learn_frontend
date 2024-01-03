@@ -3,7 +3,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { IoIosStar } from "react-icons/io";
+import { IoIosStar, IoMdMore } from "react-icons/io";
 
 interface ComponentProps {
   data: any;
@@ -24,7 +24,7 @@ const MyCourseCard: React.FC<ComponentProps> = ({ data, index }) => {
       style={{ height: "fit-content" }}
     >
       <div className="">
-        <div className="">
+        <div className=" relative">
           <Image
             width={500}
             height={400}
@@ -33,6 +33,9 @@ const MyCourseCard: React.FC<ComponentProps> = ({ data, index }) => {
             src={data.imageSrc}
             alt="image"
           />
+          <div className="text-[#6A7A99] bg-white p-1 text-xl rounded-md absolute top-3 right-3">
+          <IoMdMore />
+          </div>
         </div>
 
         <div className="my-2 p-2 space-y-2">

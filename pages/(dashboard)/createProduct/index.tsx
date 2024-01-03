@@ -1,4 +1,4 @@
-import CourseForm from "@/components/dashboard/createCourse/CourseForm";
+import CourseForm from "@/components/dashboard/createProduct/CourseForm";
 import DashboardLayout from "@/components/dashboard/dashboardLayout/DashboardLayout";
 
 const CreateCourse: React.FC = () => {
