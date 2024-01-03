@@ -2,6 +2,7 @@ import React from 'react'
 import Image from 'next/image'
 import Button from '../reusableComponents/Button'
 import Layout from '../layout/Layout'
+import Link from 'next/link'
 
 const NotFound: React.FC = () => {
   return (
@@ -28,14 +29,14 @@ const NotFound: React.FC = () => {
             The page you are looking for is not available. Try to search again
             <br /> or use the go to.
           </div>
-          <div>
+          <Link href="/">
             <Button
               variant="pink"
               style={{ width: '16rem', padding: '16px 10px', fontSize: '16px' }}
             >
               Go Back To Homepage
             </Button>
-          </div>
+          </Link>
         </div>
       </div>
     </div>

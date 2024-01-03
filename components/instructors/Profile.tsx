@@ -18,7 +18,7 @@ const Profile: React.FC = () => {
     <div
       className="bg-[#C5165D] w-full py-10 md:py-16 pl-5 md:pl-40 rounded-md mb-10"
       style={{
-        backgroundImage: `url(/images//instructors/instructorbg.svg)`,
+        backgroundImage: `url(/images/instructors/instructorbg.svg)`,
         backgroundSize: "cover",
         backgroundPosition: "start",
         width: "100%",

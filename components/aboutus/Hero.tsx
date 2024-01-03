@@ -1,11 +1,14 @@
-import Image from 'next/image'
-import Button from '../reusableComponents/Button'
+import Image from "next/image";
+import Button from "../reusableComponents/Button";
+import Link from "next/link";
 
 const Hero: React.FC = () => {
   return (
     <div>
       <div className="text-center w-full md:mb-16 p-5 bg-[#F9F9F9] h-56 md:h-96 flex flex-col justify-center">
-        <h1 className="text-3xl md:text-4xl font-bold text-[#321463]">About Us</h1>
+        <h1 className="text-3xl md:text-4xl font-bold text-[#321463]">
+          About Us
+        </h1>
         <p className="text-md mt-3 capitalize w-full text-[#4F547B]">
           We are on a mission to deliver engaging, curated courses at a
           reasonable price.
@@ -53,14 +56,19 @@ const Hero: React.FC = () => {
               aucto. Neque convallis a cras semper auctor. Liberoe convallis a
               cras semper atincidunt egetnval
             </div>
-            <Button variant="pink" style={{ width: '16rem', padding: '10px' }}>
-              Start Learning For Free{' '}
-            </Button>
+            <Link href="/courses">
+              <Button
+                variant="pink"
+                style={{ width: "16rem", padding: "10px" }}
+              >
+                Start Learning For Free{" "}
+              </Button>
+            </Link>
           </div>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Hero
+export default Hero;

@@ -19,8 +19,8 @@ const Page: NextPage = () => {
             reasonable price.
           </p>
         </div>
-        <div className=" px-5 md:px-0 w-full overflow-x-auto">
-        <table className="w-full mt-14">
+        <div className=" px-5 md:px-0 w-full overflow-x-auto flex justify-center">
+        <table className="w-full mt-14 md:w-5/6">
           <thead className="bg-[#F5F7FE] text-[#C5165D] font-medium h-20 rounded-md">
             <tr>
               <th className="text-start pl-5 md:pl-10">Product</th>
@@ -32,7 +32,7 @@ const Page: NextPage = () => {
           <tbody>
             {coursesData.map((elm: any, i: number) => (
               <tr key={i} className="border-b border-[#EDEDED]">
-                <td className="flex items-center gap-5 md:pl-10 py-2 w-96 pl-5">
+                <td className="flex items-center gap-5 md:pl-10 py-2 w-96 md:w-fit px-5">
                   <Image
                     className="w-20 rounded-md"
                     alt=""

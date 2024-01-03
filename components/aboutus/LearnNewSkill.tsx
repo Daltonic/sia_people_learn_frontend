@@ -25,7 +25,9 @@ const LearnNewSkill: React.FC = ({}) => {
             Use the list below to bring attention to your products key
             differentiator.
           </p>
-          <Button variant="pink">Join Free</Button>
+          <Link href="/courses">
+            <Button variant="pink">Join Free</Button>
+          </Link>
         </div>
         <div>
           <div
@@ -78,27 +80,24 @@ const LearnNewSkill: React.FC = ({}) => {
             Join millions of people from around the world learning together.
             Online learning is as easy and natural as chatting.
           </p>
-          <Link href="/becomeinstructor" >
-          <Button variant="pinkoutline" >
-            Apply Now
-          </Button>
+          <Link href="/becomeinstructor">
+            <Button variant="pinkoutline">Apply Now</Button>
           </Link>
         </div>
       </div>
 
       <div className="flex flex-col-reverse mb-16 md:mb-0 md:flex-row items-center justify-between md:w-4/5 mt-10 gap-5 md:gap-0 md:mt-16">
-       
         <div className="md:w-[45%] ">
           <h1 className="text-violet-950 text-2xl font-bold">
-          Become a Student
+            Become a Student
           </h1>
           <p className="text-violet-950 text-base my-4">
             Join millions of people from around the world learning together.
             Online learning is as easy and natural as chatting.
           </p>
-          <Button variant="pinkoutline"  >
-            Apply Now
-          </Button>
+          <Link href="/signup">
+            <Button variant="pinkoutline">Apply Now</Button>
+          </Link>
         </div>
         <Image
           src="/images/instructors/instructor4.svg"

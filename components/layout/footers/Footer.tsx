@@ -64,7 +64,7 @@ const Footer: React.FC = () => {
               USEFUL LINKS
             </h1>
             {footerData1.map((elm, i: number) => (
-              <div key={i}>
+              <Link href={elm.link} key={i}>
                 <div className="flex items-center gap-2 md:gap-1 mt-2">
                   <Image
                     width={16}
@@ -75,7 +75,7 @@ const Footer: React.FC = () => {
                   />
                   <p className="text-[#4F547B] md:text-sm"> {elm.title}</p>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
           <div className="md:mt-8">

@@ -1,5 +1,6 @@
 import React from 'react'
 import Button from '../reusableComponents/Button'
+import Link from 'next/link'
 
 const CTA: React.FC = () => {
   return (
@@ -11,7 +12,8 @@ const CTA: React.FC = () => {
           </h4>
           <p className="text-[#C5165D] text-xl">Dapp Mentors Academy</p>
         </div>
-        <Button variant='pink'>  Subscribe & Learn</Button>
+        <Link href="/courses">
+        <Button variant='pink'>  Subscribe & Learn</Button></Link>
       </div>
     </div>
   )

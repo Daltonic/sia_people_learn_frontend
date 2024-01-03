@@ -7,7 +7,7 @@ const AuthNavbar: React.FC = ({}) => {
     <div className="px-5 md:px-10 py-5 h-20 w-full hidden md:flex justify-end items-center">
       <ul className=" hidden md:flex items-center text-[#321463] text-md gap-5">
         <li className="text-[15px]">
-          <Link data-barba href="/home" className={"/home"}>
+          <Link data-barba href="/" className={"/"}>
             Home
           </Link>
         </li>
