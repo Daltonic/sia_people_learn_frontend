@@ -17,7 +17,7 @@ const FrequentlyAsked: React.FC<{ items: AccordionItem[] }> = ({ items }) => {
   return (
     <div className="bg-[#F7F8FB] px-5 py-10 md:p-20 mt-10 w-full">
       <div className="text-center mb-10">
-        <h1 className="text-3xl md:text-4xl font-bold text-[#321463]">
+        <h1 className="text-2xl md:text-4xl font-bold text-[#321463]">
           Frequently Asked Questions.
         </h1>
         <p className="text-md mt-3 capitalize text-[#4F547B]">
@@ -26,7 +26,7 @@ const FrequentlyAsked: React.FC<{ items: AccordionItem[] }> = ({ items }) => {
       </div>
       <div className="space-y-3 flex flex-col items-center md:p-5">
         {accordion.map((item, index) => (
-          <div  onClick={() => handleClick(index)} key={index} className="rounded-md bg-white md:w-3/4 p-4 cursor-pointer">
+          <div  onClick={() => handleClick(index)} key={index} className="rounded-md bg-white w-full md:w-3/4 p-4 cursor-pointer">
             <div className="flex items-start h-fit gap-5 md:gap-10 text-start">
               <div>
               <button

@@ -114,9 +114,9 @@ const Footer: React.FC = () => {
           </div>
         </section>
       </div>
-      <div className="pl-28 flex justify-between text-sm text-[#4F547B] px-10 mt-8">
+      <div className="md:pl-28 md:flex justify-between text-sm text-[#4F547B] md:px-10 mt-8">
         <p>© 2023 Dapp Mentors. All Right Reserved.</p>
-        <p>Supported by a Sia Foundation grant.</p>
+        <p className="mt-2 md:mt-0">Supported by a Sia Foundation grant.</p>
       </div>
     </div>
   );
