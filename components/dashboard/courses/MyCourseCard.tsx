@@ -20,7 +20,7 @@ const MyCourseCard: React.FC<ComponentProps> = ({ data, index }) => {
 
   return (
     <div
-      className=" bg-white rounded-lg w-full md:w-56 border-[#EDEDED] border-1 p-2 shadow-[#EDEDED] shadow-xl"
+      className=" bg-white rounded-lg w-full md:w-[13rem] border-[#EDEDED] border-1 p-2 shadow-[#EDEDED] shadow-xl mb-4"
       style={{ height: "fit-content" }}
     >
       <div className="">
@@ -54,14 +54,14 @@ const MyCourseCard: React.FC<ComponentProps> = ({ data, index }) => {
             </div>
           </div>
 
-          <div className="md:text-sm font-medium text-[#321463] mt-2">
+          <div className="md:text-sm font-medium text-[#321463] mt-2 h-14">
             <Link className="linkCustom" href={`/courses/${data.id}`}>
               {data.title}
             </Link>
           </div>
           <div>
             <div className="w-full h-1 bg-[#F9F9F9] rounded-full">
-              <div className="w-2/3 h-full text-center text-xs text-white bg-[#31F02D] rounded-full"></div>
+              <div className="w-2/3 h-full text-center text-xs text-white bg-[#31F02D] rounded-full"/>
             </div>
           </div>
           <p className="text-[#321463] text-sm">% 20 Completed</p>

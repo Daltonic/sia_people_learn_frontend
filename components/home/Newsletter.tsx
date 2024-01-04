@@ -17,8 +17,7 @@ const Newsletter: React.FC = () => {
               </h2>
 
               <p className="text-sm text-[#1A064F] mt-2">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              Stay informed on exclusive offers, web3, and blockchain insights by subscribing to our newsletter.
               </p>
             </div>
         </div>

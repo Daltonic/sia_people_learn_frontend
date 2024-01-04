@@ -33,12 +33,12 @@ const LessonAccordion: React.FC = () => {
           {activeIndex === index && (
             <div className="mt-4">
               {lesson.lessons.map((lesson) => (
-                <div className="flex gap-5 bg-white py-2 px-4">
+                <div key={lesson.id} className="flex gap-5 bg-white py-2 px-4">
                   <div className="p-2 rounded-full bg-[#FBEFF4] w-fit h-fit">
                     <FaPlay size={10} color="#C5165D" />
                   </div>
                   <div>
-                    <div key={lesson.id} className="text-[#4F547B] md:text-sm">
+                    <div  className="text-[#4F547B] md:text-sm">
                       <h3>{lesson.title}</h3>
                       <div className="flex gap-3">
                         <p className="underline text-[#C5165D]">Preview</p>

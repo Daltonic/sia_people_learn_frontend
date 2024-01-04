@@ -7,7 +7,7 @@ import ShopCartTable from "@/components/shopcart/ShopCartTable";
 import ShopCartMobile from "@/components/shopcart/ShopCartMobile";
 
 const Page: NextPage = () => {
-  const isDesktopOrLaptop = window.innerWidth > 680;
+  const isDesktopOrLaptop = typeof window !== 'undefined' ? window.innerWidth > 680 : false;
   return (
     <Layout>
       <div className="flex flex-col items-center overflow-hidden">
@@ -16,8 +16,7 @@ const Page: NextPage = () => {
             Shop Cart
           </h1>
           <p className="text-slate-600 text-md mt-3 capitalize">
-            We are on a mission to deliver engaging, curated courses at a
-            reasonable price.
+          Manage your selected courses and proceed to checkout.
           </p>
         </div>
         {isDesktopOrLaptop ? <ShopCartTable coursesData={coursesData}/> : <ShopCartMobile />}

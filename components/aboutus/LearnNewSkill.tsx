@@ -16,14 +16,13 @@ const LearnNewSkill: React.FC = ({}) => {
       <div className="hidden md:flex justify-between">
         <div className="w-[45%]">
           <h1 className="text-violet-950 text-5xl font-bold md:text-4xl">
-            <span className="text-pink-700">Learn</span>
+            <span className="text-pink-700">  Master New</span>
             <span className="text-violet-950 ml-2">
-              new skills when and where you like.
+             Skills on Your Own Terms with Dapp Mentors
             </span>
           </h1>
           <p className="text-violet-950 text-base leading-7 self-stretch my-3 max-md:max-w-full">
-            Use the list below to bring attention to your products key
-            differentiator.
+          Empower your learning journey with Dapp Mentors, master new skills at your own pace, and unlock your full potential.
           </p>
           <Link href="/courses">
             <Button variant="pink">Join Free</Button>
@@ -39,25 +38,25 @@ const LearnNewSkill: React.FC = ({}) => {
                 <div className="bg-[#C5165D] rounded-full text-[10px] p-1 text-white">
                   <FaCheck />
                 </div>
-                <p className="text-xs">Hand-picked authors</p>
+                <p className="text-xs">Expert-led learning experiences</p>
               </div>
               <div className="flex gap-2 items-center">
                 <div className="bg-[#C5165D] rounded-full text-[10px] p-1 text-white">
                   <FaCheck />
                 </div>
-                <p className="text-xs">Easy to follow curriculum</p>
+                <p className="text-xs">Structured learning paths</p>
               </div>
               <div className="flex gap-2 items-center">
                 <div className="bg-[#C5165D] rounded-full text-[10px] p-1 text-white">
                   <FaCheck />
                 </div>
-                <p className="text-xs">Free courses</p>
+                <p className="text-xs">Accessible education</p>
               </div>
               <div className="flex gap-2 items-center">
                 <div className="bg-[#C5165D] rounded-full text-[10px] p-1 text-white">
                   <FaCheck />
                 </div>
-                <p className="text-xs">Money-back guarantee</p>
+                <p className="text-xs">Risk-free learning</p>
               </div>
             </div>
           </div>
@@ -77,8 +76,7 @@ const LearnNewSkill: React.FC = ({}) => {
             Become an Instructor
           </h1>
           <p className="text-violet-950 text-base my-4">
-            Join millions of people from around the world learning together.
-            Online learning is as easy and natural as chatting.
+          Embrace the opportunity to influence, inspire, and grow alongside them in the exciting world of Blockchain and Web3 Development.
           </p>
           <Link href="/becomeinstructor">
             <Button variant="pinkoutline">Apply Now</Button>
@@ -92,8 +90,7 @@ const LearnNewSkill: React.FC = ({}) => {
             Become a Student
           </h1>
           <p className="text-violet-950 text-base my-4">
-            Join millions of people from around the world learning together.
-            Online learning is as easy and natural as chatting.
+          Join Dapp Mentors Today! Start Your Journey Towards Mastering Blockchain and Web3 Development.
           </p>
           <Link href="/signup">
             <Button variant="pinkoutline">Apply Now</Button>

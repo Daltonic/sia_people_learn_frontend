@@ -14,8 +14,8 @@ const Page: React.FC = () => {
               Instructors
             </h1>
             <p className="text-slate-600 text-center text-md mt-3 capitalize w-full">
-              We are on a mission to deliver engaging, curated courses at a
-              reasonable price.
+              Meet our dedicated instructors, experts in Blockchain and Web3
+              Development.
             </p>
           </div>
           <div className="flex flex-col md:flex-row items-center justify-between flex-wrap mt-10">
@@ -33,9 +33,7 @@ const Page: React.FC = () => {
         <div className="bg-[#242239] px-5 md:px-10 py-16 flex md:justify-center bg-[url('/images/instructors/instructorbg.svg')] bg-cover">
           <div className="flex flex-col md:flex-row gap-5 md:gap-0 justify-between md:w-4/5 md:items-center">
             <div className="font-medium">
-              <h4 className="text-white text-2xl">
-                 Become an Instructor at 
-              </h4>
+              <h4 className="text-white text-2xl">Become an Instructor at</h4>
               <p className="text-[#C5165D] text-xl">Dapp Mentors</p>
             </div>
             <Link href="/signup">

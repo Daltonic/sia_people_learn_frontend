@@ -5,13 +5,13 @@ import { helpItems } from "../../data/helpItems";
 import { FormEvent } from "react";
 import { FaSearch } from "react-icons/fa";
 import HelpCenterCard from "@/components/helpcenter/HelpCenterCard";
-import FrequentlyAsked from "@/components/contact/FrequentlyAsked";
 import { accordion } from "@/data/accordion";
+import FrequentlyAsked from "@/components/helpcenter/FrequentlyAsked";
 
 const Page: NextPage = () => {
-    const handleSubmit = (e: FormEvent) => {
-        e.preventDefault()
-      }
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+  };
   return (
     <Layout>
       <div className="flex flex-col items-center">
@@ -20,11 +20,11 @@ const Page: NextPage = () => {
             How can we help you?
           </h1>
           <p className="text-slate-600 text-md mt-3 capitalize">
-            We are on a mission to deliver engaging, curated courses at a
-            reasonable price.
+            We&apos;re eager to help you navigate your learning journey in Blockchain
+            and Web3 development.
           </p>
         </div>
-       <div className="flex mt-10 justify-center ">
+        <div className="flex mt-10 justify-center ">
           <form
             className="relative h-14 flex"
             action="post"
@@ -40,17 +40,17 @@ const Page: NextPage = () => {
               className="absolute right-2 top-1.5 rounded-md bg-[#C5165D] text-white font-medium h-[80%] px-4 flex gap-2 items-center"
               type="submit"
             >
-                <FaSearch/>
+              <FaSearch />
               Search
             </button>
           </form>
         </div>
-         <div className="flex justify-center md:justify-between flex-wrap gap-5 mt-16 md:px-20">
+        <div className="flex justify-center md:justify-between flex-wrap gap-5 mt-16 md:px-20">
           {helpItems.map((item, i) => (
             <HelpCenterCard key={i} {...item} />
           ))}
         </div>
-        <FrequentlyAsked items={accordion}/>
+        <FrequentlyAsked items={accordion} />
       </div>
     </Layout>
   );

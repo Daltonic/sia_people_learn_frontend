@@ -10,13 +10,6 @@ const CourseForm: React.FC = () => {
     setSelectedOption(value);
   };
   return (
-    <div className="">
-      <div className="mb-10 md:mb-16">
-        <h1 className="font-bold text-[#321463] text-3xl">Create New Course</h1>
-        <p className="text-[#4F547B] text-lg">
-          Lorem ipsum dolor sit amet, consectetur.
-        </p>
-      </div>
       <div className="bg-white rounded-lg ">
         <h1 className="p-5 text-[#321463] font-medium border-b border-[#EDEDED] text-xl md:text-base">
           Basic Information
@@ -89,7 +82,6 @@ const CourseForm: React.FC = () => {
           </div>
         </form>
       </div>
-    </div>
   );
 };
 

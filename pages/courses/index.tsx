@@ -10,11 +10,11 @@ const Page: NextPage = () => {
     <Layout>
       <div className="flex justify-center">
         <div className="flex flex-col w-[90%] mt-5 md:mt-10">
-          <div className="flex flex-col">
+          <div>
             <PageHeader> Trending courses</PageHeader>
-            <div className="text-slate-600 text-sm md:text-lg capitalize w-full mt-1">
-              Write an introductory description of the category.
-            </div>
+            <p className="text-slate-600 text-sm md:text-lg capitalize w-full mt-1">
+            Explore our trending courses in Blockchain and We3 Development.
+            </p>
           </div>
           <Filterlayer />
           <CourseLayer data={coursesData} />

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { accordion } from "../../data/accordion";
+import { accordionTwo } from "../../data/accordion";
 import { FaMinus, FaPlus } from "react-icons/fa";
 
 interface AccordionItem {
@@ -25,7 +25,7 @@ const FrequentlyAsked: React.FC<{ items: AccordionItem[] }> = ({ items }) => {
         </p>
       </div>
       <div className="space-y-3 flex flex-col items-center md:p-5">
-        {accordion.map((item, index) => (
+        {accordionTwo.map((item, index) => (
           <div  onClick={() => handleClick(index)} key={index} className="rounded-md bg-white md:w-3/4 p-4 cursor-pointer">
             <div className="flex items-start h-fit gap-5 md:gap-10 text-start">
               <div>

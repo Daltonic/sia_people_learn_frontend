@@ -53,7 +53,7 @@ const Tabs: React.FC = () => {
 
         <div className="py-4 text-[#4F547B]">
           {activeTab === 1 && (
-            <div className="flex gap-5 w-full flex-wrap">
+            <div className="flex justify-between  w-full flex-wrap">
               {coursesData.map((elm, i: number) => (
                 <MyCourseCard data={elm} index={i} key={i} />
               ))}

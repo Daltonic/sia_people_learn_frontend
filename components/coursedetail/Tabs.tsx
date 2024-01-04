@@ -164,13 +164,12 @@ const Tabs: React.FC = () => {
                   {activeIndex === index && (
                     <div className="mt-4">
                       {lesson.lessons.map((lesson) => (
-                        <div className="flex gap-5 bg-white py-2 px-4">
+                        <div className="flex gap-5 bg-white py-2 px-4" key={lesson.id}>
                           <div className="p-2 rounded-full bg-[#FBEFF4] w-fit h-fit">
                             <FaPlay size={10} color="#C5165D" />
                           </div>
                           <div>
                             <div
-                              key={lesson.id}
                               className="text-[#4F547B] md:text-sm"
                             >
                               <h3>{lesson.title}</h3>

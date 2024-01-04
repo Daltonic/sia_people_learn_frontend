@@ -34,8 +34,7 @@ const Page: NextPage = () => {
           Latest News
         </h1>
         <p className="text-slate-600 text-center text-md mt-3 capitalize w-full">
-          We are on a mission to deliver engaging, curated courses at a
-          reasonable price.
+        Stay tuned for the latest updates on Blockchain and Web3 Development.
         </p>
       </div>
       <section className="mt-14">

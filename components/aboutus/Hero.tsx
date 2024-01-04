@@ -42,20 +42,22 @@ const Hero: React.FC = () => {
             </div>
           </div>
           <div className="flex flex-col md:px-5 md:w-[45%] mt-10 md:mt-0">
-            <div className="text-violet-950 text-3xl font-bold leading-10">
-              Welcome to Educrat Enhance your skills with best Online courses
-            </div>
-            <div className="text-violet-950 text-base mt-3">
-              You can start and finish one of these popular courses in under a
-              day - for free! Check out the list below.. Take the course for
-              free
-            </div>
-            <div className="text-slate-600 text-base my-5">
-              Neque convallis a cras semper auctor. Libero id faucibus nisl
-              tincidunt egetnvallis a cras semper auctonvallis a cras semper
-              aucto. Neque convallis a cras semper auctor. Liberoe convallis a
-              cras semper atincidunt egetnval
-            </div>
+            <h1 className="text-violet-950 text-3xl font-bold leading-10">
+              Unleash Your Potential with Our Experts in Blockchain and Web3
+              Development.
+            </h1>
+            <p className="text-violet-950 text-base mt-3">
+              Unleash your potential in blockchain and Web3 development with
+              Dapp Mentors! Embark on your learning journey today and immerse
+              yourself in our comprehensive Blockchain and Web3 Development
+              Courses and Materials.
+            </p>
+            <p className="text-slate-600 text-base my-5">
+              Join our vibrant community of learners and let us guide you
+              through the complex landscape of Blockchain and Web3 technology.
+              Take the leap towards a brighter future with us today. Don&apos;t wait,
+              start your journey with Dapp Mentors now!
+            </p>
             <Link href="/courses">
               <Button
                 variant="pink"

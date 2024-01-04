@@ -18,8 +18,7 @@ const Page: NextPage = () => {
           Shop Checkout
         </div>
         <div className="text-slate-600 text-center text-md mt-3 capitalize w-full">
-          We are on a mission to deliver engaging, curated courses at a
-          reasonable price.
+        We assure you that we do not store your billing details in our database. 
         </div>
       </div>
       <section className="px-5 md:px-16 mt-8 md:mt-16 md:flex gap-10">

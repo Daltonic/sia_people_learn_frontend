@@ -17,8 +17,7 @@ const Page: NextPage = () => {
           Order Status
         </h1>
         <p className="text-slate-600 text-center text-md mt-3 capitalize w-full">
-          We are on a mission to deliver engaging, curated courses at a
-          reasonable price.
+        Stay updated with your order progress at Dapp Mentors, your journey is transparent and hassle-free.
         </p>
       </div>
 
