@@ -1,5 +1,5 @@
 "use client";
-import Button from "@/components/ReusableComponents/Button";
+import Button from "@/components/reusableComponents/Button";
 import { NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";

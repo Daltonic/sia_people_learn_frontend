@@ -1,5 +1,5 @@
-import Button from "@/components/ReusableComponents/Button";
-import InputField from "@/components/ReusableComponents/InputField";
+import Button from "@/components/reusableComponents/Button";
+import InputField from "@/components/reusableComponents/InputField";
 
 const SocialProfileForm: React.FC = () => {
   return (

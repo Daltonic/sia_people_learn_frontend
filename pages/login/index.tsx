@@ -1,9 +1,9 @@
 "use client";
 import { NextPage } from "next";
-import Button from "@/components/ReusableComponents/Button";
-import InputField from "@/components/ReusableComponents/InputField";
+import Button from "@/components/reusableComponents/Button";
+import InputField from "@/components/reusableComponents/InputField";
 import { FaFacebookF, FaGoogle } from "react-icons/fa";
-import AuthLayout from "@/components/layout/AuthLayout/AuthenticationLayout";
+import AuthLayout from "@/components/layout/authLayout/AuthenticationLayout";
 import Link from "next/link";
 
 const LoginPage: NextPage = () => {

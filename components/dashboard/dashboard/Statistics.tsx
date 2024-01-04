@@ -12,7 +12,7 @@ const Statistics: React.FC = () => {
    <div className="w-full md:w-3/5">
        <div className="rounded-lg bg-white shadow-lg h-full">
          <div className="flex justify-between items-center py-5 px-7 border-b border-gray-200">
-           <h2 className="text-sm font-semibold">Earning Statistics</h2>
+           <h2 className="text-sm font-semibold text-[#321463]">Earning Statistics</h2>
            <div className="relative ">
              <div
                id="ddtwobutton"
@@ -21,7 +21,7 @@ const Statistics: React.FC = () => {
                data-el-toggle=".js-category-toggle"
                data-el-toggle-active=".js-category-active"
              >
-               <span className="">This Week</span>
+               <span className="text-[#4F547B]">This Week</span>
                <i className="ml-2"></i>
              </div>
              {isDropdownActive && (

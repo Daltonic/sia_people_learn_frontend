@@ -72,7 +72,7 @@ const Navbar: React.FC = () => {
                   <Link href="/contact" onClick={closeMenu}>
                     <span
                       className={`${
-                        router.pathname === "/contact" ? "text-[#C5165D]" : ""
+                         router.pathname === "/contact" ? "text-[#C5165D]" : ""
                       }`}
                     >
                       Contact

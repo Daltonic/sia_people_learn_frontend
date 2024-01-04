@@ -1,7 +1,8 @@
-import Button from "../ReusableComponents/Button";
+import Link from "next/link";
+import Button from "../reusableComponents/Button";
 
 const Instructor: React.FC = () => {
-  const backgroundImageUrl = "/images/courseCard/card1.svg";
+  const backgroundImageUrl = "/images/instructors/instructor.svg";
 
   const divStyle = {
     backgroundImage: `url(${backgroundImageUrl})`,
@@ -30,7 +31,8 @@ const Instructor: React.FC = () => {
             Use the list below to bring attention to your products key
             differentiator.
           </p>
-          <Button variant="pinkoutline">Join Our Team</Button>
+          <Link href="/instructor">
+          <Button variant="pinkoutline">Create Account</Button></Link>
         </div>
       </div>
     </div>

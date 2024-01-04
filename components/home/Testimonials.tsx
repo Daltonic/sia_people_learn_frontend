@@ -42,10 +42,10 @@ const Testimonials: React.FC<{ backgroundComponent?: boolean }> = ({
       <div className="w-[99%] md:w-1/2 ">
         <div className="text-center ">
           <h2 className="text-[#321463] font-bold text-2xl">Testimonials</h2>
-          <p className="text-[#4F547B] text-sm">Hear directly from our students</p>
+          <p className="text-[#4F547B] text-sm">See what people are saying about Dapp Mentors.</p>
         </div>
 
-        <div className="mt-5">
+        <div className="mt-5 ">
             <div className="overflow-hidden">
               {showSlider && (
                 <Swiper
@@ -105,7 +105,7 @@ const Testimonials: React.FC<{ backgroundComponent?: boolean }> = ({
                           currentSlideIndex == i ? "is-active" : ""
                         }`}
                       >
-                        <Image width={40} height={40} className="rounded-full border w-16 h-16 md:w-12 md:h-12" src={elm} alt="image" />
+                        <Image width={40} height={40} className="rounded-full border w-16 h-16 md:w-12 md:h-12 cursor-pointer hover:border-2 hover:border-[#C5165D]" src={elm} alt="author" />
                       </div>
                     </div>
                   ))}

@@ -3,7 +3,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { IoIosStar } from "react-icons/io";
+import { IoIosStar, IoMdMore } from "react-icons/io";
 
 interface ComponentProps {
   data: any;
@@ -20,11 +20,11 @@ const MyCourseCard: React.FC<ComponentProps> = ({ data, index }) => {
 
   return (
     <div
-      className=" bg-white rounded-lg w-full md:w-56 border-[#EDEDED] border-1 p-2 shadow-[#EDEDED] shadow-xl"
+      className=" bg-white rounded-lg w-full md:w-[13rem] border-[#EDEDED] border-1 p-2 shadow-[#EDEDED] shadow-xl mb-4"
       style={{ height: "fit-content" }}
     >
       <div className="">
-        <div className="">
+        <div className=" relative">
           <Image
             width={500}
             height={400}
@@ -33,6 +33,9 @@ const MyCourseCard: React.FC<ComponentProps> = ({ data, index }) => {
             src={data.imageSrc}
             alt="image"
           />
+          <div className="text-[#6A7A99] bg-white p-1 text-xl rounded-md absolute top-3 right-3">
+          <IoMdMore />
+          </div>
         </div>
 
         <div className="my-2 p-2 space-y-2">
@@ -51,14 +54,14 @@ const MyCourseCard: React.FC<ComponentProps> = ({ data, index }) => {
             </div>
           </div>
 
-          <div className="md:text-sm font-medium text-[#321463] mt-2">
+          <div className="md:text-sm font-medium text-[#321463] mt-2 h-14">
             <Link className="linkCustom" href={`/courses/${data.id}`}>
               {data.title}
             </Link>
           </div>
           <div>
             <div className="w-full h-1 bg-[#F9F9F9] rounded-full">
-              <div className="w-2/3 h-full text-center text-xs text-white bg-[#31F02D] rounded-full"></div>
+              <div className="w-2/3 h-full text-center text-xs text-white bg-[#31F02D] rounded-full"/>
             </div>
           </div>
           <p className="text-[#321463] text-sm">% 20 Completed</p>

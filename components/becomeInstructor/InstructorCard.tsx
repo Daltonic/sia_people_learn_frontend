@@ -10,6 +10,7 @@ interface InstructorProps {
 const InstructorCard: React.FC<InstructorProps> = ({ data, index }) => {
   return (
     <div className="w-full sm:w-64 mb-10">
+       <Link href={`/instructors/${data.id}`}>
       <div className="relative">
         <div className="w-full h-72">
           <Image
@@ -32,9 +33,9 @@ const InstructorCard: React.FC<InstructorProps> = ({ data, index }) => {
       </div>
       <div className="flex flex-col gap-1 mt-2">
         <h4 className="font-bold">
-          <Link href={`/instructor/${data.id}`}>
+         
             <p className="font-medium text-[#321463] text-lg">{data.name}</p>
-          </Link>
+          
         </h4>
         <p className="md:text-sm text-[#4F547B]">{data.role}</p>
         <div className="flex items-center md:text-xs gap-4">
@@ -68,6 +69,7 @@ const InstructorCard: React.FC<InstructorProps> = ({ data, index }) => {
           </div>
         </div>
       </div>
+      </Link>
     </div>
   );
 };

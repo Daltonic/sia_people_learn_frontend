@@ -23,29 +23,29 @@ const PopularInstructors: React.FC<Props> = ({ teamMembers }) => {
           <h2 className="font-semibold text-[#321463] text-lg">Popular Instructor</h2>
           <Link
             href="/instructors-list-2"
-            className="text-sm text-purple-500 underline"
+            className="text-sm text-[#C5165D] underline"
           >
             View All
           </Link>
         </div>
         <div className="mt-3">
-          <div className="space-y-2">
+          <div className="">
             {teamMembers.slice(0, 5).map((elm, i) => (
               <div
                 key={i}
-                className={`flex ${i !== 0 ? "border-t border-gray-200" : ""}`}
+                className={`flex ${i !== 0 ? "border-t border-gray-200 py-2" : ""}`}
               >
                 <div className="shrink-0">
                   <Image
-                    width={40}
-                    height={40}
-                    className="object-cover rounded-full"
+                    width={0}
+                    height={0}
+                    className="object-cover w-10 h-10 rounded-full"
                     src={elm.image}
                     alt="image"
                   />
                 </div>
                 <div className="ml-2 w-full ">
-                  <h4 className="font-semibold text-[#321463]">
+                  <h4 className="font-medium text-[#321463]">
                     <Link href={`/instructors/${elm.id}`}>{elm.name}</Link>
                   </h4>
                   <div className="flex items-center space-x-5 mt-2 text-[#4F547B]">

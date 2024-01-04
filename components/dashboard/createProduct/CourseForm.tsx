@@ -1,6 +1,6 @@
-import InputField from "@/components/ReusableComponents/InputField";
-import SelectField from "@/components/ReusableComponents/SelectField";
-import TextAreaField from "@/components/ReusableComponents/TextAreaField";
+import InputField from "@/components/reusableComponents/InputField";
+import SelectField from "@/components/reusableComponents/SelectField";
+import TextAreaField from "@/components/reusableComponents/TextAreaField";
 import React, { useState } from "react";
 
 const CourseForm: React.FC = () => {
@@ -10,27 +10,20 @@ const CourseForm: React.FC = () => {
     setSelectedOption(value);
   };
   return (
-    <div className="">
-      <div className="mb-10 md:mb-16">
-        <h1 className="font-bold text-[#321463] text-3xl">Create New Course</h1>
-        <p className="text-[#4F547B] text-lg">
-          Lorem ipsum dolor sit amet, consectetur.
-        </p>
-      </div>
       <div className="bg-white rounded-lg ">
         <h1 className="p-5 text-[#321463] font-medium border-b border-[#EDEDED] text-xl md:text-base">
           Basic Information
         </h1>
         <form action="" className="p-5">
           <InputField
-            label="Course Title"
+            label="Title"
             name="title"
             placeholder="Learn Figma - UI/UX Design Essential Training"
             required
             inputType="text"
           />
           <InputField
-            label="Short Description"
+            label="Overview"
             name="description"
             placeholder="Description"
             required
@@ -38,7 +31,7 @@ const CourseForm: React.FC = () => {
             style={{ height: "80px" }}
           />
           <TextAreaField label="Short Description" id="shortDesc" />
-          <TextAreaField label="Course Description" id="courseDesc" />
+          <TextAreaField label="Description" id="courseDesc" />
           <div className="md:flex gap-8">
             <TextAreaField
               label="What will students learn in your course?"
@@ -66,11 +59,12 @@ const CourseForm: React.FC = () => {
           </div>
           <div className="md:flex gap-8">
             <SelectField
-              label="Close Caption"
+              label=" Product Type"
               options={[
                 { label: "Select", value: "option1" },
-                { label: "Option 2", value: "option2" },
-                { label: "Option 3", value: "option3" },
+                { label: "Course", value: "course" },
+                { label: "Academy", value: "academy" },
+                { label: "Book", value: "book" },
               ]}
               value={selectedOption}
               onChange={handleChange}
@@ -88,7 +82,6 @@ const CourseForm: React.FC = () => {
           </div>
         </form>
       </div>
-    </div>
   );
 };
 

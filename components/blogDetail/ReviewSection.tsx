@@ -2,7 +2,7 @@
 import React from 'react';
 import Image from "next/image";
 import { IoIosStar } from "react-icons/io";
-import Button from "@/components/ReusableComponents/Button";
+import Button from "@/components/reusableComponents/Button";
 // import { ReviewStruct } from "@/utils/type.dt";
 
 

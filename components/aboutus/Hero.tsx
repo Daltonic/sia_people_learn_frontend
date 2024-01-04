@@ -1,12 +1,15 @@
-import Image from 'next/image'
-import Button from '../ReusableComponents/Button'
+import Image from "next/image";
+import Button from "../reusableComponents/Button";
+import Link from "next/link";
 
 const Hero: React.FC = () => {
   return (
     <div>
       <div className="text-center w-full md:mb-16 p-5 bg-[#F9F9F9] h-56 md:h-96 flex flex-col justify-center">
-        <h1 className="text-3xl md:text-4xl font-bold">About Us</h1>
-        <p className="text-md mt-3 capitalize w-full">
+        <h1 className="text-3xl md:text-4xl font-bold text-[#321463]">
+          About Us
+        </h1>
+        <p className="text-md mt-3 capitalize w-full text-[#4F547B]">
           We are on a mission to deliver engaging, curated courses at a
           reasonable price.
         </p>
@@ -39,28 +42,35 @@ const Hero: React.FC = () => {
             </div>
           </div>
           <div className="flex flex-col md:px-5 md:w-[45%] mt-10 md:mt-0">
-            <div className="text-violet-950 text-3xl font-bold leading-10">
-              Welcome to Educrat Enhance your skills with best Online courses
-            </div>
-            <div className="text-violet-950 text-base mt-3">
-              You can start and finish one of these popular courses in under a
-              day - for free! Check out the list below.. Take the course for
-              free
-            </div>
-            <div className="text-slate-600 text-base my-5">
-              Neque convallis a cras semper auctor. Libero id faucibus nisl
-              tincidunt egetnvallis a cras semper auctonvallis a cras semper
-              aucto. Neque convallis a cras semper auctor. Liberoe convallis a
-              cras semper atincidunt egetnval
-            </div>
-            <Button variant="pink" style={{ width: '16rem', padding: '10px' }}>
-              Start Learning For Free{' '}
-            </Button>
+            <h1 className="text-violet-950 text-3xl font-bold leading-10">
+              Unleash Your Potential with Our Experts in Blockchain and Web3
+              Development.
+            </h1>
+            <p className="text-violet-950 text-base mt-3">
+              Unleash your potential in blockchain and Web3 development with
+              Dapp Mentors! Embark on your learning journey today and immerse
+              yourself in our comprehensive Blockchain and Web3 Development
+              Courses and Materials.
+            </p>
+            <p className="text-slate-600 text-base my-5">
+              Join our vibrant community of learners and let us guide you
+              through the complex landscape of Blockchain and Web3 technology.
+              Take the leap towards a brighter future with us today. Don&apos;t wait,
+              start your journey with Dapp Mentors now!
+            </p>
+            <Link href="/courses">
+              <Button
+                variant="pink"
+                style={{ width: "16rem", padding: "10px" }}
+              >
+                Start Learning For Free{" "}
+              </Button>
+            </Link>
           </div>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Hero
+export default Hero;

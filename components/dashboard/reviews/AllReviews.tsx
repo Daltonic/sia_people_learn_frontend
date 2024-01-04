@@ -1,5 +1,6 @@
 import React from "react";
 import ReviewSection from "./ReviewSection";
+import SearchAndFilterBar from "@/components/reusableComponents/SearchAndFilterBar";
 
 const AllReviews: React.FC = () => {
   return (
@@ -14,8 +15,9 @@ const AllReviews: React.FC = () => {
         <h1 className="p-5 text-[#321463] font-medium border-b border-[#EDEDED] text-xl md:text-base">
           All Reviews
         </h1>
+       
         <div className="p-5">
-          {" "}
+        <SearchAndFilterBar/>
           {[...Array(5)].map((_, i) => (
             <ReviewSection key={i} />
           ))}

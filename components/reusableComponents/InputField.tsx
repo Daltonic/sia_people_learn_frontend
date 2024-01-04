@@ -14,7 +14,7 @@ const InputField: React.FC<InputFieldProps> = ({ label, name, placeholder, requi
    <label className="text-violet-950 font-medium">{label}</label>
    <input
     required={required}
-    className="text-slate-600 border border-[color:var(--border-2,#E1DDDD)] w-full justify-center mt-3 p-3 md:pl-6 py-3 rounded-lg items-start"
+    className="text-slate-600 border border-[color:var(--border-2,#E1DDDD)] w-full justify-center mt-3 p-3 md:pl-6 py-3 rounded-lg items-start focus:outline-none"
     type={inputType}
     name={name}
     placeholder={placeholder}

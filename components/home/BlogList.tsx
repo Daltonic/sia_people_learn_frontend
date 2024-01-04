@@ -1,13 +1,14 @@
 import React from "react";
 import { blogs } from "@/data/blogs";
 import Link from "next/link";
-import Button from "@/components/ReusableComponents/Button";
+import Button from "@/components/reusableComponents/Button";
 import { GoArrowUpRight } from "react-icons/go";
 import BlogCard from "../blog/BlogCard";
 
 const BlogList: React.FC = () => {
   return (
     <section className="my-16 flex flex-col items-center justify-center px-5 md:px-10 lg:px-36">
+      <div className="md:w-4/5">
       <div className="md:flex justify-between items-center w-full">
         <div className=" ">
           <h2 className="text-[#321463] font-bold text-3xl md:text-3xl">
@@ -34,6 +35,7 @@ const BlogList: React.FC = () => {
         {blogs.slice(0, 4).map((blog, i: number) => (
           <BlogCard i={i} key={i} blog={blog} />
         ))}
+      </div>
       </div>
     </section>
   );

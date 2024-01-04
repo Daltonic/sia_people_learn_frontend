@@ -5,10 +5,7 @@ export const testimonials = [
       name: "Courtney Henry",
       position: "Web Designer",
       comment: "Great Work",
-      description: `I think Educrat is the best theme I ever seen this year.
-          Amazing design, easy to customize and a design quality
-          superlative account on its cloud platform for the
-          optimized performance`,
+      description: `Enrolling in the Solidity blockchain course was one of the best decisions I made. The instructors were knowledgeable and approachable, making the learning process easy and enjoyable. The course content was comprehensive and kept me engaged throughout`,
     },
     {
       id: 1,
@@ -16,10 +13,7 @@ export const testimonials = [
       name: "Ronald Richards",
       position: "Software Developer",
       comment: "Great Work",
-      description: `I think Educrat is the best theme I ever seen this year.
-          Amazing design, easy to customize and a design quality
-          superlative account on its cloud platform for the
-          optimized performance`,
+      description: `The subscription plan offered flexibility and affordability, which made it perfect for my schedule. I was able to learn at my own pace without any pressure. Plus, the community support was excellent, which helped me overcome any challenges I faced.`,
     },
     {
       id: 2,
@@ -27,10 +21,7 @@ export const testimonials = [
       name: "Annette Black",
       position: "Software Developer",
       comment: "Great Work",
-      description: `I think Educrat is the best theme I ever seen this year.
-          Amazing design, easy to customize and a design quality
-          superlative account on its cloud platform for the
-          optimized performance`,
+      description: `The hands-on projects and exercises were very beneficial in reinforcing the concepts taught during the course. I was able to apply what I learned immediately in real-world scenarios.`,
     },
     {
       id: 3,
@@ -38,10 +29,7 @@ export const testimonials = [
       name: "Courtney Henry",
       position: "Web Designer",
       comment: "Great Work",
-      description: `I think Educrat is the best theme I ever seen this year.
-          Amazing design, easy to customize and a design quality
-          superlative account on its cloud platform for the
-          optimized performance`,
+      description: `The course was well-structured and progressed smoothly, which made it easy to follow along. The instructors did an excellent job of explaining complex topics in a simple and understandable manner.`,
     },
   ];
   
@@ -49,32 +37,32 @@ export const testimonials = [
     {
       id: 1,
       author: "John Doe",
-      position: "Product Manager, Apple Inc",
-      text: "It is no exaggeration to say this Educrat experience was transformative both professionally and personally. This workshop will long remain a high point of my life.",
+      position: "Web Designer",
+      position: "The course was well-structured and progressed smoothly, which made it easy to follow along. The instructors did an excellent job of explaining complex topics in a simple and understandable manner.",
     },
     {
       id: 2,
       author: "John Smith",
-      position: "Marketing Director, XYZ Company",
-      text: "Educrat has helped me acquire valuable skills that have greatly enhanced my career prospects. The courses are comprehensive and taught by industry experts.",
+      position: "Web Designer",
+      text: "The course materials were up-to-date and relevant, reflecting the current trends and developments in the field of Solidity blockchain. This ensured that I was learning the most current and useful skills",
     },
     {
       id: 3,
       author: "Emily Johnson",
-      position: "Freelance Graphic Designer",
-      text: "I've been using Educrat for several months now, and I'm impressed by the quality of the courses. They cover a wide range of topics and are easy to follow.",
+      position: "Software Developer",
+      text: "The hands-on projects and exercises were very beneficial in reinforcing the concepts taught during the course. I was able to apply what I learned immediately in real-world scenarios.",
     },
     {
       id: 4,
       author: "David Brown",
-      position: "Software Engineer, ABC Corporation",
-      text: "I highly recommend Educrat for anyone looking to upskill or learn new technologies. The platform is user-friendly, and the instructors are knowledgeable.",
+      position: "Software Engineer",
+      text: "The hands-on projects and exercises were very beneficial in reinforcing the concepts taught during the course. I was able to apply what I learned immediately in real-world scenarios.",
     },
     {
       id: 5,
       author: "Sarah Thompson",
-      position: "Digital Marketing Specialist",
-      text: "Educrat has been a game-changer for me. The courses are up-to-date and relevant, helping me stay ahead in the ever-changing field of digital marketing.",
+      position: "Software Developer",
+      text: "The hands-on projects and exercises were very beneficial in reinforcing the concepts taught during the course. I was able to apply what I learned immediately in real-world scenarios.",
     },
     // Add more testimonial objects as needed
   ];

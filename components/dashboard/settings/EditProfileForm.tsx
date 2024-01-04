@@ -1,5 +1,5 @@
-import BirthdayInput  from "@/components/ReusableComponents/BirthdayInput";
-import InputField from "@/components/ReusableComponents/InputField";
+import BirthdayInput  from "@/components/reusableComponents/BirthdayInput";
+import InputField from "@/components/reusableComponents/InputField";
 import React, { useState } from "react";
 
 const EditProfileForm: React.FC = () => {
