@@ -10,7 +10,7 @@ function Filterlayer() {
         <span className="font-medium text-violet-950">250</span>
         <span className=" text-slate-600"> total results</span>
       </div>
-      <div className="md:flex-row flex-col flex md:items-center justify-between gap-2 md:gap-5 max-md:justify-center">
+      <div className="flex items-center gap-2 md:gap-10">
         <div className="text-violet-950 text-sm font-medium grow whitespace-nowrap my-auto">
           Sort by:
         </div>

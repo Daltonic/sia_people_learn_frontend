@@ -11,7 +11,7 @@ const Page: NextPage = () => {
   return (
     <Layout>
       <div className="flex flex-col items-center overflow-hidden">
-        <div className="flex flex-col items-center md:px-5 md:mt-10 text-center">
+        <div className="flex flex-col items-center px-5 md:mt-10 text-center">
           <h1 className="text-violet-950 text-3xl md:text-4xl font-bold">
             Shop Cart
           </h1>

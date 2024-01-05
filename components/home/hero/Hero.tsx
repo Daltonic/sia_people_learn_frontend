@@ -12,7 +12,7 @@ const Hero: React.FC = () => {
   return (
     <section
       style={divStyle}
-      className="max-h-[45vh] md:max-h-[78vh] md:mx-10 lg:mx-20 md:rounded-2xl bg-cover"
+      className="max-h-[48vh] sm:max-h-[64vh] border-2 md:max-h-[78vh] md:mx-10 lg:mx-20 md:rounded-2xl bg-cover"
       data-bg="images/heroImage.svg"
     >
       <div className="md:ml-56 ml-5 py-10 md:py-20 pr-5 md:pr-0 md:w-1/3">

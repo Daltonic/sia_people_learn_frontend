@@ -80,7 +80,7 @@ const Footer: React.FC = () => {
           </div>
           <div className="md:mt-8">
             {footerData2.map((elm, i: number) => (
-              <div key={i} className="flex items-center gap-2 md:gap-1 mt-2">
+              <Link href={elm.link} key={i} className="flex items-center gap-2 md:gap-1 mt-2">
                 <Image
                   width={16}
                   height={16}
@@ -89,7 +89,7 @@ const Footer: React.FC = () => {
                   className="w-6 md:w-4"
                 />
                 <p className="text-[#4F547B] md:text-sm"> {elm.title}</p>
-              </div>
+              </Link>
             ))}
           </div>
           <div>
@@ -99,7 +99,7 @@ const Footer: React.FC = () => {
             </h1>
             {footerData3.map((elm, i: number) => (
               <div key={i}>
-                <div className="flex items-center gap-2 md:gap-1 mt-2">
+                <Link href={elm.link} className="flex items-center gap-2 md:gap-1 mt-2">
                   <Image
                     width={16}
                     height={16}
@@ -108,7 +108,7 @@ const Footer: React.FC = () => {
                     className="w-6 md:w-4"
                   />
                   <p className="text-[#4F547B] md:text-sm"> {elm.title}</p>
-                </div>
+                </Link>
               </div>
             ))}
           </div>
