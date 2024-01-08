@@ -29,7 +29,7 @@ export const footerData2 = [
     imageSrc: "/images/footerIcons/medium.svg",
     title: "Medium",
     delay: 3,
-    link: "https://darlingtongospel.medium.com/",
+    link: "https://darlingtongospel.medium.com",
   },
   {
     id: 4,

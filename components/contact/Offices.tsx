@@ -1,6 +1,6 @@
 const Offices: React.FC = () => {
   return (
-    <div className="w-full md:pb-20 px-5 md:px-36 py-10 bg-white">
+    <div className="w-full md:pb-20 px-5 sm:px-10 md:px-36 py-10 bg-white">
     <h1 className="text-violet-950 font-medium text-2xl md:text-lg mb-6 md:mb-4">Our office</h1>
       <div className="md:w-1/2 space-y-2">
         <h1 className="text-violet-950 font-medium text-lg md:text-md">Nigeria</h1>

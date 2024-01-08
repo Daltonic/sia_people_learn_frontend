@@ -21,7 +21,7 @@ const Page: NextPage = () => {
         We assure you that we do not store your billing details in our database. 
         </div>
       </div>
-      <section className="px-5 md:px-16 mt-8 md:mt-16 md:flex gap-10">
+      <section className="px-5 sm:px-10 md:px-16 mt-8 md:mt-16 md:flex gap-10">
         <div className="md:w-[70%] flex-1">
           <div className="">
             <form onSubmit={handleSubmit} className="">

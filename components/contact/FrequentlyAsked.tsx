@@ -15,7 +15,7 @@ const FrequentlyAsked: React.FC<{ items: AccordionItem[] }> = ({ items }) => {
   };
 
   return (
-    <div className="bg-[#F7F8FB] px-5 py-10 md:p-20 mt-10 w-full">
+    <div className="bg-[#F7F8FB] px-5 sm:px-10 py-10 md:p-20 mt-10 w-full">
       <div className="text-center mb-10">
         <h1 className="text-2xl md:text-4xl font-bold text-[#321463]">
           Frequently Asked Questions.

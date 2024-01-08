@@ -4,13 +4,13 @@ import InputField from "../reusableComponents/InputField";
 const Hero: React.FC = () => {
   return (
     <div className="w-full md:mb-16 py-10 md:p-36 bg-[#F9F9F9] md:h-[28rem] flex flex-col md:flex-row justify-between">
-      <div className="px-5 ">
-        <h1 className="text-3xl md:text-4xl font-bold">Contact Us</h1>
+      <div className="px-5 sm:px-10 flex-1">
+        <h1 className="text-3xl md:text-4xl font-bold text-[#321463]">Contact Us</h1>
         <p className="text-md mt-3 capitalize text-[#4F547B]">
         We invite you to reach out to us for any inquiries, feedback, partnerships, consultancy, or Development service.
         </p>
       </div>
-      <div className="bg-white p-8 md:rounded-md w-full md:w-1/2 border mt-5 z-10 h-fit shadow-xl shadow-[#EDEDED]">
+      <div className="bg-white p-5 sm:p-10 md:p-8 md:rounded-md w-full md:w-1/2 border mt-5 z-10 h-fit shadow-xl shadow-[#EDEDED]">
         <h1 className="text-[#321463] font-medium text-xl md:text-lg">Send a Message</h1>
         <p className="text-[#4F547B] md:text-sm mb-6">
         Ready to connect? Send us a message and let&apos;s start your learning journey

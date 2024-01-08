@@ -5,7 +5,7 @@ import Link from "next/link";
 const Hero: React.FC = () => {
   return (
     <div>
-      <div className="text-center w-full md:mb-16 p-5 bg-[#F9F9F9] h-56 md:h-96 flex flex-col justify-center">
+      <div className="text-center w-full md:mb-16 p-5 bg-[#F9F9F9] h-56 sm:h-64 md:h-96 flex flex-col justify-center">
         <h1 className="text-3xl md:text-4xl font-bold text-[#321463]">
           About Us
         </h1>
@@ -15,7 +15,7 @@ const Hero: React.FC = () => {
         </p>
       </div>
       <div className="flex justify-center w-full">
-        <div className="flex flex-col md:flex-row justify-between md:my-16 px-5 py-10 md:px-20">
+        <div className="flex flex-col md:flex-row justify-between md:my-16 px-5 sm:px-10 py-10 md:px-20">
           <div className="flex w-full md:w-[45%] items-start gap-5">
             <Image
               src="/images/courseCard/card1.svg"

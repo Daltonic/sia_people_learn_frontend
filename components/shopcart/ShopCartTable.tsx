@@ -13,8 +13,8 @@ interface TableProps {
 
 const ShopCartTable: React.FC<TableProps> = ({ coursesData }) => {
   return (
-    <div className="w-full flex justify-center">
-      <table className="mt-14 w-5/6">
+    <div className="w-full flex justify-center px-10 md:p-0">
+      <table className="mt-14 md:w-5/6">
         <thead className="bg-[#F5F7FE] text-[#C5165D] font-medium h-20 rounded-md">
           <tr>
             <th className="text-start pl-10">Product</th>

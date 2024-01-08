@@ -31,11 +31,11 @@ const Header: React.FC = () => {
 
   return (
     <header
-      className={`px-5 md:px-10 lg:px-20 py-5 sticky h-20 top-0 w-full z-50 ${
+      className={`px-5 sm:px-10 lg:px-20 py-5 sticky h-20 top-0 w-full z-50 ${
         isScrolled ? 'bg-white shadow-md' : 'bg-transparent'
       }`}
     >
-      <div className="">
+      <div >
         <div className="flex justify-between items-center">
           <Link href="/">
             <div className="flex items-center gap-2 cursor-pointer">

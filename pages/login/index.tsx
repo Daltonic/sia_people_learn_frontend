@@ -12,7 +12,7 @@ const LoginPage: NextPage = () => {
       <div className="flex justify-center items-center md:mt-16">
       <form
         action=""
-        className="bg-white p-5 md:p-10 w-full md:w-[60%] rounded-md "
+        className="bg-white p-5 sm:p-10 w-full md:w-[60%] rounded-md "
         // onSubmit={handleSubmit}
       >
         <h3 className="font-medium text-3xl text-[#321463]">Login</h3>
@@ -59,23 +59,23 @@ const LoginPage: NextPage = () => {
         </p>
         <div className="flex flex-col md:flex-row items-center md:items-end gap-2 mt-2 space-y-2">
           <Button
-            variant="whiteoutline"
+            variant="blueoutline"
             type="submit"
             name="submit"
             id="submit"
-            className="justify-center flex items-center md:justify-between gap-2 md:gap-0 text-lg md:text-base border border-[#1967D2] text-[#1967D2] w-64 md:w-full"
+            className="justify-center flex items-center md:justify-between gap-2 md:gap-0 text-lg md:text-base w-64 sm:w-full"
           >
-            <FaFacebookF className="mr-2 md:mr-0 border text-xl" />
+            <FaFacebookF className="mr-2 md:mr-0 text-xl" />
             Login via Facebook
           </Button>
           <Button
-            variant="whiteoutline"
+            variant="redoutline"
             type="submit"
             name="submit"
             id="submit"
-            className="justify-center flex items-center md:justify-between gap-2 md:gap-0 text-lg md:text-base border border-[#D93025] text-[#D93025] w-64 md:w-full"
+            className="justify-center flex items-center md:justify-between gap-2 md:gap-0 text-lg md:text-base w-64 sm:w-full"
           >
-            <FaGoogle className="mr-2 md:mr-0 border text-xl" />
+            <FaGoogle className="mr-2 md:mr-0 text-xl" />
             Login via Google+
           </Button>
         </div>

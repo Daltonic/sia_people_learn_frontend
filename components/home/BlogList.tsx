@@ -7,8 +7,8 @@ import BlogCard from "../blog/BlogCard";
 
 const BlogList: React.FC = () => {
   return (
-    <section className="my-16 flex flex-col items-center justify-center px-5 md:px-10 lg:px-36">
-      <div className="md:w-4/5">
+    <section className="my-16 flex flex-col items-center justify-center px-5 sm:px-10 lg:px-36">
+      <div className="w-full md:w-4/5">
       <div className="md:flex justify-between items-center w-full">
         <div className=" ">
           <h2 className="text-[#321463] font-bold text-3xl md:text-3xl">
@@ -31,7 +31,7 @@ const BlogList: React.FC = () => {
         </div>
       </div>
 
-      <div className="flex flex-col md:flex-row gap-8 md:gap-10 lg:gap-16 mt-16">
+      <div className="flex flex-col sm:flex-row sm:flex-wrap justify-between lg:gap-16 mt-16">
         {blogs.slice(0, 4).map((blog, i: number) => (
           <BlogCard i={i} key={i} blog={blog} />
         ))}

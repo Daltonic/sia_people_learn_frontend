@@ -7,7 +7,7 @@ const Newsletter: React.FC = () => {
     e.preventDefault()
   }
   return (
-    <section className="bg-[#F9F9F9] md:mx-10 rounded-2xl px-5 py-10 md:p-24 flex justify-center">
+    <section className="bg-[#F9F9F9] md:mx-10 md:rounded-2xl px-5 py-10 md:p-24 flex justify-center">
 
       <div >
         <div className="flex justify-center text-center">

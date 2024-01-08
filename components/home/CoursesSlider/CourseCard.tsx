@@ -20,7 +20,7 @@ const CourseCard
   }, [data.rating]);
 
   return (
-    <div className=" bg-white rounded-lg w-full md:w-56 border-[#EDEDED] border-1 p-2 shadow-[#EDEDED] shadow-xl" style={{ height: "fit-content" }}>
+    <div className=" bg-white rounded-lg w-full sm:w-56 border-[#EDEDED] border-1 p-2 shadow-[#EDEDED] shadow-md" style={{ height: "fit-content" }}>
       <div className="">
         <div className="">
           <Image

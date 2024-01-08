@@ -11,7 +11,7 @@ interface BlogCardProps {
 const BlogCard: React.FC<BlogCardProps> = ({ blog, i }) => {
   return (
     <div
-      className="w-full md:w-64"
+      className="w-full sm:w-[48%] md:w-56 mb-6"
       data-aos="fade-left"
       data-aos-duration={(i + 1) * 500}
     >
@@ -21,7 +21,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog, i }) => {
           height={0}
           src={blog.imageSrc}
           alt="image"
-          className="rounded:lg w-full h-full object-cover"
+          className="rounded-lg w-full h-full object-cover"
         />
       </div>
       <div className="mt-3 pr-2">

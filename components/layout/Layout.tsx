@@ -1,22 +1,22 @@
-"use client"
-import React, { ReactNode, useEffect } from 'react';
+"use client";
+import React, { ReactNode, useEffect } from "react";
 import Footer from "./footers/Footer";
 import Header from "./headers/Header";
-import 'aos/dist/aos.css';
-import AOS from 'aos';
+import "aos/dist/aos.css";
+import AOS from "aos";
 
 interface LayoutProps {
-   children: ReactNode;
+  children: ReactNode;
 }
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
- useEffect(() => {
-   AOS.init();
- }, []);
+  useEffect(() => {
+    AOS.init();
+  }, []);
   return (
-    <div >
+    <div>
       <Header />
-      <main className='mt-5'>{children}</main>
+      <main>{children}</main>
       <Footer />
     </div>
   );

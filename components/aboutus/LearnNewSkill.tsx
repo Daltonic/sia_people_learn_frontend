@@ -12,7 +12,7 @@ const LearnNewSkill: React.FC = ({}) => {
     backgroundPosition: "top",
   };
   return (
-    <div className="flex flex-col items-center pt-10 px-5 md:p-20">
+    <div className="flex flex-col items-center pt-10 px-5 sm:px-8 md:p-20">
       <div className="hidden md:flex justify-between">
         <div className="w-[45%]">
           <h1 className="text-violet-950 text-5xl font-bold md:text-4xl">

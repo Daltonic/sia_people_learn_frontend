@@ -23,7 +23,7 @@ import RelatedPosts from "@/components/blogDetail/RelatedPosts";
 const Page: NextPage<{ blogData: BlogStruct }> = ({ blogData }) => {
   return (
     <Layout>
-      <div className="flex flex-col items-center px-5 md:px-20">
+      <div className="flex flex-col items-center px-5 sm:px-10 md:px-20">
         <BlogDetail blogData={blogData} />
 
         <section className="flex justify-center w-full mt-5 md:mt-16">
@@ -81,8 +81,8 @@ const Page: NextPage<{ blogData: BlogStruct }> = ({ blogData }) => {
                   </p>
                 </div>
 
-                <div className="md:flex justify-between mt-5">
-                  <div className="w-full md:w-[48%]">
+                <div className="sm:flex justify-between mt-5">
+                  <div className="w-full sm:w-[48%]">
                     <Image
                       width={530}
                       height={450}
@@ -91,7 +91,7 @@ const Page: NextPage<{ blogData: BlogStruct }> = ({ blogData }) => {
                       className=" rounded-md"
                     />
                   </div>
-                  <div className="w-full md:w-[48%] mt-5 md:mt-0">
+                  <div className="w-full sm:w-[48%] mt-5 sm:mt-0">
                     <Image
                       width={530}
                       height={450}

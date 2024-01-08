@@ -42,7 +42,7 @@ const Tabs: React.FC = () => {
             }`}
             type="button"
           >
-            Course Content
+            Content
           </button>
           <button
             onClick={() => handleTabClick(3)}

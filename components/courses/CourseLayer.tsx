@@ -1,5 +1,5 @@
-"use client"
-import  React, { useEffect } from "react";
+"use client";
+import React, { useEffect } from "react";
 import { coursesData } from "@/data/courses";
 import Image from "next/image";
 import { IoIosStar } from "react-icons/io";
@@ -7,7 +7,7 @@ import { FiHeart } from "react-icons/fi";
 import Link from "next/link";
 
 interface ComponentProps {
-  data: any; 
+  data: any;
   index?: number;
 }
 
@@ -22,7 +22,11 @@ const CourseLayer: React.FC<ComponentProps> = ({ data }) => {
   return (
     <div className="flex flex-col items-stretch mt-10">
       {coursesData.slice(0, 8).map((data, i: number) => (
-        <Link key={i} href={`/coursedetail/${data.id}`} className="border-b border-[#EDEDED] py-5">
+        <Link
+          key={i}
+          href={`/coursedetail/${data.id}`}
+          className="border-b border-[#EDEDED] py-5"
+        >
           <div className="w-full">
             <div className=" flex md:flex-row flex-col">
               <div className="flex flex-col items-stretch md:w-4/5">
@@ -80,9 +84,11 @@ const CourseLayer: React.FC<ComponentProps> = ({ data }) => {
                               src="/images/home/coursesCards/icons/1.svg"
                               alt="icon"
                             />
-                            <p className="text-sm text-[#4F547B]">{data.lessonCount} lesson</p>
+                            <p className="text-sm text-[#4F547B]">
+                              {data.lessonCount} lesson
+                            </p>
                           </div>
-                          
+
                           <div className="flex items-center">
                             <div className="mr-1">
                               <Image
@@ -105,7 +111,9 @@ const CourseLayer: React.FC<ComponentProps> = ({ data }) => {
                                 alt="icon"
                               />
                             </div>
-                            <div className="text-sm text-[#4F547B]">{data.level}</div>
+                            <div className="text-sm text-[#4F547B]">
+                              {data.level}
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -113,34 +121,30 @@ const CourseLayer: React.FC<ComponentProps> = ({ data }) => {
                   </div>
                 </div>
               </div>
-              <div className="flex flex-col items-stretch md:w-1/5 md:ml-5">
-                <div className="flex items-stretch justify-between gap-5 mt-3 md:mt-0">
-                  <div className="md:self-center flex md:pl-5 flex-col my-auto items-start md:items-end md:border-l md:border-[#EDEDED]">
-                    <div className="">
-                      {data.paid ? (
-                        <div className="flex flex-col md:items-end">
-                          <p className="text-sm text-[#4F547B] line-through">
-                            ${data.originalPrice}
-                          </p>
-                          <p className="text-2xl  text-[#321463]">
-                            ${data.discountedPrice}
-                          </p>
-                        </div>
-                      ) : (
-                        <>
-                          <div></div>
-                          <div>Free</div>
-                        </>
-                      )}
+              <div className="flex md:flex-col md:pl-5 my-auto items-center justify-between md:justify-normal md:items-end md:border-l md:border-[#EDEDED]">
+                <div className="">
+                  {data.paid ? (
+                    <div className="flex md:flex-col items-center gap-2 md:items-end">
+                      <p className="text-sm text-[#4F547B] line-through">
+                        ${data.originalPrice}
+                      </p>
+                      <p className="text-2xl  text-[#321463]">
+                        ${data.discountedPrice}
+                      </p>
                     </div>
-                    <div className="flex items-center justify-between gap-5 mt-3 md:mt-7">
-                      <button className="text-pink-700 font-medium bg-violet-600 bg-opacity-10 justify-center h-12 px-3 rounded-lg ">
-                        Add to cart
-                      </button>
-                      <div className="w-12 h-12 flex justify-center items-center rounded-full bg-[#F9F9F9]">
-                      <FiHeart />
-                    </div>
-                    </div>
+                  ) : (
+                    <>
+                      <div></div>
+                      <div>Free</div>
+                    </>
+                  )}
+                </div>
+                <div className="flex items-center justify-between gap-5 mt-3">
+                  <button className="text-pink-700 font-medium bg-violet-600 bg-opacity-10 justify-center h-12 px-3 rounded-lg ">
+                    Add to cart
+                  </button>
+                  <div className="w-12 h-12 flex justify-center items-center rounded-full bg-[#F9F9F9]">
+                    <FiHeart />
                   </div>
                 </div>
               </div>
