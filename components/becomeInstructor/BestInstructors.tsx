@@ -7,14 +7,14 @@ import InstructorCard from "./InstructorCard";
 
 const BestInstructors: React.FC = () => {
   return (
-    <div className="md:p-20 p-5">
+    <div className="md:p-20 sm:p-10 p-5">
       <div className="flex flex-col gap-3 md:flex-row justify-between md:items-center w-full">
         <div className="space-y-2 md:space-y-0 ">
           <h2 className="text-[#321463] font-bold text-3xl md:text-2xl">
             Learn from the best instructors
           </h2>
           <p className="text-[#4F547B] text-sm">
-            Lorem ipsum dolor sit amet, consectetur.
+          Master Web3 and Blockchain with top-notch instructors at Dapp Mentors Academy.
           </p>
         </div>
 

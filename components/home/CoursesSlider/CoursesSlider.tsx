@@ -1,26 +1,26 @@
-'use client'
+"use client";
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from "react";
 
-import CourseCard from './CourseCard'
-import { coursesData } from '@/data/courses'
-import { Navigation, Pagination, Autoplay } from 'swiper'
-import { Swiper, SwiperSlide } from 'swiper/react'
-import Link from 'next/link'
-import { FaArrowLeft, FaArrowRight } from 'react-icons/fa'
-import Button from '@/components/reusableComponents/Button'
-import { GoArrowUpRight } from 'react-icons/go'
+import CourseCard from "./CourseCard";
+import { coursesData } from "@/data/courses";
+import { Navigation, Pagination, Autoplay } from "swiper";
+import { Swiper, SwiperSlide } from "swiper/react";
+import Link from "next/link";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import Button from "@/components/reusableComponents/Button";
+import { GoArrowUpRight } from "react-icons/go";
 
 const CoursesSlider: React.FC = () => {
-  const [showSlider, setShowSlider] = useState(false)
+  const [showSlider, setShowSlider] = useState(false);
   useEffect(() => {
-    setShowSlider(true)
-  }, [])
+    setShowSlider(true);
+  }, []);
 
   return (
     <section className="relative z-10 md:mx-10 lg:mx-20">
       <div className="px-5 sm:px-10 md:px-28 py-12 md:py-10 bg-[#F9F9F9] relative md:rounded-2xl">
-        <div className="flex flex-col md:flex-row gap-4 md:gap-0 justify-between md:items-center">
+        <div className="flex flex-col sm:flex-row gap-4 md:gap-0 justify-between md:items-center">
           <div>
             <h2 className="text-[#321463] font-bold text-2xl">
               Trending courses
@@ -33,7 +33,7 @@ const CoursesSlider: React.FC = () => {
 
           <div className="">
             <Link
-              href="/courses-list-1"
+              href="/courses"
               className="font-medium text-sm text-center px-3 flex items-center rounded-md bg-[#6440FB12] text-[#1A064F]  hover:text-[#C5165D] border-2 border-transparent hover:border-[#C5165D] hover:bg-transparent w-fit"
             >
               <Button className=""> All Courses </Button>
@@ -54,8 +54,8 @@ const CoursesSlider: React.FC = () => {
                 <Swiper
                   modules={[Navigation, Pagination, Autoplay]}
                   navigation={{
-                    nextEl: '.icon-arrow-right',
-                    prevEl: '.icon-arrow-left',
+                    nextEl: ".icon-arrow-right",
+                    prevEl: ".icon-arrow-left",
                   }}
                   spaceBetween={20}
                   slidesPerView={1}
@@ -69,7 +69,7 @@ const CoursesSlider: React.FC = () => {
                       slidesPerView: 2,
                     },
                     768: {
-                      slidesPerView: 3,
+                      slidesPerView: 2,
                     },
                     1200: {
                       slidesPerView: 4,
@@ -103,7 +103,7 @@ const CoursesSlider: React.FC = () => {
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default CoursesSlider
+export default CoursesSlider;

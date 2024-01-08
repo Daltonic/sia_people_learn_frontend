@@ -9,11 +9,11 @@ const Instructor: React.FC = () => {
     backgroundPosition: "top",
   };
   return (
-    <div className="bg-[#F7F8FB] flex justify-center py-10 px-5 md:p-20 w-full">
-      <div className="md:w-5/6 flex flex-col md:flex-row justify-between md:items-center items-start">
+    <div className="bg-[#F7F8FB] flex justify-center py-10 px-5 sm:px-10 md:p-20 w-full">
+      <div className="w-full md:w-5/6 flex flex-col md:flex-row justify-between md:items-center items-start">
         <div
           style={divStyle}
-          className="h-[25rem] border w-[20rem] md:w-[25rem] md:rounded-full bg-cover relative"
+          className="h-[25rem] border w-full md:w-[25rem] md:rounded-full bg-cover relative"
         >
           <div className="hidden md:block bg-white absolute -bottom-5 -right-10 w-56 pt-10 p-5 rounded-lg">
             <p className="text-md text-[#321463] font-medium">
@@ -32,7 +32,8 @@ const Instructor: React.FC = () => {
             differentiator.
           </p>
           <Link href="/instructor">
-          <Button variant="pinkoutline">Create Account</Button></Link>
+            <Button variant="pinkoutline">Create Account</Button>
+          </Link>
         </div>
       </div>
     </div>

@@ -9,7 +9,7 @@ interface InstructorProps {
 
 const InstructorCard: React.FC<InstructorProps> = ({ data, index }) => {
   return (
-    <div className="w-full sm:w-64 mb-10">
+    <div className="w-full sm:w-80 md:w-64 mb-10">
        <Link href={`/instructors/${data.id}`}>
       <div className="relative">
         <div className="w-full h-72">
