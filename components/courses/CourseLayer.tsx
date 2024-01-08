@@ -121,7 +121,7 @@ const CourseLayer: React.FC<ComponentProps> = ({ data }) => {
                   </div>
                 </div>
               </div>
-              <div className="flex md:flex-col md:pl-5 my-auto items-center justify-between md:items-end md:border-l md:border-[#EDEDED]">
+              <div className="flex md:flex-col md:pl-5 my-auto items-center justify-between md:justify-normal md:items-end md:border-l md:border-[#EDEDED]">
                 <div className="">
                   {data.paid ? (
                     <div className="flex md:flex-col items-center gap-2 md:items-end">
@@ -134,8 +134,8 @@ const CourseLayer: React.FC<ComponentProps> = ({ data }) => {
                     </div>
                   ) : (
                     <>
-                      <p></p>
-                      <p>Free</p>
+                      <div></div>
+                      <div>Free</div>
                     </>
                   )}
                 </div>

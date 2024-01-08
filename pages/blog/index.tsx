@@ -38,7 +38,7 @@ const Page: NextPage = () => {
         </p>
       </div>
       <section className="mt-14">
-        <div className="px-5 md:px-20">
+        <div className="px-5 sm:px-10 md:px-20">
           <div className="font-medium">
             <div className="flex md:justify-center flex-wrap md:gap-3">
               {categories.map((elm, i: number) => (
@@ -58,11 +58,11 @@ const Page: NextPage = () => {
               ))}
             </div>
 
-            <div className="relative pt-10 ">
+            <div className="relative pt-10">
               <div className="top-0 is-active">
-                <div className="flex gap-6 flex-wrap">
+                <div className="flex justify-between gap-6 flex-wrap w-full">
                   {pageItems.map((elm, i: number) => (
-                    <div key={i} className="w-full md:w-[31%] mb-4 ">
+                    <div key={i} className="w-full sm:w-[48%] md:w-[31%] mb-4 ">
                       <div className="w-full">
                         <Link className="linkCustom" href={`/blogs/${elm.id}`}>
                           <div className="">

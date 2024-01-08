@@ -20,13 +20,12 @@ const CourseHead: React.FC<ComponentProps> = ({ course }) => {
   return (
     <div className="flex flex-col items-start w-full md:w-[60%]">
       <div className="flex items-center justify-between gap-5 max-md:justify-center">
-        <div className="text-violet-950 text-xs font-medium whitespace-nowrap items-stretch bg-pink-700 self-stretch grow justify-center px-4 py-2 rounded-[60px]">
+        <h1 className="text-violet-950 text-xs font-medium whitespace-nowrap items-stretch bg-pink-700 self-stretch grow justify-center px-4 py-2 rounded-[60px]">
           BEST SELLER
-        </div>
-        <div className="text-white text-xs font-medium my-auto">NEW</div>
-        <div className="text-white text-xs font-medium whitespace-nowrap items-stretch bg-pink-700 self-stretch grow justify-center px-4 py-2 rounded-[60px]">
+        </h1>
+        <p className="text-white text-xs font-medium whitespace-nowrap items-stretch bg-pink-700 self-stretch grow justify-center px-4 py-2 rounded-[60px]">
           POPULAR
-        </div>
+        </p>
       </div>
       <div className="flex flex-col gap-2.5 md:gap-5 mt-3 md:mt-0">
         <div className="text-violet-950 text-2xl md:text-3xl font-medium md:leading-10 capitalize self-stretch w-full max-md:max-w-full md:mt-4">

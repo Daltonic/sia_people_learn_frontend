@@ -93,7 +93,7 @@ const Testimonials: React.FC<{ backgroundComponent?: boolean }> = ({
                 </Swiper>
               )}
 
-                <div className="flex justify-between flex-wrap gap-5 md:justify-center mt-5">
+                <div className="flex justify-between flex-wrap gap-5 sm:justify-center mt-5">
                   {paginationImages.map((elm, i: number) => (
                     <div
                       key={i}

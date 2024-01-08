@@ -19,7 +19,7 @@ const CoursesSlider: React.FC = () => {
 
   return (
     <section className="relative z-10 md:mx-10 lg:mx-20">
-      <div className="px-5 md:px-28 py-12 md:py-10 bg-[#F9F9F9] relative md:rounded-2xl">
+      <div className="px-5 sm:px-10 md:px-28 py-12 md:py-10 bg-[#F9F9F9] relative md:rounded-2xl">
         <div className="flex flex-col md:flex-row gap-4 md:gap-0 justify-between md:items-center">
           <div>
             <h2 className="text-[#321463] font-bold text-2xl">

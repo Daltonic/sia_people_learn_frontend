@@ -20,7 +20,7 @@ const Page: NextPage<{ courseData: CourseStruct }> = ({ courseData }) => {
 
   return (
     <Layout>
-      <div className="md:px-14 md:py-10 p-5 md:relative overflow-x-hidden">
+      <div className="md:px-14 md:py-10 p-5 sm:px-10 md:relative overflow-x-hidden">
         <div className="flex flex-col md:flex-row justify-between ">
         <CourseHead course={courseData} />
         <CourseCardDetail course={courseData} />
@@ -60,8 +60,8 @@ const Page: NextPage<{ courseData: CourseStruct }> = ({ courseData }) => {
                     450: {
                       slidesPerView: 2,
                     },
-                    768: {
-                      slidesPerView: 3,
+                    758: {
+                      slidesPerView: 2,
                     },
                     1200: {
                       slidesPerView: 4,

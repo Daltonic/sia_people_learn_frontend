@@ -21,7 +21,7 @@ const Page: NextPage = () => {
         </p>
       </div>
 
-      <section className="px-5">
+      <section className="px-5  sm:px-10">
         <div className="flex flex-col items-center ">
           <div className="w-full text-center flex flex-col items-center">
             <div className="bg-[#C5165D] rounded-full text-xl p-6 md:p-4 text-white">

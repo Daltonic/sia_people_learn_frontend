@@ -67,7 +67,7 @@ export const blogs = [
   },
   {
     id: 9,
-    imageSrc: "/images/blog-list/5.svg",
+    imageSrc: "/images/blog-list/1.svg",
     category: "Animation",
     title: "19 ways to optimize your ad marketing budget efficiently",
     date: "September 12, 2023",
