@@ -7,7 +7,7 @@ const MyCourses: React.FC = () => {
       <div className="mb-10 md:mb-16">
         <h1 className="font-bold text-[#321463] text-3xl">My Courses</h1>
         <p className="text-[#4F547B] text-lg">
-          Lorem ipsum dolor sit amet, consectetur.
+          Access and manage all your created courses in one place.
         </p>
       </div>
       <Tabs />

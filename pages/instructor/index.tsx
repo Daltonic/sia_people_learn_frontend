@@ -8,7 +8,7 @@ const Page: React.FC = () => {
   return (
     <Layout>
       <div>
-        <div className="px-5 md:px-20">
+        <div className="px-5 sm:px-10 md:px-20">
           <div className="flex flex-col items-center md:px-5 mt-10">
             <h1 className="text-violet-950 text-center text-3xl md:text-4xl font-bold">
               Instructors
@@ -18,11 +18,11 @@ const Page: React.FC = () => {
               Development.
             </p>
           </div>
-          <div className="flex flex-col md:flex-row items-center justify-between flex-wrap mt-10">
+          <div className="flex flex-col sm:flex-row items-center justify-between flex-wrap mt-10">
             {teamMembers.slice(0, 12).map((data, i: number) => (
               <Link
                 key={i}
-                className="linkCustom w-full md:w-fit"
+                className="linkCustom w-full sm:w-fit"
                 href={`/instructors/${data.id}`}
               >
                 <InstructorCard data={data} />
@@ -30,7 +30,7 @@ const Page: React.FC = () => {
             ))}
           </div>
         </div>
-        <div className="bg-[#242239] px-5 md:px-10 py-16 flex md:justify-center bg-[url('/images/instructors/instructorbg.svg')] bg-cover">
+        <div className="bg-[#242239] px-5 sm:px-10 py-16 flex md:justify-center bg-[url('/images/instructors/instructorbg.svg')] bg-cover">
           <div className="flex flex-col md:flex-row gap-5 md:gap-0 justify-between md:w-4/5 md:items-center">
             <div className="font-medium">
               <h4 className="text-white text-2xl">Become an Instructor at</h4>

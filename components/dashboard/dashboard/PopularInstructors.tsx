@@ -4,7 +4,7 @@ import Image from "next/image";
 
 type Team = {
   image: string;
-  id: number;
+  id: number; 
   name: string;
   reviews: number;
   courses: number;
@@ -20,7 +20,7 @@ const PopularInstructors: React.FC<Props> = ({ teamMembers }) => {
     <div className="w-full">
       <div className="rounded-lg bg-white shadow-lg  px-3 py-6">
         <div className="flex justify-between items-center border-b border-gray-200 pb-3">
-          <h2 className="font-semibold text-[#321463] text-lg">Popular Instructor</h2>
+          <h2 className="font-semibold text-[#321463]">Popular Instructor</h2>
           <Link
             href="/instructors-list-2"
             className="text-sm text-[#C5165D] underline"

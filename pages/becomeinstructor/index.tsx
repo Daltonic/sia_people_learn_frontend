@@ -15,7 +15,7 @@ const Page: React.FC = () => {
       <div className="flex flex-col gap-16">
         <PageHeading />
         <Tabs />
-        <div className="flex flex-col md:flex-row md:justify-between items-center px-5 md:px-20">
+        <div className="flex flex-col md:flex-row md:justify-between items-center px-5 sm:px-10 md:px-20">
           {learningJourney.map((item, i: number) => (
             <LearningJourneyItem key={i} item={item} />
           ))}

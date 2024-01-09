@@ -16,7 +16,7 @@ const Profile: React.FC = () => {
   const data = teamMembers[0];
   return (
     <div
-      className="bg-[#C5165D] w-full py-10 md:py-16 pl-5 md:pl-40 rounded-md mb-10"
+      className="bg-[#C5165D] w-full py-10 md:py-16 pl-5 sm:pl-10 md:pl-40 rounded-md mb-10"
       style={{
         backgroundImage: `url(/images/instructors/instructorbg.svg)`,
         backgroundSize: "cover",
@@ -24,21 +24,21 @@ const Profile: React.FC = () => {
         width: "100%",
       }}
     >
-      <div className="flex flex-col gap-1 md:gap-2">
+      <div className="flex flex-col gap-1 sm:gap-2">
         <div className="relative w-fit">
           <Image
             width={0}
             height={0}
             src={data.image}
             alt="image"
-            className="w-20 h-20 md:w-16 md:h-16 object-cover rounded-full "
+            className="w-20 h-20 sm:w-24 sm:h-24 md:w-16 md:h-16 object-cover rounded-full "
           />
           <div className="p-0 rounded-full text-white border border-white bg-[#20F90D] w-fit absolute top-0 right-0">
             <IoIosCheckmark />
           </div>
         </div>
         <h4 className="font-bold">
-          <p className="font-medium text-white text-xl md:text-md">
+          <p className="font-medium text-white text-xl m:text-md">
             {data.name}
           </p>
         </h4>

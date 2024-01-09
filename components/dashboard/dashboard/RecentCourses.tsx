@@ -8,7 +8,7 @@ type RecentCourse = {
   authorImg: string;
   author: string;
   lessonCount: number;
-  duration: number;
+  duration: number; 
 };
 
 type Props = {

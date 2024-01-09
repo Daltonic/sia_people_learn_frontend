@@ -18,7 +18,7 @@ const DashBoardTop: React.FC<Props> = ({ states }) => {
       <div className="mb-16">
         <h1 className="font-bold text-[#321463] text-3xl">Dashboard</h1>
         <p className="text-[#4F547B] text-lg">
-          Lorem ipsum dolor sit amet, consectetur.
+          Your personal control panel for managing your courses and settings.
         </p>
       </div>
       <div className="flex flex-col md:flex-row justify-between gap-5 md:gap-0">

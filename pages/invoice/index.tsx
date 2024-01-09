@@ -7,7 +7,7 @@ import { SlPrinter } from "react-icons/sl";
 
 const Page: NextPage = () => {
   return (
-    <div className="bg-[#F9F9F9] px-5 md:px-20 py-16">
+    <div className="bg-[#F9F9F9] px-5 sm:px-10 md:px-20 py-16">
       <div className="flex flex-col items-center">
         <div className="flex justify-end mb-12 md:w-5/6">
           <Button
@@ -23,7 +23,7 @@ const Page: NextPage = () => {
             Print
           </Button>
         </div>
-        <div className="md:w-5/6 bg-white py-10 md:py-16 px-5 md:px-10 rounded-lg space-y-10">
+        <div className="w-full md:w-5/6 bg-white py-10 md:py-16 px-5 sm:px-10 rounded-lg space-y-10">
           <div className="md:flex justify-between items-center">
             <div>
               <Link href="/">
@@ -90,7 +90,7 @@ const Page: NextPage = () => {
               <table className="w-full bg-white">
                 <thead className=" bg-[#F5F7FE] text-[#C5165D] font-medium h-20 overflow-hidden rounded-xl md:w-5/6">
                   <tr className="text-left">
-                    <th className="pl-10">Description </th>
+                    <th className="pl-5 md:pl-10">Description </th>
                     <th className="pl-10">Price</th>
                     <th className="pl-10"> VAT (20%)</th>
                     <th className="pl-10">Total</th>
@@ -98,19 +98,19 @@ const Page: NextPage = () => {
                 </thead>
                 <tbody className=" ">
                   <tr className="border-b border-[#F5F7FE] text-left">
-                    <td className="w-10 py-2 md:py-4 pl-10">Standard Plan</td>
+                    <td className="w-10 py-2 md:py-4 pl-5 md:pl-10">Standard Plan</td>
                     <td className="w-10 py-2 md:py-4 pl-10">$443.00 </td>
                     <td className="w-10 py-2 md:py-4 pl-10">$921.80 </td>
                     <td className="w-10 py-2 md:py-4 pl-10">$9243</td>
                   </tr>
                   <tr className="border-b border-[#F5F7FE] text-left">
-                    <td className="w-10 py-2 md:py-4 pl-10 text-left">Extra Plan</td>
+                    <td className="w-10 py-2 md:py-4 pl-5 md:pl-10 text-left">Extra Plan</td>
                     <td className="w-10 py-2 md:py-4 pl-10">$423.00 </td>
                     <td className="w-10 py-2 md:py-4 pl-10">$912.80 </td>
                     <td className="w-10 py-2 md:py-4 pl-10">$5943</td>
                   </tr>
                   <tr className="border-b border-[#F5F7FE] text-left">
-                    <td className="w-10 py-2 md:py-4 pl-10 text-left text-[#321463] text-lg font-medium">Total Due</td>
+                    <td className="w-10 py-2 md:py-4 pl-5 md:pl-10 text-left text-[#321463] text-lg font-medium">Total Due</td>
                     <td className="w-10 py-2 md:py-4 pl-10"> </td>
                     <td className="w-10 py-2 md:py-4 pl-10"> </td>
                     <td className="w-10 py-2 md:py-4 pl-10 text-[#321463] text-lg font-medium">$9943</td>

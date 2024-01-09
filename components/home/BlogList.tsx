@@ -9,7 +9,7 @@ const BlogList: React.FC = () => {
   return (
     <section className="my-16 flex flex-col items-center justify-center px-5 sm:px-10 lg:px-36">
       <div className="w-full md:w-4/5">
-      <div className="md:flex justify-between items-center w-full">
+      <div className="sm:flex justify-between items-center w-full">
         <div className=" ">
           <h2 className="text-[#321463] font-bold text-3xl md:text-3xl">
             Blog

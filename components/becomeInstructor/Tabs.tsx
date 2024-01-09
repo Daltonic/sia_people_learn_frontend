@@ -10,8 +10,8 @@ const Tabs: React.FC = () => {
 
   return (
     <div className="flex justify-center w-full">
-      <div className="md:w-4/5 px-5 md:px-0 h-46">
-        <div className="flex space-x-3 border-b">
+      <div className="w-full md:w-4/5 px-5 sm:px-10 md:px-0 h-46">
+        <div className="flex space-x-3 sm:space-x-5 border-b">
           <button
             onClick={() => handleTabClick(1)}
             className={`py-2 border-b-4 transition-colors duration-300 text-[#4F547B] font-medium ${
@@ -50,32 +50,17 @@ const Tabs: React.FC = () => {
         <div className="py-4 text-[#4F547B]">
           {activeTab === 1 && (
             <p>
-              It is a long established fact that a reader will be distracted by
-              the readable content of a page when looking at its layout. The
-              point of using Lorem Ipsum is that it has a more-or-less normal
-              distribution of letters, as opposed to using Content here, content
-              here, making it look like readable English.
-              <br />
-              <br />
-              Many desktop publishing packages and web page editors now use
-              Lorem Ipsum as their default model text, and a search for lorem
-              ipsum will uncover many web sites still in their infancy.
+              Join the ranks of skilled professionals teaching the next generation of Web3 and Blockchain experts. As an instructor, you&lsquo;ll be part of a community dedicated to advancing knowledge and fostering innovation in the world of decentralized applications. Share your expertise, contribute to the growth of our platform, and become a mentor to learners around the globe. 
             </p>
           )}
           {activeTab === 2 && (
             <p>
-              It is a long established fact that a reader will be distracted by
-              the readable content of a page when looking at its layout. The
-              point of using Lorem Ipsum is that it has a more-or-less normal
-              distribution of letters, as opposed to using Content here, content
-              here, making it look like readable English.
+              At Dapp Mentors Academy, we believe in the power of collaboration and open communication. As an instructor, you will adhere to our strict rules designed to ensure a positive learning environment. These rules include maintaining professionalism, providing clear and accurate information, and promoting respectful interactions among students.
             </p>
           )}
           {activeTab === 3 && (
             <p>
-              Many desktop publishing packages and web page editors now use
-              Lorem Ipsum as their default model text, and a search for lorem
-              ipsum will uncover many web sites still in their infancy.
+              Ready to dive into the world of Web3 and Blockchain? Start your journey with our introductory courses, curated by our team of experienced instructors. Each course is designed to provide comprehensive knowledge, from the basics to advanced topics. Choose a course that fits your learning goals and embark on your path to mastering decentralized technologies.
             </p>
           )}
         </div>

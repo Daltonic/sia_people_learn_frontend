@@ -20,12 +20,12 @@ const CourseCard
   }, [data.rating]);
 
   return (
-    <div className=" bg-white rounded-lg w-full sm:w-56 border-[#EDEDED] border-1 p-2 shadow-[#EDEDED] shadow-md" style={{ height: "fit-content" }}>
+    <div className=" bg-white rounded-lg w-full sm:w-80 md:w-56 border-[#EDEDED] border-1 p-2 shadow-[#EDEDED] shadow-md" style={{ height: "fit-content" }}>
       <div className="">
         <div className="">
           <Image
-            width={500}
-            height={400}
+            width={0}
+            height={0}
             style={{ height: "100%", width: "100%" }}
             className="rounded-lg"
             src={data.imageSrc}
@@ -50,7 +50,7 @@ const CourseCard
           </div>
 
           <div className="md:text-sm font-medium text-[#321463] mt-2">
-            <Link className="linkCustom" href={`/courses/${data.id}`}>
+            <Link className="linkCustom" href={`/coursedetail/${data.id}`}>
               {data.title}
             </Link>
           </div>

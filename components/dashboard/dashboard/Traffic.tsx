@@ -9,7 +9,7 @@ const Traffic: React.FC = () => {
   setIsDropdownActive(!isDropdownActive);
  };
 
- return (
+ return ( 
   <div className="w-full md:w-1/3">
     <div className="rounded-lg bg-white shadow-lg h-full">
       <div className="flex justify-between items-center py-5 px-7 border-b border-gray-200">

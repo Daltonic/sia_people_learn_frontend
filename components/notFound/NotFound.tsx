@@ -7,8 +7,8 @@ import Link from 'next/link'
 const NotFound: React.FC = () => {
   return (
     <Layout>
-    <div className="flex justify-center w-full p-20">
-      <div className="flex gap-20">
+    <div className="flex justify-center w-full p-10 md:p-20">
+      <div className="flex flex-col md:flex-row gap-20 w-full">
         <div className="">
           <Image
             width={530}
@@ -18,7 +18,7 @@ const NotFound: React.FC = () => {
           />
         </div>
 
-        <div className="flex flex-col justify-center mt-4 gap-5">
+        <div className="flex flex-col justify-center md:mt-4 gap-5">
           <h1 className="text-[#1A064F] text-[10rem] font-black leading-10">
             40<span className="text-[#C5165D]">4</span>
           </h1>

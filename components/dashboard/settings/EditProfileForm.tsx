@@ -1,13 +1,13 @@
-import BirthdayInput  from "@/components/reusableComponents/BirthdayInput";
+import BirthdayInput from "@/components/reusableComponents/BirthdayInput";
 import InputField from "@/components/reusableComponents/InputField";
 import React, { useState } from "react";
 
 const EditProfileForm: React.FC = () => {
-    const [birthday, setBirthday] = useState<Date | null>(null);
+  const [birthday, setBirthday] = useState<Date | null>(null);
 
-    const handleBirthdayChange = (date: Date | null) => {
-      setBirthday(date);
-    };
+  const handleBirthdayChange = (date: Date | null) => {
+    setBirthday(date);
+  };
 
   return (
     <form className="">
@@ -28,14 +28,19 @@ const EditProfileForm: React.FC = () => {
         />
       </div>
       <div className="flex gap-8 items-center">
-        <InputField
-          label="Phone"
-          name="Phone"
-          placeholder="Enter your Phone Number"
-          required
-          inputType="number"
+        <div className="w-1/2">
+          <InputField
+            label="Phone"
+            name="Phone"
+            placeholder="Enter your Phone Number"
+            required
+            inputType="number"
+          />
+        </div>
+        <BirthdayInput
+          selectedDate={birthday}
+          onChange={handleBirthdayChange}
         />
-       <BirthdayInput selectedDate={birthday} onChange={handleBirthdayChange} />
       </div>
       <div className="flex gap-8">
         <InputField
@@ -53,7 +58,6 @@ const EditProfileForm: React.FC = () => {
           inputType="text"
         />
       </div>
-      
     </form>
   );
 };

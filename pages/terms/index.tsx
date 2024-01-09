@@ -16,7 +16,7 @@ const Page: NextPage = () => {
             reasonable price.
           </p>
         </div>
-        <div className="md:w-4/5 px-5 md:px-0 my-10 md:my-16 space-y-10">
+        <div className="md:w-4/5 px-5 sm:px-10 md:px-0 my-10 md:my-16 space-y-10">
           {terms.map((elm, index) => (
             <div key={index}>
               <h1 className="text-[#321463] font-medium text-xl md:text-lg mb-2">

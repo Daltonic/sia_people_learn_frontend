@@ -7,12 +7,12 @@ const Statistics: React.FC = () => {
  const toggleDropdown = () => {
    setIsDropdownActive(!isDropdownActive);
  };
-
+ 
  return (
    <div className="w-full md:w-3/5">
        <div className="rounded-lg bg-white shadow-lg h-full">
          <div className="flex justify-between items-center py-5 px-7 border-b border-gray-200">
-           <h2 className="text-sm font-semibold text-[#321463]">Earning Statistics</h2>
+           <h2 className="font-semibold text-[#321463]">Earning Statistics</h2>
            <div className="relative ">
              <div
                id="ddtwobutton"
