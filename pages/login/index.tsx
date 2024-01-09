@@ -70,39 +70,41 @@ const LoginPage: NextPage = () => {
     }
   };
 
-  const handleGoogleLogin = async () => {
-    setSubmitting(true);
-    console.log("google login");
-    try {
-      const requestDetails = {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
+  // const handleGoogleLogin = async () => {
+  //   setSubmitting(true);
+  //   console.log("google login");
+  //   try {
+  //     const requestDetails = {
+  //       method: "GET",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         mode: "no-cors",
+  //       },
+  //     };
 
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/sessions/login/google`,
-        requestDetails
-      );
+  //     const response = await fetch(
+  //       `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/sessions/login/google`,
+  //       requestDetails
+  //     );
 
-      if (response.status === 400) {
-        alert("Something went wrong");
-      }
+  //     if (response.status === 400) {
+  //       alert("Something went wrong");
+  //     }
 
-      if (response.status === 200) {
-        const { user, accessToken, refreshToken } = await response.json();
-        console.log(user, accessToken, refreshToken);
-        sessionStorage.setItem("accessToken", accessToken);
-        sessionStorage.setItem("refreshToken", refreshToken);
-        router.push("/");
-      }
-    } catch (e: any) {
-      console.log(e.message);
-    } finally {
-      setSubmitting(false);
-    }
-  };
+  //     if (response.status === 200) {
+  //       const { user, accessToken, refreshToken } = await response.json();
+  //       console.log(user, accessToken, refreshToken);
+  //       sessionStorage.setItem("accessToken", accessToken);
+  //       sessionStorage.setItem("refreshToken", refreshToken);
+  //       router.push("/");
+  //     }
+  //   } catch (e: any) {
+  //     alert(e.message);
+  //     console.log(e.message);
+  //   } finally {
+  //     setSubmitting(false);
+  //   }
+  // };
 
   return (
     <AuthLayout>
@@ -161,8 +163,6 @@ const LoginPage: NextPage = () => {
         <div className="flex flex-col md:flex-row items-center md:items-end gap-2 mt-2 space-y-2">
           <a
             href={`${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/sessions/login/google`}
-            onClick={handleGoogleLogin}
-            target="_blank"
           >
             <Button
               variant="redoutline"
@@ -176,17 +176,20 @@ const LoginPage: NextPage = () => {
               Login via Google+
             </Button>
           </a>
-
-          <Button
-            variant="blueoutline"
-            type="submit"
-            name="submit"
-            id="submit"
-            className="justify-center flex items-center md:justify-between gap-2 md:gap-0 text-lg md:text-base w-64 sm:w-full"
+          <a
+            href={`${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/sessions/login/github`}
           >
-            <FaFacebookF className="mr-2 md:mr-0 text-xl" />
-            Login via Github
-          </Button>
+            <Button
+              variant="blueoutline"
+              type="submit"
+              name="submit"
+              id="submit"
+              className="justify-center flex items-center md:justify-between gap-2 md:gap-0 text-lg md:text-base w-64 sm:w-full"
+            >
+              <FaFacebookF className="mr-2 md:mr-0 text-xl" />
+              Login via Github
+            </Button>
+          </a>
         </div>
       </div>
     </AuthLayout>

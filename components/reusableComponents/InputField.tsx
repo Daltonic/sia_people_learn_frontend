@@ -8,7 +8,7 @@ interface InputFieldProps {
   inputType?: string;
   style?: React.CSSProperties;
   handleChange?: (e: ChangeEvent<HTMLInputElement>) => void;
-  value: string;
+  value?: string;
 }
 
 const InputField: React.FC<InputFieldProps> = ({
