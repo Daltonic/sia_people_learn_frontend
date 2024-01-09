@@ -14,8 +14,8 @@ const Tabs: React.FC = () => {
 
   return (
     <div className="bg-white p-5 rounded-xl">
-      <div className="px-5 md:px-0">
-        <div className="flex space-x-5 border-b">
+      <div>
+        <div className="flex space-x-5 border-b">     
           <button
             onClick={() => handleTabClick(1)}
             className={`py-2 border-b-4 transition-colors duration-300 text-[#4F547B] font-medium ${
@@ -25,7 +25,7 @@ const Tabs: React.FC = () => {
             }`}
             type="button"
           >
-            Edit Profile
+            Edit
           </button>
           <button
             onClick={() => handleTabClick(2)}
@@ -47,7 +47,7 @@ const Tabs: React.FC = () => {
             }`}
             type="button"
           >
-            Social Profiles
+            Social 
           </button>
           <button
             onClick={() => handleTabClick(4)}

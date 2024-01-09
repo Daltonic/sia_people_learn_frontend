@@ -15,12 +15,12 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ isOpen }) => {
     <div
       className={`px-6 pt-14 space-y-3 fixed top-0 left-0 h-full overflow-auto transform ease-in-out transition-all duration-300 bg-white ${
         isOpen ? "translate-x-0" : "-translate-x-full "
-      } md:translate-x-0 md:static md:block z-10 w-4/5 md:w-fit`}
+      } md:translate-x-0 md:static md:block z-10 w-4/5 sm:w-1/2 md:w-fit`}
     >
       {sidebarItems.map((elm, i) => (
         <div
           key={i}
-          className={`py-2 pl-4 w-56 md:w-48 pr-5 font-medium rounded-xl border ${
+          className={`py-2 pl-4 w-56 md:w-48 pr-5 font-medium rounded-xl ${
             router.pathname === elm.href
               ? "text-white bg-[#C5165D]"
               : "text-[#4F547B]"

@@ -11,7 +11,7 @@ const EditProfileForm: React.FC = () => {
 
   return (
     <form className="">
-      <div className="flex gap-8">
+      <div className="sm:flex gap-8">
         <InputField
           label="First Name"
           name="firstname"
@@ -27,8 +27,8 @@ const EditProfileForm: React.FC = () => {
           inputType="text"
         />
       </div>
-      <div className="flex gap-8 items-center">
-        <div className="w-1/2">
+      <div className="sm:flex gap-8 items-center">
+        <div className="sm:w-1/2">
           <InputField
             label="Phone"
             name="Phone"
@@ -42,7 +42,7 @@ const EditProfileForm: React.FC = () => {
           onChange={handleBirthdayChange}
         />
       </div>
-      <div className="flex gap-8">
+      <div className="sm:flex gap-8 ">
         <InputField
           label="State"
           name="state"

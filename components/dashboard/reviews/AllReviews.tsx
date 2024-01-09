@@ -5,8 +5,8 @@ import SearchAndFilterBar from "@/components/reusableComponents/SearchAndFilterB
 const AllReviews: React.FC = () => {
   return (
     <div>
-      <div className="mb-16 hidden md:block">
-        <h1 className="font-bold text-[#321463] md:text-3xl">Reviews</h1>
+      <div className="mb-10 md:mb-16 px-5 sm:px-0">
+        <h1 className="font-bold text-[#321463] text-3xl">Reviews</h1>
         <p className="text-[#4F547B] text-lg">
           Read and respond to reviews about your courses.
         </p>

@@ -20,7 +20,7 @@ const MyCourseCard: React.FC<ComponentProps> = ({ data, index }) => {
 
   return (
     <div
-      className=" bg-white rounded-lg w-full md:w-[13rem] border-[#EDEDED] border-1 p-2 shadow-[#EDEDED] shadow-xl mb-4"
+      className=" bg-white rounded-lg w-full sm:w-[48%] md:w-[13rem] border-[#EDEDED] border-1 p-2 shadow-[#EDEDED] shadow-xl mb-4"
       style={{ height: "fit-content" }}
     >
       <div className="">

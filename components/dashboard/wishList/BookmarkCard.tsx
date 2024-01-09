@@ -11,7 +11,7 @@ interface ComponentProps {
 const BookmarkCard: React.FC<ComponentProps> = ({ data, index }) => {
   return (
     <div
-      className="w-full md:w-[48%] bg-white rounded-lg border-[#EDEDED] border p-2 pb-0 shadow-[#EDEDED] shadow-md"
+      className="w-full sm:w-[47%] bg-white rounded-lg border-[#EDEDED] border p-2 pb-0 shadow-[#EDEDED] shadow-md"
       style={{ height: "fit-content" }}
     >
       <div className="md:flex gap-4 relative">
