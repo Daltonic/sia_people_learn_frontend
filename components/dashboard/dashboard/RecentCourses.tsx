@@ -20,7 +20,7 @@ const RecentCourses: React.FC<Props> = ({ resentCourses }) => {
     <div className="w-full md:w-1/2">
       <div className="rounded-lg bg-white shadow-lg px-3 py-6">
         <div className="flex justify-between items-center border-b border-gray-200">
-          <h2 className="font-semibold text-[#321463] text-lg pb-3">
+          <h2 className="font-semibold text-[#321463] pb-3">
             Recent Courses
           </h2>
           <Link href="#" className="text-sm text-[#C5165D] underline">
@@ -47,7 +47,7 @@ const RecentCourses: React.FC<Props> = ({ resentCourses }) => {
                 </div>
                 <div className="ml-3 w-full">
                   <h4 className="font-medium text-[#321463]">{elm.title}</h4>
-                  <div className="flex gap-1 justify-between md:gap-0 md:justify-start items-center md:space-x-5 mt-2 flex-wrap md:flex-nowrap">
+                  <div className="flex gap-4 justify-between md:gap-0 sm:justify-start items-center md:space-x-5 mt-2 flex-wrap md:flex-nowrap">
                     <div className="flex items-center w-full md:w-fit">
                       <Image
                         width={0}

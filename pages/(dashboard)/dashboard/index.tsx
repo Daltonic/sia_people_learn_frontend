@@ -14,6 +14,7 @@ import DashboardLayout from "@/components/dashboard/dashboardLayout/DashboardLay
 const DashBoard: React.FC = () => {
   return (
     <DashboardLayout>
+      <div className="px-5">
       <DashBoardTop states={states} />
       <div className="flex flex-col md:flex-row justify-between mt-10 gap-8 md:gap-0">
         <Statistics />
@@ -25,6 +26,7 @@ const DashBoard: React.FC = () => {
           <Notifications notifications={notifications} />
         </div>
         <RecentCourses resentCourses={resentCourses} />
+      </div>
       </div>
     </DashboardLayout>
   );

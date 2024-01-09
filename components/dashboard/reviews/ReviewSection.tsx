@@ -9,15 +9,13 @@ const ReviewSection: React.FC = () => {
   return (
     <div>
       <div className="border-b border-[#EEEEEE] flex gap-5 items-start py-5">
-        <div className="">
           <Image
             width={20}
             height={10}
             src="/images/testimonials/testimonial1.svg"
             alt="image"
-            className="w-56 h-10 md:w-20 md:h-10 object-cover rounded-full"
+            className="w-10 h-10 sm:w-14 sm:h-14 md:w-20 md:h-20 object-cover rounded-full"
           />
-        </div>
         <div className="space-y-2 md:space-y-3 ">
           <div className="flex justify-between items-center">
             <div className="flex gap-2 items-center">
