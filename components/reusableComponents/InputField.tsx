@@ -21,7 +21,7 @@ const InputField: React.FC<InputFieldProps> = ({
   handleChange,
   value,
 }) => (
-  <div className="flex flex-col w-full my-4">
+  <div className="flex flex-col w-full my-3">
     <label className="text-violet-950 font-medium">{label}</label>
     <input
       required={required}

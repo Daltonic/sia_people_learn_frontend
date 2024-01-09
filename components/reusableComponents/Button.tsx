@@ -41,7 +41,7 @@ const Button: React.FC<ButtonProps> = ({
       break;
        case "blueoutline":
       buttonClasses +=
-        " border-2 border-[#1967D2] text-[#1967D2] hover:bg-[#1967D2] hover:text-white hover:border-transparent";
+        " border-2 border-black text-black hover:bg-black hover:text-white hover:border-transparent";
       break;
        case "redoutline":
       buttonClasses +=

@@ -2,7 +2,8 @@
 import { NextPage } from "next";
 import Button from "@/components/reusableComponents/Button";
 import InputField from "@/components/reusableComponents/InputField";
-import { FaFacebookF, FaGoogle } from "react-icons/fa";
+import { FaGoogle } from "react-icons/fa";
+import { BsGithub } from "react-icons/bs";
 import AuthLayout from "@/components/layout/authLayout/AuthenticationLayout";
 import Link from "next/link";
 import { ChangeEvent, SyntheticEvent, useState } from "react";
@@ -108,9 +109,9 @@ const LoginPage: NextPage = () => {
 
   return (
     <AuthLayout>
-      <div className="flex-col justify-center items-center md:mt-16">
+      <div className="flex justify-center w-full items-center md:mt-16">
+        <div   className="bg-white p-5 sm:p-10 w-full md:w-[60%] rounded-md">
         <form
-          className="bg-white p-5 sm:p-10 w-full md:w-[60%] rounded-md "
           onSubmit={handleSubmit}
         >
           <h3 className="font-medium text-3xl text-[#321463]">Login</h3>
@@ -163,34 +164,38 @@ const LoginPage: NextPage = () => {
         <div className="flex flex-col md:flex-row items-center md:items-end gap-2 mt-2 space-y-2">
           <a
             href={`${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/sessions/login/google`}
+            style={{width: "100%"}}
           >
             <Button
               variant="redoutline"
               type="submit"
               name="submit"
               id="submit"
-              className="justify-center flex items-center md:justify-between gap-2 md:gap-0 text-lg md:text-base w-64 sm:w-full"
+              className=" flex items-center justify-center gap-2 text-lg md:text-base w-full"
               // onClick={handleGoogleLogin}
             >
-              <FaGoogle className="mr-2 md:mr-0 text-xl" />
+              <FaGoogle className="text-xl" />
               Login via Google+
             </Button>
           </a>
           <a
             href={`${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/sessions/login/github`}
+            style={{width: "100%"}}
           >
+
             <Button
               variant="blueoutline"
               type="submit"
               name="submit"
               id="submit"
-              className="justify-center flex items-center md:justify-between gap-2 md:gap-0 text-lg md:text-base w-64 sm:w-full"
+              className=" flex items-center justify-center gap-2 text-lg md:text-base w-full"
             >
-              <FaFacebookF className="mr-2 md:mr-0 text-xl" />
+              <BsGithub className="text-xl" />
               Login via Github
             </Button>
           </a>
         </div>
+      </div>
       </div>
     </AuthLayout>
   );
