@@ -7,7 +7,7 @@ const MySettings: React.FC = () => {
       <div className="mb-10 md:mb-16">
         <h1 className="font-bold text-[#321463] text-3xl">Settings</h1>
         <p className="text-[#4F547B] text-lg">
-          Lorem ipsum dolor sit amet, consectetur.
+          Customize your account preferences and privacy settings.
         </p>
       </div>
       <Tabs />

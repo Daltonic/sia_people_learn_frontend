@@ -8,7 +8,7 @@ const Bookmarks: React.FC = () => {
       <div className="mb-16 hidden md:block">
         <h1 className="font-bold text-[#321463] md:text-3xl">Bookmarks</h1>
         <p className="text-[#4F547B] text-lg">
-          Lorem ipsum dolor sit amet, consectetur.
+          Save your favorite courses for quick access later.
         </p>
       </div>
       <div className="bg-white rounded-lg">

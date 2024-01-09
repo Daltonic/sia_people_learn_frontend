@@ -8,16 +8,16 @@ const AllReviews: React.FC = () => {
       <div className="mb-16 hidden md:block">
         <h1 className="font-bold text-[#321463] md:text-3xl">Reviews</h1>
         <p className="text-[#4F547B] text-lg">
-          Lorem ipsum dolor sit amet, consectetur.
+          Read and respond to reviews about your courses.
         </p>
       </div>
       <div className="bg-white rounded-lg ">
         <h1 className="p-5 text-[#321463] font-medium border-b border-[#EDEDED] text-xl md:text-base">
           All Reviews
         </h1>
-       
+
         <div className="p-5">
-        <SearchAndFilterBar/>
+          <SearchAndFilterBar />
           {[...Array(5)].map((_, i) => (
             <ReviewSection key={i} />
           ))}
