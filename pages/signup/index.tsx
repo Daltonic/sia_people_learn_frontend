@@ -92,7 +92,7 @@ const LoginPage: NextPage = () => {
               Log in
             </Link>
           </p>
-          <div className="md:flex gap-2">
+          <div className="md:flex gap-2 items-center">
             <InputField
               label="Firstname"
               name="firstname"
@@ -111,7 +111,8 @@ const LoginPage: NextPage = () => {
               handleChange={handleChange}
               value={signupDetails.lastname}
             />
-            <InputField
+          </div>
+          <InputField
               label="Email"
               name="email"
               placeholder="youremail@domain.com"
@@ -120,9 +121,7 @@ const LoginPage: NextPage = () => {
               handleChange={handleChange}
               value={signupDetails.email}
             />
-          </div>
-
-          <div className="md:flex gap-2">
+          <div className="md:flex gap-2 items-center">
             <InputField
               label="Password"
               name="password"
@@ -144,18 +143,12 @@ const LoginPage: NextPage = () => {
             />
           </div>
 
-          <div className="md:flex justify-between">
-            <div className="flex gap-2">
+            <div className="flex gap-2 my-2">
               <input type="checkbox" name="" id="" />
               <p className="md:text-sm text-[#4F547B]">
                 Accept the Terms and Privacy Policy
               </p>
-            </div>
-            <div>
-              <p className="md:text-sm text-[#C5165D] underline">
-                Forgot your password?{" "}
-              </p>
-            </div>
+          
           </div>
           <Button
             variant="pink"
