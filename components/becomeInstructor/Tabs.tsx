@@ -50,7 +50,7 @@ const Tabs: React.FC = () => {
         <div className="py-4 text-[#4F547B]">
           {activeTab === 1 && (
             <p>
-              Join the ranks of skilled professionals teaching the next generation of Web3 and Blockchain experts. As an instructor, you'll be part of a community dedicated to advancing knowledge and fostering innovation in the world of decentralized applications. Share your expertise, contribute to the growth of our platform, and become a mentor to learners around the globe. 
+              Join the ranks of skilled professionals teaching the next generation of Web3 and Blockchain experts. As an instructor, you&lsquo;ll be part of a community dedicated to advancing knowledge and fostering innovation in the world of decentralized applications. Share your expertise, contribute to the growth of our platform, and become a mentor to learners around the globe. 
             </p>
           )}
           {activeTab === 2 && (
