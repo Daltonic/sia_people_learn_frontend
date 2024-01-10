@@ -1,12 +1,12 @@
 import DashboardLayout from "@/components/dashboard/dashboardLayout/DashboardLayout";
-import AllReviews from "@/components/dashboard/reviews/AllReviews";
+import MyUsers from "@/components/dashboard/users/MyUsers";
 
-const Reviews: React.FC = () => {
+const Users: React.FC = () => {
  return (
    <DashboardLayout>
-    <AllReviews/>
+    <MyUsers/>
    </DashboardLayout>
  );
 };
 
-export default Reviews;
+export default Users;

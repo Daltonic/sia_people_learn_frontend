@@ -5,6 +5,7 @@ import MessagesSVG from "@/components/dashboard/dashboardSVGs/MessagesSVG";
 import PlayButtonSVG from "@/components/dashboard/dashboardSVGs/PlayButton";
 import PowerSVG from "@/components/dashboard/dashboardSVGs/PowerSVG";
 import SettingsSVG from "@/components/dashboard/dashboardSVGs/SettingsSVG";
+import { FaRegUser } from "react-icons/fa";
 
 export const sidebarItems = [
   {
@@ -40,12 +41,18 @@ export const sidebarItems = [
   },
   {
     id: 6,
+    href: "/(dashboard)/users",
+    iconClass:  <FaRegUser />,
+    text: "Users",
+  },
+  {
+    id: 7,
     href: "/(dashboard)/settings",
     iconClass: <SettingsSVG/>,
     text: "Settings",
   },
   {
-    id: 7,
+    id: 8,
     href: "/(dashboard)/Logout",
     iconClass: <PowerSVG/>,
     text: "Logout",

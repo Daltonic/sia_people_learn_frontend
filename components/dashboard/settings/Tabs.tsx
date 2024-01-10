@@ -3,7 +3,8 @@ import React, { useState } from "react";
 import EditProfile from "./EditProfile";
 import PasswordForm from "./PasswordForm";
 import SocialProfileForm from "./SocialProfileForm";
-import CloseAcctForm from "./CloseAcctForm";
+import InstructorForm from "./InstructorForm";
+import NotificationsForm from "./NotificationsForm";
 
 const Tabs: React.FC = () => {
   const [activeTab, setActiveTab] = useState<number>(1);
@@ -69,7 +70,7 @@ const Tabs: React.FC = () => {
             }`}
             type="button"
           >
-            Close Account
+            Become Instructor
           </button>
         </div>
         <div className="py-4 text-[#4F547B]">
@@ -83,10 +84,10 @@ const Tabs: React.FC = () => {
            <SocialProfileForm/>
           )}
           {activeTab === 4 && (
-           <SocialProfileForm/>
+           <NotificationsForm/>
           )}
           {activeTab === 5 && (
-           <CloseAcctForm/>
+           <InstructorForm/>
           )}
         </div>
       </div>
