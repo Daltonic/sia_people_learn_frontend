@@ -1,4 +1,3 @@
-// components/DashboardSidebar.tsx
 import React from "react";
 import Link from "next/link";
 import { sidebarItems } from "@/data/dashBoardSidebar";

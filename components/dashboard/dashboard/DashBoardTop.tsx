@@ -21,10 +21,10 @@ const DashBoardTop: React.FC<Props> = ({ states }) => {
           Your personal control panel for managing your courses and settings.
         </p>
       </div>
-      <div className="flex flex-col sm:flex-row sm:flex-wrap justify-between gap-5 md:gap-0">
+      <div className="flex flex-col sm:flex-row sm:flex-wrap md:flex-nowrap justify-between gap-5 md:gap-0">
         {states.map((elm, i) => (
           <div key={i}>
-            <div className="flex justify-between items-center md:py-10 p-8 md:px-4  rounded-lg bg-white shadow-lg w-full sm:w-80 md:w-56">
+            <div className="flex justify-between items-center md:py-10 p-8 md:px-4 rounded-lg bg-white shadow-lg w-full sm:w-80 md:w-52">
               <div className="space-y-2">
                 <h1 className="font-medium text-[#4F547B] md:text-sm">
                   {elm.title}

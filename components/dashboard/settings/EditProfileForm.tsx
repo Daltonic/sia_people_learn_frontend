@@ -51,9 +51,9 @@ const EditProfileForm: React.FC = () => {
           inputType="text"
         />
         <InputField
-          label="Last Name"
-          name="lastname"
-          placeholder="Enter your Last Name"
+          label="Country"
+          name="country"
+          placeholder="Enter your Country"
           required
           inputType="text"
         />

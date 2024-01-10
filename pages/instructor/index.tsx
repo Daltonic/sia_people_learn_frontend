@@ -18,7 +18,7 @@ const Page: React.FC = () => {
               Development.
             </p>
           </div>
-          <div className="flex flex-col sm:flex-row items-center justify-between flex-wrap mt-10">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 flex-wrap mt-10">
             {teamMembers.slice(0, 12).map((data, i: number) => (
               <Link
                 key={i}

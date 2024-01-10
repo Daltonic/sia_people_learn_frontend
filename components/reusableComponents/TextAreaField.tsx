@@ -21,7 +21,7 @@ const TextAreaField: React.FC<TextAreaProps> = ({
       id={id}
       rows={rows}
       cols={cols}
-      className={`text-slate-600 border border-[color:var(--border-2,#E1DDDD)] w-full justify-center mt-3 p-3 md:pl-6 py-3 rounded-lg items-start mb-2 ${className}`}
+      className={`text-slate-600 border border-[color:var(--border-2,#E1DDDD)] w-full justify-center mt-3 p-3 md:pl-6 py-3 rounded-lg items-start mb-2 focus:outline-none ${className}`}
     ></textarea>
   </div>
 );
