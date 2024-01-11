@@ -10,6 +10,7 @@ import Aos from "aos";
 import "aos/dist/aos.css";
 import { useEffect } from "react";
 import { AppProps } from "next/app";
+import ContextProvider from "@/context/Context";
 
 export default function App({ Component, pageProps }: AppProps) {
   useEffect(() => {
@@ -22,8 +23,8 @@ export default function App({ Component, pageProps }: AppProps) {
   }, []);
 
   return (
-    <div>
+    <ContextProvider>
       <Component {...pageProps} />
-    </div>
+    </ContextProvider>
   );
 }
