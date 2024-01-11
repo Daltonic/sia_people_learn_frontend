@@ -1,4 +1,4 @@
-const requestStatuses = ["Requested", "Accepted", "Declined"];
+const requestStatuses = ["Pending", "Accepted", "Declined"];
 
 export const teamMembers = [
   {
