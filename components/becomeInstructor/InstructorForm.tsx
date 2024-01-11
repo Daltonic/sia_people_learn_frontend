@@ -8,7 +8,6 @@ import { _useContext } from "@/context/Context";
 
 const Instructorform: React.FC = () => {
   const { user } = _useContext();
-  console.log(user);
   const [instructorDetails, setInstructorDetails] = useState({
     specialization: "",
     linkedIn: "",

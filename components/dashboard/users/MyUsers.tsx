@@ -1,12 +1,107 @@
+"use client";
+
+import { _useContext } from "@/context/Context";
 import { teamMembers } from "@/data/instructors";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { FaCheck, FaTimes } from "react-icons/fa";
 import { IoMdMore } from "react-icons/io";
 
+interface IDbUser {
+  _id: string;
+  firstName: string;
+  lastName: string;
+  username: string;
+  userType: "admin" | "instructor" | "user";
+  imgUrl?: string;
+  requests: {
+    _id: string;
+    requestType: "UserUpgradeRequent" | "UserDowngradeRequest";
+    status: "pending" | "approved" | "rejected";
+  }[];
+}
+
 const MyUsers: React.FC = () => {
+  const router = useRouter();
+  const { user } = _useContext();
+
+  const [dbUsers, setDbUsers] = useState<IDbUser[]>([]);
+
+  useEffect(() => {
+    if (!user || user.userType !== "admin") {
+      router.push("/login");
+    }
+  }, [router, user]);
+
+  useEffect(() => {
+    const getUsers = async () => {
+      try {
+        const requestDetails = {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
+          },
+        };
+
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/users`,
+          requestDetails
+        );
+
+        if (response.status === 400) {
+          alert("Something went wrong");
+        }
+
+        const { users, isNext, numOfPages } = await response.json();
+        setDbUsers(users);
+      } catch (e: any) {
+        console.log(e.message);
+      }
+    };
+    getUsers();
+  }, []);
+
+  const handleRequestAction = async (
+    userId: string,
+    requestId: string,
+    action: "approved" | "rejected"
+  ) => {
+    try {
+      const requestObject = {
+        userId,
+        requestId,
+        status: action,
+        upgradeUserTo: "instructor",
+      };
+      const requestDetails = {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
+        },
+        body: JSON.stringify(requestObject),
+      };
+
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/users/upgrade`,
+        requestDetails
+      );
+
+      if (response.status === 400) {
+        alert("Something went wrong");
+      }
+
+      const message = await response.text();
+      alert(message);
+    } catch (e: any) {
+      console.log(e.message);
+    }
+  };
+
   const [searchQuery, setSearchQuery] = useState("");
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(event.target.value);
@@ -52,49 +147,81 @@ const MyUsers: React.FC = () => {
               <tr className="font-medium text-[#321463]">
                 <th className="w-1/4 text-start">User</th>
                 <th className="w-1/4">User Type</th>
-                <th className="w-1/4">Request</th>
+                <th className="w-1/4">Requests</th>
+                <th className="w-1/4">Status</th>
                 <th className="w-1/4">Action</th>
               </tr>
             </thead>
             <tbody>
-              {teamMembers.map((member, index) => (
-                <tr key={index}>
+              {dbUsers.map((user) => (
+                <tr key={user._id}>
                   <td className="items-center flex gap-4 mt-2">
                     <Image
                       width={0}
                       height={0}
                       className="object-cover w-10 h-10 rounded-full"
-                      src={member.image}
+                      src={user?.imgUrl || "/images/about/learning/1.svg"}
                       alt="image"
                     />
                     <h4 className="font-medium text-[#321463]">
-                      <Link href={`/instructors/${member.id}`}>
-                        {member.name}
+                      <Link href={`/instructors/${user._id}`}>
+                        {`${user.firstName} ${user.lastName}`}
                       </Link>
                     </h4>
                   </td>
                   <td className="w-1/4 text-center">
                     <h4 className="font-medium text-[#4F547B]">
-                      {member.type}
+                      {user.userType}
                     </h4>
                   </td>
                   <td className="text-center w-1/4">
                     <h4
                       className={`font-medium ${getRequestClass(
-                        member.request
+                        user.requests[0]?.requestType
                       )}`}
                     >
-                      {member.request}
+                      {user.requests[0]?.requestType || "No Request"}
+                    </h4>
+                  </td>
+                  <td className="w-1/4 text-center">
+                    <h4 className="font-medium text-[#4F547B]">
+                      {user.requests[0]?.status || "N/A"}
                     </h4>
                   </td>
                   <td className="w-1/4">
                     <div className="flex gap-3 justify-center items-center">
-                    <button className="p-1 text-sm rounded-full text-red-500 bg-red-100">
-                      <FaTimes />
-                    </button>
-                    <button className="p-1 text-sm rounded-full text-green-500 bg-green-100">
-                      <FaCheck />
-                    </button>
+                      <button
+                        className="p-1 text-sm rounded-full text-red-500 bg-red-100"
+                        onClick={() =>
+                          handleRequestAction(
+                            user._id,
+                            user.requests[0]._id,
+                            "rejected"
+                          )
+                        }
+                        disabled={
+                          user.requests.length === 0 ||
+                          user.requests[0].status !== "pending"
+                        }
+                      >
+                        <FaTimes />
+                      </button>
+                      <button
+                        className="p-1 text-sm rounded-full text-green-500 bg-green-100"
+                        onClick={() =>
+                          handleRequestAction(
+                            user._id,
+                            user.requests[0]._id,
+                            "approved"
+                          )
+                        }
+                        disabled={
+                          user.requests.length === 0 ||
+                          user.requests[0].status !== "pending"
+                        }
+                      >
+                        <FaCheck />
+                      </button>
                     </div>
                   </td>
                   <td className="text-[#4F547B] text-xl">
