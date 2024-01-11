@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
 import { CiSearch } from "react-icons/ci";
+import { FaCheck, FaTimes } from "react-icons/fa";
 import { IoMdMore } from "react-icons/io";
 
 const MyUsers: React.FC = () => {
@@ -13,17 +14,16 @@ const MyUsers: React.FC = () => {
 
   function getRequestClass(request: string) {
     switch (request) {
-      case 'Requested':
-        return 'text-yellow-300';
-      case 'Accepted':
-        return 'text-green-400';
-      case 'Declined':
-        return 'text-red-400';
+      case "Pending":
+        return "text-yellow-300";
+      case "Accepted":
+        return "text-green-400";
+      case "Declined":
+        return "text-red-400";
       default:
-        return '';
+        return "";
     }
-   }
-   
+  }
 
   return (
     <div className="">
@@ -40,7 +40,7 @@ const MyUsers: React.FC = () => {
             <input
               type="text"
               placeholder="Search..."
-              className="focus:outline-none"
+              className="focus:outline-none w-full"
               value={searchQuery}
               onChange={handleSearchChange}
             />
@@ -50,15 +50,16 @@ const MyUsers: React.FC = () => {
           <table className="table-auto w-full">
             <thead>
               <tr className="font-medium text-[#321463]">
-                <th className="w-1/3 text-start">User</th>
-                <th className="w-1/3">User Type</th>
-                <th className="w-1/3">Instructor Request</th>
+                <th className="w-1/4 text-start">User</th>
+                <th className="w-1/4">User Type</th>
+                <th className="w-1/4">Request</th>
+                <th className="w-1/4">Action</th>
               </tr>
             </thead>
             <tbody>
               {teamMembers.map((member, index) => (
                 <tr key={index}>
-                  <td className="items-center py-2 flex gap-4">
+                  <td className="items-center flex gap-4 mt-2">
                     <Image
                       width={0}
                       height={0}
@@ -72,12 +73,29 @@ const MyUsers: React.FC = () => {
                       </Link>
                     </h4>
                   </td>
-                  <td className="w-1/3 text-center">
-                    <h4 className="font-medium text-[#4F547B]">{member.type}</h4>
+                  <td className="w-1/4 text-center">
+                    <h4 className="font-medium text-[#4F547B]">
+                      {member.type}
+                    </h4>
                   </td>
-                  <td className="text-center w-1/3  ">
-                  <h4 className={`font-medium ${getRequestClass(member.request)}`}>{member.request}</h4>
-
+                  <td className="text-center w-1/4">
+                    <h4
+                      className={`font-medium ${getRequestClass(
+                        member.request
+                      )}`}
+                    >
+                      {member.request}
+                    </h4>
+                  </td>
+                  <td className="w-1/4">
+                    <div className="flex gap-3 justify-center items-center">
+                    <button className="p-1 text-sm rounded-full text-red-500 bg-red-100">
+                      <FaTimes />
+                    </button>
+                    <button className="p-1 text-sm rounded-full text-green-500 bg-green-100">
+                      <FaCheck />
+                    </button>
+                    </div>
                   </td>
                   <td className="text-[#4F547B] text-xl">
                     <IoMdMore />
