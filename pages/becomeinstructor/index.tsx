@@ -1,22 +1,27 @@
+"use client";
+
 import LearningJourneyItem from "@/components/aboutus/LearningJourneyItem";
 import PageHeading from "@/components/becomeInstructor/PageHeading";
 import Tabs from "@/components/becomeInstructor/Tabs";
 import Footer from "@/components/layout/footers/Footer";
 import Header from "@/components/layout/headers/Header";
 import { learningJourney } from "../../data/learningPath";
-import React from "react";
+import React, { useEffect } from "react";
 import Instructor from "@/components/becomeInstructor/Instructor";
 import BestInstructors from "@/components/becomeInstructor/BestInstructors";
 import { _useContext } from "@/context/Context";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/router";
 
 const Page: React.FC = () => {
   const router = useRouter();
   const { user } = _useContext();
 
-  if (!user) {
-    router.push("/login");
-  }
+  useEffect(() => {
+    if (!user) {
+      router.push("/login");
+    }
+  }, [router, user]);
+
   return (
     <div>
       <Header />
