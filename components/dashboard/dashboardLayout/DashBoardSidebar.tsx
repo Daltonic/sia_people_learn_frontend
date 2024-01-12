@@ -16,6 +16,7 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ isOpen }) => {
         isOpen ? "translate-x-0" : "-translate-x-full "
       } md:translate-x-0 md:static md:block z-10 w-4/5 sm:w-1/2 md:w-fit`}
     >
+      <div className="">
       {sidebarItems.map((elm, i) => (
         <div
           key={i}
@@ -38,6 +39,7 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ isOpen }) => {
           </Link>
         </div>
       ))}
+    </div>
     </div>
   );
 };
