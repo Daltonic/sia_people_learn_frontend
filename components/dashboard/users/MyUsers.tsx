@@ -1,7 +1,6 @@
 "use client";
 
 import { _useContext } from "@/context/Context";
-import { teamMembers } from "@/data/instructors";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -109,11 +108,11 @@ const MyUsers: React.FC = () => {
 
   function getRequestClass(request: string) {
     switch (request) {
-      case "Pending":
+      case "pending":
         return "text-yellow-300";
-      case "Accepted":
+      case "approved":
         return "text-green-400";
-      case "Declined":
+      case "rejected":
         return "text-red-400";
       default:
         return "";
@@ -145,11 +144,11 @@ const MyUsers: React.FC = () => {
           <table className="table-auto w-full">
             <thead>
               <tr className="font-medium text-[#321463]">
-                <th className="w-1/4 text-start">User</th>
-                <th className="w-1/4">User Type</th>
-                <th className="w-1/4">Requests</th>
-                <th className="w-1/4">Status</th>
-                <th className="w-1/4">Action</th>
+                <th className=" text-start">User</th>
+                <th className="">User Type</th>
+                <th className="">Requests</th>
+                <th className="">Status</th>
+                <th className="">Action</th>
               </tr>
             </thead>
             <tbody>
@@ -169,29 +168,29 @@ const MyUsers: React.FC = () => {
                       </Link>
                     </h4>
                   </td>
-                  <td className="w-1/4 text-center">
+                  <td className=" text-center">
                     <h4 className="font-medium text-[#4F547B]">
                       {user.userType}
                     </h4>
                   </td>
-                  <td className="text-center w-1/4">
+                  <td className="text-center ">
                     <h4
-                      className={`font-medium ${getRequestClass(
+                      className={`font-medium text-[#4F547B ${getRequestClass(
                         user.requests[0]?.requestType
                       )}`}
                     >
                       {user.requests[0]?.requestType || "No Request"}
                     </h4>
                   </td>
-                  <td className="w-1/4 text-center">
+                  <td className=" text-center">
                     <h4 className="font-medium text-[#4F547B]">
                       {user.requests[0]?.status || "N/A"}
                     </h4>
                   </td>
-                  <td className="w-1/4">
+                  <td className="">
                     <div className="flex gap-3 justify-center items-center">
                       <button
-                        className="p-1 text-sm rounded-full text-red-500 bg-red-100"
+                        className="p-1 text-sm rounded-full text-red-500 bg-red-100 cursor-pointer"
                         onClick={() =>
                           handleRequestAction(
                             user._id,
@@ -207,7 +206,7 @@ const MyUsers: React.FC = () => {
                         <FaTimes />
                       </button>
                       <button
-                        className="p-1 text-sm rounded-full text-green-500 bg-green-100"
+                        className="p-1 text-sm rounded-full text-green-500 bg-green-100 cursor-pointer" 
                         onClick={() =>
                           handleRequestAction(
                             user._id,
