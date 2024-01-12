@@ -1,4 +1,3 @@
-import BirthdayInput from "@/components/reusableComponents/BirthdayInput";
 import InputField from "@/components/reusableComponents/InputField";
 import React, { ChangeEvent, SyntheticEvent, useState } from "react";
 import Button from "../reusableComponents/Button";
@@ -120,7 +119,19 @@ const Instructorform: React.FC = () => {
             handleChange={handleChange}
           />
         </div>
-
+      </div>
+      <div className="sm:flex gap-8">
+        <div className="sm:w-1/2">
+        <InputField
+          label="Previous Tutorials Links"
+          name="tutorialsLinks"
+          placeholder="Links to previous courses"
+          required
+          inputType="text"
+          value={instructorDetails.tutorialsLinks}
+          handleChange={handleChange}
+        />
+        </div>
         <div className="sm:w-1/2">
           <InputField
             label="Instructor LinkedIn Url"
@@ -133,25 +144,14 @@ const Instructorform: React.FC = () => {
           />
         </div>
       </div>
-      <div className="sm:flex gap-8">
-        <InputField
-          label="Previous Tutorials Links"
-          name="tutorialsLinks"
-          placeholder="Links to previous courses"
-          required
-          inputType="text"
-          value={instructorDetails.tutorialsLinks}
-          handleChange={handleChange}
-        />
-        <TextAreaField
-          label="Teaching Focus"
-          id="teachingFocus"
-          rows={2}
-          name="teachingFocus"
-          value={instructorDetails.teachingFocus}
-          handleChange={handleChange}
-        />
-      </div>
+      <TextAreaField
+        label="Teaching Focus"
+        id="teachingFocus"
+        rows={3}
+        name="teachingFocus"
+        value={instructorDetails.teachingFocus}
+        handleChange={handleChange}
+      />
       <Button variant="pink" disabled={submitting}>
         {submitting ? "Submitting" : "Join Now"}
       </Button>
