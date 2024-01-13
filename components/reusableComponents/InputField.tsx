@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from "react";
+import React, { ChangeEvent, KeyboardEvent } from "react";
 
 interface InputFieldProps {
   label: string;
@@ -8,7 +8,8 @@ interface InputFieldProps {
   inputType?: string;
   style?: React.CSSProperties;
   handleChange?: (e: ChangeEvent<HTMLInputElement>) => void;
-  value?: string;
+  value?: string | number;
+  handleKeyDown?: (e: KeyboardEvent<HTMLInputElement>) => void;
 }
 
 const InputField: React.FC<InputFieldProps> = ({
@@ -20,6 +21,7 @@ const InputField: React.FC<InputFieldProps> = ({
   style,
   handleChange,
   value,
+  handleKeyDown,
 }) => (
   <div className="flex flex-col w-full my-3">
     <label className="text-violet-950 font-medium">{label}</label>
@@ -32,6 +34,7 @@ const InputField: React.FC<InputFieldProps> = ({
       style={style}
       onChange={handleChange}
       value={value}
+      onKeyDown={handleKeyDown}
     />
   </div>
 );
