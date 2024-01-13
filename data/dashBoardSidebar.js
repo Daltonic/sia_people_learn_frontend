@@ -6,6 +6,7 @@ import PlayButtonSVG from "@/components/dashboard/dashboardSVGs/PlayButton";
 import PowerSVG from "@/components/dashboard/dashboardSVGs/PowerSVG";
 import SettingsSVG from "@/components/dashboard/dashboardSVGs/SettingsSVG";
 import { FaRegUser } from "react-icons/fa";
+import { LuShoppingBag } from "react-icons/lu";
 import { FiEdit3 } from "react-icons/fi";
 
 export const sidebarItems = [
@@ -21,45 +22,51 @@ export const sidebarItems = [
     iconClass: <PlayButtonSVG/>,
     text: "My Courses",
   },
-
   {
     id: 3,
+    href: "/(dashboard)/myProducts",
+    iconClass: <LuShoppingBag />,
+    text: "My Products",
+  },
+
+  {
+    id: 4,
     href: "/(dashboard)/wishlist",
     iconClass: <BookmarkSVG/>,
     text: "WishLists",
   },
   {
-    id: 4,
+    id: 5,
     href: "/(dashboard)/createProduct",
     iconClass: <ListSVG/>,
     text: "Create Product",
   },
   {
-    id: 5,
+    id: 6,
     href: "/(dashboard)/reviews",
     iconClass:  <MessagesSVG/>,
     text: "Reviews",
   },
   {
-    id: 6,
+    id: 7,
     href: "/(dashboard)/users",
     iconClass:  <FaRegUser />,
     text: "Users",
   },
   {
-    id: 7,
+    id: 8,
     href: "/(dashboard)/editProduct",
     iconClass: <FiEdit3 />,
     text: "Edit Product",
   },
   {
-    id: 8,
+    id: 9,
     href: "/(dashboard)/settings",
     iconClass: <SettingsSVG/>,
     text: "Settings",
   },
   {
-    id: 9,
+    id: 10,
     href: "/(dashboard)/Logout",
     iconClass: <PowerSVG/>,
     text: "Logout",
