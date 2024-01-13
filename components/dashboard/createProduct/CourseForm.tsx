@@ -216,6 +216,8 @@ const CourseForm: React.FC = () => {
     }
   };
 
+  console.log(productDetails);
+
   return (
     <div className="bg-white rounded-lg ">
       <h1 className="p-5 text-[#321463] font-medium border-b border-[#EDEDED] text-xl md:text-base">
@@ -311,6 +313,11 @@ const CourseForm: React.FC = () => {
               inputType="text"
               handleKeyDown={(e) => handleInputKeyDown(e, "requirements")}
             />
+            <ol>
+              {productDetails.requirements.map((tag, index) => (
+                <li key={index}>{tag}</li>
+              ))}
+            </ol>
           </div>
           <div className="flex flex-col gap-2">
             <InputField
@@ -321,6 +328,11 @@ const CourseForm: React.FC = () => {
               inputType="text"
               handleKeyDown={(e) => handleInputKeyDown(e, "highlights")}
             />
+            <ol>
+              {productDetails.highlights.map((tag, index) => (
+                <li key={index}>{tag}</li>
+              ))}
+            </ol>
           </div>
           <div className="flex flex-col gap-2">
             <InputField
@@ -331,6 +343,11 @@ const CourseForm: React.FC = () => {
               inputType="text"
               handleKeyDown={(e) => handleInputKeyDown(e, "tags")}
             />
+            <ol>
+              {productDetails.tags.map((tag, index) => (
+                <li key={index}>{tag}</li>
+              ))}
+            </ol>
           </div>
         </div>
         {/* <div className="md:flex gap-8">
