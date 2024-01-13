@@ -14,18 +14,20 @@ const Badge: React.FC<BadgeProps> = ({
   handleIconClick,
 }) => {
   return (
-    <div className="relative bg-slate-50">
-      <p>{inputText}</p>
+    <div className=" bg-slate-100 flex p-3 rounded-md justify-between items-end gap-5">
+      <p className="text-xs text-slate-500">{inputText}</p>
+      <div>
       {imageUrl && (
         <Image
           src={imageUrl}
           alt="icon"
-          width={10}
-          height={10}
-          className={`${className} rounded-full absolute top-1 right-1`}
+          width={14}
+          height={14}
+          className={`${className} `}
           onClick={handleIconClick}
         />
       )}
+      </div>
     </div>
   );
 };
