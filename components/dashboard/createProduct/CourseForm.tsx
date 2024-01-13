@@ -1,3 +1,4 @@
+import Badge from "@/components/reusableComponents/Badge";
 import Button from "@/components/reusableComponents/Button";
 import InputField from "@/components/reusableComponents/InputField";
 import SelectField from "@/components/reusableComponents/SelectField";
@@ -84,6 +85,35 @@ const CourseForm: React.FC = () => {
             break;
         }
       }
+    }
+  };
+
+  const handleRemoveItem = (
+    field: "highlights" | "requirements" | "tags",
+    value: string
+  ) => {
+    switch (field) {
+      case "highlights":
+        const newHighlights = productDetails.highlights.filter(
+          (highlight: string) => highlight !== value
+        );
+        setProductDetails((prev) => ({ ...prev, highlights: newHighlights }));
+        break;
+      case "requirements":
+        const newRequirements = productDetails.requirements.filter(
+          (requirement: string) => requirement !== value
+        );
+        setProductDetails((prev) => ({
+          ...prev,
+          requirements: newRequirements,
+        }));
+        break;
+      case "tags":
+        const newTags = productDetails.tags.filter(
+          (tag: string) => tag !== value
+        );
+        setProductDetails((prev) => ({ ...prev, tags: newTags }));
+        break;
     }
   };
 
@@ -216,8 +246,6 @@ const CourseForm: React.FC = () => {
     }
   };
 
-  console.log(productDetails);
-
   return (
     <div className="bg-white rounded-lg ">
       <h1 className="p-5 text-[#321463] font-medium border-b border-[#EDEDED] text-xl md:text-base">
@@ -313,11 +341,18 @@ const CourseForm: React.FC = () => {
               inputType="text"
               handleKeyDown={(e) => handleInputKeyDown(e, "requirements")}
             />
-            <ol>
-              {productDetails.requirements.map((tag, index) => (
-                <li key={index}>{tag}</li>
+            <div className="flex flex-col gap-1 bg-slate-300 rounded-lg">
+              {productDetails.requirements.map((requirement, index) => (
+                <Badge
+                  key={index}
+                  inputText={requirement}
+                  imageUrl="/images/logoImg.svg"
+                  handleIconClick={() =>
+                    handleRemoveItem("requirements", requirement)
+                  }
+                />
               ))}
-            </ol>
+            </div>
           </div>
           <div className="flex flex-col gap-2">
             <InputField
@@ -328,11 +363,18 @@ const CourseForm: React.FC = () => {
               inputType="text"
               handleKeyDown={(e) => handleInputKeyDown(e, "highlights")}
             />
-            <ol>
-              {productDetails.highlights.map((tag, index) => (
-                <li key={index}>{tag}</li>
+            <div className="flex flex-col gap-1">
+              {productDetails.highlights.map((highlight, index) => (
+                <Badge
+                  key={index}
+                  inputText={highlight}
+                  imageUrl="/images/logoImg.svg"
+                  handleIconClick={() =>
+                    handleRemoveItem("highlights", highlight)
+                  }
+                />
               ))}
-            </ol>
+            </div>
           </div>
           <div className="flex flex-col gap-2">
             <InputField
@@ -343,11 +385,16 @@ const CourseForm: React.FC = () => {
               inputType="text"
               handleKeyDown={(e) => handleInputKeyDown(e, "tags")}
             />
-            <ol>
+            <div className="flex flex-col gap-1">
               {productDetails.tags.map((tag, index) => (
-                <li key={index}>{tag}</li>
+                <Badge
+                  key={index}
+                  inputText={tag}
+                  imageUrl="/images/logoImg.svg"
+                  handleIconClick={() => handleRemoveItem("tags", tag)}
+                />
               ))}
-            </ol>
+            </div>
           </div>
         </div>
         {/* <div className="md:flex gap-8">
