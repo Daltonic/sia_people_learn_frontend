@@ -8,9 +8,10 @@ import { IoIosStar, IoMdMore } from "react-icons/io";
 interface ComponentProps {
   data: any;
   index?: number;
+  type: "Academy" | "Book" | "Course";
 }
 
-const MyCourseCard: React.FC<ComponentProps> = ({ data, index }) => {
+const MyCourseCard: React.FC<ComponentProps> = ({ data, index, type }) => {
   const [rating, setRating] = useState<string[]>([]);
 
   useEffect(() => {
@@ -24,14 +25,19 @@ const MyCourseCard: React.FC<ComponentProps> = ({ data, index }) => {
       style={{ height: "fit-content" }}
     >
       <div className="">
-        <Link className="linkCustom" href={`/coursedetail/${data.id}`}>
+        <Link
+          className="linkCustom"
+          href={
+            type === "Academy" ? `/academy/${data._id}` : `/course/${data._id}`
+          }
+        >
           <div className=" relative">
             <Image
               width={500}
               height={400}
               style={{ height: "100%", width: "100%" }}
               className="rounded-lg"
-              src={data.imageSrc}
+              src={data.imageUrl || "/images/heroImage.svg"}
               alt="image"
             />
           </div>
@@ -39,7 +45,7 @@ const MyCourseCard: React.FC<ComponentProps> = ({ data, index }) => {
 
         <div className="my-2 p-2 space-y-2">
           <div className="flex items-center justify-between md:md:text-xs gap-4">
-            <p className="text-[#4F547B]">{data.authorName}</p>
+            <p className="text-[#4F547B]">{data.userId.firstName}</p>
 
             <div className="flex items-center gap-1">
               <p className="text-[#E59819]">{data.rating}</p>
@@ -54,7 +60,7 @@ const MyCourseCard: React.FC<ComponentProps> = ({ data, index }) => {
           </div>
 
           <div className="md:text-sm font-medium text-[#321463] mt-2 h-14">
-            {data.title}
+            {data.name}
           </div>
         </div>
       </div>

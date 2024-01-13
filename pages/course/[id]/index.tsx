@@ -1,4 +1,3 @@
-import CourseHead from "@/components/coursedetail/CourseHead";
 import Tabs from "@/components/coursedetail/Tabs";
 import CourseCard from "@/components/home/CoursesSlider/CourseCard";
 import Layout from "@/components/layout/Layout";
@@ -8,10 +7,11 @@ import { Navigation, Pagination } from "swiper";
 import { useEffect, useState } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { SwiperSlide, Swiper } from "swiper/react";
-import { CourseStruct } from "@/utils/type.dt";
-import CourseCardDetail from "@/components/coursedetail/CourseCardDetail";
+import { ICourse } from "@/utils/type.dt";
+import InstructorCourseHead from "@/components/coursedetail/InstructorCourseHead";
+import InstructorCourseDetails from "@/components/coursedetail/InstructorCourseDetails";
 
-const Page: NextPage<{ courseData: CourseStruct }> = ({ courseData }) => {
+const Page: NextPage<{ courseData: ICourse }> = ({ courseData }) => {
   const [showSlider, setShowSlider] = useState<boolean>(false);
 
   useEffect(() => {
@@ -22,8 +22,8 @@ const Page: NextPage<{ courseData: CourseStruct }> = ({ courseData }) => {
     <Layout>
       <div className="md:px-14 md:py-10 p-5 sm:px-10 md:relative overflow-x-hidden">
         <div className="flex flex-col md:flex-row justify-between ">
-          <CourseHead course={courseData} />
-          <CourseCardDetail course={courseData} />
+          <InstructorCourseHead course={courseData} />
+          <InstructorCourseDetails course={courseData} />
         </div>
         <Tabs />
         <div className="mt-14 relative">
@@ -116,7 +116,6 @@ export const getServerSideProps = async (
     );
 
     const course = await response.json();
-    console.log(course);
 
     return {
       props: {
