@@ -1,4 +1,3 @@
-import CourseHead from "@/components/coursedetail/CourseHead";
 import Tabs from "@/components/coursedetail/Tabs";
 import CourseCard from "@/components/home/CoursesSlider/CourseCard";
 import Layout from "@/components/layout/Layout";
@@ -8,10 +7,12 @@ import { Navigation, Pagination } from "swiper";
 import { useEffect, useState } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { SwiperSlide, Swiper } from "swiper/react";
-import { CourseStruct } from "@/utils/type.dt";
-import CourseCardDetail from "@/components/coursedetail/CourseCardDetail";
+import { IAcademy } from "@/utils/type.dt";
 
-const Page: NextPage<{ courseData: CourseStruct }> = ({ courseData }) => {
+import AcademyHead from "@/components/academydetail/AcademyHead";
+import AcademyDetails from "@/components/academydetail/AcademyDetails";
+
+const Page: NextPage<{ academyData: IAcademy }> = ({ academyData }) => {
   const [showSlider, setShowSlider] = useState<boolean>(false);
 
   useEffect(() => {
@@ -22,8 +23,8 @@ const Page: NextPage<{ courseData: CourseStruct }> = ({ courseData }) => {
     <Layout>
       <div className="md:px-14 md:py-10 p-5 sm:px-10 md:relative overflow-x-hidden">
         <div className="flex flex-col md:flex-row justify-between ">
-          <CourseHead course={courseData} />
-          <CourseCardDetail course={courseData} />
+          <AcademyHead academy={academyData} />
+          <AcademyDetails academy={academyData} />
         </div>
         <Tabs />
         <div className="mt-14 relative">
@@ -111,16 +112,15 @@ export const getServerSideProps = async (
 
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/courses/${id}`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/academies/${id}`,
       requestDetails
     );
 
-    const course = await response.json();
-    console.log(course);
+    const academy = await response.json();
 
     return {
       props: {
-        courseData: JSON.parse(JSON.stringify(course)),
+        academyData: JSON.parse(JSON.stringify(academy)),
       },
     };
   } catch (e: any) {

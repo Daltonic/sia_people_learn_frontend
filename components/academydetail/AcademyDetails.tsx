@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect } from "react";
-import { CourseStruct } from "@/utils/type.dt";
+import { IAcademy } from "@/utils/type.dt";
 import Image from "next/image";
 import Button from "../reusableComponents/Button";
 import {
@@ -12,11 +12,11 @@ import {
 import Link from "next/link";
 
 interface ComponentProps {
-  course: CourseStruct;
+  academy: IAcademy;
   index?: number;
 }
 
-const CourseCardDetail: React.FC<ComponentProps> = ({ course }) => {
+const AcademyDetails: React.FC<ComponentProps> = ({ academy }) => {
   return (
     <div className="bg-white w-full md:w-[25%] md:right-10 md:top-0 md:absolute md:border border-[#EDEDED] p-2 space-y-2 mt-10 md:mt-0 rounded-md z-10">
       <div className="relative flex justify-center items-center">
@@ -26,7 +26,7 @@ const CourseCardDetail: React.FC<ComponentProps> = ({ course }) => {
             height={250}
             style={{ height: "30%", width: "100%" }}
             className="rounded-md w-full"
-            src={course.imageSrc}
+            src={academy.imageUrl || "/images/shape.svg"}
             alt="image"
           />
         </div>
@@ -42,8 +42,10 @@ const CourseCardDetail: React.FC<ComponentProps> = ({ course }) => {
       </div>
       <div className="px-2 space-y-2">
         <div className="flex items-center justify-between">
-          <p className="text-2xl text-[#321463]">${course.discountedPrice}</p>
-          <p className="text-sm text-[#4F547B] line-through">${course.price}</p>
+          <p className="text-2xl text-[#321463]">${academy.price}</p>
+          <p className="text-sm text-[#4F547B] line-through">
+            ${academy.price}
+          </p>
         </div>
 
         <div className="block ">
@@ -72,9 +74,9 @@ const CourseCardDetail: React.FC<ComponentProps> = ({ course }) => {
                 src="/images/cardInfo/video-file.svg"
                 alt="image"
               />
-              <p className="text-[#321463]">Lessons</p>
+              <p className="text-[#321463]">Courses</p>
             </div>
-            <p className="text-[#4F547B]">{course.lessonCount}</p>
+            <p className="text-[#4F547B]">{academy.courses.length}</p>
           </div>
           <div className="flex justify-between items-center border-b py-2 border-[#EDEDED]">
             <div className="flex gap-2 items-center">
@@ -87,7 +89,7 @@ const CourseCardDetail: React.FC<ComponentProps> = ({ course }) => {
               />
               <p className="text-[#321463]">Duration</p>
             </div>
-            <p className="text-[#4F547B]">{course.duration}</p>
+            <p className="text-[#4F547B]">{academy.duration}</p>
           </div>
           <div className="flex justify-between items-center border-b py-2 border-[#EDEDED]">
             <div className="flex gap-2 items-center">
@@ -100,7 +102,7 @@ const CourseCardDetail: React.FC<ComponentProps> = ({ course }) => {
               />
               <p className="text-[#321463]">Skill level</p>
             </div>
-            <p className="text-[#4F547B]">{course.level}</p>
+            <p className="text-[#4F547B]">{academy.difficulty}</p>
           </div>
           <div className="flex justify-between items-center border-b py-2 border-[#EDEDED]">
             <div className="flex gap-2 items-center">
@@ -113,10 +115,10 @@ const CourseCardDetail: React.FC<ComponentProps> = ({ course }) => {
               />
               <p className="text-[#321463]">Language</p>
             </div>
-            <p className="text-[#4F547B]">{course.languange}</p>
+            <p className="text-[#4F547B]">{"English"}</p>
           </div>
           <div className="flex justify-between items-center border-b py-2 border-[#EDEDED]">
-            <div className="flex gap-2 items-center">
+            {/* <div className="flex gap-2 items-center">
               <Image
                 width={5}
                 height={5}
@@ -126,7 +128,7 @@ const CourseCardDetail: React.FC<ComponentProps> = ({ course }) => {
               />
               <p className="text-[#321463]">Full lifetime access</p>
             </div>
-            <p className="text-[#4F547B]">{course.viewStatus}</p>
+            <p className="text-[#4F547B]">{course.viewStatus}</p> */}
           </div>
           <div className="flex justify-center gap-2 items-center">
             <div className="p-4 rounded-full hover:bg-[#F9F9F9] text-[#4F547B] hover:bg-opacity-50 transition duration-500 ease-in-out cursor-pointer">
@@ -148,4 +150,4 @@ const CourseCardDetail: React.FC<ComponentProps> = ({ course }) => {
   );
 };
 
-export default CourseCardDetail;
+export default AcademyDetails;
