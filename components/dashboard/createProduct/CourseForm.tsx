@@ -332,7 +332,7 @@ const CourseForm: React.FC = () => {
           />
         </div>
         <div className="md:flex gap-8">
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2 w-1/2">
             <InputField
               label="Product Requirements?"
               name="requirements"
@@ -341,12 +341,12 @@ const CourseForm: React.FC = () => {
               inputType="text"
               handleKeyDown={(e) => handleInputKeyDown(e, "requirements")}
             />
-            <div className="flex flex-col gap-1 bg-slate-300 rounded-lg">
+            <div className="flex flex-wrap w-full gap-2">
               {productDetails.requirements.map((requirement, index) => (
                 <Badge
                   key={index}
                   inputText={requirement}
-                  imageUrl="/images/logoImg.svg"
+                  imageUrl="/images/cancel.png"
                   handleIconClick={() =>
                     handleRemoveItem("requirements", requirement)
                   }
@@ -354,29 +354,7 @@ const CourseForm: React.FC = () => {
               ))}
             </div>
           </div>
-          <div className="flex flex-col gap-2">
-            <InputField
-              label="What will students learn on your course?"
-              name="highlights"
-              placeholder="Enter Product Highlights"
-              required={false}
-              inputType="text"
-              handleKeyDown={(e) => handleInputKeyDown(e, "highlights")}
-            />
-            <div className="flex flex-col gap-1">
-              {productDetails.highlights.map((highlight, index) => (
-                <Badge
-                  key={index}
-                  inputText={highlight}
-                  imageUrl="/images/logoImg.svg"
-                  handleIconClick={() =>
-                    handleRemoveItem("highlights", highlight)
-                  }
-                />
-              ))}
-            </div>
-          </div>
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2 w-1/2">
             <InputField
               label="Tags"
               name="tags"
@@ -385,18 +363,40 @@ const CourseForm: React.FC = () => {
               inputType="text"
               handleKeyDown={(e) => handleInputKeyDown(e, "tags")}
             />
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-wrap w-full gap-2">
               {productDetails.tags.map((tag, index) => (
                 <Badge
                   key={index}
                   inputText={tag}
-                  imageUrl="/images/logoImg.svg"
+                  imageUrl="/images/cancel.png"
                   handleIconClick={() => handleRemoveItem("tags", tag)}
                 />
               ))}
             </div>
           </div>
         </div>
+        <div className="flex flex-col gap-2">
+            <InputField
+              label="What will students learn on your course?"
+              name="highlights"
+              placeholder="Enter Product Highlights"
+              required={false}
+              inputType="text"
+              handleKeyDown={(e) => handleInputKeyDown(e, "highlights")}
+            />
+            <div className="flex flex-col gap-2 w-full">
+              {productDetails.highlights.map((highlight, index) => (
+                <Badge
+                  key={index}
+                  inputText={highlight}
+                  imageUrl="/images/cancel.png"
+                  handleIconClick={() =>
+                    handleRemoveItem("highlights", highlight)
+                  }
+                />
+              ))}
+            </div>
+          </div>
         {/* <div className="md:flex gap-8">
           <TextAreaField
             label="What will students learn in your course?"
@@ -406,8 +406,7 @@ const CourseForm: React.FC = () => {
         </div> */}
         <Button
           variant="pink"
-          className=""
-          style={{ width: "100%", marginTop: "14px", padding: "16px" }}
+          className="mt-14"
           disabled={submitting}
         >
           {submitting ? "Creating" : "Create"}
