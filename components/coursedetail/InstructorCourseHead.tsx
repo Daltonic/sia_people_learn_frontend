@@ -107,7 +107,27 @@ const CourseHead: React.FC<ComponentProps> = ({ course }) => {
             </button>
           </Link>
 
-          <Link href={`/course/edit/${String(course._id)}`}>
+          {/* <Link
+    href={{
+        pathname: "episodes/[id]",
+        query: {
+            id: episode.itunes.episode,
+            title: episode.title
+        }
+    }}
+    as={`episodes/${episode.itunes.episode}-${kebabCase(episode.title)}`}
+ >
+... button stuff
+</Link> */}
+
+          <Link
+            href={{
+              pathname: `/course/lesson/create`,
+              query: {
+                courseId: course._id,
+              },
+            }}
+          >
             <button className="text-white flex gap-2 items-center text-xs font-medium bg-green-400 px-4 py-2 rounded-full">
               Add Lesson
               <FiEdit2 />
