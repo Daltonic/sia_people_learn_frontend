@@ -102,28 +102,11 @@ export const getServerSideProps = async (
 ) => {
   const { id } = context.query;
 
-  const requestDetails = {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
+  const courseData = coursesData.find((data) => data.id === Number(id));
+
+  return {
+    props: {
+      courseData: JSON.parse(JSON.stringify(courseData)),
     },
   };
-
-  try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/courses/${id}`,
-      requestDetails
-    );
-
-    const course = await response.json();
-    console.log(course);
-
-    return {
-      props: {
-        courseData: JSON.parse(JSON.stringify(course)),
-      },
-    };
-  } catch (e: any) {
-    console.log(e.message);
-  }
 };
