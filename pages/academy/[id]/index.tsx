@@ -11,8 +11,18 @@ import { IAcademy } from "@/utils/type.dt";
 
 import AcademyHead from "@/components/academydetail/AcademyHead";
 import AcademyDetails from "@/components/academydetail/AcademyDetails";
+import { _useContext } from "@/context/Context";
+import { useRouter } from "next/navigation";
 
 const Page: NextPage<{ academyData: IAcademy }> = ({ academyData }) => {
+  const router = useRouter();
+  const { user } = _useContext();
+
+  useEffect(() => {
+    if (!user) {
+      router.push("/login");
+    }
+  }, [router, user]);
   const [showSlider, setShowSlider] = useState<boolean>(false);
 
   useEffect(() => {
@@ -102,6 +112,7 @@ export const getServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
   const { id } = context.query;
+  console.log(id);
 
   const requestDetails = {
     method: "GET",

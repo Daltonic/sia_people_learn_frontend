@@ -3,8 +3,6 @@ import React, { useEffect } from "react";
 import { IoIosStar } from "react-icons/io";
 import Image from "next/image";
 import { CourseStruct } from "@/utils/type.dt";
-import { FiEdit2 } from "react-icons/fi";
-import { FaRegCheckCircle } from "react-icons/fa";
 
 interface ComponentProps {
   course: CourseStruct;
@@ -21,25 +19,13 @@ const CourseHead: React.FC<ComponentProps> = ({ course }) => {
 
   return (
     <div className="flex flex-col items-start w-full md:w-[60%]">
-      <div className="flex items-center justify-between gap-5 max-md:justify-center w-full">
-        <div className="flex items-center justify-between gap-5 max-md:justify-center">
-          <h1 className="text-violet-950 text-xs font-medium bg-pink-700 px-4 py-2 rounded-full">
-            BEST SELLER
-          </h1>
-          <p className="text-white text-xs font-medium bg-pink-700 px-4 py-2 rounded-full">
-            POPULAR
-          </p>
-        </div>
-        <div className="flex items-center justify-between gap-5 max-md:justify-center">
-          <button className="text-white flex gap-2 items-center text-xs font-medium bg-green-400 px-4 py-2 rounded-full">
-            Edit
-            <FiEdit2 />
-          </button>
-          <button className="text-white flex gap-2 items-center text-xs font-medium bg-pink-400 px-4 py-2 rounded-full">
-            Submit
-            <FaRegCheckCircle />
-          </button>
-        </div>
+      <div className="flex items-center justify-between gap-5 max-md:justify-center">
+        <h1 className="text-violet-950 text-xs font-medium whitespace-nowrap items-stretch bg-pink-700 self-stretch grow justify-center px-4 py-2 rounded-[60px]">
+          BEST SELLER
+        </h1>
+        <p className="text-white text-xs font-medium whitespace-nowrap items-stretch bg-pink-700 self-stretch grow justify-center px-4 py-2 rounded-[60px]">
+          POPULAR
+        </p>
       </div>
       <div className="flex flex-col gap-2.5 md:gap-5 mt-3 md:mt-0">
         <div className="text-violet-950 text-2xl md:text-3xl font-medium md:leading-10 capitalize self-stretch w-full max-md:max-w-full md:mt-4">
@@ -59,7 +45,7 @@ const CourseHead: React.FC<ComponentProps> = ({ course }) => {
                 </div>
               ))}
             </div>
-            <div className="text-[#4F547B]">({course.reviews.length})</div>
+            <div className="text-[#4F547B]">({course.ratingCount})</div>
           </div>
           <div className=" flex items-center gap-1">
             <Image

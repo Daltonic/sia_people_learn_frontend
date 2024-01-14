@@ -178,7 +178,7 @@ const Tabs: React.FC = () => {
         <div className="py-4 text-[#4F547B]">
           <div className="flex justify-between  w-full flex-wrap">
             {tabData?.map((elm, i: number) => (
-              <MyCourseCard data={elm} index={i} key={i} type={type} />
+              <MyCourseCard data={elm} key={i} type={type} />
             ))}
           </div>
         </div>

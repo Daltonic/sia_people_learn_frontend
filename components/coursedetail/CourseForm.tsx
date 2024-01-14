@@ -4,6 +4,7 @@ import InputField from "@/components/reusableComponents/InputField";
 import SelectField from "@/components/reusableComponents/SelectField";
 import TextAreaField from "@/components/reusableComponents/TextAreaField";
 import { _useContext } from "@/context/Context";
+import { ICourse } from "@/utils/type.dt";
 import { useRouter } from "next/navigation";
 import React, {
   useState,
@@ -13,7 +14,11 @@ import React, {
   useEffect,
 } from "react";
 
-const CourseForm: React.FC = () => {
+interface CourseProps {
+  course: ICourse;
+}
+
+const CourseForm: React.FC<CourseProps> = ({ course }) => {
   const router = useRouter();
   const { user } = _useContext();
 
@@ -23,16 +28,16 @@ const CourseForm: React.FC = () => {
     }
   }, [router, user]);
   const [productDetails, setProductDetails] = useState({
-    title: "",
-    description: "",
-    overview: "",
-    price: 0,
-    imageUrl: "",
-    difficulty: "Beginner",
-    productType: "Course",
-    tags: [] as string[],
-    requirements: [] as string[],
-    highlights: [] as string[],
+    title: course.name,
+    description: course.description,
+    overview: course.overview,
+    price: course.price,
+    imageUrl: course.imageUrl || "",
+    difficulty: course.difficulty,
+    productType: course.type,
+    tags: course.tags ? course.tags.map((tag) => tag.name) : [],
+    requirements: course.requirements ? course.requirements : [],
+    highlights: course.highlights ? course.highlights : [],
   });
 
   const [submitting, setSubmitting] = useState<boolean>(false);
@@ -131,7 +136,10 @@ const CourseForm: React.FC = () => {
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
 
-    if (user?.userType !== "instructor") {
+    if (
+      user?.userType !== "instructor" &&
+      String(user?._id) === String(course.userId._id)
+    ) {
       throw new Error("Only instructors can create products");
     }
 
@@ -143,8 +151,8 @@ const CourseForm: React.FC = () => {
       price,
       imageUrl,
       difficulty,
-      productType,
       tags,
+      productType,
       highlights,
       requirements,
     } = productDetails;
@@ -155,94 +163,52 @@ const CourseForm: React.FC = () => {
       overview,
       imageUrl,
       price: Number(price),
+      type: productType,
       difficulty,
       requirements,
       tags,
       highlights,
     };
 
-    if (productType === "Academy") {
-      const requestDetails = {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
-        },
-        body: JSON.stringify(productInput),
-      };
+    const requestDetails = {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
+      },
+      body: JSON.stringify(productInput),
+    };
 
-      try {
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/academies/create`,
-          requestDetails
-        );
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/courses/update/${course._id}`,
+        requestDetails
+      );
 
-        if (response.status === 400) {
-          alert("Something went wrong");
-        }
-
-        const { result } = await response.json();
-        console.log(result);
-        router.push("/(dashboard)/dashboard");
-      } catch (e: any) {
-        console.log(e.message);
-        alert(e.message);
-      } finally {
-        setSubmitting(false);
-        setProductDetails({
-          title: "",
-          description: "",
-          overview: "",
-          price: 0,
-          imageUrl: "",
-          difficulty: "Beginner",
-          productType: "Course",
-          tags: [] as string[],
-          requirements: [] as string[],
-          highlights: [] as string[],
-        });
+      if (response.status === 400) {
+        alert("Something went wrong");
       }
-    } else {
-      const requestDetails = {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
-        },
-        body: JSON.stringify({ ...productInput, type: productType }),
-      };
 
-      try {
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/courses/create`,
-          requestDetails
-        );
-
-        if (response.status === 400) {
-          alert("Something went wrong");
-        }
-
-        const { result } = await response.json();
-        console.log(result);
-        router.push("/(dashboard)/dashboard");
-      } catch (e: any) {
-        console.log(e.message);
-        alert(e.message);
-      } finally {
-        setSubmitting(false);
-        setProductDetails({
-          title: "",
-          description: "",
-          overview: "",
-          price: 0,
-          imageUrl: "",
-          difficulty: "Beginner",
-          productType: "Course",
-          tags: [] as string[],
-          requirements: [] as string[],
-          highlights: [] as string[],
-        });
-      }
+      const { result } = await response.json();
+      console.log(result);
+      router.push("/(dashboard)/myProducts");
+    } catch (e: any) {
+      console.log(e.message);
+      alert(e.message);
+    } finally {
+      setSubmitting(false);
+      setProductDetails({
+        title: "",
+        description: "",
+        overview: "",
+        price: 0,
+        imageUrl: "",
+        difficulty: "Beginner",
+        productType: "Course",
+        tags: [] as string[],
+        requirements: [] as string[],
+        highlights: [] as string[],
+      });
     }
   };
 
@@ -390,15 +356,8 @@ const CourseForm: React.FC = () => {
             ))}
           </div>
         </div>
-        {/* <div className="md:flex gap-8">
-          <TextAreaField
-            label="What will students learn in your course?"
-            id="learn"
-          />
-          <TextAreaField label="Requirements" id="requirement" />
-        </div> */}
         <Button variant="pink" className="mt-14" disabled={submitting}>
-          {submitting ? "Creating" : "Create"}
+          {submitting ? "Editting" : "Edit"}
         </Button>
       </form>
     </div>
