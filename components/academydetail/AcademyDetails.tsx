@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React from "react";
 import { IAcademy } from "@/utils/type.dt";
 import Image from "next/image";
 import Button from "../reusableComponents/Button";

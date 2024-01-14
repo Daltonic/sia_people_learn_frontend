@@ -5,19 +5,87 @@ import Image from "next/image";
 import { CourseStruct, IAcademy } from "@/utils/type.dt";
 import { FiEdit2 } from "react-icons/fi";
 import { FaRegCheckCircle } from "react-icons/fa";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 interface ComponentProps {
   academy: IAcademy;
-  index?: number;
 }
 
 const AcademyHead: React.FC<ComponentProps> = ({ academy }) => {
+  const router = useRouter();
   const [rating, setRating] = React.useState<string[]>([]);
 
   useEffect(() => {
     const newRating = Array(5).fill("star");
     setRating(newRating);
   }, [academy]);
+
+  const handleSubmit = () => {
+    const submitAcademy = async () => {
+      const requestDetails = {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
+        },
+      };
+
+      try {
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/academies/submit/${academy._id}`,
+          requestDetails
+        );
+
+        if (response.status === 400) {
+          alert("Something went wrong");
+        }
+
+        const message = await response.text();
+        console.log(message);
+        alert(message);
+        router.push("/(dashboard)/myProducts");
+      } catch (e: any) {
+        console.log(e.message);
+        alert(e.message);
+      }
+    };
+
+    submitAcademy();
+  };
+
+  const handleDelete = () => {
+    const deleteAcademy = async () => {
+      const requestDetails = {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
+        },
+      };
+
+      try {
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/academies/delete/${academy._id}`,
+          requestDetails
+        );
+
+        if (response.status === 400) {
+          alert("Something went wrong");
+        }
+
+        const message = await response.text();
+        console.log(message);
+        alert(message);
+        router.push("/(dashboard)/myProducts");
+      } catch (e: any) {
+        console.log(e.message);
+        alert(e.message);
+      }
+    };
+
+    deleteAcademy();
+  };
 
   return (
     <div className="flex flex-col items-start w-full md:w-[60%]">
@@ -31,12 +99,25 @@ const AcademyHead: React.FC<ComponentProps> = ({ academy }) => {
           </p>
         </div>
         <div className="flex items-center justify-between gap-5 max-md:justify-center">
-          <button className="text-white flex gap-2 items-center text-xs font-medium bg-green-400 px-4 py-2 rounded-full">
-            Edit
-            <FiEdit2 />
-          </button>
-          <button className="text-white flex gap-2 items-center text-xs font-medium bg-pink-400 px-4 py-2 rounded-full">
+          <Link href={`/academy/edit/${String(academy._id)}`}>
+            <button className="text-white flex gap-2 items-center text-xs font-medium bg-green-400 px-4 py-2 rounded-full">
+              Edit
+              <FiEdit2 />
+            </button>
+          </Link>
+
+          <button
+            onClick={handleSubmit}
+            className="text-white flex gap-2 items-center text-xs font-medium bg-pink-400 px-4 py-2 rounded-full"
+          >
             Submit
+            <FaRegCheckCircle />
+          </button>
+          <button
+            onClick={handleDelete}
+            className="text-white flex gap-2 items-center text-xs font-medium bg-pink-400 px-4 py-2 rounded-full"
+          >
+            Delete
             <FaRegCheckCircle />
           </button>
         </div>
