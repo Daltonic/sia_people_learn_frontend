@@ -18,7 +18,7 @@ export const sidebarItems = [
   },
   {
     id: 2,
-    href: "/(dashboard)/courses",
+    href: "/(dashboard)/myCourses",
     iconClass: <PlayButtonSVG/>,
     text: "My Courses",
   },
@@ -55,9 +55,9 @@ export const sidebarItems = [
   },
   {
     id: 8,
-    href: "/(dashboard)/editProduct",
-    iconClass: <FiEdit3 />,
-    text: "Edit Product",
+    href: "/(dashboard)/products",
+    iconClass: <LuShoppingBag />,
+    text: "Products",
   },
   {
     id: 9,
