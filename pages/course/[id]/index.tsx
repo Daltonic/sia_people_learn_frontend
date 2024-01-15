@@ -18,6 +18,8 @@ const Page: NextPage<{ courseData: ICourse }> = ({ courseData }) => {
     setShowSlider(true);
   }, []);
 
+  console.log(courseData);
+
   return (
     <Layout>
       <div className="md:px-14 md:py-10 p-5 sm:px-10 md:relative overflow-x-hidden">
@@ -114,6 +116,10 @@ export const getServerSideProps = async (
       `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/courses/${id}`,
       requestDetails
     );
+
+    // if (response.status === 400) {
+    //   console.log(await response.text());
+    // }
 
     const course = await response.json();
 
