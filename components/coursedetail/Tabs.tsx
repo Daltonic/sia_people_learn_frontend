@@ -11,8 +11,6 @@ interface ComponentProps {
   type: "lesson" | "Book" | "Course";
 }
 
-
-
 const Tabs: React.FC<ComponentProps> = ({ course, type, data }) => {
   const [activeTab, setActiveTab] = useState<number>(1);
   const [showMore, setShowMore] = useState(false);
@@ -97,7 +95,10 @@ const Tabs: React.FC<ComponentProps> = ({ course, type, data }) => {
               <div className="w-5/6">
                 <div className="space-y-5">
                   {course.requirements.map((requirement, index) => (
-                    <div key={index} className="flex items-center text-[#4F547B]">
+                    <div
+                      key={index}
+                      className="flex items-center text-[#4F547B]"
+                    >
                       <div className="flex justify-center items-center border border-gray-300 rounded-full h-5 w-5 mr-3 p-1 ">
                         <FaCheck className="text-[10px]" />
                       </div>
@@ -128,23 +129,32 @@ const Tabs: React.FC<ComponentProps> = ({ course, type, data }) => {
           )}
           {activeTab === 4 && (
             <div>
-             
-             <Link href={`/lesson/${course._id}`}>
               {course.lessons.map((lesson) => (
-                <div key={lesson._id} className="flex gap-2 items-center mb-2">
-                  <div>
-                  <Image
-                    height={0}
-                    width={0}
-                    src={"/images/courseCard/card4.svg" || course.imageUrl}
-                    alt=""
-                    className="w-20 h-12 overflow-hidden object-cover rounded-md"
-                  />
+                <Link
+                  key={lesson._id}
+                  href={{
+                    pathname: `/course/lesson/${lesson._id}`,
+                  }}
+                >
+                  <div
+                    key={lesson._id}
+                    className="flex gap-2 items-center mb-2"
+                  >
+                    <div>
+                      <Image
+                        height={0}
+                        width={0}
+                        src={"/images/courseCard/card4.svg" || course.imageUrl}
+                        alt=""
+                        className="w-20 h-12 overflow-hidden object-cover rounded-md"
+                      />
+                    </div>
+                    <h2 className="text-[#4F547B] md:text-sm">
+                      {lesson.title}
+                    </h2>
                   </div>
-                  <h2 className="text-[#4F547B] md:text-sm">{lesson.title}</h2>
-                </div>
+                </Link>
               ))}
-            </Link>
             </div>
           )}
         </div>

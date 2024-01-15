@@ -47,7 +47,6 @@ export const getServerSideProps = async (
     );
 
     const course = await response.json();
-    console.log(course);
 
     return {
       props: {

@@ -2,28 +2,65 @@
 import React from "react";
 import Image from "next/image";
 import { ILesson } from "@/utils/type.dt";
-import Button from "../reusableComponents/Button";
 import { FiEdit2 } from "react-icons/fi";
 import { FaTimes } from "react-icons/fa";
 import Link from "next/link";
-import InputField from "../reusableComponents/InputField";
+import InputField from "@/components/reusableComponents/InputField";
+import { useRouter } from "next/navigation";
 
 interface ComponentProps {
   lesson: ILesson;
 }
 
 const LessonDetails: React.FC<ComponentProps> = ({ lesson }) => {
+  const router = useRouter();
+
+  const handleDelete = () => {
+    const courseId = lesson.courseId;
+    const deleteLesson = async () => {
+      const requestDetails = {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
+        },
+      };
+
+      try {
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/lessons/delete/${lesson._id}`,
+          requestDetails
+        );
+
+        if (response.status === 400) {
+          alert("Something went wrong");
+        }
+
+        const message = await response.text();
+        alert(message);
+        router.push(`/course/${courseId}`);
+      } catch (e: any) {
+        console.log(e.message);
+      }
+    };
+
+    deleteLesson();
+  };
+
   return (
     <div className="flex justify-between">
       <div className=" md:w-[55%]">
         <div className="flex gap-5">
-          <Link href={`/course/edit/${String(lesson._id)}`}>
+          <Link href={`/course/lesson/edit/${String(lesson._id)}`}>
             <button className="text-white flex gap-2 items-center text-xs font-medium bg-sky-400 p-2 rounded-md">
               Edit
               <FiEdit2 />
             </button>
           </Link>
-          <button className="text-white flex gap-2 items-center text-xs font-medium bg-red-500 p-2 rounded-md">
+          <button
+            onClick={handleDelete}
+            className="text-white flex gap-2 items-center text-xs font-medium bg-red-500 p-2 rounded-md"
+          >
             Delete
             <FaTimes />
           </button>

@@ -10,14 +10,12 @@ import { useRouter } from "next/navigation";
 import { MdOutlineRateReview } from "react-icons/md";
 
 interface ComponentProps {
-  course: ICourse;  
+  course: ICourse;
 }
 
 const CourseHead: React.FC<ComponentProps> = ({ course }) => {
   const router = useRouter();
   const [rating, setRating] = React.useState<string[]>([]);
-
-  console.log(course);
 
   useEffect(() => {
     const newRating = Array(5).fill("star");
@@ -79,7 +77,7 @@ const CourseHead: React.FC<ComponentProps> = ({ course }) => {
         }
 
         const message = await response.text();
-        console.log(message);
+
         alert(message);
         router.push("/(dashboard)/myProducts");
       } catch (e: any) {
@@ -112,21 +110,6 @@ const CourseHead: React.FC<ComponentProps> = ({ course }) => {
                 <FiEdit2 />
               </button>
             </Link>
-
-            {/* <Link
-            href={{
-              pathname: "episodes/[id]",
-              query: {
-                id: episode.itunes.episode,
-                title: episode.title,
-              },
-            }}
-            as={`episodes/${episode.itunes.episode}-${kebabCase(
-              episode.title
-            )}`}
-          >
-            ... button stuff
-          </Link> */}
 
             <Link
               href={{
@@ -180,14 +163,14 @@ const CourseHead: React.FC<ComponentProps> = ({ course }) => {
           </div>
 
           <div className="block md:hidden md:w-[38%] mt-4 md:mt-0">
-        <Image
-          height={0}
-          width={0}
-          src={"/images/courseCard/card3.svg" || course.imageUrl} 
-          alt=""
-          className="w-full h-full rounded-lg"
-        />
-      </div>
+            <Image
+              height={0}
+              width={0}
+              src={"/images/courseCard/card3.svg" || course.imageUrl}
+              alt=""
+              className="w-full h-full rounded-lg"
+            />
+          </div>
 
           <div className="flex flex-col md:flex-row md:items-center md:text-sm gap-5">
             <div className=" flex items-center gap-1">
@@ -229,10 +212,8 @@ const CourseHead: React.FC<ComponentProps> = ({ course }) => {
               </div>
             </div>
             <div className="flex gap-3 items-center text-[#4F547B]">
-            <MdOutlineRateReview className="w-5" />
-              <div className="md:text-sm ">
-                {course.reviewsCount}
-              </div>
+              <MdOutlineRateReview className="w-5" />
+              <div className="md:text-sm ">{course.reviewsCount}</div>
             </div>
           </div>
           <div className="flex gap-5  items-center">
@@ -249,7 +230,9 @@ const CourseHead: React.FC<ComponentProps> = ({ course }) => {
               <Image
                 width={0}
                 height={0}
-                src={course.userId?.imgUrl || "/images/instructors/instructor3.svg"}
+                src={
+                  course.userId?.imgUrl || "/images/instructors/instructor3.svg"
+                }
                 alt="authorImg"
                 className="object-cover rounded-full w-10 h-10"
               />
@@ -257,7 +240,9 @@ const CourseHead: React.FC<ComponentProps> = ({ course }) => {
                 {course.userId?.firstName!}
               </p>
             </div>
-            <p className="text-2xl font-medium text-[#321463]">${course.price}</p>
+            <p className="text-2xl font-medium text-[#321463]">
+              ${course.price}
+            </p>
           </div>
         </div>
       </div>
@@ -265,7 +250,7 @@ const CourseHead: React.FC<ComponentProps> = ({ course }) => {
         <Image
           height={0}
           width={0}
-          src={"/images/courseCard/card3.svg" || course.imageUrl} 
+          src={"/images/courseCard/card3.svg" || course.imageUrl}
           alt=""
           className="w-full h-full rounded-lg"
         />
