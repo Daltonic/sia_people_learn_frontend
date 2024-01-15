@@ -25,7 +25,7 @@ const Page: NextPage<{ courseData: CourseStruct }> = ({ courseData }) => {
           <CourseHead course={courseData} />
           <CourseCardDetail course={courseData} />
         </div>
-        <Tabs />
+        {/* <Tabs data={courseData} type="Course" course={courseData} /> */}
         <div className="mt-14 relative">
           <div className="mb-5">
             <h4 className="text-2xl md:text-xl text-[#321463] font-bold">

@@ -1,26 +1,15 @@
-import Tabs from "@/components/coursedetail/Tabs";
 import Layout from "@/components/layout/Layout";
 import { GetServerSidePropsContext, NextPage } from "next";
-import { useEffect, useState } from "react";
 import { ICourse } from "@/utils/type.dt";
-import InstructorCourseHead from "@/components/coursedetail/InstructorCourseHead";
-import Image from "next/image";
+import LessonDetails from "@/components/lesson/LessonDetails";
 
 const Page: NextPage<{ courseData: ICourse }> = ({ courseData }) => {
-  const [showSlider, setShowSlider] = useState<boolean>(false);
-
-  useEffect(() => {
-    setShowSlider(true);
-  }, []);
-
-  console.log(courseData);
 
   return (
     <Layout>
       <div className="md:px-14 md:py-10 p-5 sm:px-10 md:relative overflow-x-hidden">
-        <InstructorCourseHead course={courseData} />
-
-        <Tabs type="lesson" data={courseData} course={courseData} />
+        <LessonDetails lesson={courseData} />
+     
       </div>
     </Layout>
   );
@@ -45,6 +34,10 @@ export const getServerSideProps = async (
       `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/courses/${id}`,
       requestDetails
     );
+
+    if (response.status === 400) {
+      alert(await response.text());
+    }
 
     const course = await response.json();
     console.log(course);
