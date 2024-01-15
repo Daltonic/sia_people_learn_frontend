@@ -36,7 +36,7 @@ const Page: NextPage<{ academyData: IAcademy }> = ({ academyData }) => {
           <AcademyHead academy={academyData} />
           <AcademyDetails academy={academyData} />
         </div>
-        <Tabs />
+        {/* <Tabs   /> */}
         <div className="mt-14 relative">
           <div className="mb-5">
             <h4 className="text-2xl md:text-xl text-[#321463] font-bold">
