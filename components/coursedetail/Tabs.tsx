@@ -1,21 +1,24 @@
 "use client";
 import React, { useState } from "react";
-import { learnList, requirements } from "@/data/aboutcourses";
-import { FaCheck, FaCircle, FaPlay } from "react-icons/fa";
-import { lessonItems } from "@/data/aboutcourses";
-import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+import { FaCheck, FaCircle } from "react-icons/fa";
+import { ICourse } from "@/utils/type.dt";
+import Image from "next/image";
+import Link from "next/link";
 
-const Tabs: React.FC = () => {
+interface ComponentProps {
+  course: ICourse;
+  data: any;
+  type: "lesson" | "Book" | "Course";
+}
+
+
+
+const Tabs: React.FC<ComponentProps> = ({ course, type, data }) => {
   const [activeTab, setActiveTab] = useState<number>(1);
   const [showMore, setShowMore] = useState(false);
-  const [activeIndex, setActiveIndex] = useState(-1);
 
   const handleTabClick = (tabNumber: number) => {
     setActiveTab(tabNumber);
-  };
-
-  const handleTitleClick = (index: number) => {
-    setActiveIndex((prevIndex) => (prevIndex === index ? -1 : index));
   };
 
   return (
@@ -31,7 +34,7 @@ const Tabs: React.FC = () => {
             }`}
             type="button"
           >
-            Overview
+            Description
           </button>
           <button
             onClick={() => handleTabClick(2)}
@@ -42,7 +45,7 @@ const Tabs: React.FC = () => {
             }`}
             type="button"
           >
-            Content
+            Highlights
           </button>
           <button
             onClick={() => handleTabClick(3)}
@@ -58,7 +61,7 @@ const Tabs: React.FC = () => {
           <button
             onClick={() => handleTabClick(4)}
             className={`py-2 border-b-4 transition-colors duration-300 text-[#4F547B] font-medium ${
-              activeTab === 3
+              activeTab === 4
                 ? "border-[#C5165D] text-[#C5165D]"
                 : "border-transparent hover:border-gray-200"
             }`}
@@ -68,33 +71,16 @@ const Tabs: React.FC = () => {
           </button>
         </div>
 
-        <div className="py-4 md:mt-8">
+        <div className="py-4 md:mt-4">
           {activeTab === 1 && (
             <div>
-              <h4 className="text-xl md:text-lg text-[#321463] font-medium mb-2 md:mb-5">
-                Description
-              </h4>
               <p
                 className={
                   showMore ? "text-[#4F547B]" : "line-clamp-3 text-[#4F547B] "
                 }
               >
-                Phasellus enim magna, varius et commodo ut, ultricies vitae
-                velit. Ut nulla tellus, eleifend euismod pellentesque vel,
-                sagittis vel justo. In libero urna, venenatis sit amet ornare
-                non, suscipit nec risus. Sed consequat justo non mauris pretium
-                at tempor justo sodales. Quisque tincidunt laoreet malesuada.
-                Cum sociis natoque penatibus et magnis dis parturient montes,
-                nascetur. This course is aimed at people interested in UI/UX
-                Design. We will start from the very beginning and work all the
-                way through, step by step. If you already have some UI/UX Design
-                experience but want to get up to speed using Adobe XD then this
-                course is perfect for you too! First, we will go over the
-                differences between UX and UI Design. We will look at what our
-                brief for this real-world project is, then we will learn about
-                low-fidelity wireframes and how to make use of existing UI
-                design kits.
-              </p>{" "}
+                {course.description}
+              </p>
               <button
                 onClick={() => setShowMore(!showMore)}
                 className="mt-2  text-[#C5165D] "
@@ -108,14 +94,14 @@ const Tabs: React.FC = () => {
               <h4 className="text-xl md:text-lg text-[#321463] font-medium mb-3 md:mb-5">
                 What you will learn
               </h4>
-              <div className="md:w-1/2">
+              <div className="w-5/6">
                 <div className="space-y-5">
-                  {learnList.slice(0, 6).map((elm, i: number) => (
-                    <div key={i} className="flex items-center">
-                      <div className="flex justify-center items-center border border-gray-300 rounded-full h-5 w-5 mr-3  text-[#4F547B]">
+                  {course.requirements.map((requirement, index) => (
+                    <div key={index} className="flex items-center text-[#4F547B]">
+                      <div className="flex justify-center items-center border border-gray-300 rounded-full h-5 w-5 mr-3 p-1 ">
                         <FaCheck className="text-[10px]" />
                       </div>
-                      <p className="text-[#4F547B]">{elm}</p>
+                      <span key={index}>{requirement}</span>
                     </div>
                   ))}
                 </div>
@@ -128,12 +114,13 @@ const Tabs: React.FC = () => {
                 Requirements
               </h4>
               <ul className="space-y-5 md:pt-15">
-                {requirements.map((elm, i: number) => (
-                  <div key={i} className="flex items-center gap-2 md:gap-5">
+                {course.requirements.map((requirement, index) => (
+                  <div key={index} className="flex items-center gap-2 md:gap-5">
                     <div>
                       <FaCircle className="text-[10px] text-[#4F547B]" />
                     </div>
-                    <p className="text-[#4F547B]">{elm}</p>
+
+                    <span key={index}>{requirement}</span>
                   </div>
                 ))}
               </ul>
@@ -141,52 +128,23 @@ const Tabs: React.FC = () => {
           )}
           {activeTab === 4 && (
             <div>
-              {lessonItems.map((lesson, index) => (
-                <div
-                  key={index}
-                  className="border border-[#EDEDED] rounded-md bg-[#F7F8FB]"
-                >
-                  <div
-                    className="cursor-pointer flex items-center gap-2 px-4 py-2"
-                    onClick={() => handleTitleClick(index)}
-                  >
-                    <div className=" text-sm text-[#321463]">
-                      {activeIndex === index ? (
-                        <IoIosArrowUp size={24} />
-                      ) : (
-                        <IoIosArrowDown size={24} />
-                      )}
-                    </div>
-                    <h2 className="font-medium text-[#321463]">
-                      {lesson.title}
-                    </h2>
+             
+             <Link href={`/lesson/${course._id}`}>
+              {course.lessons.map((lesson) => (
+                <div key={lesson._id} className="flex gap-2 items-center mb-2">
+                  <div>
+                  <Image
+                    height={0}
+                    width={0}
+                    src={"/images/courseCard/card4.svg" || course.imageUrl}
+                    alt=""
+                    className="w-20 h-12 overflow-hidden object-cover rounded-md"
+                  />
                   </div>
-                  {activeIndex === index && (
-                    <div className="mt-4">
-                      {lesson.lessons.map((lesson) => (
-                        <div className="flex gap-5 bg-white py-2 px-4" key={lesson.id}>
-                          <div className="p-2 rounded-full bg-[#FBEFF4] w-fit h-fit">
-                            <FaPlay size={10} color="#C5165D" />
-                          </div>
-                          <div>
-                            <div
-                              className="text-[#4F547B] md:text-sm"
-                            >
-                              <h3>{lesson.title}</h3>
-                              <div className="flex gap-3">
-                                <p className="underline text-[#C5165D]">
-                                  Preview
-                                </p>
-                                <p className="underline">{lesson.duration}</p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  )}
+                  <h2 className="text-[#4F547B] md:text-sm">{lesson.title}</h2>
                 </div>
               ))}
+            </Link>
             </div>
           )}
         </div>

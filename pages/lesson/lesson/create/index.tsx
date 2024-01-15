@@ -4,7 +4,7 @@ import DashboardLayout from "@/components/dashboard/dashboardLayout/DashboardLay
 
 import { GetServerSidePropsContext, NextPage } from "next";
 
-const Page: NextPage<{ courseId: string }> = ({ courseId }) => {  
+const Page: NextPage<{ courseId: string }> = ({ courseId }) => {
   return (
     <DashboardLayout>
       <LessonHeader
