@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 
 interface ComponentProps {
   lesson: ILesson;
-}
+}  
 
 const LessonDetails: React.FC<ComponentProps> = ({ lesson }) => {
   const router = useRouter();
@@ -26,7 +26,7 @@ const LessonDetails: React.FC<ComponentProps> = ({ lesson }) => {
         },
       };
 
-      try {
+      try { 
         const response = await fetch(
           `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/lessons/delete/${lesson._id}`,
           requestDetails

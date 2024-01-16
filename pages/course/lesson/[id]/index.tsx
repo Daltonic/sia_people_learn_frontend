@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import LessonDetails from "@/components/coursedetail/lesson/LessonDetails";
 
 const Page: NextPage = () => {
-  const router = useRouter();
+  const router = useRouter();  
   const queryRouter = QueryRouter();
   const { user } = _useContext();
   const { id } = queryRouter.query;
