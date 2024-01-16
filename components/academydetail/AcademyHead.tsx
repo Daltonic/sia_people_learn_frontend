@@ -8,6 +8,7 @@ import { FaRegCheckCircle, FaTimes } from "react-icons/fa";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { MdOutlineRateReview } from "react-icons/md";
+import { _useContext } from "@/context/Context";
 
 interface ComponentProps {
   academy: IAcademy;
@@ -16,6 +17,8 @@ interface ComponentProps {
 const AcademyHead: React.FC<ComponentProps> = ({ academy }) => {
   const router = useRouter();
   const [rating, setRating] = React.useState<string[]>([]);
+
+  const { user } = _useContext();
 
   useEffect(() => {
     const newRating = Array(5).fill("star");
@@ -113,14 +116,15 @@ const AcademyHead: React.FC<ComponentProps> = ({ academy }) => {
 
             <Link
               href={{
-                pathname: `/academy/lesson/create`,
+                pathname: `/academy/courses`,
                 query: {
                   academyId: academy._id,
+                  instructor: user?._id,
                 },
               }}
             >
               <button className="text-white flex gap-2 items-center text-xs font-medium bg-green-400 p-2 rounded-md">
-                Add Course
+                Update Courses
                 <FiPlusCircle />
               </button>
             </Link>

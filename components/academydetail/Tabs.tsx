@@ -129,27 +129,20 @@ const Tabs: React.FC<ComponentProps> = ({ academy, type, data }) => {
           )}
           {activeTab === 4 && (
             <div>
-              there is no course imageUrl and  course.title
-              {/* {academy.courses.map((course) => (
-                
-                  <div
-                    key={course._id}
-                    className="flex gap-2 items-center mb-2"
-                  >
-                    <div>
-                      <Image
-                        height={0}
-                        width={0}
-                        src={"/images/courseCard/card4.svg" || course.imageUrl}
-                        alt=""
-                        className="w-20 h-12 overflow-hidden object-cover rounded-md"
-                      />
-                    </div>
-                    <h2 className="text-[#4F547B] md:text-sm">
-                      {course.title}
-                    </h2>
+              {academy.courses.map((course) => (
+                <div key={course._id} className="flex gap-2 items-center mb-2">
+                  <div>
+                    <Image
+                      height={0}
+                      width={0}
+                      src={course.imageUrl || "/images/courseCard/card4.svg"}
+                      alt=""
+                      className="w-20 h-12 overflow-hidden object-cover rounded-md"
+                    />
                   </div>
-              ))} */}
+                  <h2 className="text-[#4F547B] md:text-sm">{course.name}</h2>
+                </div>
+              ))}
             </div>
           )}
         </div>

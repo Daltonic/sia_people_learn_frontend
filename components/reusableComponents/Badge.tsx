@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { useState } from "react";
 
 interface BadgeProps {
   inputText: string;
@@ -14,19 +15,19 @@ const Badge: React.FC<BadgeProps> = ({
   handleIconClick,
 }) => {
   return (
-    <div className=" bg-slate-100 flex p-3 rounded-md justify-between items-end gap-5">
-      <p className="text-xs text-slate-500">{inputText}</p>
+    <div className="relative bg-slate-100 flex p-3 rounded-md justify-between items-end gap-5">
+      <p className="text-sm text-slate-500">{inputText}</p>
       <div>
-      {imageUrl && (
-        <Image
-          src={imageUrl}
-          alt="icon"
-          width={14}
-          height={14}
-          className={`${className} `}
-          onClick={handleIconClick}
-        />
-      )}
+        {imageUrl && (
+          <Image
+            src={imageUrl}
+            alt="icon"
+            width={14}
+            height={14}
+            className={`${className} `}
+            onClick={handleIconClick}
+          />
+        )}
       </div>
     </div>
   );

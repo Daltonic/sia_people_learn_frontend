@@ -19,7 +19,7 @@ export const sidebarItems = [
   {
     id: 2,
     href: "/(dashboard)/myCourses",
-    iconClass: <PlayButtonSVG/>,
+    iconClass: <PlayButtonSVG />,
     text: "My Courses",
   },
   {
@@ -32,25 +32,25 @@ export const sidebarItems = [
   {
     id: 4,
     href: "/(dashboard)/wishlist",
-    iconClass: <BookmarkSVG/>,
+    iconClass: <BookmarkSVG />,
     text: "WishLists",
   },
   {
     id: 5,
     href: "/(dashboard)/createProduct",
-    iconClass: <ListSVG/>,
+    iconClass: <ListSVG />,
     text: "Create Product",
   },
   {
     id: 6,
     href: "/(dashboard)/reviews",
-    iconClass:  <MessagesSVG/>,
+    iconClass: <MessagesSVG />,
     text: "Reviews",
   },
   {
     id: 7,
     href: "/(dashboard)/users",
-    iconClass:  <FaRegUser />,
+    iconClass: <FaRegUser />,
     text: "Users",
   },
   {
@@ -62,13 +62,13 @@ export const sidebarItems = [
   {
     id: 9,
     href: "/(dashboard)/settings",
-    iconClass: <SettingsSVG/>,
+    iconClass: <SettingsSVG />,
     text: "Settings",
   },
   {
     id: 10,
-    href: "/(dashboard)/Logout",
-    iconClass: <PowerSVG/>,
+    href: "/(dashboard)/logout",
+    iconClass: <PowerSVG />,
     text: "Logout",
   },
 ];

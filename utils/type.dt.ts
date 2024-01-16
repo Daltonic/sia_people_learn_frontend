@@ -87,7 +87,7 @@ export interface IAcademy {
     userId: { firstName: string; lastName: string; username: string };
   }[];
   reviewsCount: number;
-  courses: { _id: string; name: string }[];
+  courses: { _id: string; name: string; imageUrl?: string }[];
   highlights: string[];
   requirements: string[];
   tags: { _id: string; name: string }[];
