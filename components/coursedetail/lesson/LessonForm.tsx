@@ -2,17 +2,17 @@ import Button from "@/components/reusableComponents/Button";
 import InputField from "@/components/reusableComponents/InputField";
 import TextAreaField from "@/components/reusableComponents/TextAreaField";
 import { _useContext } from "@/context/Context";
-import { ICourse } from "@/utils/type.dt";
+import { ILesson } from "@/utils/type.dt";
 import { useRouter } from "next/navigation";
 import React, { useState, ChangeEvent, SyntheticEvent, useEffect } from "react";
 
 interface LessonProps {
-  course?: ICourse;
+  lesson?: ILesson;
   courseId: string;
   type: "create" | "edit";
 }
 
-const LessonForm: React.FC<LessonProps> = ({ course, courseId, type }) => {
+const LessonForm: React.FC<LessonProps> = ({ lesson, courseId, type }) => {
   const router = useRouter();
   const { user } = _useContext();
 
@@ -22,14 +22,14 @@ const LessonForm: React.FC<LessonProps> = ({ course, courseId, type }) => {
     }
   }, [router, user]);
   const [productDetails, setProductDetails] = useState({
-    title: "",
-    description: "",
-    overview: "",
-    duration: 100,
-    imageUrl: "",
-    videoUrl: "",
-    downloadableUrl: "",
-    order: 0,
+    title: lesson?.title || "",
+    description: lesson?.description || "",
+    overview: lesson?.overview || "",
+    duration: lesson?.duration || 100,
+    imageUrl: lesson?.imageUrl || "",
+    videoUrl: lesson?.videoUrl || "",
+    downloadableUrl: lesson?.downloadableUrl || "",
+    order: lesson?.order || 0,
   });
 
   const [submitting, setSubmitting] = useState<boolean>(false);
@@ -69,33 +69,37 @@ const LessonForm: React.FC<LessonProps> = ({ course, courseId, type }) => {
       videoUrl,
       downloadableUrl,
       order: Number(order),
-      courseId,
     };
 
+    const queryMethod = type === "create" ? "POST" : "PUT";
+    const queryBody =
+      type === "create" ? { ...productInput, courseId } : productInput;
+    const url =
+      type === "create"
+        ? `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/lessons/create`
+        : `${
+            process.env.NEXT_PUBLIC_BACKEND_URI
+          }/api/v1/lessons/update/${lesson?._id!}`;
+
     const requestDetails = {
-      method: "POST",
+      method: queryMethod,
       headers: {
         "Content-Type": "application/json",
         authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
       },
-      body: JSON.stringify(productInput),
+      body: JSON.stringify(queryBody),
     };
 
     try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/lessons/create`,
-        requestDetails
-      );
+      const response = await fetch(url, requestDetails);
 
       if (response.status === 400) {
         alert(await response.text());
       }
 
-      const { result } = await response.json();
-      console.log(result);
+      await response.json();
       router.push(`/course/${courseId}`);
     } catch (e: any) {
-      console.log(e.message);
       alert(e.message);
     } finally {
       setSubmitting(false);

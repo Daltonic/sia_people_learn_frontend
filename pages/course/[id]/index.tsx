@@ -13,12 +13,14 @@ const Page: NextPage<{ courseData: ICourse }> = ({ courseData }) => {
     setShowSlider(true);
   }, []);
 
+  console.log(courseData);
+
   return (
     <Layout>
       <div className="md:px-14 md:py-10 p-5 sm:px-10 md:relative overflow-x-hidden">
         <InstructorCourseHead course={courseData} />
-     
-        <Tabs  type="lesson" data={courseData} course={courseData} />
+
+        <Tabs type="lesson" data={courseData} course={courseData} />
       </div>
     </Layout>
   );
@@ -44,12 +46,7 @@ export const getServerSideProps = async (
       requestDetails
     );
 
-    if (response.status === 400) {
-      alert(await response.text());
-    }
-
     const course = await response.json();
-    console.log(course);
 
     return {
       props: {

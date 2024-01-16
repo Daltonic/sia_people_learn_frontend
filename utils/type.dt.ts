@@ -137,3 +137,18 @@ export interface ICourse {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface ILesson {
+  _id: string;
+  title: string;
+  overview: string;
+  description: string;
+  duration: number;
+  imageUrl?: string | null;
+  videoUrl?: string | null;
+  downloadableUrl?: string | null;
+  order: number;
+  courseId: string;
+  createdAt: string;
+  updatedAt: string;
+}
