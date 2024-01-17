@@ -164,9 +164,9 @@ const CourseHead: React.FC<ComponentProps> = ({ course }) => {
 
           <div className="block md:hidden md:w-[38%] mt-4 md:mt-0">
             <Image
-              height={0}
-              width={0}
-              src={"/images/courseCard/card3.svg" || course.imageUrl}
+              height={200}
+              width={200}
+              src={course.imageUrl || "/images/courseCard/card3.svg"}
               alt=""
               className="w-full h-full rounded-lg"
             />
@@ -250,8 +250,8 @@ const CourseHead: React.FC<ComponentProps> = ({ course }) => {
         <Image
           height={0}
           width={0}
-          src={"/images/courseCard/card3.svg" || course.imageUrl}
-          alt=""
+          src={course.imageUrl || "/images/courseCard/card3.svg"}
+          alt="Course Image"
           className="w-full h-full rounded-lg"
         />
       </div>

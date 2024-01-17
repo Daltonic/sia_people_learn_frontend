@@ -102,8 +102,8 @@ const AddRemoveCourse: React.FC<Props> = ({ courses, academy }) => {
   return (
     <div className="flex gap-4 cursor-pointer">
       <div className="flex flex-col gap-2">
-        <h4>Courses in Academy</h4>
-        <div>
+        <h4>Courses Existing in Academy</h4>
+        <div className="flex flex-col gap-2">
           {academyCourses.map((course) => (
             <Badge
               key={course._id}
@@ -114,15 +114,16 @@ const AddRemoveCourse: React.FC<Props> = ({ courses, academy }) => {
           ))}
         </div>
       </div>
-      <div className="flex flex-col gap-2">
-        <h4>Available Courses</h4>
-        <div>
+      <div className="flex flex-col gap-2 p-2 bg-slate-50 rounded-sm">
+        <h4>Available That Can be Added To Academy</h4>
+        <div className="flex flex-col gap-2">
           {coursesToAdd.map((course) => (
             <Badge
               key={course._id}
               inputText={course.name}
               imageUrl="/images/cancel.png"
               handleIconClick={() => handleAdd(course._id, course.name)}
+              imagePosition="left"
             />
           ))}
         </div>
