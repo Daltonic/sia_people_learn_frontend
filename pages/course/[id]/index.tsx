@@ -4,7 +4,6 @@ import { GetServerSidePropsContext, NextPage } from "next";
 import { useEffect, useState } from "react";
 import { ICourse } from "@/utils/type.dt";
 import InstructorCourseHead from "@/components/coursedetail/InstructorCourseHead";
-import Image from "next/image";
 
 const Page: NextPage<{ courseData: ICourse }> = ({ courseData }) => {
   const [showSlider, setShowSlider] = useState<boolean>(false);
@@ -12,8 +11,6 @@ const Page: NextPage<{ courseData: ICourse }> = ({ courseData }) => {
   useEffect(() => {
     setShowSlider(true);
   }, []);
-
-  console.log(courseData);
 
   return (
     <Layout>

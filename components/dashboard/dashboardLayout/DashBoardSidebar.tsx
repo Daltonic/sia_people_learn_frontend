@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { sidebarItems } from "@/data/dashBoardSidebar";
 import { useRouter } from "next/router";
+import Button from "@/components/reusableComponents/Button";
 
 interface DashboardSidebarProps {
   isOpen: boolean;
@@ -17,29 +18,31 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ isOpen }) => {
       } md:translate-x-0 md:static md:block z-10 w-4/5 sm:w-1/2 md:w-fit`}
     >
       <div className="">
-      {sidebarItems.map((elm, i) => (
-        <div
-          key={i}
-          className={`py-2 pl-4 w-56 md:w-48 pr-5 font-medium rounded-xl ${
-            router.pathname === elm.href
-              ? "text-white bg-[#C5165D]"
-              : "text-[#4F547B]"
-          }`}
-        >
-          <Link href={elm.href}>
-            <div className="flex items-center gap-2 text-xl md:text-base ">
-              <div>
-                {elm.iconClass &&
-                  React.cloneElement(elm.iconClass, {
-                    color: router.pathname === elm.href ? "#FFFFFF" : "#6A7A99",
-                  })}
+        {sidebarItems.map((elm, i) => (
+          <div
+            key={i}
+            className={`py-2 pl-4 w-56 md:w-48 pr-5 font-medium rounded-xl ${
+              router.pathname === elm.href
+                ? "text-white bg-[#C5165D]"
+                : "text-[#4F547B]"
+            }`}
+          >
+            <Link href={elm.href}>
+              <div className="flex items-center gap-2 text-xl md:text-base ">
+                <div>
+                  {elm.iconClass &&
+                    React.cloneElement(elm.iconClass, {
+                      color:
+                        router.pathname === elm.href ? "#FFFFFF" : "#6A7A99",
+                    })}
+                </div>
+                <div>{elm.text}</div>
               </div>
-              <div>{elm.text}</div>
-            </div>
-          </Link>
-        </div>
-      ))}
-    </div>
+            </Link>
+          </div>
+        ))}
+        <Button variant="pink">Logout</Button>
+      </div>
     </div>
   );
 };
