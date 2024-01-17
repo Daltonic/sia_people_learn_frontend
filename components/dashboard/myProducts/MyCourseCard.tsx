@@ -8,11 +8,10 @@ import { IoIosStar, IoMdMore } from "react-icons/io";
 interface ComponentProps {
   data: any;
   type: "Academy" | "Book" | "Course";
-} 
+}
 
 const MyCourseCard: React.FC<ComponentProps> = ({ data, type }) => {
   const [rating, setRating] = useState<string[]>([]);
-  console.log(data);
 
   useEffect(() => {
     const newRating = Array(5).fill("star");
