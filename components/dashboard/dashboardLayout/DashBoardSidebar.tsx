@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { sidebarItems } from "@/data/dashBoardSidebar";
 import { useRouter } from "next/router";
+import { useRouter as useNavigationRouter } from "next/navigation";
 import Button from "@/components/reusableComponents/Button";
 
 interface DashboardSidebarProps {
@@ -10,6 +11,38 @@ interface DashboardSidebarProps {
 
 const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ isOpen }) => {
   const router = useRouter();
+  const navigationRouter = useNavigationRouter();
+
+  const handleLogout = () => {
+    const logout = async () => {
+      const requestDetails = {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
+        },
+      };
+
+      try {
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/sessions/logout`,
+          requestDetails
+        );
+
+        if (response.status === 400) {
+          alert("Something went wrong");
+        }
+
+        const message = await response.text();
+        console.log(message);
+        navigationRouter.push("/");
+      } catch (e: any) {
+        console.log(e.message);
+        alert(e.message);
+      }
+    };
+    logout();
+  };
 
   return (
     <div
@@ -41,7 +74,9 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ isOpen }) => {
             </Link>
           </div>
         ))}
-        <Button variant="pink">Logout</Button>
+        <Button variant="pink" onClick={handleLogout}>
+          Logout
+        </Button>
       </div>
     </div>
   );
