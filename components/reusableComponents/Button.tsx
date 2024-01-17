@@ -1,7 +1,13 @@
 import React, { ButtonHTMLAttributes } from "react";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "pink" | "pinkoutline" | "whiteoutline" | "lightpurple" | "blueoutline" | "redoutline";
+  variant?:
+    | "pink"
+    | "pinkoutline"
+    | "whiteoutline"
+    | "lightpurple"
+    | "blueoutline"
+    | "redoutline";
   className?: string;
 }
 
@@ -35,15 +41,15 @@ const Button: React.FC<ButtonProps> = ({
       buttonClasses +=
         " border-2 border-white text-white hover:bg-[#C5165D] hover:text-white hover:border-transparent";
       break;
-       case "whiteoutline":
+    case "whiteoutline":
       buttonClasses +=
         " border-2 border-white text-white hover:bg-[#C5165D] hover:text-white hover:border-transparent";
       break;
-       case "blueoutline":
+    case "blueoutline":
       buttonClasses +=
         " border-2 border-black text-black hover:bg-black hover:text-white hover:border-transparent";
       break;
-       case "redoutline":
+    case "redoutline":
       buttonClasses +=
         " border-2 border-[#D93025] text-[#D93025] hover:bg-[#D93025] hover:text-white hover:border-transparent";
       break;
