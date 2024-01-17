@@ -6,19 +6,52 @@ import { useEffect, useState } from "react";
 import { IoIosStar, IoMdMore } from "react-icons/io";
 import Button from "@/components/reusableComponents/Button";
 import { FaCheck, FaTimes } from "react-icons/fa";
+import { ICourse } from "@/utils/type.dt";
 
 interface ComponentProps {
-  data: any;
+  data: ICourse;
   index?: number;
 }
 
 const Courses: React.FC<ComponentProps> = ({ data, index }) => {
   const [rating, setRating] = useState<string[]>([]);
+  const [disable, setDisable] = useState<boolean>(data.approved);
 
   useEffect(() => {
     const newRating = Array(5).fill("star");
     setRating(newRating);
   }, [data.rating]);
+
+  const handleApprove = () => {
+    const approve = async () => {
+      const requestDetails = {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
+        },
+      };
+
+      try {
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/courses/approve/${data._id}`,
+          requestDetails
+        );
+
+        if (response.status === 400) {
+          alert("Something went wrong");
+        }
+
+        const message = await response.text();
+        setDisable(true);
+      } catch (e: any) {
+        alert(e.message);
+        console.log(e.message);
+      }
+    };
+
+    approve();
+  };
 
   return (
     <div
@@ -27,13 +60,13 @@ const Courses: React.FC<ComponentProps> = ({ data, index }) => {
     >
       <div className="md:flex gap-4 w-full">
         <div className="md:w-1/3 py-2">
-          <Link className="linkCustom" href={`/coursedetail/${data.id}`}>
+          <Link className="linkCustom" href={`/coursedetail/${data._id}`}>
             <Image
               width={0}
               height={0}
               style={{ height: "100%", width: "100%" }}
               className="rounded-lg object-cover"
-              src={data.imageSrc}
+              src={data.imageUrl || "/images/heroImage.svg"}
               alt="image"
             />
           </Link>
@@ -41,17 +74,21 @@ const Courses: React.FC<ComponentProps> = ({ data, index }) => {
         <div className="flex-1 py-3">
           <div className="flex items-center gap-2">
             <Image
-              width={0}
-              height={0}
-              src={data.authorImageSrc}
+              width={16}
+              height={16}
+              src={
+                data.userId?.imgUrl
+                  ? data.userId.imgUrl
+                  : "/images/instructor4.svg"
+              }
               alt="image"
-              className="object-cover rounded-full w-8 h-8"
+              className="object-cover rounded-full"
             />
-            <p className="md:text-xs text-[#4F547B]">{data.authorName}</p>
+            <p className="md:text-xs text-[#4F547B]">{`${data.userId?.firstName} ${data.userId?.lastName}`}</p>
           </div>
 
           <div className="md:text-sm font-medium text-[#321463] mt-2">
-            {data.title}
+            {data.name}
           </div>
           <div className="flex justify-between items-center my-2 border-b border-[#EDEDED] pb-1">
             <div className="flex items-center">
@@ -64,7 +101,10 @@ const Courses: React.FC<ComponentProps> = ({ data, index }) => {
                   className="w-5 h-5  md:w-3 md:h-3"
                 />
               </div>
-              <p className="md:text-xs">{data.lessonCount} lesson</p>
+              <p className="md:text-xs">
+                {data.lessons?.length}{" "}
+                {data.lessons?.length > 0 ? "lessons" : "lesson"}
+              </p>
             </div>
 
             <div className="flex items-center">
@@ -92,19 +132,29 @@ const Courses: React.FC<ComponentProps> = ({ data, index }) => {
                   className="w-5 h-5  md:w-3 md:h-3"
                 />
               </div>
-              <div className="md:text-xs">{data.level}</div>
+              <div className="md:text-xs">{data.difficulty}</div>
             </div>
           </div>
           <div className="flex items-center gap-4">
-          <button className="bg-green-400 hover:bg-transparent hover:border hover:border-green-400 hover:text-green-400  p-2 text-white rounded-md text-sm flex items-center gap-2">
-            Approve
-            <FaCheck />
-          </button>
-          <button className="bg-red-500 hover:bg-transparent hover:border hover:border-red-500 hover:text-red-500  p-2 text-white rounded-md text-sm w-20 flex items-center gap-2">
-            Reject
-            <FaTimes />
-          </button>
-        </div>
+            <button
+              disabled={data.approved || disable}
+              onClick={handleApprove}
+              className={`p-2 text-white rounded-md text-sm flex items-center gap-2 ${
+                !disable
+                  ? "bg-green-400 hover:bg-transparent hover:border hover:border-green-400 hover:text-green-400"
+                  : "bg-green-200"
+              }`}
+            >
+              {data.approved ? "Approved" : "Approve"}
+              <FaCheck />
+            </button>
+            {!data.approved && (
+              <button className="bg-red-500 hover:bg-transparent hover:border hover:border-red-500 hover:text-red-500  p-2 text-white rounded-md text-sm w-20 flex items-center gap-2">
+                Reject
+                <FaTimes />
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </div>
