@@ -57,14 +57,15 @@ const LoginPage: NextPage = () => {
       );
 
       if (response.status === 400) {
-        alert("Something went wrong");
+        const { message } = await response.json();
+        alert(message);
+      } else {
+        const { user, accessToken, refreshToken } = await response.json();
+        setUser(user);
+        sessionStorage.setItem("accessToken", accessToken);
+        sessionStorage.setItem("refreshToken", refreshToken);
+        router.push("/(dashboard)/dashboard");
       }
-
-      const { user, accessToken, refreshToken } = await response.json();
-      setUser(user);
-      sessionStorage.setItem("accessToken", accessToken);
-      sessionStorage.setItem("refreshToken", refreshToken);
-      router.push("/(dashboard)/dashboard");
     } catch (e: any) {
       alert(e.message);
     } finally {

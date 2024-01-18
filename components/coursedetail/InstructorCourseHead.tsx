@@ -94,14 +94,15 @@ const CourseHead: React.FC<ComponentProps> = ({ course }) => {
       <div className="flex flex-col items-start w-full md:w-[57%]">
         <div className="flex flex-col md:flex-row gap-4 md:gap-0 items-start md:items-center justify-between w-full">
           <div className="flex items-center justify-between gap-5 max-md:justify-center">
-            {course.tags.map((tag) => (
-              <h1
-                className="text-slate-500 text-xs font-medium bg-slate-100 p-2 rounded-md"
-                key={tag._id}
-              >
-                {tag.name}
-              </h1>
-            ))}
+            {course.tags &&
+              course.tags.map((tag) => (
+                <h1
+                  className="text-slate-500 text-xs font-medium bg-slate-100 p-2 rounded-md"
+                  key={tag._id}
+                >
+                  {tag.name}
+                </h1>
+              ))}
           </div>
           <div className="flex items-center justify-between gap-5 max-md:justify-center">
             <Link href={`/course/edit/${String(course._id)}`}>

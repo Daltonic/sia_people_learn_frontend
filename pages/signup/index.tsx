@@ -5,8 +5,10 @@ import InputField from "@/components/reusableComponents/InputField";
 import AuthLayout from "@/components/layout/authLayout/AuthenticationLayout";
 import Link from "next/link";
 import { ChangeEvent, SyntheticEvent, useState } from "react";
+import { useRouter } from "next/navigation";
 
 const LoginPage: NextPage = () => {
+  const router = useRouter();
   const [signupDetails, setSignupDetails] = useState({
     firstname: "",
     lastname: "",
@@ -59,11 +61,16 @@ const LoginPage: NextPage = () => {
       );
 
       if (response.status === 400) {
-        alert("Something went wrong");
-      }
+        const { message } = await response.json();
 
-      const { msg } = await response.json();
-      alert(msg);
+        if (message === "Account already exists") {
+          alert("Account already exists. Please login to continue");
+          router.push("/login");
+        }
+      } else {
+        const { msg } = await response.json();
+        alert(msg);
+      }
     } catch (e: any) {
       alert(e.message);
     } finally {
@@ -113,14 +120,14 @@ const LoginPage: NextPage = () => {
             />
           </div>
           <InputField
-              label="Email"
-              name="email"
-              placeholder="youremail@domain.com"
-              required
-              inputType="email"
-              handleChange={handleChange}
-              value={signupDetails.email}
-            />
+            label="Email"
+            name="email"
+            placeholder="youremail@domain.com"
+            required
+            inputType="email"
+            handleChange={handleChange}
+            value={signupDetails.email}
+          />
           <div className="md:flex gap-2 items-center">
             <InputField
               label="Password"
@@ -143,12 +150,11 @@ const LoginPage: NextPage = () => {
             />
           </div>
 
-            <div className="flex gap-2 my-2">
-              <input type="checkbox" name="" id="" />
-              <p className="md:text-sm text-[#4F547B]">
-                Accept the Terms and Privacy Policy
-              </p>
-          
+          <div className="flex gap-2 my-2">
+            <input type="checkbox" name="" id="" />
+            <p className="md:text-sm text-[#4F547B]">
+              Accept the Terms and Privacy Policy
+            </p>
           </div>
           <Button
             variant="pink"
