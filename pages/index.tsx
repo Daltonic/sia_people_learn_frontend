@@ -70,7 +70,6 @@ export const getServerSideProps = async () => {
     );
 
     const books = await booksRes.json();
-    console.log(courses);
 
     return {
       props: {
