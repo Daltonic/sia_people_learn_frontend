@@ -77,13 +77,13 @@ const Tabs: React.FC = () => {
               </button>
             </div>
           )}
-          {activeTab === 2 && (
+          {/* {activeTab === 2 && (
             <div className="flex flex-wrap gap-8 md:gap-0 justify-between">
               {coursesData.slice(0, 4).map((elm, i: number) => (
                 <CourseCard data={elm} index={i} key={i} />
               ))}
             </div>
-          )}
+          )} */}
         </div>
       </div>
     </div>

@@ -102,6 +102,12 @@ export interface IAcademy {
   updatedAt: string;
 }
 
+export interface IAcademies {
+  academies: IAcademy[];
+  isNext: boolean;
+  numOfPages: number;
+}
+
 export interface ICourse {
   _id: string;
   name: string;
@@ -124,7 +130,6 @@ export interface ICourse {
     userId: { firstName: string; lastName: string; username: string };
   }[];
   reviewsCount: number;
-
   tags: { _id: string; name: string }[];
   userId: {
     _id: string;
@@ -136,6 +141,12 @@ export interface ICourse {
   lessons: { _id: string; title: string }[];
   createdAt: string;
   updatedAt: string;
+}
+
+export interface ICourses {
+  courses: ICourse[];
+  isNext: boolean;
+  numOfPages: number;
 }
 
 export interface ILesson {

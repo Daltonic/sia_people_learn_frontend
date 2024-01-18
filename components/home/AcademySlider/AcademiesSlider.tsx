@@ -2,16 +2,18 @@
 
 import React, { useEffect, useState } from "react";
 
-import CourseCard from "./CourseCard";
 import { Navigation, Pagination, Autoplay } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Link from "next/link";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import Button from "@/components/reusableComponents/Button";
 import { GoArrowUpRight } from "react-icons/go";
-import { ICourses } from "@/utils/type.dt";
+import { IAcademies } from "@/utils/type.dt";
+import AcademyCard from "./AcademyCard";
 
-const CoursesSlider: React.FC<{ coursesObj: ICourses }> = ({ coursesObj }) => {
+const CoursesSlider: React.FC<{ academyObj: IAcademies }> = ({
+  academyObj,
+}) => {
   const [showSlider, setShowSlider] = useState(false);
   useEffect(() => {
     setShowSlider(true);
@@ -23,7 +25,7 @@ const CoursesSlider: React.FC<{ coursesObj: ICourses }> = ({ coursesObj }) => {
         <div className="flex flex-col sm:flex-row gap-4 md:gap-0 justify-between md:items-center">
           <div>
             <h2 className="text-[#321463] font-bold text-2xl">
-              Trending courses
+              Trending Academies
             </h2>
 
             <p className="text-[#4F547B] text-xs">
@@ -33,10 +35,10 @@ const CoursesSlider: React.FC<{ coursesObj: ICourses }> = ({ coursesObj }) => {
 
           <div className="">
             <Link
-              href="/courses"
+              href="/academies"
               className="font-medium text-sm text-center px-3 flex items-center rounded-md bg-[#6440FB12] text-[#1A064F]  hover:text-[#C5165D] border-2 border-transparent hover:border-[#C5165D] hover:bg-transparent w-fit"
             >
-              <Button className=""> All Courses </Button>
+              <Button className=""> All Academies </Button>
               <GoArrowUpRight className="md:-ml-4 text-lg font-bold" />
             </Link>
           </div>
@@ -79,9 +81,9 @@ const CoursesSlider: React.FC<{ coursesObj: ICourses }> = ({ coursesObj }) => {
                     },
                   }}
                 >
-                  {coursesObj.courses.map((elm, i: number) => (
-                    <SwiperSlide key={i}>
-                      <CourseCard data={elm} index={i} />
+                  {academyObj.academies.map((elm) => (
+                    <SwiperSlide key={elm._id}>
+                      <AcademyCard data={elm} />
                     </SwiperSlide>
                   ))}
                 </Swiper>
