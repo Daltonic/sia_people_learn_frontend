@@ -1,20 +1,21 @@
 import CourseHead from "@/components/coursedetail/CourseHead";
-import Tabs from "@/components/coursedetail/Tabs";
 import CourseCard from "@/components/home/CoursesSlider/CourseCard";
 import Layout from "@/components/layout/Layout";
-import { coursesData } from "../../../data/courses";
 import { GetServerSidePropsContext, NextPage } from "next";
 import { Navigation, Pagination } from "swiper";
 import { useEffect, useState } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { SwiperSlide, Swiper } from "swiper/react";
-import { ICourse, ICourses } from "@/utils/type.dt";
+import { IAcademy, IAcademies } from "@/utils/type.dt";
 import CourseCardDetail from "@/components/coursedetail/CourseCardDetail";
+import AcademyCard from "@/components/home/AcademySlider/AcademyCard";
+import AcademyHead from "@/components/academydetail/AcademyHead";
+import AcademyDetails from "@/components/academydetail/AcademyDetails";
 
-const Page: NextPage<{ courseData: ICourse; alternateCourses: ICourse[] }> = ({
-  courseData,
-  alternateCourses,
-}) => {
+const Page: NextPage<{
+  academyData: IAcademy;
+  alternateAcademies: IAcademy[];
+}> = ({ academyData, alternateAcademies }) => {
   const [showSlider, setShowSlider] = useState<boolean>(false);
 
   useEffect(() => {
@@ -25,8 +26,8 @@ const Page: NextPage<{ courseData: ICourse; alternateCourses: ICourse[] }> = ({
     <Layout>
       <div className="md:px-14 md:py-10 p-5 sm:px-10 md:relative overflow-x-hidden">
         <div className="flex flex-col md:flex-row justify-between ">
-          <CourseHead course={courseData} />
-          <CourseCardDetail course={courseData} />
+          <AcademyHead academy={academyData} />
+          <AcademyDetails academy={academyData} />
         </div>
         {/* <Tabs data={courseData} type="Course" course={courseData} /> */}
         <div className="mt-14 relative">
@@ -71,9 +72,9 @@ const Page: NextPage<{ courseData: ICourse; alternateCourses: ICourse[] }> = ({
                     },
                   }}
                 >
-                  {alternateCourses.map((elm, i: number) => (
-                    <SwiperSlide key={i}>
-                      <CourseCard data={elm} index={i} />
+                  {alternateAcademies.map((elm) => (
+                    <SwiperSlide key={elm._id}>
+                      <AcademyCard data={elm} />
                     </SwiperSlide>
                   ))}
                 </Swiper>
@@ -114,26 +115,26 @@ export const getServerSideProps = async (
 
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/courses/${id}`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/academies/${id}`,
       requestDetails
     );
 
-    const course = await response.json();
+    const academy = await response.json();
 
-    const coursesRes = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/courses`,
+    const AcademiesRes = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/academies`,
       requestDetails
     );
 
-    const courses = (await coursesRes.json()) as ICourses;
-    const alternateCourses = courses.courses.filter(
-      (course) => course._id !== id
+    const academies = (await AcademiesRes.json()) as IAcademies;
+    const alternateAcademies = academies.academies.filter(
+      (academy) => academy._id !== id
     );
 
     return {
       props: {
-        courseData: JSON.parse(JSON.stringify(course)),
-        alternateCourses,
+        academyData: JSON.parse(JSON.stringify(academy)),
+        alternateAcademies,
       },
     };
   } catch (e: any) {

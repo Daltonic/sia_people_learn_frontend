@@ -4,14 +4,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { IoIosStar } from "react-icons/io";
-import { ICourse } from "@/utils/type.dt";
+import { IAcademy } from "@/utils/type.dt";
 
 interface ComponentProps {
-  data: ICourse;
-  index?: number;
+  data: IAcademy;
 }
 
-const CourseCard: React.FC<ComponentProps> = ({ data, index }) => {
+const AcademyCard: React.FC<ComponentProps> = ({ data }) => {
   const [rating, setRating] = useState<string[]>([]);
 
   useEffect(() => {
@@ -52,7 +51,7 @@ const CourseCard: React.FC<ComponentProps> = ({ data, index }) => {
           </div>
 
           <div className="md:text-sm font-medium text-[#321463] mt-2">
-            <Link className="linkCustom" href={`/coursedetail/${data._id}`}>
+            <Link className="linkCustom" href={`/academies/${data._id}`}>
               {data.name}
             </Link>
           </div>
@@ -69,8 +68,8 @@ const CourseCard: React.FC<ComponentProps> = ({ data, index }) => {
                 />
               </div>
               <p className="md:text-xs">
-                {data.lessons?.length} lesson
-                {data.lessons?.length !== 1 ? "s" : ""}
+                {data.courses?.length} course
+                {data.courses?.length !== 1 ? "s" : ""}
               </p>
             </div>
 
@@ -141,4 +140,4 @@ const CourseCard: React.FC<ComponentProps> = ({ data, index }) => {
   );
 };
 
-export default CourseCard;
+export default AcademyCard;

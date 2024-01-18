@@ -4,14 +4,13 @@ import Image from "next/image";
 import { IoIosStar } from "react-icons/io";
 import { FiHeart } from "react-icons/fi";
 import Link from "next/link";
-import { ICourses } from "@/utils/type.dt";
-import courses from "@/pages/courses";
+import { IAcademies } from "@/utils/type.dt";
 
 interface ComponentProps {
-  data: ICourses;
+  data: IAcademies;
 }
 
-const CourseLayer: React.FC<ComponentProps> = ({ data }) => {
+const AcademyLayer: React.FC<ComponentProps> = ({ data }) => {
   const [rating, setRating] = React.useState<string[]>([]);
 
   useEffect(() => {
@@ -21,10 +20,10 @@ const CourseLayer: React.FC<ComponentProps> = ({ data }) => {
 
   return (
     <div className="flex flex-col items-stretch mt-10">
-      {data.courses.map((course) => (
+      {data.academies.map((academy) => (
         <Link
-          key={course._id}
-          href={`/coursedetail/${course._id}`}
+          key={academy._id}
+          href={`/coursedetail/${academy._id}`}
           className="border-b border-[#EDEDED] py-5"
         >
           <div className="w-full">
@@ -38,7 +37,7 @@ const CourseLayer: React.FC<ComponentProps> = ({ data }) => {
                         height={500}
                         style={{ height: "100%", width: "100%" }}
                         className="rounded-md"
-                        src={course.imageUrl || "/images/courseCard/card1.svg"}
+                        src={academy.imageUrl || "/images/courseCard/card1.svg"}
                         alt="image"
                       />
                     </div>
@@ -46,7 +45,7 @@ const CourseLayer: React.FC<ComponentProps> = ({ data }) => {
                       <div className="flex flex-col gap-1.5 my-auto md:px-5 items-start">
                         <div className="flex items-center text-sm gap-3">
                           <div className="flex items-center gap-1">
-                            <p className="text-[#E59819]">{course.rating}</p>
+                            <p className="text-[#E59819]">{academy.rating}</p>
                             <div className="flex items-center">
                               {rating.map((itm, i: number) => (
                                 <div key={i} className="text-[#E59819]">
@@ -56,28 +55,28 @@ const CourseLayer: React.FC<ComponentProps> = ({ data }) => {
                             </div>
                           </div>
                           <div className="text-[#4F547B]">
-                            ({course.reviewsCount})
+                            ({academy.reviewsCount})
                           </div>
                         </div>
                         <div className="text-violet-950 text-lg font-medium capitalize self-stretch md:w-[80%]">
-                          {course.name}
+                          {academy.name}
                         </div>
                         <div className="text-slate-600 text-sm leading-6 self-stretch ">
-                          {course.description}
+                          {academy.description}
                         </div>
                         <div className="flex flex-wrap items-center gap-3 mt-3">
                           <Image
                             width={30}
                             height={30}
                             src={
-                              course.userId.imgUrl ||
+                              academy.userId.imgUrl ||
                               "/images/instructors/instructor1.svg"
                             }
                             alt="image"
                             className="object-cover rounded-full h-10 w-10"
                           />
                           <p className="text-sm text-[#4F547B]">
-                            {course.userId.firstName} {course.userId.lastName}
+                            {academy.userId.firstName} {academy.userId.lastName}
                           </p>
 
                           <div className=" flex items-center gap-1">
@@ -88,8 +87,8 @@ const CourseLayer: React.FC<ComponentProps> = ({ data }) => {
                               alt="icon"
                             />
                             <p className="text-sm text-[#4F547B]">
-                              {course.lessons?.length || 0} lesson
-                              {course.lessons?.length !== 1 ? "s" : ""}
+                              {academy.courses?.length || 0} lesson
+                              {academy.courses?.length !== 1 ? "s" : ""}
                             </p>
                           </div>
 
@@ -103,8 +102,8 @@ const CourseLayer: React.FC<ComponentProps> = ({ data }) => {
                               />
                             </div>
                             <div className="text-sm text-[#4F547B]">{`${Math.floor(
-                              course.duration / 60
-                            )}h ${Math.floor(course.duration % 60)}m`}</div>
+                              academy.duration / 60
+                            )}h ${Math.floor(academy.duration % 60)}m`}</div>
                           </div>
                           <div className="flex items-center">
                             <div className="mr-1">
@@ -116,7 +115,7 @@ const CourseLayer: React.FC<ComponentProps> = ({ data }) => {
                               />
                             </div>
                             <div className="text-sm text-[#4F547B]">
-                              {course.difficulty}
+                              {academy.difficulty}
                             </div>
                           </div>
                         </div>
@@ -127,13 +126,13 @@ const CourseLayer: React.FC<ComponentProps> = ({ data }) => {
               </div>
               <div className="flex md:flex-col md:pl-5 my-auto items-center justify-between md:justify-normal md:items-end md:border-l md:border-[#EDEDED]">
                 <div className="">
-                  {course.price ? (
+                  {academy.price ? (
                     <div className="flex md:flex-col items-center gap-2 md:items-end">
                       <p className="text-sm text-[#4F547B] line-through">
-                        ${course.price}
+                        ${academy.price}
                       </p>
                       <p className="text-2xl  text-[#321463]">
-                        ${course.price}
+                        ${academy.price}
                       </p>
                     </div>
                   ) : (
@@ -160,4 +159,4 @@ const CourseLayer: React.FC<ComponentProps> = ({ data }) => {
   );
 };
 
-export default CourseLayer;
+export default AcademyLayer;
