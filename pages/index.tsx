@@ -9,7 +9,7 @@ import Testimonials from "@/components/home/Testimonials";
 import Features from "@/components/home/hero/Features";
 import Hero from "@/components/home/hero/Hero";
 import Layout from "@/components/layout/Layout";
-import { IAcademies, ICourses } from "@/utils/type.dt";
+import { IAcademies, ICourses, IPosts } from "@/utils/type.dt";
 import { NextPage } from "next";
 
 export const metadata = {
@@ -20,7 +20,8 @@ const Page: NextPage<{
   academiesData: IAcademies;
   coursesData: ICourses;
   booksData: ICourses;
-}> = ({ academiesData, coursesData, booksData }) => {
+  postsData: IPosts;
+}> = ({ academiesData, coursesData, booksData, postsData }) => {
   return (
     <Layout>
       <main className="overflow-x-hidden">
@@ -32,7 +33,7 @@ const Page: NextPage<{
         <CTA />
         <Testimonials />
         <Stacks />
-        <BlogList />
+        <BlogList postsObj={postsData} />
         <Newsletter />
       </main>
     </Layout>
@@ -71,11 +72,19 @@ export const getServerSideProps = async () => {
 
     const books = await booksRes.json();
 
+    const postsRes = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/posts?parentsOnly=true`,
+      requestDetails
+    );
+
+    const posts = await postsRes.json();
+
     return {
       props: {
         academiesData: JSON.parse(JSON.stringify(academies)),
         coursesData: JSON.parse(JSON.stringify(courses)),
         booksData: JSON.parse(JSON.stringify(books)),
+        postsData: JSON.parse(JSON.stringify(posts)),
       },
     };
   } catch (e: any) {

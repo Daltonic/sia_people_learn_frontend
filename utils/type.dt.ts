@@ -163,3 +163,36 @@ export interface ILesson {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface IPost {
+  _id: string;
+  userId: {
+    _id: string;
+    firstName: string;
+    lastName: string;
+    username: string;
+    imgUrl?: string;
+  };
+  name: string;
+  overview: string;
+  description: string;
+  imageUrl?: string;
+  parentId?: string;
+  comments?: {
+    _id: string;
+    name: string;
+    description: string;
+    overview: string;
+  }[];
+  commentsCount: number;
+  deleted?: boolean;
+  published?: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface IPosts {
+  posts: IPost[];
+  isNext: boolean;
+  numofPages: number;
+}
