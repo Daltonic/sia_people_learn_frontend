@@ -4,6 +4,7 @@ import { sidebarItems } from "@/data/dashBoardSidebar";
 import { useRouter } from "next/router";
 import { useRouter as useNavigationRouter } from "next/navigation";
 import Button from "@/components/reusableComponents/Button";
+import PowerSVG from "../dashboardSVGs/PowerSVG";
 
 interface DashboardSidebarProps {
   isOpen: boolean;
@@ -74,9 +75,7 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ isOpen }) => {
             </Link>
           </div>
         ))}
-        <Button variant="pink" onClick={handleLogout}>
-          Logout
-        </Button>
+        <button className="flex gap-2 items-center text-[#4F547B] py-2 pl-4 pr-5 font-medium" onClick={handleLogout}><PowerSVG /> Logout</button>
       </div>
     </div>
   );

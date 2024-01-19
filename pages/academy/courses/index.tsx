@@ -2,12 +2,13 @@ import Layout from "@/components/layout/Layout";
 import { GetServerSidePropsContext, NextPage } from "next";
 import { useEffect, useState } from "react";
 
-import AcademyHead from "@/components/academydetail/AcademyHead";
 import { _useContext } from "@/context/Context";
 import { useRouter } from "next/navigation";
 import { IAcademy, ICourse } from "@/utils/type.dt";
 import AddRemoveCourse from "@/components/academydetail/AddRemoveCourse";
 import courses from "@/pages/courses";
+import AcademyHead from "@/components/academies/EditCourse";
+import EditCourse from "@/components/academies/EditCourse";
 
 const Page: NextPage<{ academyData: IAcademy; coursesData: ICourse[] }> = ({
   academyData,
@@ -29,11 +30,9 @@ const Page: NextPage<{ academyData: IAcademy; coursesData: ICourse[] }> = ({
 
   return (
     <Layout>
-      <div className="md:px-14 md:py-10 p-5 sm:px-10 md:relative overflow-x-hidden">
-        <div className="flex flex-col md:flex-row justify-between ">
-          <AcademyHead academy={academyData} />
-        </div>
+      <div className="md:px-14 md:py-10 p-5 sm:px-10 md:relative overflow-x-hidden flex flex-col justify-between gap-10 md:flex-row-reverse">
         <AddRemoveCourse courses={coursesData} academy={academyData} />
+        <EditCourse academy={academyData} />
       </div>
     </Layout>
   );

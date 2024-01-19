@@ -100,28 +100,35 @@ const AddRemoveCourse: React.FC<Props> = ({ courses, academy }) => {
   };
 
   return (
-    <div className="flex gap-4 cursor-pointer">
+    <div className="flex flex-col md:flex-row gap-4 cursor-pointer w-full ">
       <div className="flex flex-col gap-2">
-        <h4>Courses Existing in Academy</h4>
+      <h1 className="text-violet-950 text-lg font-medium border-l-8  border-green-900 pl-5">Existing Courses</h1>
+        <p className="text-[#4F547B]">
+          These are the courses that are currently active within our academy.
+        </p>
+
         <div className="flex flex-col gap-2">
           {academyCourses.map((course) => (
             <Badge
               key={course._id}
               inputText={course.name}
-              imageUrl="/images/cancel.png"
+              imageUrl="/images/right-arrow.png"
               handleIconClick={() => handleRemove(course._id, course.name)}
             />
           ))}
         </div>
       </div>
-      <div className="flex flex-col gap-2 p-2 bg-slate-50 rounded-sm">
-        <h4>Available That Can be Added To Academy</h4>
+      <div className="flex flex-col gap-2">
+      <h1 className="text-violet-950 text-lg font-medium  border-l-8 border-yellow-600 pl-5">Pending Courses</h1>
+        <p className="text-[#4F547B]">
+        Pending courses are those that are awaiting approval or resource allocation. 
+        </p>
         <div className="flex flex-col gap-2">
           {coursesToAdd.map((course) => (
             <Badge
               key={course._id}
               inputText={course.name}
-              imageUrl="/images/cancel.png"
+              imageUrl="/images/left-arrow.png"
               handleIconClick={() => handleAdd(course._id, course.name)}
               imagePosition="left"
             />
