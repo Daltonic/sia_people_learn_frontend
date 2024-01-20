@@ -61,6 +61,7 @@ const LoginPage: NextPage = () => {
         alert(message);
       } else {
         const { user, accessToken, refreshToken } = await response.json();
+        console.log(user);
         setUser(user);
         sessionStorage.setItem("accessToken", accessToken);
         sessionStorage.setItem("refreshToken", refreshToken);

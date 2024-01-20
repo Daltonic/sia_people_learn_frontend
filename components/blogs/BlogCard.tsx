@@ -1,7 +1,6 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { blogs } from "@/data/blogs";
 import { IPost } from "@/utils/type.dt";
 import { convertStringToDate } from "@/utils";
 
@@ -28,11 +27,11 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog, i }) => {
       </div>
       <div className="mt-3 pr-2">
         <h1 className="text-[#C5165D] text-sm uppercase font-medium">
-          {blog.userId.firstName}
+          {blog.category}
         </h1>
         <h4 className="text-[#321463] font-medium md:text-sm">
           <Link className="linkCustom" href={`/blogs/${blog._id}`}>
-            {blog.name}
+            {blog.title}
           </Link>
         </h4>
         <p className="mt-1 text-[#4F547B] text-sm md:text-xs">

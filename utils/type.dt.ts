@@ -26,27 +26,6 @@ export interface CourseStruct {
   name?: string;
 }
 
-// export interface AcademyStruct {
-//   id: string;
-//   imageUrl: string;
-//   authorImageSrc?: string;
-//   name: string;
-//   rating: number;
-//   reviewsCount: number;
-//   duration: number;
-//   difficulty: string;
-//   originalPrice: number;
-//   discountedPrice: number;
-//   paid: boolean;
-//   category: string;
-//   state: string;
-//   languange: string;
-//   authorName: string;
-//   viewStatus: string;
-//   quantity?: number;
-//   description: string;
-// }
-
 export interface BlogStruct {
   id: number;
   imageSrc: string;
@@ -166,6 +145,7 @@ export interface ILesson {
 
 export interface IPost {
   _id: string;
+  category: string;
   userId: {
     _id: string;
     firstName: string;
@@ -173,7 +153,7 @@ export interface IPost {
     username: string;
     imgUrl?: string;
   };
-  name: string;
+  title: string;
   overview: string;
   description: string;
   imageUrl?: string;
@@ -181,6 +161,8 @@ export interface IPost {
   comments?: {
     _id: string;
     name: string;
+    category: string;
+    imageUrl: string;
     description: string;
     overview: string;
   }[];

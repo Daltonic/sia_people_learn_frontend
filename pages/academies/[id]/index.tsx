@@ -1,5 +1,3 @@
-import CourseHead from "@/components/coursedetail/CourseHead";
-import CourseCard from "@/components/home/CoursesSlider/CourseCard";
 import Layout from "@/components/layout/Layout";
 import { GetServerSidePropsContext, NextPage } from "next";
 import { Navigation, Pagination } from "swiper";
@@ -7,7 +5,6 @@ import { useEffect, useState } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { SwiperSlide, Swiper } from "swiper/react";
 import { IAcademy, IAcademies } from "@/utils/type.dt";
-import CourseCardDetail from "@/components/coursedetail/CourseCardDetail";
 import AcademyCard from "@/components/home/AcademySlider/AcademyCard";
 import AcademyHead from "@/components/academydetail/AcademyHead";
 import AcademyDetails from "@/components/academydetail/AcademyDetails";
