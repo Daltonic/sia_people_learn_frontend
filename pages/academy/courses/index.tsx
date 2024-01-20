@@ -1,7 +1,6 @@
 import Layout from "@/components/layout/Layout";
 import { GetServerSidePropsContext, NextPage } from "next";
 import { useEffect, useState } from "react";
-
 import { _useContext } from "@/context/Context";
 import { useRouter } from "next/navigation";
 import { IAcademy, ICourse } from "@/utils/type.dt";
@@ -30,10 +29,7 @@ const Page: NextPage<{ academyData: IAcademy; coursesData: ICourse[] }> = ({
 
   return (
     <Layout>
-      <div className="md:px-14 md:py-10 p-5 sm:px-10 md:relative overflow-x-hidden flex flex-col justify-between gap-10 md:flex-row-reverse">
-        <AddRemoveCourse courses={coursesData} academy={academyData} />
-        <EditCourse academy={academyData} />
-      </div>
+      <AddRemoveCourse courses={coursesData} academy={academyData} />
     </Layout>
   );
 };
