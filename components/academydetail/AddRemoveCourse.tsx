@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import Badge from "../reusableComponents/Badge";
 import { useRouter } from "next/navigation";
 import { _useContext } from "@/context/Context";
+import EditCourse from "../academies/EditCourse";
+import Link from "next/link";
 
 interface Props {
   courses: ICourse[];
@@ -19,7 +21,8 @@ const AddRemoveCourse: React.FC<Props> = ({ courses, academy }) => {
     }
   }, [router, user]);
 
-  const [academyCourses, setAcademyCourses] = useState(academy.courses);
+  const [updatedAcademy, setUpdatedAcademy] = useState<IAcademy>(academy);
+  const [academyCourses, setAcademyCourses] = useState(updatedAcademy.courses);
 
   const academyCourseIds = academyCourses.map((course) => course._id);
   const availableCoursesToAdd = courses
@@ -52,7 +55,7 @@ const AddRemoveCourse: React.FC<Props> = ({ courses, academy }) => {
       }
 
       const result = await response.json();
-      console.log(result);
+      setUpdatedAcademy(result);
       setAcademyCourses((prev) => [...prev, { _id: courseId, name }]);
       const newCoursesToAdd = coursesToAdd.filter(
         (course) => course._id !== courseId
@@ -78,7 +81,7 @@ const AddRemoveCourse: React.FC<Props> = ({ courses, academy }) => {
       });
 
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/academies/addCourse?${searchQuery}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/academies/removeCourse?${searchQuery}`,
         requestDetails
       );
 
@@ -87,6 +90,7 @@ const AddRemoveCourse: React.FC<Props> = ({ courses, academy }) => {
       }
 
       const result = await response.json();
+      setUpdatedAcademy(result);
       const newAcademyCourses = academyCourses.filter(
         (course) => course._id !== courseId
       );
@@ -100,40 +104,56 @@ const AddRemoveCourse: React.FC<Props> = ({ courses, academy }) => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row gap-4 cursor-pointer w-full ">
-      <div className="flex flex-col gap-2">
-      <h1 className="text-violet-950 text-lg font-medium border-l-8  border-green-900 pl-5">Existing Courses</h1>
-        <p className="text-[#4F547B]">
-          These are the courses that are currently active within our academy.
-        </p>
-
+    <div className="md:px-14 md:py-10 p-5 sm:px-10 md:relative overflow-x-hidden flex flex-col justify-between gap-10 md:flex-row-reverse">
+      <div className="flex flex-col md:flex-row gap-4 cursor-pointer w-full ">
         <div className="flex flex-col gap-2">
-          {academyCourses.map((course) => (
-            <Badge
-              key={course._id}
-              inputText={course.name}
-              imageUrl="/images/right-arrow.png"
-              handleIconClick={() => handleRemove(course._id, course.name)}
-            />
-          ))}
+          <h1 className="text-violet-950 text-lg font-medium border-l-8  border-green-900 pl-5">
+            Existing Courses
+          </h1>
+          <p className="text-[#4F547B]">
+            These are the courses that are currently active within our academy.
+          </p>
+
+          <div className="flex flex-col gap-2">
+            {academyCourses.map((course) => (
+              <Badge
+                key={course._id}
+                inputText={course.name}
+                imageUrl="/images/right-arrow.png"
+                handleIconClick={() => handleRemove(course._id, course.name)}
+              />
+            ))}
+          </div>
+        </div>
+        <div className="flex flex-col gap-2">
+          <h1 className="text-violet-950 text-lg font-medium  border-l-8 border-yellow-600 pl-5">
+            Pending Courses
+          </h1>
+          <p className="text-[#4F547B]">
+            These are courses owned by this instructor, but yet to be added to
+            this academy
+          </p>
+          <div className="flex flex-col gap-2">
+            {coursesToAdd.map((course) => (
+              <Badge
+                key={course._id}
+                inputText={course.name}
+                imageUrl="/images/left-arrow.png"
+                handleIconClick={() => handleAdd(course._id, course.name)}
+                imagePosition="left"
+              />
+            ))}
+          </div>
         </div>
       </div>
-      <div className="flex flex-col gap-2">
-      <h1 className="text-violet-950 text-lg font-medium  border-l-8 border-yellow-600 pl-5">Pending Courses</h1>
-        <p className="text-[#4F547B]">
-        Pending courses are those that are awaiting approval or resource allocation. 
-        </p>
-        <div className="flex flex-col gap-2">
-          {coursesToAdd.map((course) => (
-            <Badge
-              key={course._id}
-              inputText={course.name}
-              imageUrl="/images/left-arrow.png"
-              handleIconClick={() => handleAdd(course._id, course.name)}
-              imagePosition="left"
-            />
-          ))}
-        </div>
+      <div className="flex flex-col gap-2 w-full">
+        <Link
+          href={`/academy/${updatedAcademy._id}`}
+          className="rounded-lg bg-blue-500 text-white px-4 py-2 max-w-[200px]"
+        >
+          Back to Academy
+        </Link>
+        <EditCourse academy={updatedAcademy} />
       </div>
     </div>
   );
