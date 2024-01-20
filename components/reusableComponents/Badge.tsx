@@ -18,7 +18,7 @@ const Badge: React.FC<BadgeProps> = ({
 }) => {
   const position = imagePosition || "right";
   return (
-    <div className="relative bg-slate-100 flex p-3 rounded-md justify-between items-end gap-5">
+    <div className="relative border-[#EDEDED] border flex p-3 rounded-md justify-between items-center gap-3">
       {imageUrl && position === "left" && (
         <Image
           src={imageUrl}

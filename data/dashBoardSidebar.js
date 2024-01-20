@@ -3,11 +3,10 @@ import DiscoverySVG from "@/components/dashboard/dashboardSVGs/DiscoverySVG";
 import ListSVG from "@/components/dashboard/dashboardSVGs/ListSVG";
 import MessagesSVG from "@/components/dashboard/dashboardSVGs/MessagesSVG";
 import PlayButtonSVG from "@/components/dashboard/dashboardSVGs/PlayButton";
-import PowerSVG from "@/components/dashboard/dashboardSVGs/PowerSVG";
 import SettingsSVG from "@/components/dashboard/dashboardSVGs/SettingsSVG";
 import { FaRegUser } from "react-icons/fa";
 import { LuShoppingBag } from "react-icons/lu";
-import { FiEdit3 } from "react-icons/fi";
+
 
 export const sidebarItems = [
   {
@@ -64,11 +63,5 @@ export const sidebarItems = [
     href: "/(dashboard)/settings",
     iconClass: <SettingsSVG />,
     text: "Settings",
-  },
-  {
-    id: 10,
-    href: "/(dashboard)/logout",
-    iconClass: <PowerSVG />,
-    text: "Logout",
   },
 ];
