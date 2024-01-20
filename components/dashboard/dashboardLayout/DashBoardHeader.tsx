@@ -22,13 +22,16 @@ const DashBoardHeader: React.FC<SidebarProps> = () => {
   };
 
   return (
-    <div className="flex justify-between items-center p-5 sm:px-10 sticky h-20 top-0 w-full z-50 bg-white" onClick={isOpen ? closeSidebar : undefined}>
+    <div
+      className="flex justify-between items-center p-5 sm:px-10 sticky h-20 top-0 w-full z-50 bg-white"
+      onClick={isOpen ? closeSidebar : undefined}
+    >
       <div className="flex gap-4 items-center">
         <div
           className="block md:hidden text-[#321463] text-3xl"
           onClick={toggleSidebar}
         >
-         <FaBarsStaggered />
+          <FaBarsStaggered />
         </div>
         <div>
           <Link href="/">
@@ -50,9 +53,12 @@ const DashBoardHeader: React.FC<SidebarProps> = () => {
         <div className="hover:bg-[#F7F8FB] p-4 rounded-xl hover:text-[#C5165D]">
           <FaRegMoon />
         </div>
-        <div className="hover:bg-[#F7F8FB] p-4 rounded-xl hover:text-[#C5165D]">
-          <CiMaximize2 />
-        </div>
+        <Link href="/blogs">
+          <div className="hover:bg-[#F7F8FB] p-4 rounded-xl hover:text-[#C5165D]">
+            <CiMaximize2 />
+          </div>
+        </Link>
+
         <div className="hover:bg-[#F7F8FB] p-4 rounded-xl hover:text-[#C5165D]">
           <HiOutlineShoppingBag />
         </div>
@@ -73,8 +79,7 @@ const DashBoardHeader: React.FC<SidebarProps> = () => {
         </div>
       </div>
       <div className="md:hidden">
-        
-      <DashBoardSidebar isOpen={isOpen} />
+        <DashBoardSidebar isOpen={isOpen} />
       </div>
     </div>
   );

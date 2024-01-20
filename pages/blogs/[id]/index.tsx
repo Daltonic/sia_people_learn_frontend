@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { blogs, tags } from "@/data/blogs";
+import { tags } from "@/data/blogs";
 import Image from "next/image";
 import Layout from "@/components/layout/Layout";
 import { ImQuotesLeft } from "react-icons/im";
@@ -13,18 +13,18 @@ import {
   FaTwitter,
 } from "react-icons/fa";
 import { GetServerSidePropsContext, NextPage } from "next";
-import { BlogStruct } from "@/utils/type.dt";
+import { IPost } from "@/utils/type.dt";
 import { requirements } from "@/data/aboutcourses";
-import BlogDetail from "@/components/blogDetail/BlogDetail";
-import ReviewSection from "@/components/blogDetail/ReviewSection";
-import ReviewForm from "@/components/blogDetail/ReviewForm";
-import RelatedPosts from "@/components/blogDetail/RelatedPosts";
+import BlogDetail from "@/components/blogs/BlogDetail";
+import ReviewSection from "@/components/blogs/ReviewSection";
+import ReviewForm from "@/components/blogs/ReviewForm";
+import RelatedPosts from "@/components/blogs/RelatedPosts";
 
-const Page: NextPage<{ blogData: BlogStruct }> = ({ blogData }) => {
+const Page: NextPage<{ postData: IPost }> = ({ postData }) => {
   return (
     <Layout>
       <div className="flex flex-col items-center px-5 sm:px-10 md:px-20">
-        <BlogDetail blogData={blogData} />
+        <BlogDetail post={postData} />
 
         <section className="flex justify-center w-full mt-5 md:mt-16">
           <div className="w-full md:w-4/5">
@@ -32,9 +32,11 @@ const Page: NextPage<{ blogData: BlogStruct }> = ({ blogData }) => {
               <div>
                 <div>
                   <h4 className="font-medium text-lg text-[#321463]">
-                    {blogData.title}
+                    {postData.title}
                   </h4>
-                  <p className="mt-2 md:mt-5 text-[#4F547B]">{blogData.desc}</p>
+                  <p className="mt-2 md:mt-5 text-[#4F547B]">
+                    {postData.description}
+                  </p>
 
                   <ul className="space-y-5 mt-2 md:mt-5">
                     {requirements.map((elm, i: number) => (
@@ -164,18 +166,18 @@ const Page: NextPage<{ blogData: BlogStruct }> = ({ blogData }) => {
             </div>
 
             <div className="border-b-2 border-[#EEEEEE] flex gap-5 items-start py-5">
-                <Image
-                  width={0}
-                  height={0}
-                  src="/images/testimonials/testimonial2.svg"
-                  alt="image"
-                  className="w-12 h-12 object-cover rounded-full"
-                />
+              <Image
+                width={0}
+                height={0}
+                src="/images/testimonials/testimonial2.svg"
+                alt="image"
+                className="w-12 h-12 object-cover rounded-full"
+              />
               <div>
                 <div>
                   <h1 className="text-[#321463] font-medium">
                     {" "}
-                    Brooklyn Simmons 
+                    Brooklyn Simmons
                   </h1>
                   <p className="md:text-sm text-[#4F547B]">Medical Assistant</p>
                 </div>
@@ -192,7 +194,7 @@ const Page: NextPage<{ blogData: BlogStruct }> = ({ blogData }) => {
           </div>
         </section>
       </div>
-      <RelatedPosts/>
+      <RelatedPosts />
     </Layout>
   );
 };
@@ -204,11 +206,26 @@ export const getServerSideProps = async (
 ) => {
   const { id } = context.query;
 
-  const blogData = blogs.find((data) => data.id === Number(id));
-
-  return {
-    props: {
-      blogData: JSON.parse(JSON.stringify(blogData)),
+  const requestDetails = {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
     },
   };
+
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/posts/${id}`,
+      requestDetails
+    );
+
+    const post = await response.json();
+    return {
+      props: {
+        postData: post,
+      },
+    };
+  } catch (e: any) {
+    console.log(e.message);
+  }
 };

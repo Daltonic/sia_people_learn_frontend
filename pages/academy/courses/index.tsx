@@ -5,9 +5,6 @@ import { _useContext } from "@/context/Context";
 import { useRouter } from "next/navigation";
 import { IAcademy, ICourse } from "@/utils/type.dt";
 import AddRemoveCourse from "@/components/academydetail/AddRemoveCourse";
-import courses from "@/pages/courses";
-import AcademyHead from "@/components/academies/EditCourse";
-import EditCourse from "@/components/academies/EditCourse";
 
 const Page: NextPage<{ academyData: IAcademy; coursesData: ICourse[] }> = ({
   academyData,

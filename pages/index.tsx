@@ -73,7 +73,7 @@ export const getServerSideProps = async () => {
     const books = await booksRes.json();
 
     const postsRes = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/posts?parentsOnly=true`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/posts`,
       requestDetails
     );
 

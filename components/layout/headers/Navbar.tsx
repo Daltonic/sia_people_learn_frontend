@@ -32,7 +32,8 @@ const Navbar: React.FC = () => {
                   <Link href="/login">Log in</Link>
                 </p>
                 <p>
-                <Link href="/signup">Sign Up</Link></p>
+                  <Link href="/signup">Sign Up</Link>
+                </p>
               </div>
               <div className="text-2xl font-medium space-y-8 p-5">
                 <li>
@@ -58,13 +59,13 @@ const Navbar: React.FC = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/blog" onClick={closeMenu}>
+                  <Link href="/blogs" onClick={closeMenu}>
                     <span
                       className={`${
-                        router.pathname === "/blog" ? "text-[#C5165D]" : ""
+                        router.pathname === "/blogs" ? "text-[#C5165D]" : ""
                       }`}
                     >
-                      Blog
+                      Blogs
                     </span>
                   </Link>
                 </li>
@@ -72,7 +73,7 @@ const Navbar: React.FC = () => {
                   <Link href="/contact" onClick={closeMenu}>
                     <span
                       className={`${
-                         router.pathname === "/contact" ? "text-[#C5165D]" : ""
+                        router.pathname === "/contact" ? "text-[#C5165D]" : ""
                       }`}
                     >
                       Contact
@@ -104,7 +105,7 @@ const Navbar: React.FC = () => {
             <Link href="/courses">Courses</Link>
           </li>
           <li>
-            <Link href="/blog">Blog</Link>
+            <Link href="/blogs">Blogs</Link>
           </li>
           <li>
             <Link href="/contact">Contact</Link>

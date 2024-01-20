@@ -5,6 +5,9 @@ import { blogs, categories } from "@/data/blogs";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { IPosts } from "@/utils/type.dt";
+import { convertStringToDate } from "@/utils";
+import console from "console";
 
 type Blog = {
   id: number;
@@ -15,7 +18,7 @@ type Blog = {
   desc: string;
 };
 
-const Page: NextPage = () => {
+const Page: NextPage<{ postsData: IPosts }> = ({ postsData }) => {
   const [pageItems, setPageItems] = useState<Blog[]>([]);
   const [currentCategory, setCurrentCategory] = useState("All Categories");
   useEffect(() => {
@@ -34,9 +37,15 @@ const Page: NextPage = () => {
           Latest News
         </h1>
         <p className="text-slate-600 text-center text-md mt-3 capitalize w-full">
-        Stay tuned for the latest updates on Blockchain and Web3 Development.
+          Stay tuned for the latest updates on Blockchain and Web3 Development.
         </p>
       </div>
+      <Link
+        href="/blogs/create"
+        className="rounded-lg bg-blue-500 text-white sm:mx-10 md:mx-20 px-4 py-2 max-w-[200px]"
+      >
+        Create Blog
+      </Link>
       <section className="mt-14">
         <div className="px-5 sm:px-10 md:px-20">
           <div className="font-medium">
@@ -61,34 +70,41 @@ const Page: NextPage = () => {
             <div className="relative pt-10">
               <div className="top-0 is-active">
                 <div className="flex justify-between gap-6 flex-wrap w-full">
-                  {pageItems.map((elm, i: number) => (
-                    <div key={i} className="w-full sm:w-[48%] md:w-[31%] mb-4 ">
-                      <div className="w-full">
-                        <Link className="linkCustom" href={`/blogs/${elm.id}`}>
-                          <div className="">
-                            <Image
-                              width={530}
-                              height={450}
-                              className="rounded-md"
-                              src={elm.imageSrc}
-                              alt="image"
-                            />
-                          </div>
-                          <div className="mt-3">
-                            <h1 className="text-[#C5165D] text-sm uppercase">
-                              {elm.category.toUpperCase()}
-                            </h1>
-                            <h4 className="text-[#242239] text-lg font-medium md:mt-1">
-                              {elm.title}
-                            </h4>
-                            <div className="text-xs text-[#4F547B] mt-2 md:mt-3">
-                              {elm.date}
+                  {postsData &&
+                    postsData.posts.map((post, i: number) => (
+                      <div
+                        key={i}
+                        className="w-full sm:w-[48%] md:w-[31%] mb-4 "
+                      >
+                        <div className="w-full">
+                          <Link
+                            className="linkCustom"
+                            href={`/blogs/${post._id}`}
+                          >
+                            <div className="">
+                              <Image
+                                width={530}
+                                height={450}
+                                className="rounded-md"
+                                src={post.imageUrl || "/images/blog-list/3.svg"}
+                                alt="image"
+                              />
                             </div>
-                          </div>
-                        </Link>
+                            <div className="mt-3">
+                              <h1 className="text-[#C5165D] text-sm uppercase">
+                                {post.category}
+                              </h1>
+                              <h4 className="text-[#242239] text-lg font-medium md:mt-1">
+                                {post.title}
+                              </h4>
+                              <div className="text-xs text-[#4F547B] mt-2 md:mt-3">
+                                {convertStringToDate(post.createdAt)}
+                              </div>
+                            </div>
+                          </Link>
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    ))}
                 </div>
 
                 <div className="flex justify-between pt-10">
@@ -124,3 +140,29 @@ const Page: NextPage = () => {
 };
 
 export default Page;
+
+export const getServerSideProps = async () => {
+  const requestDetails = {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/posts?parentsOnly=true`,
+      requestDetails
+    );
+
+    const posts = await response.json();
+
+    return {
+      props: {
+        postsData: JSON.parse(JSON.stringify(posts)),
+      },
+    };
+  } catch (e: any) {
+    console.log(e.message);
+  }
+};

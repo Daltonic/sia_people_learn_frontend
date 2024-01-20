@@ -3,7 +3,7 @@ import { blogs } from "@/data/blogs";
 import Link from "next/link";
 import Button from "@/components/reusableComponents/Button";
 import { GoArrowUpRight } from "react-icons/go";
-import BlogCard from "../blog/BlogCard";
+import BlogCard from "../blogs/BlogCard";
 import { IPosts } from "@/utils/type.dt";
 
 interface Props {
@@ -26,7 +26,7 @@ const BlogList: React.FC<Props> = ({ postsObj }) => {
 
           <div className="mt-4 md:mt-0">
             <Link
-              href="/blog"
+              href="/blogs"
               className="font-medium text-sm text-center px-3 flex items-center rounded-md bg-[#6440FB12] text-[#1A064F]  hover:text-[#C5165D] border-2 border-transparent hover:border-[#C5165D] hover:bg-transparent w-fit"
             >
               <Button className="">All Blogs</Button>
