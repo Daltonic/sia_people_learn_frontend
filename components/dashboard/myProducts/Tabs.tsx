@@ -32,6 +32,7 @@ const Tabs: React.FC = () => {
 
   useEffect(() => {
     const fetchAcademies = async () => {
+      if (!user) return;
       const requestDetails = {
         method: "GET",
         headers: {
@@ -62,10 +63,11 @@ const Tabs: React.FC = () => {
       }
     };
     fetchAcademies();
-  }, [user?._id]);
+  }, [user]);
 
   useEffect(() => {
     const fetchCourses = async () => {
+      if (!user) return;
       const requestDetails = {
         method: "GET",
         headers: {
@@ -98,9 +100,10 @@ const Tabs: React.FC = () => {
       }
     };
     fetchCourses();
-  }, [user?._id]);
+  }, [user]);
 
   useEffect(() => {
+    if (!user) return;
     const fetchBooks = async () => {
       const requestDetails = {
         method: "GET",
@@ -133,7 +136,7 @@ const Tabs: React.FC = () => {
       }
     };
     fetchBooks();
-  }, [user?._id]);
+  }, [user]);
 
   return (
     <div className="bg-white p-5 rounded-xl">

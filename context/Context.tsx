@@ -13,7 +13,7 @@ interface IUser {
 }
 
 const useValue = () => {
-  const [user, setUser] = useState<IUser | undefined>(undefined);
+  const [user, setUser] = useState<IUser | null>(null);
 
   return {
     user,

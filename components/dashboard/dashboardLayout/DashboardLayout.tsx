@@ -18,7 +18,8 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
       <DashBoardHeader />
       <div className="flex justify-between md:pr-5">
         <div className=" md:sticky md:top-6 md:h-full">
-        <DashBoardSidebar isOpen={sidebarOpen} /></div>
+          <DashBoardSidebar isOpen={sidebarOpen} />
+        </div>
         <main className="flex-1 bg-[#F7F8FB] px-0 py-5 sm:px-10 md:py-16 md:rounded-xl">
           {children}
         </main>

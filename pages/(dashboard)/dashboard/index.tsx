@@ -7,28 +7,48 @@ import { states } from "@/data/dashBoard";
 import { teamMembers } from "@/data/instructors";
 import { resentCourses } from "@/data/courses";
 import { notifications } from "@/data/notifications";
-import React from "react";
+import React, { useEffect } from "react";
 import Notifications from "@/components/dashboard/dashboard/Notifications";
 import DashboardLayout from "@/components/dashboard/dashboardLayout/DashboardLayout";
+import { _useContext } from "@/context/Context";
+import { useRouter } from "next/navigation";
 
 const DashBoard: React.FC = () => {
+  const { user } = _useContext();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!user) {
+      router.push("/");
+    }
+  }, [user, router]);
+
+  if (user?.userType === "user") {
+    router.push("/(dashboard)/myCourses");
+  }
+  if (user?.userType === "instructor") {
+    router.push("/(dashboard)/myProducts");
+  }
+
   return (
-    <DashboardLayout>
-      <div className="px-5">
-      <DashBoardTop states={states} />
-      <div className="flex flex-col md:flex-row justify-between mt-10 gap-8 md:gap-0">
-        <Statistics />
-        <Traffic />
-      </div>
-      <div className="flex flex-col md:flex-row gap-8 mt-10">
-        <div className="space-y-8">
-          <PopularInstructors teamMembers={teamMembers} />
-          <Notifications notifications={notifications} />
+    user?.userType === "admin" && (
+      <DashboardLayout>
+        <div className="px-5">
+          <DashBoardTop states={states} />
+          <div className="flex flex-col md:flex-row justify-between mt-10 gap-8 md:gap-0">
+            <Statistics />
+            <Traffic />
+          </div>
+          <div className="flex flex-col md:flex-row gap-8 mt-10">
+            <div className="space-y-8">
+              <PopularInstructors teamMembers={teamMembers} />
+              <Notifications notifications={notifications} />
+            </div>
+            <RecentCourses resentCourses={resentCourses} />
+          </div>
         </div>
-        <RecentCourses resentCourses={resentCourses} />
-      </div>
-      </div>
-    </DashboardLayout>
+      </DashboardLayout>
+    )
   );
 };
 
