@@ -54,8 +54,6 @@ const Academy: React.FC<ComponentProps> = ({ data, index }) => {
     approve();
   };
 
-  console.log(disable);
-
   return (
     <div
       className="w-full sm:w-[47%] md:w-[48%] bg-white rounded-lg border-[#EDEDED] border p-2 pb-0 shadow-[#EDEDED] shadow-md"
