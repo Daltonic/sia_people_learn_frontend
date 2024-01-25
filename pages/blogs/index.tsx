@@ -8,6 +8,7 @@ import Link from "next/link";
 import { IPosts } from "@/utils/type.dt";
 import { convertStringToDate } from "@/utils";
 import console from "console";
+import Pagination from "@/components/reusableComponents/Pagination";
 
 type Blog = {
   id: number;
@@ -107,29 +108,7 @@ const Page: NextPage<{ postsData: IPosts }> = ({ postsData }) => {
                     ))}
                 </div>
 
-                <div className="flex justify-between pt-10">
-                  <div className="">
-                    <div className="flex items-center">
-                      <button className="pagination__button -prev">
-                        <i className="icon icon-chevron-left"></i>
-                      </button>
-
-                      <div className="pagination__count">
-                        <a href="#">1</a>
-                        <a className="-count-is-active" href="#">
-                          2
-                        </a>
-                        <a href="#">3</a>
-                        <span>...</span>
-                        <a href="#">67</a>
-                      </div>
-
-                      <button className="pagination__button -next">
-                        <i className="icon icon-chevron-right"></i>
-                      </button>
-                    </div>
-                  </div>
-                </div>
+                <Pagination totalPages={5} />
               </div>
             </div>
           </div>

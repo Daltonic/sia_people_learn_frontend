@@ -20,7 +20,7 @@ const CoursesSlider: React.FC<{ academyObj: IAcademies }> = ({
   }, []);
 
   return (
-    <section className="relative z-10 md:mx-10 lg:mx-20">
+    <section className="relative z-10 md:mx-10 lg:mx-20 md:my-20">
       <div className="px-5 sm:px-10 md:px-28 py-12 md:py-10 bg-[#F9F9F9] relative md:rounded-2xl">
         <div className="flex flex-col sm:flex-row gap-4 md:gap-0 justify-between md:items-center">
           <div>

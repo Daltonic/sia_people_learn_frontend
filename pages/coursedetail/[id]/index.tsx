@@ -2,9 +2,8 @@ import CourseHead from "@/components/coursedetail/CourseHead";
 import Tabs from "@/components/coursedetail/Tabs";
 import CourseCard from "@/components/home/CoursesSlider/CourseCard";
 import Layout from "@/components/layout/Layout";
-import { coursesData } from "../../../data/courses";
 import { GetServerSidePropsContext, NextPage } from "next";
-import { Navigation, Pagination } from "swiper";
+import { Navigation, Pagination, Autoplay } from "swiper";
 import { useEffect, useState } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { SwiperSlide, Swiper } from "swiper/react";
@@ -28,8 +27,8 @@ const Page: NextPage<{ courseData: ICourse; alternateCourses: ICourse[] }> = ({
           <CourseHead course={courseData} />
           <CourseCardDetail course={courseData} />
         </div>
-        {/* <Tabs data={courseData} type="Course" course={courseData} /> */}
-        <div className="mt-14 relative">
+        <Tabs data={courseData} type="Course" course={courseData} />
+        <div className="md:mt-36 relative">
           <div className="mb-5">
             <h4 className="text-2xl md:text-xl text-[#321463] font-bold">
               You May Like
@@ -47,7 +46,7 @@ const Page: NextPage<{ courseData: ICourse; alternateCourses: ICourse[] }> = ({
             <div className="p-0 md:px-14">
               {showSlider && (
                 <Swiper
-                  modules={[Navigation, Pagination]}
+                  modules={[Navigation, Pagination, Autoplay]}
                   navigation={{
                     nextEl: ".icon-arrow-right",
                     prevEl: ".icon-arrow-left",

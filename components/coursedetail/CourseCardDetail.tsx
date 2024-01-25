@@ -17,7 +17,7 @@ interface ComponentProps {
 
 const CourseCardDetail: React.FC<ComponentProps> = ({ course }) => {
   return (
-    <div className="bg-white w-full md:w-[25%] md:right-10 md:top-0 md:absolute md:border border-[#EDEDED] p-2 space-y-2 mt-10 md:mt-0 rounded-md">
+    <div className="bg-white w-full md:w-[25%] md:right-10 md:top-0 md:absolute md:border border-[#EDEDED] p-2 space-y-2 mt-10 md:mt-0 rounded-md z-10">
       <div className="relative flex justify-center items-center">
         <div className="w-full">
           <Image
@@ -81,19 +81,6 @@ const CourseCardDetail: React.FC<ComponentProps> = ({ course }) => {
                 width={5}
                 height={5}
                 className="rounded-md w-4 h-4"
-                src="/images/cardInfo/puzzle.svg"
-                alt="image"
-              />
-              <p className="text-[#321463]">Quizzes</p>
-            </div>
-            <p className="text-[#4F547B]">{course.lessons?.length}</p>
-          </div>
-          <div className="flex justify-between items-center border-b py-2 border-[#EDEDED]">
-            <div className="flex gap-2 items-center">
-              <Image
-                width={5}
-                height={5}
-                className="rounded-md w-4 h-4"
                 src="/images/cardInfo/clock.svg"
                 alt="image"
               />
@@ -113,45 +100,6 @@ const CourseCardDetail: React.FC<ComponentProps> = ({ course }) => {
               <p className="text-[#321463]">Skill level</p>
             </div>
             <p className="text-[#4F547B]">{course.difficulty}</p>
-          </div>
-          {/* <div className="flex justify-between items-center border-b py-2 border-[#EDEDED]">
-            <div className="flex gap-2 items-center">
-              <Image
-                width={5}
-                height={5}
-                className="rounded-md w-4 h-4"
-                src="/images/cardInfo/translate.svg"
-                alt="image"
-              />
-              <p className="text-[#321463]">Language</p>
-            </div>
-            <p className="text-[#4F547B]">{course.languange}</p>
-          </div> */}
-          <div className="flex justify-between items-center border-b py-2 border-[#EDEDED]">
-            <div className="flex gap-2 items-center">
-              <Image
-                width={5}
-                height={5}
-                className="rounded-md w-4 h-4"
-                src="/images/cardInfo/badge.svg"
-                alt="image"
-              />
-              <p className="text-[#321463]">Certificate</p>
-            </div>
-            <p className="text-[#4F547B]">{course.lessons?.length || 0}</p>
-          </div>
-          <div className="flex justify-between items-center border-b py-2 border-[#EDEDED]">
-            <div className="flex gap-2 items-center">
-              <Image
-                width={5}
-                height={5}
-                className="rounded-md w-4 h-4"
-                src="/images/cardInfo/infinity.svg"
-                alt="image"
-              />
-              <p className="text-[#321463]">Full lifetime access</p>
-            </div>
-            <p className="text-[#4F547B]">{course.lessons?.length || 0}</p>
           </div>
           <div className="flex justify-center gap-2 items-center">
             <div className="p-4 rounded-full hover:bg-[#F9F9F9] text-[#4F547B] hover:bg-opacity-50 transition duration-500 ease-in-out cursor-pointer">
