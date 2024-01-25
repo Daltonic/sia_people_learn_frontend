@@ -140,7 +140,7 @@ const LoginPage: NextPage = () => {
               name="password"
               placeholder="********"
               required
-              inputType="text"
+              inputType="password"
               handleChange={handleChange}
               value={loginDetails.password}
             />

@@ -39,13 +39,21 @@ const LoginPage: NextPage = () => {
       signupDetails;
     if (password !== confirmPassword) {
       alert("Passwords do not match");
+      setSubmitting(false);
+      return;
+    }
+
+    if (password.length < 8) {
+      setSubmitting(false);
+      alert("Password must be atleast 8 characters");
+      return;
     }
 
     const userDetails = {
       firstName: firstname,
       lastName: lastname,
-      email,
-      password,
+      email: email,
+      password: password,
     };
 
     try {
@@ -134,7 +142,7 @@ const LoginPage: NextPage = () => {
               name="password"
               placeholder="********"
               required
-              inputType="text"
+              inputType="password"
               handleChange={handleChange}
               value={signupDetails.password}
             />
@@ -144,7 +152,7 @@ const LoginPage: NextPage = () => {
               name="confirmPassword"
               placeholder="********"
               required
-              inputType="text"
+              inputType="password"
               handleChange={handleChange}
               value={signupDetails.confirmPassword}
             />

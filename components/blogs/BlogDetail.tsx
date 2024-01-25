@@ -10,9 +10,6 @@ interface ComponentProps {
 
 const BlogDetail: React.FC<ComponentProps> = ({ post }) => {
   const { user } = _useContext();
-  console.log(user?._id);
-  console.log(post);
-  console.log(post.userId._id);
   return (
     <>
       <section className="my-5 md:my-10">
@@ -36,12 +33,15 @@ const BlogDetail: React.FC<ComponentProps> = ({ post }) => {
       </section>
 
       {user?._id === post.userId._id && (
-        <Link
-          href={`/blogs/edit/${post._id}`}
-          className="rounded-lg px-4 py-2 w-fit"
-        >
-          Edit Post
-        </Link>
+        <div className="flex justify-between items-center">
+          <Link
+            href={`/blogs/edit/${post._id}`}
+            className="rounded-lg px-4 py-2 w-fit"
+          >
+            Edit Post
+          </Link>
+          <div className="rounded-lg px-4 py-2 w-fit">Delete Post</div>
+        </div>
       )}
 
       <section className="w-full">
