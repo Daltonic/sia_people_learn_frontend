@@ -2,14 +2,96 @@ import { IPost } from "@/utils/type.dt";
 import BlogDetail from "./BlogDetail";
 import ReviewForm from "./ReviewForm";
 import CommentsSection from "./CommentsSection";
-import { useState } from "react";
+import { ChangeEvent, SyntheticEvent, useState } from "react";
+import { _useContext } from "@/context/Context";
+import BlogForm from "./BlogForm";
+import Button from "../reusableComponents/Button";
+import InputField from "../reusableComponents/InputField";
+import TextAreaField from "../reusableComponents/TextAreaField";
+import { useRouter } from "next/navigation";
 
 interface Props {
   post: IPost;
 }
 
 const Blog: React.FC<Props> = ({ post }) => {
+  const { user } = _useContext();
+  const router = useRouter();
   const [openCommentForm, setOpenCommentForm] = useState<boolean>(false);
+  const [postDetails, setPostDetails] = useState({
+    title: "",
+    description: "",
+    overview: "",
+    imageUrl: "",
+  });
+
+  const [submitting, setSubmitting] = useState<boolean>(false);
+
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.currentTarget;
+
+    setPostDetails((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e: SyntheticEvent) => {
+    e.preventDefault();
+
+    setSubmitting(true);
+    const { description, overview, imageUrl, title } = postDetails;
+
+    const postInput = {
+      title,
+      description,
+      overview,
+      imageUrl,
+      category: post.category,
+      userId: user?._id,
+      parentId: post._id,
+    };
+
+    const queryBody = postInput;
+
+    const url = `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/posts/create`;
+
+    const requestDetails = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
+      },
+      body: JSON.stringify(queryBody),
+    };
+
+    try {
+      const response = await fetch(url, requestDetails);
+
+      if (response.status === 400) {
+        const message = response.text();
+        alert(message);
+      }
+
+      const { result } = await response.json();
+
+      router.push(`/blogs/${post._id}`);
+    } catch (e: any) {
+      console.log(e.message);
+      alert(e.message);
+    } finally {
+      setSubmitting(false);
+      setPostDetails({
+        description: "",
+        overview: "",
+        imageUrl: "",
+        title: "",
+      });
+      setOpenCommentForm(false);
+    }
+  };
   return (
     <div className="flex flex-col items-center px-5 sm:px-10 md:px-20">
       <BlogDetail post={post} />
@@ -27,6 +109,58 @@ const Blog: React.FC<Props> = ({ post }) => {
               </div>
             </div>
           </div>
+          {user && (
+            <div
+              className="mt-4 px-2 py-1 rounded-sm bg-slate-200 cursor-pointer w-fit"
+              onClick={() => setOpenCommentForm((prev) => !prev)}
+            >
+              Add Comment
+            </div>
+          )}
+          {openCommentForm && (
+            <form className="p-5" onSubmit={handleSubmit}>
+              <InputField
+                label="Title"
+                name="title"
+                placeholder="Enter your product title"
+                required
+                inputType="text"
+                value={postDetails.title}
+                handleChange={handleChange}
+              />
+              <div className="md:flex gap-8">
+                <TextAreaField
+                  label="Description"
+                  id="description"
+                  name="description"
+                  value={postDetails.description}
+                  handleChange={handleChange}
+                />
+                <TextAreaField
+                  label="Overview"
+                  id="overview"
+                  name="overview"
+                  value={postDetails.overview}
+                  handleChange={handleChange}
+                />
+              </div>
+              <div className="md:flex gap-8">
+                <InputField
+                  label="ImageURL"
+                  name="imageUrl"
+                  placeholder="Enter Product ImageURL"
+                  required={false}
+                  inputType="url"
+                  value={postDetails.imageUrl}
+                  handleChange={handleChange}
+                />
+              </div>
+
+              <Button variant="pink" className="mt-14" disabled={submitting}>
+                {submitting ? "Commenting" : "Comment"}
+              </Button>
+            </form>
+          )}
           {post.comments && post.comments.length > 0 && (
             <CommentsSection comments={post.comments} />
           )}

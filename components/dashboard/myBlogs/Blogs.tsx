@@ -56,7 +56,16 @@ const Blogs: React.FC = () => {
       <div className="mb-10 md:mb-16  px-5 sm:px-0">
         <h1 className="font-bold text-[#321463] text-3xl">Blogs</h1>
         <div className="w-full flex items-center justify-between">
-          <p className="text-[#4F547B] text-lg">My Blogs</p>
+          <div className="flex justify-start items-center gap-1">
+            <p className="text-[#4F547B] text-lg">My Blogs</p>
+            <Link
+              href={`/blogs`}
+              className="rounded-lg bg-blue-300 text-white sm:mx-10 md:mx-20 px-4 py-2 max-w-[200px] cursor-pointer"
+            >
+              All Blogs
+            </Link>
+          </div>
+
           <Link
             href="/blogs/create"
             className="rounded-lg bg-blue-500 text-white sm:mx-10 md:mx-20 px-4 py-2 max-w-[200px]"
