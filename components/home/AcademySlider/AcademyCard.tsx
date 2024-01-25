@@ -20,7 +20,7 @@ const AcademyCard: React.FC<ComponentProps> = ({ data }) => {
 
   return (
     <div
-      className=" bg-white rounded-lg w-full sm:w-80 md:w-56 border-[#EDEDED] border-1 p-2 shadow-[#EDEDED] shadow-md"
+      className=" bg-white rounded-lg w-full sm:w-80 md:w-56 border-[#EDEDED] border-1 p-2 shadow-[#EDEDED] shadow-md "
       style={{ height: "fit-content" }}
     >
       <div className="">

@@ -28,8 +28,8 @@ const Page: NextPage<{
         <Hero />
         <Features />
         <CoursesSlider coursesObj={coursesData} />
-        <AcademiesSlider academyObj={academiesData} />
         <HowItWorks />
+        <AcademiesSlider academyObj={academiesData} />
         <CTA />
         <Testimonials />
         <Stacks />
