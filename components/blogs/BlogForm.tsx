@@ -92,7 +92,7 @@ const PostForm: React.FC<PostProps> = ({ post, type }) => {
 
       const { result } = await response.json();
 
-      router.push("/blogs");
+      router.push("/(dashboard)/myBlogs");
     } catch (e: any) {
       console.log(e.message);
       alert(e.message);
