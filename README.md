@@ -1,8 +1,8 @@
-# Monthly Project Report (December 2023): SiaPeopleLearn
+# Monthly Project Report (December 2023)
 
 ## Progress Update
 
-In December 2023, the SiaPeopleLearn project made substantial progress, including:
+In December 2023, we made substantial progress, including:
 
 - Translating the Figma design into frontend code using NextJs, Tailwind CSS, and Typescript
 - Open-sourcing the frontend code on GitHub and [Vercel](https://sia-people-learn-frontend.vercel.app/)
