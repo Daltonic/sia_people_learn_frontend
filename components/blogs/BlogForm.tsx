@@ -53,6 +53,10 @@ const PostForm: React.FC<PostProps> = ({ post, type }) => {
     setSubmitting(true);
     const { title, description, overview, imageUrl, category } = postDetails;
 
+    if (!title || !description || !overview || !category) {
+      alert("Missing required fields");
+    }
+
     const postInput = {
       title,
       description,
@@ -65,6 +69,8 @@ const PostForm: React.FC<PostProps> = ({ post, type }) => {
     const queryMethod = type === "create" ? "POST" : "PUT";
     const queryBody =
       type === "create" ? { ...postInput, userId: user?._id } : postInput;
+
+    console.log(queryBody);
 
     const url =
       type === "create"
@@ -86,11 +92,12 @@ const PostForm: React.FC<PostProps> = ({ post, type }) => {
       const response = await fetch(url, requestDetails);
 
       if (response.status === 400) {
-        const message = response.text();
+        const message = await response.text();
         alert(message);
       }
 
       const { result } = await response.json();
+      console.log(result);
 
       router.push("/(dashboard)/myBlogs");
     } catch (e: any) {

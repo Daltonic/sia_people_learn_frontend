@@ -151,6 +151,7 @@ export const getServerSideProps = async () => {
     );
 
     const posts = await response.json();
+    console.log(posts);
 
     return {
       props: {
