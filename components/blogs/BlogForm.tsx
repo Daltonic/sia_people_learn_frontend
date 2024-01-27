@@ -50,12 +50,14 @@ const PostForm: React.FC<PostProps> = ({ post, type }) => {
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
 
-    setSubmitting(true);
     const { title, description, overview, imageUrl, category } = postDetails;
 
     if (!title || !description || !overview || !category) {
       alert("Missing required fields");
+      return;
     }
+
+    setSubmitting(true);
 
     const postInput = {
       title,
@@ -97,7 +99,6 @@ const PostForm: React.FC<PostProps> = ({ post, type }) => {
       }
 
       const { result } = await response.json();
-      console.log(result);
 
       router.push("/(dashboard)/myBlogs");
     } catch (e: any) {
@@ -163,6 +164,7 @@ const PostForm: React.FC<PostProps> = ({ post, type }) => {
             name="category"
             options={postCategory}
             value={postDetails.category}
+            defaultValue={postCategory[0].value}
             handleChange={handleChange}
           />
         </div>

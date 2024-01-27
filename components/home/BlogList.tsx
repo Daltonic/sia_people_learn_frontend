@@ -37,9 +37,10 @@ const BlogList: React.FC<Props> = ({ postsObj }) => {
         </div>
 
         <div className="flex flex-col sm:flex-row sm:flex-wrap justify-between lg:gap-16 mt-16">
-          {postsObj.posts.map((blog, i: number) => (
-            <BlogCard i={i} key={i} blog={blog} />
-          ))}
+          {postsObj.posts &&
+            postsObj.posts.map((blog, i: number) => (
+              <BlogCard i={i} key={i} blog={blog} />
+            ))}
         </div>
       </div>
     </section>

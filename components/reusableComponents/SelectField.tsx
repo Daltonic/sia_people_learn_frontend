@@ -12,6 +12,7 @@ interface SelectFieldProps {
   name?: string;
   handleChange?: (e: ChangeEvent<HTMLSelectElement>) => void;
   onChange?: (input: string | number) => void;
+  defaultValue?: string;
 }
 
 const SelectField: React.FC<SelectFieldProps> = ({
@@ -21,6 +22,7 @@ const SelectField: React.FC<SelectFieldProps> = ({
   handleChange,
   name,
   onChange,
+  defaultValue,
 }) => (
   <div className="flex flex-col w-full my-4">
     <label className="text-violet-950 font-medium">{label}</label>
@@ -29,6 +31,7 @@ const SelectField: React.FC<SelectFieldProps> = ({
       value={value}
       name={name}
       onChange={handleChange}
+      defaultValue={defaultValue}
     >
       {options.map((option) => (
         <option key={option.value} value={option.value}>
