@@ -19,7 +19,7 @@ const Page: NextPage = () => {
             Payment Cancelled
           </h1>
           <p className="text-slate-600 text-base mt-2">
-            We're sorry, but your payment was cancelled. Please try again or
+            We&apos;re sorry, but your payment was cancelled. Please try again or
             contact our support team for assistance.
           </p>
         </div>
