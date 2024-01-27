@@ -81,11 +81,12 @@ const CoursesSlider: React.FC<{ academyObj: IAcademies }> = ({
                     },
                   }}
                 >
-                  {academyObj.academies.map((elm) => (
-                    <SwiperSlide key={elm._id}>
-                      <AcademyCard data={elm} />
-                    </SwiperSlide>
-                  ))}
+                  {academyObj.academies &&
+                    academyObj.academies.map((elm) => (
+                      <SwiperSlide key={elm._id}>
+                        <AcademyCard data={elm} />
+                      </SwiperSlide>
+                    ))}
                 </Swiper>
               )}
             </div>

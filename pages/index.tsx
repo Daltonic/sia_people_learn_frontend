@@ -88,6 +88,14 @@ export const getServerSideProps = async () => {
       },
     };
   } catch (e: any) {
-    console.log(e.message);
+    console.log(e);
+    return {
+      props: {
+        academiesData: {} as any,
+        coursesData: {} as any,
+        booksData: {} as any,
+        postsData: {} as any,
+      },
+    };
   }
 };

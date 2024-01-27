@@ -6,21 +6,37 @@ import { FaGoogle } from "react-icons/fa";
 import { BsGithub } from "react-icons/bs";
 import AuthLayout from "@/components/layout/authLayout/AuthenticationLayout";
 import Link from "next/link";
-import { ChangeEvent, SyntheticEvent, useState } from "react";
+import { ChangeEvent, SyntheticEvent, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { _useContext } from "@/context/Context";
+import { IUser, _useContext } from "@/context/Context";
+
+import { useRouter as Router } from "next/router";
 
 const LoginPage: NextPage = () => {
+  const { setUser } = _useContext();
+  const router = useRouter();
   const [loginDetails, setLoginDetails] = useState({
     email: "",
     password: "",
   });
 
-  const { setUser } = _useContext();
+  const router_ = Router();
+
+  const { user, token } = router_.query;
+
+  useEffect(() => {
+    if (user && token) {
+      const parsedUser = JSON.parse(user as string) as IUser;
+
+      setUser(parsedUser);
+      sessionStorage.setItem("accessToken", token as string);
+
+      router.push("/(dashboard)/dashboard");
+    }
+  }, [router, setUser, token, user]);
 
   const [submitting, setSubmitting] = useState<boolean>(false);
 
-  const router = useRouter();
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.currentTarget;
 
@@ -61,7 +77,6 @@ const LoginPage: NextPage = () => {
         alert(message);
       } else {
         const { user, accessToken, refreshToken } = await response.json();
-        console.log(user);
         setUser(user);
         sessionStorage.setItem("accessToken", accessToken);
         sessionStorage.setItem("refreshToken", refreshToken);
@@ -77,42 +92,6 @@ const LoginPage: NextPage = () => {
       });
     }
   };
-
-  // const handleGoogleLogin = async () => {
-  //   setSubmitting(true);
-  //   console.log("google login");
-  //   try {
-  //     const requestDetails = {
-  //       method: "GET",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         mode: "no-cors",
-  //       },
-  //     };
-
-  //     const response = await fetch(
-  //       `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/sessions/login/google`,
-  //       requestDetails
-  //     );
-
-  //     if (response.status === 400) {
-  //       alert("Something went wrong");
-  //     }
-
-  //     if (response.status === 200) {
-  //       const { user, accessToken, refreshToken } = await response.json();
-  //       console.log(user, accessToken, refreshToken);
-  //       sessionStorage.setItem("accessToken", accessToken);
-  //       sessionStorage.setItem("refreshToken", refreshToken);
-  //       router.push("/");
-  //     }
-  //   } catch (e: any) {
-  //     alert(e.message);
-  //     console.log(e.message);
-  //   } finally {
-  //     setSubmitting(false);
-  //   }
-  // };
 
   return (
     <AuthLayout>
@@ -177,7 +156,6 @@ const LoginPage: NextPage = () => {
                 name="submit"
                 id="submit"
                 className=" flex items-center justify-center gap-2 text-lg md:text-base w-full"
-                // onClick={handleGoogleLogin}
               >
                 <FaGoogle className="text-xl" />
                 Login via Google+
