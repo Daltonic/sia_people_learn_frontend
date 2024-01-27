@@ -1,23 +1,56 @@
+"use client";
+
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { IPost } from "@/utils/type.dt";
 import { convertStringToDate } from "@/utils";
+import { _useContext } from "@/context/Context";
 
 interface BlogCardProps {
   blog: IPost;
   i: number;
-  enablePublishing?: boolean;
-  handlePublish?: () => void;
 }
 
-const BlogCard: React.FC<BlogCardProps> = ({
-  blog,
-  i,
-  enablePublishing,
-  handlePublish,
-}) => {
+const BlogCard: React.FC<BlogCardProps> = ({ blog, i }) => {
+  const { user } = _useContext();
+  const [showButton, setShowButton] = useState<boolean>(
+    user?.userType === "admin" && !blog.published
+  );
   const [showHoverText, setShowHoverText] = useState<boolean>(false);
+  const handlePublish = () => {
+    const publishPost = async () => {
+      const requestDetails = {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
+        },
+      };
+
+      try {
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/posts/publish/${blog._id}`,
+          requestDetails
+        );
+
+        if (response.status === 400) {
+          const message = await response.text();
+          alert(message);
+        } else {
+          const message = await response.text();
+          alert(message);
+          setShowButton(false);
+          setShowHoverText(false);
+        }
+      } catch (e: any) {
+        console.log(e.message);
+      }
+    };
+
+    publishPost();
+  };
+
   return (
     <div
       className="w-full sm:w-[48%] md:w-56 mb-6"
@@ -25,7 +58,7 @@ const BlogCard: React.FC<BlogCardProps> = ({
       data-aos-duration={(i + 1) * 500}
     >
       <div className="w-full relative">
-        {enablePublishing && (
+        {showButton && (
           <div
             className="absolute bg-slate-200 h-5 w-5 rounded-full top-0.5 left-0.5 cursor-pointer"
             onMouseEnter={() => setShowHoverText(true)}
@@ -39,6 +72,7 @@ const BlogCard: React.FC<BlogCardProps> = ({
             Publish
           </p>
         )}
+
         <Image
           width={0}
           height={0}

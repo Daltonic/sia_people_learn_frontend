@@ -81,15 +81,15 @@ const LoginPage: NextPage = () => {
         sessionStorage.setItem("accessToken", accessToken);
         sessionStorage.setItem("refreshToken", refreshToken);
         router.push("/(dashboard)/dashboard");
+        setLoginDetails({
+          email: "",
+          password: "",
+        });
       }
     } catch (e: any) {
       alert(e.message);
     } finally {
       setSubmitting(false);
-      setLoginDetails({
-        email: "",
-        password: "",
-      });
     }
   };
 

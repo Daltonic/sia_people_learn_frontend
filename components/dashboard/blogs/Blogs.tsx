@@ -55,38 +55,6 @@ const Blogs: React.FC = () => {
     fetchBlogs();
   }, [searchQuery, user]);
 
-  const handlePublish = (id: string) => {
-    const publishPost = async () => {
-      const requestDetails = {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
-        },
-      };
-
-      try {
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/posts/publish/${id}`,
-          requestDetails
-        );
-
-        if (response.status === 400) {
-          const message = await response.text();
-          alert(message);
-        } else {
-          const message = await response.text();
-          alert(message);
-          router.push("/(dashboard)/blogs");
-        }
-      } catch (e: any) {
-        console.log(e.message);
-      }
-    };
-
-    publishPost();
-  };
-
   return (
     <div className="">
       <div className="mb-10 md:mb-16  px-5 sm:px-0">
@@ -96,13 +64,7 @@ const Blogs: React.FC = () => {
       <div className="flex justify-between  w-full flex-wrap">
         {posts &&
           posts.map((post, index) => (
-            <BlogCard
-              key={post._id}
-              blog={post}
-              i={index}
-              enablePublishing={user?.userType === "admin" && !post.published}
-              handlePublish={() => handlePublish(post._id)}
-            />
+            <BlogCard key={post._id} blog={post} i={index} />
           ))}
       </div>
     </div>

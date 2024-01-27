@@ -9,6 +9,7 @@ export interface IUser {
   lastLogin: boolean;
   createdAt: string;
   updatedAt: string;
+  imgUrl?: string;
   _id: string;
 }
 

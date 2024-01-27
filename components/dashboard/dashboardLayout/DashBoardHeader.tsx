@@ -7,10 +7,12 @@ import { HiOutlineBell, HiOutlineShoppingBag } from "react-icons/hi2";
 import { HiOutlineMail } from "react-icons/hi";
 import { FaBarsStaggered } from "react-icons/fa6";
 import DashBoardSidebar from "./DashBoardSidebar";
+import { _useContext } from "@/context/Context";
 
 type SidebarProps = {};
 
 const DashBoardHeader: React.FC<SidebarProps> = () => {
+  const { user } = _useContext();
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleSidebar = () => {
@@ -68,15 +70,22 @@ const DashBoardHeader: React.FC<SidebarProps> = () => {
         <div className="hover:bg-[#F7F8FB] p-4 rounded-xl hover:text-[#C5165D]">
           <HiOutlineBell />
         </div>
-        <div>
-          <Image
-            width={45}
-            height={45}
-            src="/images/testimonials/testimonial1.svg"
-            alt="profile"
-            className="rounded-xl"
-          />
-        </div>
+        {user && (
+          <>
+            {user.imgUrl ? (
+              <Image
+                width={28}
+                height={28}
+                src={user.imgUrl}
+                alt="profile"
+                className="rounded-full"
+              />
+            ) : (
+              <div className="text-white bg-[#C5165D] text-[16px] flex items-center justify-center h-8 w-8 p-1 rounded-full">{`${user?.firstName[0].toUpperCase()}${user?.lastName[0].toUpperCase()}`}</div>
+            )}
+          </>
+        )}
+        <div></div>
       </div>
       <div className="md:hidden">
         <DashBoardSidebar isOpen={isOpen} />
