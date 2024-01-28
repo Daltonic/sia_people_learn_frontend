@@ -4,6 +4,7 @@ import ListSVG from "@/components/dashboard/dashboardSVGs/ListSVG";
 import MessagesSVG from "@/components/dashboard/dashboardSVGs/MessagesSVG";
 import PlayButtonSVG from "@/components/dashboard/dashboardSVGs/PlayButton";
 import SettingsSVG from "@/components/dashboard/dashboardSVGs/SettingsSVG";
+import { GrNotes } from "react-icons/gr";
 import { FaRegUser } from "react-icons/fa";
 import { LuShoppingBag } from "react-icons/lu";
 
@@ -159,7 +160,7 @@ export const instructorSidebarItems = [
   {
     id: 6,
     href: "/(dashboard)/myBlogs",
-    iconClass: <BookmarkSVG />,
+    iconClass: <GrNotes />,
     text: "My Blogs",
   },
   {
