@@ -39,6 +39,7 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ isOpen }) => {
   }, [user?.userType]);
 
   const handleLogout = () => {
+    navigationRouter.push("/");
     const logout = async () => {
       const requestDetails = {
         method: "DELETE",
@@ -56,10 +57,7 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ isOpen }) => {
 
         if (response.status === 400) {
           const message = response.text();
-          alert(message);
         }
-
-        navigationRouter.push("/");
 
         sessionStorage.removeItem("accessToken");
         sessionStorage.removeItem("refreshToken");

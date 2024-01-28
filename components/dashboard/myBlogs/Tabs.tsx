@@ -4,11 +4,6 @@ import SearchAndFilterBar from "@/components/reusableComponents/SearchAndFilterB
 import { _useContext } from "@/context/Context";
 import { IPost, IPosts } from "@/utils/type.dt";
 import { useRouter } from "next/navigation";
-import academies from "@/pages/academies";
-import courses from "@/pages/courses";
-import Academy from "../products/Academy";
-import Books from "../products/Books";
-import Courses from "../products/Courses";
 import BlogCard from "@/components/blogs/BlogCard";
 
 const Tabs: React.FC = () => {
@@ -18,28 +13,18 @@ const Tabs: React.FC = () => {
     router.push("/login");
   }
   const [activeTab, setActiveTab] = useState<number>(1);
-  const [allPosts, setAllPosts] = useState<IPost[]>([]);
-  const [myPosts, setMyPosts] = useState<IPost[]>([]);
-  const [tabData, setTabData] = useState<IPost[]>([]);
+  const [publishedPosts, setPublishedPosts] = useState<IPost[]>([]);
+  const [unpublishedPosts, setUnpublishedPosts] = useState<IPost[]>([]);
   const [hasNext, setHasNext] = useState<boolean>(true);
   const [pagePagesCount, setPagesCount] = useState<number>(0);
-  const [type, setType] = useState<"MyPosts" | "AllPosts">("MyPosts");
 
   const handleTabClick = (tabNumber: number) => {
     setActiveTab(tabNumber);
-    if (tabNumber === 1) {
-      setTabData(myPosts);
-      setType("MyPosts");
-    }
-    if (tabNumber === 2) {
-      setTabData(allPosts);
-      setType("AllPosts");
-    }
   };
 
   useEffect(() => {
     if (!user) return;
-    const fetchBlogs = async () => {
+    const fetchPublishedBlogs = async () => {
       const requestDetails = {
         method: "GET",
         headers: {
@@ -50,7 +35,7 @@ const Tabs: React.FC = () => {
 
       try {
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/posts/user/posts`,
+          `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/posts/user/posts?published=true`,
           requestDetails
         );
         if (response.status === 400) {
@@ -59,16 +44,15 @@ const Tabs: React.FC = () => {
         } else {
           const { posts, isNext, numofPages } =
             (await response.json()) as IPosts;
-          setMyPosts(posts);
+          setPublishedPosts(posts);
           setPagesCount(numofPages);
           setHasNext(isNext);
-          setTabData(posts);
         }
       } catch (e: any) {
         console.log(e.message);
       }
     };
-    fetchBlogs();
+    fetchPublishedBlogs();
   }, [user]);
 
   useEffect(() => {
@@ -83,7 +67,7 @@ const Tabs: React.FC = () => {
 
       try {
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/posts?parentsOnly=true`,
+          `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/posts/user/posts?published=false`,
           requestDetails
         );
         if (response.status === 400) {
@@ -92,10 +76,9 @@ const Tabs: React.FC = () => {
         } else {
           const { posts, isNext, numofPages } =
             (await response.json()) as IPosts;
-          setAllPosts(posts);
+          setUnpublishedPosts(posts);
           setPagesCount(numofPages);
           setHasNext(isNext);
-          setTabData(posts);
         }
       } catch (e: any) {
         console.log(e.message);
@@ -118,7 +101,7 @@ const Tabs: React.FC = () => {
             }`}
             type="button"
           >
-            My Blogs
+            Published Blogs
           </button>
           <button
             onClick={() => handleTabClick(2)}
@@ -129,21 +112,21 @@ const Tabs: React.FC = () => {
             }`}
             type="button"
           >
-            All Blogs
+            Unpublished Blogs
           </button>
         </div>
 
         <div className="py-4 text-[#4F547B]">
           {activeTab === 1 && (
             <div className="flex p-5 gap-8 border w-full flex-wrap">
-              {myPosts.map((post, index) => (
+              {publishedPosts.map((post, index) => (
                 <BlogCard blog={post} key={post._id} i={index} />
               ))}
             </div>
           )}
           {activeTab === 2 && (
             <div className="flex p-5 gap-8 border w-full flex-wrap">
-              {allPosts.map((post, index) => (
+              {unpublishedPosts.map((post, index) => (
                 <BlogCard blog={post} key={post._id} i={index} />
               ))}
             </div>
