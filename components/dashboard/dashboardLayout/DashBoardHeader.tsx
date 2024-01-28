@@ -8,12 +8,16 @@ import { HiOutlineMail } from "react-icons/hi";
 import { FaBarsStaggered } from "react-icons/fa6";
 import DashBoardSidebar from "./DashBoardSidebar";
 import { IUser, _useContext } from "@/context/Context";
+import Modal from "@/components/reusableComponents/Modal";
+import Button from "@/components/reusableComponents/Button";
+import PowerSVG from "../dashboardSVGs/PowerSVG";
 
 type SidebarProps = {};
 
 const DashBoardHeader: React.FC<SidebarProps> = () => {
   const { user } = _useContext();
   const [isOpen, setIsOpen] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const [sessionUser, setSessionUser] = useState<IUser>(user!);
 
@@ -23,6 +27,10 @@ const DashBoardHeader: React.FC<SidebarProps> = () => {
       setSessionUser(refreshUser);
     }
   }, [user]);
+
+  const handleToggleModal = () => {
+    setShowModal((prevShowModal) => !prevShowModal);
+  };
 
   const toggleSidebar = () => {
     setIsOpen((prevIsOpen) => !prevIsOpen);
@@ -60,7 +68,7 @@ const DashBoardHeader: React.FC<SidebarProps> = () => {
           </Link>
         </div>
       </div>
-      <div className="hidden md:flex items-center text-[#6A7A99] text-lg">
+      <div className="hidden md:flex items-center text-[#6A7A99] text-lg relative">
         <div className="hover:bg-[#F7F8FB] p-4 rounded-xl hover:text-[#C5165D]">
           <FaRegMoon />
         </div>
@@ -79,21 +87,34 @@ const DashBoardHeader: React.FC<SidebarProps> = () => {
         <div className="hover:bg-[#F7F8FB] p-4 rounded-xl hover:text-[#C5165D]">
           <HiOutlineBell />
         </div>
-        {sessionUser && (
-          <>
-            {sessionUser.imgUrl ? (
-              <Image
-                width={28}
-                height={28}
-                src={sessionUser.imgUrl}
-                alt="profile"
-                className="rounded-full"
-              />
-            ) : (
-              <div className="text-white bg-[#C5165D] text-[16px] flex items-center justify-center h-8 w-8 p-1 rounded-full">{`${sessionUser?.firstName[0].toUpperCase()}${sessionUser?.lastName[0].toUpperCase()}`}</div>
-            )}
-          </>
-        )}
+        <div className="">
+          {sessionUser && (
+            <div onClick={handleToggleModal} className="cursor-pointer ">
+              {sessionUser.imgUrl ? (
+                <Image
+                  width={28}
+                  height={28}
+                  src={sessionUser.imgUrl}
+                  alt="profile"
+                  className="rounded-full "
+                />
+              ) : (
+                <div className="text-white bg-[#C5165D] text-[16px] flex items-center justify-center h-8 w-8 p-1 rounded-full">{`${sessionUser?.firstName[0].toUpperCase()}${sessionUser?.lastName[0].toUpperCase()}`}</div>
+              )}
+            </div>
+          )}
+
+          <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
+            <Button variant="pink" className="rounded-full">Dashboard</Button>
+            <div className="bg-[#EDEDED] h-[1px] mt-4 w-full"/>
+            <button
+              className="flex gap-2 items-center text-[#4F547B] py-2 pl-4 pr-5 font-medium"
+              // onClick={handleLogout}
+            >
+              <PowerSVG /> Logout
+            </button>
+          </Modal>
+        </div>
       </div>
       <div className="md:hidden">
         <DashBoardSidebar isOpen={isOpen} />
