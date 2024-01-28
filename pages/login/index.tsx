@@ -30,6 +30,7 @@ const LoginPage: NextPage = () => {
 
       setUser(parsedUser);
       sessionStorage.setItem("accessToken", token as string);
+      sessionStorage.setItem("user", JSON.stringify(user));
 
       router.push("/(dashboard)/dashboard");
     }
@@ -78,9 +79,11 @@ const LoginPage: NextPage = () => {
       } else {
         const { user, accessToken, refreshToken } = await response.json();
         setUser(user);
+        router.push("/(dashboard)/dashboard");
         sessionStorage.setItem("accessToken", accessToken);
         sessionStorage.setItem("refreshToken", refreshToken);
-        router.push("/(dashboard)/dashboard");
+        sessionStorage.setItem("user", JSON.stringify(user));
+
         setLoginDetails({
           email: "",
           password: "",

@@ -3,15 +3,18 @@ import React, { useState, useEffect } from "react";
 import SearchAndFilterBar from "@/components/reusableComponents/SearchAndFilterBar";
 import { _useContext } from "@/context/Context";
 import { IPost, IPosts } from "@/utils/type.dt";
-import { useRouter } from "next/navigation";
 import BlogCard from "@/components/blogs/BlogCard";
 
 const Tabs: React.FC = () => {
-  const { user } = _useContext();
-  const router = useRouter();
-  if (!user) {
-    router.push("/login");
-  }
+  const { user, setUser } = _useContext();
+
+  useEffect(() => {
+    const sessionUser = JSON.parse(sessionStorage.getItem("user")!);
+    if (!user) {
+      setUser(sessionUser);
+    }
+  }, [setUser, user]);
+
   const [activeTab, setActiveTab] = useState<number>(1);
   const [publishedPosts, setPublishedPosts] = useState<IPost[]>([]);
   const [unpublishedPosts, setUnpublishedPosts] = useState<IPost[]>([]);

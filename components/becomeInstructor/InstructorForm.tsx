@@ -66,17 +66,17 @@ const Instructorform: React.FC = () => {
       const { msg } = await response.json();
       alert(msg);
       router.push("/(dashboard)/dashboard");
-    } catch (e: any) {
-      console.log(e.message);
-      alert(e.message);
-    } finally {
-      setSubmitting(false);
       setInstructorDetails({
         specialization: "",
         tutorialsLinks: "",
         linkedIn: "",
         teachingFocus: "",
       });
+    } catch (e: any) {
+      console.log(e.message);
+      alert(e.message);
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -122,15 +122,15 @@ const Instructorform: React.FC = () => {
       </div>
       <div className="sm:flex gap-8">
         <div className="sm:w-1/2">
-        <InputField
-          label="Previous Tutorials Links"
-          name="tutorialsLinks"
-          placeholder="Links to previous courses"
-          required
-          inputType="text"
-          value={instructorDetails.tutorialsLinks}
-          handleChange={handleChange}
-        />
+          <InputField
+            label="Previous Tutorials Links"
+            name="tutorialsLinks"
+            placeholder="Links to previous courses"
+            required
+            inputType="text"
+            value={instructorDetails.tutorialsLinks}
+            handleChange={handleChange}
+          />
         </div>
         <div className="sm:w-1/2">
           <InputField

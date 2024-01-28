@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { FaRegMoon } from "react-icons/fa";
@@ -7,13 +7,22 @@ import { HiOutlineBell, HiOutlineShoppingBag } from "react-icons/hi2";
 import { HiOutlineMail } from "react-icons/hi";
 import { FaBarsStaggered } from "react-icons/fa6";
 import DashBoardSidebar from "./DashBoardSidebar";
-import { _useContext } from "@/context/Context";
+import { IUser, _useContext } from "@/context/Context";
 
 type SidebarProps = {};
 
 const DashBoardHeader: React.FC<SidebarProps> = () => {
   const { user } = _useContext();
   const [isOpen, setIsOpen] = useState(false);
+
+  const [sessionUser, setSessionUser] = useState<IUser>(user!);
+
+  useEffect(() => {
+    if (!user) {
+      const refreshUser = JSON.parse(sessionStorage.getItem("user")!);
+      setSessionUser(refreshUser);
+    }
+  }, [user]);
 
   const toggleSidebar = () => {
     setIsOpen((prevIsOpen) => !prevIsOpen);
@@ -70,22 +79,21 @@ const DashBoardHeader: React.FC<SidebarProps> = () => {
         <div className="hover:bg-[#F7F8FB] p-4 rounded-xl hover:text-[#C5165D]">
           <HiOutlineBell />
         </div>
-        {user && (
+        {sessionUser && (
           <>
-            {user.imgUrl ? (
+            {sessionUser.imgUrl ? (
               <Image
                 width={28}
                 height={28}
-                src={user.imgUrl}
+                src={sessionUser.imgUrl}
                 alt="profile"
                 className="rounded-full"
               />
             ) : (
-              <div className="text-white bg-[#C5165D] text-[16px] flex items-center justify-center h-8 w-8 p-1 rounded-full">{`${user?.firstName[0].toUpperCase()}${user?.lastName[0].toUpperCase()}`}</div>
+              <div className="text-white bg-[#C5165D] text-[16px] flex items-center justify-center h-8 w-8 p-1 rounded-full">{`${sessionUser?.firstName[0].toUpperCase()}${sessionUser?.lastName[0].toUpperCase()}`}</div>
             )}
           </>
         )}
-        <div></div>
       </div>
       <div className="md:hidden">
         <DashBoardSidebar isOpen={isOpen} />

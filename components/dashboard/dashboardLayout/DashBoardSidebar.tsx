@@ -7,7 +7,6 @@ import {
 } from "@/data/dashBoardSidebar";
 import { useRouter } from "next/router";
 import { useRouter as useNavigationRouter } from "next/navigation";
-import Button from "@/components/reusableComponents/Button";
 import PowerSVG from "../dashboardSVGs/PowerSVG";
 import { _useContext } from "@/context/Context";
 
@@ -61,6 +60,7 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ isOpen }) => {
 
         sessionStorage.removeItem("accessToken");
         sessionStorage.removeItem("refreshToken");
+        sessionStorage.removeItem("user");
         setUser(null);
       } catch (e: any) {
         console.log(e.message);
