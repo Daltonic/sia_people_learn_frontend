@@ -4,7 +4,6 @@ import BlogCard from "@/components/blogs/BlogCard";
 import Button from "@/components/reusableComponents/Button";
 import { _useContext } from "@/context/Context";
 import { IPost, IPosts } from "@/utils/type.dt";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { GoArrowUpRight } from "react-icons/go";
