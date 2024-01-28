@@ -72,8 +72,6 @@ const PostForm: React.FC<PostProps> = ({ post, type }) => {
     const queryBody =
       type === "create" ? { ...postInput, userId: user?._id } : postInput;
 
-    console.log(queryBody);
-
     const url =
       type === "create"
         ? `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/posts/create`
@@ -101,11 +99,6 @@ const PostForm: React.FC<PostProps> = ({ post, type }) => {
       const { result } = await response.json();
 
       router.push("/(dashboard)/myBlogs");
-    } catch (e: any) {
-      console.log(e.message);
-      alert(e.message);
-    } finally {
-      setSubmitting(false);
       setPostDetails({
         title: "",
         description: "",
@@ -113,6 +106,11 @@ const PostForm: React.FC<PostProps> = ({ post, type }) => {
         category: "",
         imageUrl: "",
       });
+    } catch (e: any) {
+      console.log(e.message);
+      alert(e.message);
+    } finally {
+      setSubmitting(false);
     }
   };
 

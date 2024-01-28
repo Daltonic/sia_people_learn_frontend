@@ -78,17 +78,17 @@ const Blog: React.FC<Props> = ({ post }) => {
       const { result } = await response.json();
 
       router.push(`/blogs/${post._id}`);
-    } catch (e: any) {
-      console.log(e.message);
-      alert(e.message);
-    } finally {
-      setSubmitting(false);
       setPostDetails({
         description: "",
         overview: "",
         imageUrl: "",
         title: "",
       });
+    } catch (e: any) {
+      console.log(e.message);
+      alert(e.message);
+    } finally {
+      setSubmitting(false);
       setOpenCommentForm(false);
     }
   };

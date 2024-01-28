@@ -12,14 +12,13 @@ import { GoArrowUpRight } from "react-icons/go";
 const Blogs: React.FC = () => {
   const router = useRouter();
   const { user } = _useContext();
+  if (!user) {
+    router.push("/login");
+  }
   const [posts, setPosts] = useState<IPost[]>([]);
   const [hasNext, setHasNext] = useState<boolean>(true);
   const [numOfPages, setNumberOfPages] = useState<number>(0);
   const [searchQuery, setSearchQuery] = useState<string>("");
-
-  if (!user) {
-    router.push("/login");
-  }
 
   useEffect(() => {
     if (!user) return;

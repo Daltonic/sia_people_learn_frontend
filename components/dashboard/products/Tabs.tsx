@@ -1,6 +1,5 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { coursesData } from "@/data/courses";
 import SearchAndFilterBar from "@/components/reusableComponents/SearchAndFilterBar";
 import Courses from "./Courses";
 import Academy from "./Academy";
@@ -131,8 +130,6 @@ const Tabs: React.FC = () => {
     };
     fetchBooks();
   }, [user?._id]);
-
-  console.log(books);
 
   return (
     <div className="bg-white p-5 rounded-xl">

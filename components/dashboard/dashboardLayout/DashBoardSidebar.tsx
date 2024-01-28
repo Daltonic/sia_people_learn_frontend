@@ -59,10 +59,11 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ isOpen }) => {
           alert(message);
         }
 
-        setUser(null);
+        navigationRouter.push("/");
+
         sessionStorage.removeItem("accessToken");
         sessionStorage.removeItem("refreshToken");
-        navigationRouter.push("/");
+        setUser(null);
       } catch (e: any) {
         console.log(e.message);
         alert(e.message);
