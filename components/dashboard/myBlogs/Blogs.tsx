@@ -1,10 +1,7 @@
 "use client";
 
-import BlogCard from "@/components/blogs/BlogCard";
 import { _useContext } from "@/context/Context";
-import { IPost, IPosts } from "@/utils/type.dt";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
 import Tabs from "./Tabs";
 
 const Blogs: React.FC = () => {
@@ -13,42 +10,6 @@ const Blogs: React.FC = () => {
   if (!user) {
     router.push("/login");
   }
-  const [posts, setPosts] = useState<IPost[]>([]);
-  const [hasNext, setHasNext] = useState<boolean>(true);
-  const [numOfPages, setNumberOfPages] = useState<number>(0);
-  const [searchQuery, setSearchQuery] = useState<string>("");
-
-  useEffect(() => {
-    if (!user) return;
-    const fetchBlogs = async () => {
-      const requestDetails = {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
-        },
-      };
-
-      try {
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/posts/user/posts`,
-          requestDetails
-        );
-        if (response.status === 400) {
-          const message = await response.text();
-          alert(message);
-        } else {
-          const result = (await response.json()) as IPost[];
-          setPosts(result);
-        }
-      } catch (e: any) {
-        console.log(e.message);
-      } finally {
-        setSearchQuery("");
-      }
-    };
-    fetchBlogs();
-  }, [searchQuery, user]);
 
   return (
     <div className="">
