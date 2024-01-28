@@ -1,16 +1,9 @@
 "use client";
 
 import { _useContext } from "@/context/Context";
-import { useRouter } from "next/navigation";
 import Tabs from "./Tabs";
 
 const Blogs: React.FC = () => {
-  const router = useRouter();
-  const { user } = _useContext();
-  if (!user) {
-    router.push("/login");
-  }
-
   return (
     <div className="">
       <div className="mb-10 md:mb-16  px-5 sm:px-0">
