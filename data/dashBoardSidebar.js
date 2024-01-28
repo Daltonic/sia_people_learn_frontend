@@ -87,6 +87,18 @@ export const userSidebarItems = [
   },
   {
     id: 4,
+    href: "/(dashboard)/createBlog",
+    iconClass: <BookmarkSVG />,
+    text: "Create Blog",
+  },
+  {
+    id: 5,
+    href: "/becomeinstructor",
+    iconClass: <BookmarkSVG />,
+    text: "Become Instructor",
+  },
+  {
+    id: 6,
     href: "/(dashboard)/settings",
     iconClass: <SettingsSVG />,
     text: "Settings",
@@ -165,6 +177,12 @@ export const instructorSidebarItems = [
   },
   {
     id: 7,
+    href: "/(dashboard)/createBlog",
+    iconClass: <BookmarkSVG />,
+    text: "Create Blog",
+  },
+  {
+    id: 8,
     href: "/(dashboard)/settings",
     iconClass: <SettingsSVG />,
     text: "Settings",
