@@ -7,7 +7,14 @@ import Books from "./Books";
 import { _useContext } from "@/context/Context";
 
 const Tabs: React.FC = () => {
-  const { user } = _useContext();
+  const { user, setUser } = _useContext();
+
+  useEffect(() => {
+    const sessionUser = JSON.parse(sessionStorage.getItem("user")!);
+    if (!user) {
+      setUser(sessionUser);
+    }
+  }, [setUser, user]);
 
   const [activeTab, setActiveTab] = useState<number>(1);
   const [courses, setCourses] = useState<any[]>([]);

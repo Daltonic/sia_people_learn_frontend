@@ -14,14 +14,15 @@ import { _useContext } from "@/context/Context";
 import { useRouter } from "next/navigation";
 
 const DashBoard: React.FC = () => {
-  const { user } = _useContext();
+  const { user, setUser } = _useContext();
   const router = useRouter();
 
   useEffect(() => {
+    const sessionUser = JSON.parse(sessionStorage.getItem("user")!);
     if (!user) {
-      router.push("/");
+      setUser(sessionUser);
     }
-  }, [user, router]);
+  }, [setUser, user]);
 
   if (user?.userType === "user") {
     router.push("/(dashboard)/myCourses");

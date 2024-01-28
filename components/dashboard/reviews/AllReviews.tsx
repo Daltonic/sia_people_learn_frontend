@@ -1,8 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ReviewSection from "./ReviewSection";
 import SearchAndFilterBar from "@/components/reusableComponents/SearchAndFilterBar";
+import { _useContext } from "@/context/Context";
 
 const AllReviews: React.FC = () => {
+  const { user, setUser } = _useContext();
+
+  useEffect(() => {
+    const sessionUser = JSON.parse(sessionStorage.getItem("user")!);
+    if (!user) {
+      setUser(sessionUser);
+    }
+  }, [setUser, user]);
   return (
     <div>
       <div className="mb-10 md:mb-16 px-5 sm:px-0">

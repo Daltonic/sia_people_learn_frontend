@@ -25,7 +25,14 @@ interface IDbUser {
 
 const MyUsers: React.FC = () => {
   const router = useRouter();
-  const { user } = _useContext();
+  const { user, setUser } = _useContext();
+
+  useEffect(() => {
+    const sessionUser = JSON.parse(sessionStorage.getItem("user")!);
+    if (!user) {
+      setUser(sessionUser);
+    }
+  }, [setUser, user]);
 
   const [dbUsers, setDbUsers] = useState<IDbUser[]>([]);
 
@@ -206,7 +213,7 @@ const MyUsers: React.FC = () => {
                         <FaTimes />
                       </button>
                       <button
-                        className="p-1 text-sm rounded-full text-green-500 bg-green-100 cursor-pointer" 
+                        className="p-1 text-sm rounded-full text-green-500 bg-green-100 cursor-pointer"
                         onClick={() =>
                           handleRequestAction(
                             user._id,

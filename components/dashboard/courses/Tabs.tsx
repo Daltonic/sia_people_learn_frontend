@@ -1,10 +1,18 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import MyCourseCard from "./MyCourseCard";
 import { coursesData } from "@/data/courses";
 import SearchAndFilterBar from "@/components/reusableComponents/SearchAndFilterBar";
+import { _useContext } from "@/context/Context";
 
 const Tabs: React.FC = () => {
+  const { user, setUser } = _useContext();
+  useEffect(() => {
+    const sessionUser = JSON.parse(sessionStorage.getItem("user")!);
+    if (!user) {
+      setUser(sessionUser);
+    }
+  }, [setUser, user]);
   const [activeTab, setActiveTab] = useState<number>(1);
 
   const handleTabClick = (tabNumber: number) => {
@@ -14,7 +22,7 @@ const Tabs: React.FC = () => {
   return (
     <div className="bg-white p-5 rounded-xl">
       <div className="">
-        <SearchAndFilterBar/>
+        <SearchAndFilterBar />
         <div className="flex space-x-5 border-b">
           <button
             onClick={() => handleTabClick(1)}
