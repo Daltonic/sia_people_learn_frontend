@@ -10,29 +10,36 @@ import { notifications } from "@/data/notifications";
 import React, { useEffect } from "react";
 import Notifications from "@/components/dashboard/dashboard/Notifications";
 import DashboardLayout from "@/components/dashboard/dashboardLayout/DashboardLayout";
-import { _useContext } from "@/context/Context";
+import { useSelector, useDispatch } from "react-redux";
+import { userActions } from "@/store/userSlice";
 import { useRouter } from "next/navigation";
+import { RootState } from "@/utils/type.dt";
 
 const DashBoard: React.FC = () => {
-  const { user, setUser } = _useContext();
+  const dispatch = useDispatch();
+  const { setUserData } = userActions;
+  const { userData } = useSelector((states: RootState) => states.userStates);
+
   const router = useRouter();
 
   useEffect(() => {
-    const sessionUser = JSON.parse(sessionStorage.getItem("user")!);
-    if (!user) {
-      setUser(sessionUser);
+    if (!userData) {
+      const sessionUser = JSON.parse(sessionStorage.getItem("user")!);
+      if (sessionUser) {
+        dispatch(setUserData(sessionUser));
+      }
     }
-  }, [setUser, user]);
+  }, [dispatch, setUserData, userData]);
 
-  if (user?.userType === "user") {
+  if (userData?.userType === "user") {
     router.push("/(dashboard)/myCourses");
   }
-  if (user?.userType === "instructor") {
+  if (userData?.userType === "instructor") {
     router.push("/(dashboard)/myProducts");
   }
 
   return (
-    user?.userType === "admin" && (
+    userData?.userType === "admin" && (
       <DashboardLayout>
         <div className="px-5">
           <DashBoardTop states={states} />

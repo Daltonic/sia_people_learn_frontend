@@ -1,16 +1,16 @@
 import React from "react";
-import { IPost } from "@/utils/type.dt";
+import { IPost, RootState } from "@/utils/type.dt";
 import { convertStringToDate } from "@/utils";
-import { _useContext } from "@/context/Context";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useSelector } from "react-redux";
 
 interface ComponentProps {
   post: IPost;
 }
 
 const BlogDetail: React.FC<ComponentProps> = ({ post }) => {
-  const { user } = _useContext();
+  const { userData } = useSelector((states: RootState) => states.userStates);
   const router = useRouter();
 
   const handleDelete = () => {
@@ -67,7 +67,7 @@ const BlogDetail: React.FC<ComponentProps> = ({ post }) => {
         </div>
       </section>
 
-      {user?._id === post.userId._id && (
+      {userData?._id === post.userId._id && (
         <div className="flex justify-between items-center gap-2">
           <Link
             href={`/blogs/edit/${post._id}`}

@@ -6,7 +6,10 @@ import { NextPage } from "next";
 const Page: NextPage = () => {
   return (
     <DashboardLayout>
-     <DashboardHeading title="Create Blog" description="Provide your Blog Details" />
+      <DashboardHeading
+        title="Create Blog"
+        description="Provide your Blog Details"
+      />
       <BlogForm type="create" />
     </DashboardLayout>
   );

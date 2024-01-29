@@ -8,24 +8,23 @@ import AuthLayout from "@/components/layout/authLayout/AuthenticationLayout";
 import Link from "next/link";
 import { ChangeEvent, SyntheticEvent, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { IUser, _useContext } from "@/context/Context";
-
+import { IUser } from "@/utils/type.dt";
 import { useRouter as Router } from "next/router";
 import { useDispatch } from "react-redux";
 import { userActions } from "@/store/userSlice";
 
 const LoginPage: NextPage = () => {
-  const dispatch = useDispatch()
-  const { setUserData } = userActions
+  const dispatch = useDispatch();
+  const { setUserData } = userActions;
 
-  // const { setUser } = _useContext();
   const router = useRouter();
+  const router_ = Router();
+
+  const [submitting, setSubmitting] = useState<boolean>(false);
   const [loginDetails, setLoginDetails] = useState({
     email: "",
     password: "",
   });
-
-  const router_ = Router();
 
   const { user, token } = router_.query;
 
@@ -33,16 +32,13 @@ const LoginPage: NextPage = () => {
     if (user && token) {
       const parsedUser = JSON.parse(user as string) as IUser;
 
-      // setUser(parsedUser);
-      dispatch(setUserData(parsedUser))
+      dispatch(setUserData(parsedUser));
       sessionStorage.setItem("accessToken", token as string);
       sessionStorage.setItem("user", JSON.stringify(parsedUser));
 
       router.push("/(dashboard)/dashboard");
     }
   }, [router, dispatch, setUserData, token, user]);
-
-  const [submitting, setSubmitting] = useState<boolean>(false);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.currentTarget;
@@ -84,8 +80,7 @@ const LoginPage: NextPage = () => {
         alert(message);
       } else {
         const { user, accessToken, refreshToken } = await response.json();
-        // setUser(user);
-        dispatch(setUserData(user))
+        dispatch(setUserData(user));
         router.push("/(dashboard)/dashboard");
         sessionStorage.setItem("accessToken", accessToken);
         sessionStorage.setItem("refreshToken", refreshToken);

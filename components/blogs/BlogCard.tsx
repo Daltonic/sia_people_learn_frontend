@@ -3,9 +3,10 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { IPost } from "@/utils/type.dt";
+import { IPost, RootState } from "@/utils/type.dt";
 import { convertStringToDate } from "@/utils";
-import { _useContext } from "@/context/Context";
+import { useSelector, useDispatch } from "react-redux";
+import { userActions } from "@/store/userSlice";
 
 interface BlogCardProps {
   blog: IPost;
@@ -13,9 +14,9 @@ interface BlogCardProps {
 }
 
 const BlogCard: React.FC<BlogCardProps> = ({ blog, i }) => {
-  const { user } = _useContext();
+  const { userData } = useSelector((states: RootState) => states.userStates);
   const [showButton, setShowButton] = useState<boolean>(
-    user?.userType === "admin" && !blog.published
+    userData?.userType === "admin" && !blog.published
   );
   const [showHoverText, setShowHoverText] = useState<boolean>(false);
   const handlePublish = () => {

@@ -3,7 +3,6 @@ import Button from "@/components/reusableComponents/Button";
 import InputField from "@/components/reusableComponents/InputField";
 import SelectField from "@/components/reusableComponents/SelectField";
 import TextAreaField from "@/components/reusableComponents/TextAreaField";
-import { _useContext } from "@/context/Context";
 import { useRouter } from "next/navigation";
 import React, {
   useState,
@@ -12,17 +11,25 @@ import React, {
   SyntheticEvent,
   useEffect,
 } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { userActions } from "@/store/userSlice";
+import { RootState } from "@/utils/type.dt";
 
 const CourseForm: React.FC = () => {
   const router = useRouter();
-  const { user, setUser } = _useContext();
+  const dispatch = useDispatch();
+  const { setUserData } = userActions;
+  const { userData } = useSelector((states: RootState) => states.userStates);
 
   useEffect(() => {
-    const sessionUser = JSON.parse(sessionStorage.getItem("user")!);
-    if (!user) {
-      setUser(sessionUser);
+    if (!userData) {
+      const sessionUser = JSON.parse(sessionStorage.getItem("user")!);
+      if (sessionUser) {
+        dispatch(setUserData(sessionUser));
+      }
     }
-  }, [setUser, user]);
+  }, [dispatch, setUserData, userData]);
+
   const [productDetails, setProductDetails] = useState({
     title: "",
     description: "",
@@ -132,7 +139,7 @@ const CourseForm: React.FC = () => {
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
 
-    if (user?.userType !== "instructor") {
+    if (userData?.userType !== "instructor") {
       throw new Error("Only instructors can create products");
     }
 

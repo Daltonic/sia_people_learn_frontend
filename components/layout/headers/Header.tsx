@@ -7,19 +7,33 @@ import { CiSearch } from "react-icons/ci";
 import Navbar from "@/components/layout/headers/Navbar";
 import { FiShoppingCart } from "react-icons/fi";
 import Button from "@/components/reusableComponents/Button";
-import { _useContext } from "@/context/Context";
+import { useSelector, useDispatch } from "react-redux";
+import { userActions } from "@/store/userSlice";
 import Modal from "@/components/reusableComponents/Modal";
 import PowerSVG from "@/components/dashboard/dashboardSVGs/PowerSVG";
 import { useRouter } from "next/navigation";
+import { RootState } from "@/utils/type.dt";
 
 const Header: React.FC = () => {
-  const { user, setUser } = _useContext();
+  const dispatch = useDispatch();
+  const { setUserData } = userActions;
+  const { userData } = useSelector((states: RootState) => states.userStates);
+
   const [showModal, setShowModal] = useState(false);
   const router = useRouter();
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
   };
   const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    if (!userData) {
+      const sessionUser = JSON.parse(sessionStorage.getItem("user")!);
+      if (sessionUser) {
+        dispatch(setUserData(sessionUser));
+      }
+    }
+  }, [dispatch, setUserData, userData]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -64,7 +78,7 @@ const Header: React.FC = () => {
         sessionStorage.removeItem("accessToken");
         sessionStorage.removeItem("refreshToken");
         sessionStorage.removeItem("user");
-        setUser(null);
+        dispatch(setUserData(null));
       } catch (e: any) {
         console.log(e.message);
         alert(e.message);
@@ -117,19 +131,19 @@ const Header: React.FC = () => {
             <Link href="/shopcart">
               <FiShoppingCart className="text-2xl text-black icon icon-basket" />
             </Link>
-            {user ? (
+            {userData ? (
               <>
                 <div onClick={handleToggleModal} className="cursor-pointer ">
-                  {user.imgUrl ? (
+                  {userData.imgUrl ? (
                     <Image
                       width={28}
                       height={28}
-                      src={user.imgUrl}
+                      src={userData.imgUrl}
                       alt="profile"
                       className="rounded-full "
                     />
                   ) : (
-                    <div className="text-white bg-[#C5165D] text-[16px] flex items-center justify-center h-8 w-8 p-1 rounded-full">{`${user?.firstName[0].toUpperCase()}${user?.lastName[0].toUpperCase()}`}</div>
+                    <div className="text-white bg-[#C5165D] text-[16px] flex items-center justify-center h-8 w-8 p-1 rounded-full">{`${userData?.firstName[0].toUpperCase()}${userData?.lastName[0].toUpperCase()}`}</div>
                   )}
                 </div>
 

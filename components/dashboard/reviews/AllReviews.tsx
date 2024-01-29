@@ -1,21 +1,31 @@
 import React, { useEffect } from "react";
 import ReviewSection from "./ReviewSection";
 import SearchAndFilterBar from "@/components/reusableComponents/SearchAndFilterBar";
-import { _useContext } from "@/context/Context";
+import { useSelector, useDispatch } from "react-redux";
+import { userActions } from "@/store/userSlice";
 import DashboardHeading from "../dashboardLayout/DashboardHeading";
+import { RootState } from "@/utils/type.dt";
 
 const AllReviews: React.FC = () => {
-  const { user, setUser } = _useContext();
+  const dispatch = useDispatch();
+  const { setUserData } = userActions;
+  const { userData } = useSelector((states: RootState) => states.userStates);
 
   useEffect(() => {
-    const sessionUser = JSON.parse(sessionStorage.getItem("user")!);
-    if (!user) {
-      setUser(sessionUser);
+    if (!userData) {
+      const sessionUser = JSON.parse(sessionStorage.getItem("user")!);
+      if (sessionUser) {
+        dispatch(setUserData(sessionUser));
+      }
     }
-  }, [setUser, user]);
+  }, [dispatch, setUserData, userData]);
+
   return (
-    <div> 
-      <DashboardHeading title="Reviews" description=" Read and respond to reviews about your courses." />
+    <div>
+      <DashboardHeading
+        title="Reviews"
+        description=" Read and respond to reviews about your courses."
+      />
       <div className="bg-white rounded-lg ">
         <h1 className="p-5 text-[#321463] font-medium border-b border-[#EDEDED] text-xl md:text-base">
           All Reviews

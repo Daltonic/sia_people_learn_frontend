@@ -1,8 +1,9 @@
 import Button from "@/components/reusableComponents/Button";
 import InputField from "@/components/reusableComponents/InputField";
 import TextAreaField from "@/components/reusableComponents/TextAreaField";
-import { _useContext } from "@/context/Context";
-import { ILesson } from "@/utils/type.dt";
+import { useSelector, useDispatch } from "react-redux";
+import { userActions } from "@/store/userSlice";
+import { ILesson, RootState } from "@/utils/type.dt";
 import { useRouter } from "next/navigation";
 import React, { useState, ChangeEvent, SyntheticEvent, useEffect } from "react";
 
@@ -14,13 +15,18 @@ interface LessonProps {
 
 const LessonForm: React.FC<LessonProps> = ({ lesson, courseId, type }) => {
   const router = useRouter();
-  const { user } = _useContext();
+  const dispatch = useDispatch();
+  const { setUserData } = userActions;
+  const { userData } = useSelector((states: RootState) => states.userStates);
 
   useEffect(() => {
-    if (!user) {
-      router.push("/login");
+    if (!userData) {
+      const sessionUser = JSON.parse(sessionStorage.getItem("user")!);
+      if (sessionUser) {
+        dispatch(setUserData(sessionUser));
+      }
     }
-  }, [router, user]);
+  }, [dispatch, setUserData, userData]);
   const [productDetails, setProductDetails] = useState({
     title: lesson?.title || "",
     description: lesson?.description || "",

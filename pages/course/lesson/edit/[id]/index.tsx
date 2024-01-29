@@ -3,25 +3,32 @@
 import LessonForm from "@/components/coursedetail/lesson/LessonForm";
 import LessonHeader from "@/components/coursedetail/lesson/LessonHeader";
 import DashboardLayout from "@/components/dashboard/dashboardLayout/DashboardLayout";
-import { useRouter } from "next/navigation";
 import { useRouter as QueryRouter } from "next/router";
-import { _useContext } from "@/context/Context";
+import { useSelector, useDispatch } from "react-redux";
+import { userActions } from "@/store/userSlice";
+import { RootState } from "@/utils/type.dt";
 import { useEffect, useState } from "react";
 import { NextPage } from "next";
 import { ILesson } from "@/utils/type.dt";
 
 const Page: NextPage<{ courseId: string }> = ({ courseId }) => {
-  const router = useRouter();
   const queryRouter = QueryRouter();
-  const { user } = _useContext();
+
   const { id } = queryRouter.query;
   const [lesson, setLesson] = useState<ILesson | null>(null);
 
+  const dispatch = useDispatch();
+  const { setUserData } = userActions;
+  const { userData } = useSelector((states: RootState) => states.userStates);
+
   useEffect(() => {
-    if (!user) {
-      router.push("/login");
+    if (!userData) {
+      const sessionUser = JSON.parse(sessionStorage.getItem("user")!);
+      if (sessionUser) {
+        dispatch(setUserData(sessionUser));
+      }
     }
-  }, [router, user]);
+  }, [dispatch, setUserData, userData]);
 
   useEffect(() => {
     const getData = async () => {

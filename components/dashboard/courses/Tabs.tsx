@@ -3,16 +3,23 @@ import React, { useEffect, useState } from "react";
 import MyCourseCard from "./MyCourseCard";
 import { coursesData } from "@/data/courses";
 import SearchAndFilterBar from "@/components/reusableComponents/SearchAndFilterBar";
-import { _useContext } from "@/context/Context";
+import { useSelector, useDispatch } from "react-redux";
+import { userActions } from "@/store/userSlice";
+import { RootState } from "@/utils/type.dt";
 
 const Tabs: React.FC = () => {
-  const { user, setUser } = _useContext();
+  const dispatch = useDispatch();
+  const { setUserData } = userActions;
+  const { userData } = useSelector((states: RootState) => states.userStates);
+
   useEffect(() => {
-    const sessionUser = JSON.parse(sessionStorage.getItem("user")!);
-    if (!user) {
-      setUser(sessionUser);
+    if (!userData) {
+      const sessionUser = JSON.parse(sessionStorage.getItem("user")!);
+      if (sessionUser) {
+        dispatch(setUserData(sessionUser));
+      }
     }
-  }, [setUser, user]);
+  }, [dispatch, setUserData, userData]);
   const [activeTab, setActiveTab] = useState<number>(1);
 
   const handleTabClick = (tabNumber: number) => {

@@ -9,19 +9,8 @@ import { learningJourney } from "../../data/learningPath";
 import React, { useEffect } from "react";
 import Instructor from "@/components/becomeInstructor/Instructor";
 import BestInstructors from "@/components/becomeInstructor/BestInstructors";
-import { _useContext } from "@/context/Context";
-import { useRouter } from "next/router";
 
 const Page: React.FC = () => {
-  const router = useRouter();
-  const { user } = _useContext();
-
-  useEffect(() => {
-    if (!user) {
-      router.push("/login");
-    }
-  }, [router, user]);
-
   return (
     <div>
       <Header />

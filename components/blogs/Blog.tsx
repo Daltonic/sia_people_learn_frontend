@@ -1,21 +1,20 @@
-import { IPost } from "@/utils/type.dt";
+import { IPost, RootState } from "@/utils/type.dt";
 import BlogDetail from "./BlogDetail";
 import ReviewForm from "./ReviewForm";
 import CommentsSection from "./CommentsSection";
 import { ChangeEvent, SyntheticEvent, useState } from "react";
-import { _useContext } from "@/context/Context";
-import BlogForm from "./BlogForm";
 import Button from "../reusableComponents/Button";
 import InputField from "../reusableComponents/InputField";
 import TextAreaField from "../reusableComponents/TextAreaField";
 import { useRouter } from "next/navigation";
+import { useSelector } from "react-redux";
 
 interface Props {
   post: IPost;
 }
 
 const Blog: React.FC<Props> = ({ post }) => {
-  const { user } = _useContext();
+  const { userData } = useSelector((states: RootState) => states.userStates);
   const router = useRouter();
   const [openCommentForm, setOpenCommentForm] = useState<boolean>(false);
   const [postDetails, setPostDetails] = useState({
@@ -50,7 +49,7 @@ const Blog: React.FC<Props> = ({ post }) => {
       overview,
       imageUrl,
       category: post.category,
-      userId: user?._id,
+      userId: userData?._id,
       parentId: post._id,
     };
 
@@ -109,7 +108,7 @@ const Blog: React.FC<Props> = ({ post }) => {
               </div>
             </div>
           </div>
-          {user && (
+          {userData && (
             <div
               className="mt-4 px-2 py-1 rounded-sm bg-slate-200 cursor-pointer w-fit"
               onClick={() => setOpenCommentForm((prev) => !prev)}

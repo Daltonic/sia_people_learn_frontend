@@ -1,10 +1,11 @@
-import { IAcademy, ICourse } from "@/utils/type.dt";
+import { IAcademy, ICourse, RootState } from "@/utils/type.dt";
 import React, { useEffect, useState } from "react";
 import Badge from "../reusableComponents/Badge";
 import { useRouter } from "next/navigation";
-import { _useContext } from "@/context/Context";
 import EditCourse from "../academies/EditCourse";
 import Link from "next/link";
+import { useSelector, useDispatch } from "react-redux";
+import { userActions } from "@/store/userSlice";
 
 interface Props {
   courses: ICourse[];
@@ -12,14 +13,18 @@ interface Props {
 }
 
 const AddRemoveCourse: React.FC<Props> = ({ courses, academy }) => {
-  const router = useRouter();
-  const { user } = _useContext();
+  const dispatch = useDispatch();
+  const { setUserData } = userActions;
+  const { userData } = useSelector((states: RootState) => states.userStates);
 
   useEffect(() => {
-    if (!user) {
-      router.push("/login");
+    if (!userData) {
+      const sessionUser = JSON.parse(sessionStorage.getItem("user")!);
+      if (sessionUser) {
+        dispatch(setUserData(sessionUser));
+      }
     }
-  }, [router, user]);
+  }, [dispatch, setUserData, userData]);
 
   const [updatedAcademy, setUpdatedAcademy] = useState<IAcademy>(academy);
   const [academyCourses, setAcademyCourses] = useState(updatedAcademy.courses);

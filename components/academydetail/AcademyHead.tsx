@@ -2,13 +2,13 @@
 import React, { useEffect } from "react";
 import { IoIosStar } from "react-icons/io";
 import Image from "next/image";
-import { IAcademy } from "@/utils/type.dt";
+import { IAcademy, RootState } from "@/utils/type.dt";
 import { FiEdit2, FiPlusCircle } from "react-icons/fi";
 import { FaRegCheckCircle, FaTimes } from "react-icons/fa";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { MdOutlineRateReview } from "react-icons/md";
-import { _useContext } from "@/context/Context";
+import { useSelector } from "react-redux";
 
 interface ComponentProps {
   academy: IAcademy;
@@ -18,7 +18,7 @@ const AcademyHead: React.FC<ComponentProps> = ({ academy }) => {
   const router = useRouter();
   const [rating, setRating] = React.useState<string[]>([]);
 
-  const { user } = _useContext();
+  const { userData } = useSelector((states: RootState) => states.userStates);
 
   useEffect(() => {
     const newRating = Array(5).fill("star");
@@ -119,7 +119,7 @@ const AcademyHead: React.FC<ComponentProps> = ({ academy }) => {
                 pathname: `/academy/courses`,
                 query: {
                   academyId: academy._id,
-                  instructor: user?._id,
+                  instructor: userData?._id,
                 },
               }}
             >
@@ -170,7 +170,7 @@ const AcademyHead: React.FC<ComponentProps> = ({ academy }) => {
             <Image
               height={0}
               width={0}
-              src={ academy.imageUrl ||  "/images/courseCard/card3.svg"}
+              src={academy.imageUrl || "/images/courseCard/card3.svg"}
               alt=""
               className="w-full h-full rounded-lg"
             />
@@ -257,7 +257,7 @@ const AcademyHead: React.FC<ComponentProps> = ({ academy }) => {
         <Image
           height={0}
           width={0}
-          src={ academy.imageUrl ||  "/images/courseCard/card3.svg"}
+          src={academy.imageUrl || "/images/courseCard/card3.svg"}
           alt=""
           className="w-full h-full rounded-lg"
         />

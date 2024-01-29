@@ -1,6 +1,7 @@
 "use client";
 
-import { _useContext } from "@/context/Context";
+import { useSelector, useDispatch } from "react-redux";
+import { userActions } from "@/store/userSlice";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -8,6 +9,7 @@ import React, { useEffect, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { FaCheck, FaTimes } from "react-icons/fa";
 import { IoMdMore } from "react-icons/io";
+import { RootState } from "@/utils/type.dt";
 
 interface IDbUser {
   _id: string;
@@ -25,22 +27,20 @@ interface IDbUser {
 
 const MyUsers: React.FC = () => {
   const router = useRouter();
-  const { user, setUser } = _useContext();
+  const dispatch = useDispatch();
+  const { setUserData } = userActions;
+  const { userData } = useSelector((states: RootState) => states.userStates);
 
   useEffect(() => {
-    const sessionUser = JSON.parse(sessionStorage.getItem("user")!);
-    if (!user) {
-      setUser(sessionUser);
+    if (!userData) {
+      const sessionUser = JSON.parse(sessionStorage.getItem("user")!);
+      if (sessionUser) {
+        dispatch(setUserData(sessionUser));
+      }
     }
-  }, [setUser, user]);
+  }, [dispatch, setUserData, userData]);
 
   const [dbUsers, setDbUsers] = useState<IDbUser[]>([]);
-
-  useEffect(() => {
-    if (!user || user.userType !== "admin") {
-      router.push("/login");
-    }
-  }, [router, user]);
 
   useEffect(() => {
     const getUsers = async () => {

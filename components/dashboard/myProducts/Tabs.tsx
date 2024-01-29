@@ -2,17 +2,23 @@
 import React, { useEffect, useState } from "react";
 import MyCourseCard from "./MyCourseCard";
 import SearchAndFilterBar from "@/components/reusableComponents/SearchAndFilterBar";
-import { _useContext } from "@/context/Context";
+import { useSelector, useDispatch } from "react-redux";
+import { userActions } from "@/store/userSlice";
+import { RootState } from "@/utils/type.dt";
 
 const Tabs: React.FC = () => {
-  const { user, setUser } = _useContext();
+  const dispatch = useDispatch();
+  const { setUserData } = userActions;
+  const { userData } = useSelector((states: RootState) => states.userStates);
 
   useEffect(() => {
-    const sessionUser = JSON.parse(sessionStorage.getItem("user")!);
-    if (!user) {
-      setUser(sessionUser);
+    if (!userData) {
+      const sessionUser = JSON.parse(sessionStorage.getItem("user")!);
+      if (sessionUser) {
+        dispatch(setUserData(sessionUser));
+      }
     }
-  }, [setUser, user]);
+  }, [dispatch, setUserData, userData]);
 
   const [activeTab, setActiveTab] = useState<number>(1);
   const [courses, setCourses] = useState<any[]>([]);
@@ -39,7 +45,7 @@ const Tabs: React.FC = () => {
 
   useEffect(() => {
     const fetchAcademies = async () => {
-      if (!user) return;
+      if (!userData) return;
       const requestDetails = {
         method: "GET",
         headers: {
@@ -49,7 +55,7 @@ const Tabs: React.FC = () => {
       };
 
       const searchQuery = new URLSearchParams({
-        instructor: user?._id!,
+        instructor: userData?._id!,
       });
 
       try {
@@ -70,11 +76,11 @@ const Tabs: React.FC = () => {
       }
     };
     fetchAcademies();
-  }, [user]);
+  }, [userData]);
 
   useEffect(() => {
     const fetchCourses = async () => {
-      if (!user) return;
+      if (!userData) return;
       const requestDetails = {
         method: "GET",
         headers: {
@@ -84,7 +90,7 @@ const Tabs: React.FC = () => {
       };
 
       const searchQuery = new URLSearchParams({
-        instructor: user?._id!,
+        instructor: userData?._id!,
         type: "Course",
       });
 
@@ -107,10 +113,10 @@ const Tabs: React.FC = () => {
       }
     };
     fetchCourses();
-  }, [user]);
+  }, [userData]);
 
   useEffect(() => {
-    if (!user) return;
+    if (!userData) return;
     const fetchBooks = async () => {
       const requestDetails = {
         method: "GET",
@@ -121,7 +127,7 @@ const Tabs: React.FC = () => {
       };
 
       const searchQuery = new URLSearchParams({
-        instructor: user?._id!,
+        instructor: userData?._id!,
         type: "Book",
       });
 
@@ -143,7 +149,7 @@ const Tabs: React.FC = () => {
       }
     };
     fetchBooks();
-  }, [user]);
+  }, [userData]);
 
   return (
     <div className="bg-white p-5 rounded-xl">

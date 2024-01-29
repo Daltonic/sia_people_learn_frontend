@@ -3,9 +3,7 @@ import React, { useEffect } from "react";
 import { IoIosStar } from "react-icons/io";
 import Image from "next/image";
 import { IAcademy } from "@/utils/type.dt";
-import { useRouter } from "next/navigation";
 import { MdOutlineRateReview } from "react-icons/md";
-import { _useContext } from "@/context/Context";
 import { convertStringToDate } from "@/utils";
 
 interface ComponentProps {
