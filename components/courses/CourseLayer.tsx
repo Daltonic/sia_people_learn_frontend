@@ -5,7 +5,6 @@ import { IoIosStar } from "react-icons/io";
 import { FiHeart } from "react-icons/fi";
 import Link from "next/link";
 import { ICourses } from "@/utils/type.dt";
-import courses from "@/pages/courses";
 
 interface ComponentProps {
   data: ICourses;

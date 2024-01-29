@@ -94,8 +94,8 @@ export const userSidebarItems = [
   {
     id: 5,
     href: "/becomeinstructor",
-    iconClass: <BookmarkSVG />,
-    text: "Become Instructor",
+    iconClass: "images/instructors/icons/students.svg",
+    text: "Start Teaching",
   },
   {
     id: 6,
