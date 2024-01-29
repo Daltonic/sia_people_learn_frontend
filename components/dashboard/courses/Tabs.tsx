@@ -4,6 +4,7 @@ import MyCourseCard from "./MyCourseCard";
 import { coursesData } from "@/data/courses";
 import SearchAndFilterBar from "@/components/reusableComponents/SearchAndFilterBar";
 import { _useContext } from "@/context/Context";
+import EmptyComponent from "@/components/reusableComponents/EmptyComponent";
 
 const Tabs: React.FC = () => {
   const { user, setUser } = _useContext();
@@ -62,11 +63,39 @@ const Tabs: React.FC = () => {
         <div className="py-4 text-[#4F547B]">
           {activeTab === 1 && (
             <div className="flex justify-between  w-full flex-wrap">
-              {coursesData.map((elm, i: number) => (
+            {coursesData.map((elm, i: number) => (
                 <MyCourseCard data={elm} index={i} key={i} />
               ))}
+          </div>
+          )}
+          {/* {activeTab === 2 && (
+            <div className="flex justify-between  w-full flex-wrap">
+              {coursesData.length > 0 ? (
+                coursesData.map((elm, i: number) => (
+                  <MyCourseCard data={elm} index={i} key={i} />
+                ))
+              ) : (
+                <EmptyComponent
+                  title="No Courses Available"
+                  buttonText="Create One Now"
+                />
+              )}
             </div>
           )}
+          {activeTab === 3 && (
+            <div className="flex justify-between w-full flex-wrap">
+              {coursesData.length > 0 ? (
+                coursesData.map((elm, i: number) => (
+                  <MyCourseCard data={elm} index={i} key={i} />
+                ))
+              ) : (
+                <EmptyComponent
+                  title="No Courses Available"
+                  buttonText="Create One Now"
+                />
+              )}
+            </div>
+          )} */}
         </div>
       </div>
     </div>

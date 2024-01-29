@@ -18,7 +18,7 @@ const Button: React.FC<ButtonProps> = ({
   ...rest
 }) => {
   let buttonClasses =
-    "font-medium text-center px-5 w-fit md:px-5 py-2 md:py-2 rounded-md ease-in-out delay-150 hover:-translate-y-0.5 hover:scale-105 duration-300 text-md";
+    "font-medium text-center px-5 w-fit md:px-5 py-2 md:py-2 rounded-md ease-in-out delay-150 hover:-translate-y-0.5 duration-300 text-md";
 
   switch (
     variant

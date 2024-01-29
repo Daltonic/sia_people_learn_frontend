@@ -21,7 +21,7 @@ const CourseCard: React.FC<ComponentProps> = ({ data, index }) => {
 
   return (
     <div
-      className=" bg-white rounded-lg w-full sm:w-80 md:w-56 border-[#EDEDED] border-1 p-2 shadow-[#EDEDED] shadow-md"
+      className=" bg-white rounded-lg w-full sm:w-80 md:w-56 border-[#EDEDED] border-1 p-2 shadow-[#EDEDED] shadow"
       style={{ height: "fit-content" }}
     >
       <div className="">
@@ -58,22 +58,6 @@ const CourseCard: React.FC<ComponentProps> = ({ data, index }) => {
           </div>
 
           <div className="flex justify-between items-center my-2 border-b border-[#EDEDED] pb-1">
-            <div className="flex items-center">
-              <div className="mr-2 md:mr-1">
-                <Image
-                  width={0}
-                  height={0}
-                  src="/images/home/coursesCards/icons/1.svg"
-                  alt="icon"
-                  className="w-5 h-5  md:w-3 md:h-3"
-                />
-              </div>
-              <p className="md:text-xs">
-                {data.lessons?.length} lesson
-                {data.lessons?.length !== 1 ? "s" : ""}
-              </p>
-            </div>
-
             <div className="flex items-center">
               <div className="mr-2 md:mr-1">
                 <Image
