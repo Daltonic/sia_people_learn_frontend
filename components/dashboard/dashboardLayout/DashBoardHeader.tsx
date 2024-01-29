@@ -11,15 +11,17 @@ import { IUser, _useContext } from "@/context/Context";
 import Modal from "@/components/reusableComponents/Modal";
 import Button from "@/components/reusableComponents/Button";
 import PowerSVG from "../dashboardSVGs/PowerSVG";
+import { useRouter } from "next/navigation";
 
 type SidebarProps = {};
 
 const DashBoardHeader: React.FC<SidebarProps> = () => {
-  const { user } = _useContext();
+  const { user, setUser } = _useContext();
   const [isOpen, setIsOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
-
   const [sessionUser, setSessionUser] = useState<IUser>(user!);
+
+  const router = useRouter();
 
   useEffect(() => {
     if (!user) {
@@ -38,6 +40,39 @@ const DashBoardHeader: React.FC<SidebarProps> = () => {
 
   const closeSidebar = () => {
     setIsOpen(false);
+  };
+
+  const handleLogout = () => {
+    router.push("/");
+    const logout = async () => {
+      const requestDetails = {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
+        },
+      };
+
+      try {
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/sessions/logout`,
+          requestDetails
+        );
+
+        if (response.status === 400) {
+          const message = response.text();
+        }
+
+        sessionStorage.removeItem("accessToken");
+        sessionStorage.removeItem("refreshToken");
+        sessionStorage.removeItem("user");
+        setUser(null);
+      } catch (e: any) {
+        console.log(e.message);
+        alert(e.message);
+      }
+    };
+    logout();
   };
 
   return (
@@ -105,11 +140,17 @@ const DashBoardHeader: React.FC<SidebarProps> = () => {
           )}
 
           <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
-            <Button variant="pink" className="rounded-full">Dashboard</Button>
-            <div className="bg-[#EDEDED] h-[1px] mt-4 w-full"/>
+            <Link
+              href={`/(dashboard)/dashboard`}
+              className="font-medium text-center px-5 w-fit md:px-5 py-2 md:py-2 rounded-md ease-in-out delay-150 hover:-translate-y-0.5 hover:scale-105 duration-300 text-md border-2 border-[#C5165D] text-[#C5165D] hover:bg-[#C5165D] hover:text-white"
+            >
+              Dashboard
+            </Link>
+
+            <div className="bg-[#EDEDED] h-[1px] mt-4 w-full" />
             <button
               className="flex gap-2 items-center text-[#4F547B] py-2 pl-4 pr-5 font-medium"
-              // onClick={handleLogout}
+              onClick={handleLogout}
             >
               <PowerSVG /> Logout
             </button>
