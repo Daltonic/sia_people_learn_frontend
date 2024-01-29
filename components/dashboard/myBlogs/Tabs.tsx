@@ -2,12 +2,14 @@
 import React, { useState, useEffect } from "react";
 import SearchAndFilterBar from "@/components/reusableComponents/SearchAndFilterBar";
 import { _useContext } from "@/context/Context";
-import { IPost, IPosts } from "@/utils/type.dt";
+import { IPost, IPosts, RootState } from "@/utils/type.dt";
 import BlogCard from "@/components/blogs/BlogCard";
 import EmptyComponent from "@/components/reusableComponents/EmptyComponent";
+import { useSelector } from "react-redux";
 
 const Tabs: React.FC = () => {
-  const { user } = _useContext();
+  // const { user } = _useContext();
+  const { userData } = useSelector((states: RootState) => states.userStates)
 
   const [activeTab, setActiveTab] = useState<number>(1);
   const [publishedPosts, setPublishedPosts] = useState<IPost[]>([]);
@@ -20,7 +22,7 @@ const Tabs: React.FC = () => {
   };
 
   useEffect(() => {
-    if (!user) return;
+    if (!userData) return;
     const fetchPublishedBlogs = async () => {
       const requestDetails = {
         method: "GET",
@@ -50,7 +52,7 @@ const Tabs: React.FC = () => {
       }
     };
     fetchPublishedBlogs();
-  }, [user]);
+  }, [userData]);
 
   useEffect(() => {
     const fetchBlogs = async () => {

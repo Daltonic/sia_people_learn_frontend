@@ -12,23 +12,30 @@ import Modal from "@/components/reusableComponents/Modal";
 import Button from "@/components/reusableComponents/Button";
 import PowerSVG from "../dashboardSVGs/PowerSVG";
 import { useRouter } from "next/navigation";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/utils/type.dt";
+import { userActions } from "@/store/userSlice";
 
 type SidebarProps = {};
 
 const DashBoardHeader: React.FC<SidebarProps> = () => {
-  const { user, setUser } = _useContext();
+  // const { user, setUser } = _useContext();
+  const dispatch = useDispatch()
+  const { setUserData } = userActions
+  const { userData } = useSelector((states: RootState) => states.userStates)
+
   const [isOpen, setIsOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [sessionUser, setSessionUser] = useState<IUser>(user!);
+  const [sessionUser, setSessionUser] = useState<IUser>(userData!);
 
   const router = useRouter();
 
   useEffect(() => {
-    if (!user) {
+    if (!userData) {
       const refreshUser = JSON.parse(sessionStorage.getItem("user")!);
       setSessionUser(refreshUser);
     }
-  }, [user]);
+  }, [userData]);
 
   const handleToggleModal = () => {
     setShowModal((prevShowModal) => !prevShowModal);
@@ -66,7 +73,8 @@ const DashBoardHeader: React.FC<SidebarProps> = () => {
         sessionStorage.removeItem("accessToken");
         sessionStorage.removeItem("refreshToken");
         sessionStorage.removeItem("user");
-        setUser(null);
+        // setUser(null);
+        dispatch(setUserData(null))
       } catch (e: any) {
         console.log(e.message);
         alert(e.message);
