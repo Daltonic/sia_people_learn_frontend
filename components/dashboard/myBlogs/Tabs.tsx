@@ -4,6 +4,7 @@ import SearchAndFilterBar from "@/components/reusableComponents/SearchAndFilterB
 import { _useContext } from "@/context/Context";
 import { IPost, IPosts } from "@/utils/type.dt";
 import BlogCard from "@/components/blogs/BlogCard";
+import EmptyComponent from "@/components/reusableComponents/EmptyComponent";
 
 const Tabs: React.FC = () => {
   const { user } = _useContext();
@@ -122,9 +123,15 @@ const Tabs: React.FC = () => {
           )}
           {activeTab === 2 && (
             <div className="flex p-5 gap-8 border w-full flex-wrap">
-              {unpublishedPosts.map((post, index) => (
-                <BlogCard blog={post} key={post._id} i={index} />
-              ))}
+              {unpublishedPosts.length > 0 ? (
+                unpublishedPosts.map((post, index) => (
+                  <BlogCard blog={post} key={post._id} i={index} />
+                ))
+              ) : (
+                <>
+                  <EmptyComponent title = 'No Blogs Available' buttonText = 'Create One Now'/>
+                </>
+              )}
             </div>
           )}
         </div>
