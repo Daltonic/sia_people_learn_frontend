@@ -7,6 +7,8 @@ import SettingsSVG from "@/components/dashboard/dashboardSVGs/SettingsSVG";
 import { GrNotes } from "react-icons/gr";
 import { FaRegUser } from "react-icons/fa";
 import { LuShoppingBag } from "react-icons/lu";
+import InstructorSVG from "@/components/dashboard/dashboardSVGs/InstructorSVG";
+import { IoCreateOutline } from "react-icons/io5";
 
 export const sidebarItems = [
   {
@@ -82,19 +84,19 @@ export const userSidebarItems = [
   {
     id: 3,
     href: "/(dashboard)/myBlogs",
-    iconClass: <BookmarkSVG />,
+    iconClass: <GrNotes />,
     text: "My Blogs",
   },
   {
     id: 4,
     href: "/(dashboard)/createBlog",
-    iconClass: <BookmarkSVG />,
+    iconClass: <IoCreateOutline />,
     text: "Create Blog",
   },
   {
     id: 5,
     href: "/becomeinstructor",
-    iconClass: "images/instructors/icons/students.svg",
+    iconClass:  <InstructorSVG />,
     text: "Start Teaching",
   },
   {
@@ -127,7 +129,7 @@ export const adminSidebarItems = [
   {
     id: 4,
     href: "/(dashboard)/blogs",
-    iconClass: <MessagesSVG />,
+    iconClass: <GrNotes />,
     text: "Blogs",
   },
   {

@@ -63,21 +63,14 @@ const Tabs: React.FC = () => {
         <div className="py-4 text-[#4F547B]">
           {activeTab === 1 && (
             <div className="flex justify-between  w-full flex-wrap">
-            {coursesData.length > 0 ? (
-              coursesData.map((elm, i: number) => (
+            {coursesData.map((elm, i: number) => (
                 <MyCourseCard data={elm} index={i} key={i} />
-              ))
-            ) : (
-              <EmptyComponent
-                title="No Courses Available"
-                buttonText="Create One Now"
-              />
-            )}
+              ))}
           </div>
           )}
-          {activeTab === 2 && (
+          {/* {activeTab === 2 && (
             <div className="flex justify-between  w-full flex-wrap">
-              {coursesData.length > 1 ? (
+              {coursesData.length > 0 ? (
                 coursesData.map((elm, i: number) => (
                   <MyCourseCard data={elm} index={i} key={i} />
                 ))
@@ -102,7 +95,7 @@ const Tabs: React.FC = () => {
                 />
               )}
             </div>
-          )}
+          )} */}
         </div>
       </div>
     </div>
