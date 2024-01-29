@@ -6,14 +6,7 @@ import { IPost, IPosts } from "@/utils/type.dt";
 import BlogCard from "@/components/blogs/BlogCard";
 
 const Tabs: React.FC = () => {
-  const { user, setUser } = _useContext();
-
-  useEffect(() => {
-    const sessionUser = JSON.parse(sessionStorage.getItem("user")!);
-    if (!user) {
-      setUser(sessionUser);
-    }
-  }, [setUser, user]);
+  const { user } = _useContext();
 
   const [activeTab, setActiveTab] = useState<number>(1);
   const [publishedPosts, setPublishedPosts] = useState<IPost[]>([]);

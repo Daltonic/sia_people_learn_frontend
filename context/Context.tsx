@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 
 export interface IUser {
   firstName: string;
@@ -15,6 +15,16 @@ export interface IUser {
 
 const useValue = () => {
   const [user, setUser] = useState<IUser | null>(null);
+
+  useEffect(() => {
+    if (!user) {
+      const refreshUser = JSON.parse(sessionStorage.getItem("user")!) as IUser;
+
+      if (refreshUser) {
+        setUser(refreshUser);
+      }
+    }
+  }, [user]);
 
   return {
     user,
