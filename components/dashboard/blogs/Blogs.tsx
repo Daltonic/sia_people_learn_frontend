@@ -3,6 +3,7 @@ import { _useContext } from "@/context/Context";
 import { IPost, IPosts } from "@/utils/type.dt";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import DashboardHeading from "../dashboardLayout/DashboardHeading";
 
 const Blogs: React.FC = () => {
   const { user, setUser } = _useContext();
@@ -59,10 +60,7 @@ const Blogs: React.FC = () => {
 
   return (
     <div className="">
-      <div className="mb-10 md:mb-16  px-5 sm:px-0">
-        <h1 className="font-bold text-[#321463] text-3xl">Blogs</h1>
-        <p className="text-[#4F547B] text-lg">View and Manage all Blogs</p>
-      </div>
+      <DashboardHeading title="Blogs" description="View and Manage all Blogs" />
       <div className="flex justify-between  w-full flex-wrap">
         {posts &&
           posts.map((post, index) => (

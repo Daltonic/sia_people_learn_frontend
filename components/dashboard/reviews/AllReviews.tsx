@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import ReviewSection from "./ReviewSection";
 import SearchAndFilterBar from "@/components/reusableComponents/SearchAndFilterBar";
 import { _useContext } from "@/context/Context";
+import DashboardHeading from "../dashboardLayout/DashboardHeading";
 
 const AllReviews: React.FC = () => {
   const { user, setUser } = _useContext();
@@ -13,13 +14,8 @@ const AllReviews: React.FC = () => {
     }
   }, [setUser, user]);
   return (
-    <div>
-      <div className="mb-10 md:mb-16 px-5 sm:px-0">
-        <h1 className="font-bold text-[#321463] text-3xl">Reviews</h1>
-        <p className="text-[#4F547B] text-lg">
-          Read and respond to reviews about your courses.
-        </p>
-      </div>
+    <div> 
+      <DashboardHeading title="Reviews" description=" Read and respond to reviews about your courses." />
       <div className="bg-white rounded-lg ">
         <h1 className="p-5 text-[#321463] font-medium border-b border-[#EDEDED] text-xl md:text-base">
           All Reviews

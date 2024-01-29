@@ -1,5 +1,6 @@
 import Image from "next/image";
 import React from "react";
+import DashboardHeading from "../dashboardLayout/DashboardHeading";
 
 type State = {
   title: string;
@@ -15,12 +16,8 @@ type Props = {
 const DashBoardTop: React.FC<Props> = ({ states }) => {
   return (
     <div>
-      <div className="mb-16">
-        <h1 className="font-bold text-[#321463] text-3xl">Dashboard</h1>
-        <p className="text-[#4F547B] text-lg">
-          Your personal control panel for managing your courses and settings.
-        </p>
-      </div>
+      <DashboardHeading title="Dashboard" description="Your personal control panel for managing your courses and settings." />
+      
       <div className="flex flex-col sm:flex-row sm:flex-wrap md:flex-nowrap justify-between gap-5 md:gap-0">
         {states.map((elm, i) => (
           <div key={i}>

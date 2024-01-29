@@ -1,11 +1,11 @@
 import CourseForm from "@/components/dashboard/createProduct/CourseForm";
-import CourseHeader from "@/components/dashboard/createProduct/CourseHeader";
+import DashboardHeading from "@/components/dashboard/dashboardLayout/DashboardHeading";
 import DashboardLayout from "@/components/dashboard/dashboardLayout/DashboardLayout";
 
 const CreateCourse: React.FC = () => {
   return (
     <DashboardLayout>
-      <CourseHeader />
+      <DashboardHeading title="Create Product" description=" Start building your products." />
       <CourseForm />
     </DashboardLayout>
   );

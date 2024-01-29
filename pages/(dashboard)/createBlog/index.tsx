@@ -1,15 +1,12 @@
 import BlogForm from "@/components/blogs/BlogForm";
-import BlogHeader from "@/components/blogs/BlogHeader";
+import DashboardHeading from "@/components/dashboard/dashboardLayout/DashboardHeading";
 import DashboardLayout from "@/components/dashboard/dashboardLayout/DashboardLayout";
 import { NextPage } from "next";
 
 const Page: NextPage = () => {
   return (
     <DashboardLayout>
-      <BlogHeader
-        headerHead="Create Blog"
-        headerBody="Provide your Blog Details"
-      />
+     <DashboardHeading title="Create Blog" description="Provide your Blog Details" />
       <BlogForm type="create" />
     </DashboardLayout>
   );
