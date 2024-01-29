@@ -1,10 +1,19 @@
 import InputField from "@/components/reusableComponents/InputField";
 import SelectField from "@/components/reusableComponents/SelectField";
 import TextAreaField from "@/components/reusableComponents/TextAreaField";
-import React, { useState } from "react";
+import { _useContext } from "@/context/Context";
+import React, { useEffect, useState } from "react";
 
 const EditCourseForm: React.FC = () => {
   const [selectedOption, setSelectedOption] = useState("");
+  const { user, setUser } = _useContext();
+
+  useEffect(() => {
+    const sessionUser = JSON.parse(sessionStorage.getItem("user")!);
+    if (!user) {
+      setUser(sessionUser);
+    }
+  }, [setUser, user]);
 
   const handleChange = (value: any) => {
     setSelectedOption(value);
@@ -23,8 +32,8 @@ const EditCourseForm: React.FC = () => {
           inputType="text"
         />
         <div className="md:flex gap-8">
-        <TextAreaField label="Description" id="description" />
-        <TextAreaField label="Overview" id="overview" />
+          <TextAreaField label="Description" id="description" />
+          <TextAreaField label="Overview" id="overview" />
         </div>
         <div className="md:flex gap-8">
           <InputField
@@ -83,7 +92,7 @@ const EditCourseForm: React.FC = () => {
             onChange={handleChange}
           />
         </div>
-         <div className="md:flex gap-8">
+        <div className="md:flex gap-8">
           <TextAreaField
             label="What will students learn in your course?"
             id="learn"

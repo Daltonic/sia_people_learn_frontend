@@ -15,13 +15,14 @@ import React, {
 
 const CourseForm: React.FC = () => {
   const router = useRouter();
-  const { user } = _useContext();
+  const { user, setUser } = _useContext();
 
   useEffect(() => {
+    const sessionUser = JSON.parse(sessionStorage.getItem("user")!);
     if (!user) {
-      router.push("/login");
+      setUser(sessionUser);
     }
-  }, [router, user]);
+  }, [setUser, user]);
   const [productDetails, setProductDetails] = useState({
     title: "",
     description: "",

@@ -30,7 +30,7 @@ const LoginPage: NextPage = () => {
 
       setUser(parsedUser);
       sessionStorage.setItem("accessToken", token as string);
-      sessionStorage.setItem("user", JSON.stringify(user));
+      sessionStorage.setItem("user", JSON.stringify(parsedUser));
 
       router.push("/(dashboard)/dashboard");
     }

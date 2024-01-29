@@ -5,16 +5,18 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const Blogs: React.FC = () => {
-  const router = useRouter();
-  const { user } = _useContext();
+  const { user, setUser } = _useContext();
   const [posts, setPosts] = useState<IPost[]>([]);
   const [hasNext, setHasNext] = useState<boolean>(true);
   const [numOfPages, setNumberOfPages] = useState<number>(0);
   const [searchQuery, setSearchQuery] = useState<string>("");
 
-  if (!user) {
-    router.push("/login");
-  }
+  useEffect(() => {
+    const sessionUser = JSON.parse(sessionStorage.getItem("user")!);
+    if (!user) {
+      setUser(sessionUser);
+    }
+  }, [setUser, user]);
 
   useEffect(() => {
     if (!user) return;
