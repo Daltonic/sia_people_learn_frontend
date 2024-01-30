@@ -20,8 +20,7 @@ const MyCourseCard: React.FC<ComponentProps> = ({ data, type }) => {
 
   return (
     <div
-      className=" bg-white rounded-lg w-full sm:w-[48%] md:w-[13rem] border-[#EDEDED] border-1 p-2 shadow-[#EDEDED] shadow-xl mb-4"
-      style={{ height: "fit-content" }}
+      className=" bg-white rounded-lg w-full sm:w-80 md:w-56 h-48 border-[#EDEDED] border-1 p-2 shadow-[#EDEDED] shadow"
     >
       <div className="">
         <Link
@@ -35,7 +34,7 @@ const MyCourseCard: React.FC<ComponentProps> = ({ data, type }) => {
               width={500}
               height={400}
               style={{ height: "100%", width: "100%" }}
-              className="rounded-lg"
+            className="rounded-lg"
               src={data.imageUrl || "/images/heroImage.svg"}
               alt="image"
             />
@@ -58,7 +57,7 @@ const MyCourseCard: React.FC<ComponentProps> = ({ data, type }) => {
             </div>
           </div>
 
-          <div className="md:text-sm font-medium text-[#321463] mt-2 h-14">
+          <div className="md:text-sm font-medium text-[#321463] mt-2">
             {data.name}
           </div>
         </div>

@@ -128,9 +128,18 @@ const Tabs: React.FC = () => {
         <div className="py-4 text-[#4F547B]">
           {activeTab === 1 && (
             <div className="flex p-5 gap-8 border w-full flex-wrap">
-              {publishedPosts.map((post, index) => (
-                <BlogCard blog={post} key={post._id} i={index} />
-              ))}
+              {publishedPosts.length > 0 ? (
+                publishedPosts.map((post, index) => (
+                  <BlogCard blog={post} key={post._id} i={index} />
+                ))
+              ) : (
+                <>
+                  <EmptyComponent
+                    title="No Blogs Available"
+                    buttonText="Create One Now"
+                  />
+                </>
+              )}
             </div>
           )}
           {activeTab === 2 && (

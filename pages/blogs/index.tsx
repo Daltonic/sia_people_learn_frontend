@@ -33,7 +33,7 @@ const Page: NextPage<{ postsData: IPosts }> = ({ postsData }) => {
 
   return (
     <Layout>
-      <div className="flex flex-col items-center md:px-5 mt-10">
+      <div className="flex flex-col items-center px-5 mt-10">
         <h1 className="text-violet-950 text-center text-3xl md:text-4xl font-bold">
           Latest News
         </h1>
@@ -70,7 +70,7 @@ const Page: NextPage<{ postsData: IPosts }> = ({ postsData }) => {
                     postsData.posts.map((post, i: number) => (
                       <div
                         key={i}
-                        className="w-full sm:w-[48%] md:w-[31%] mb-4 "
+                        className="w-full sm:w-80 md:w-56 mb-4 "
                       >
                         <div className="w-full">
                           <Link
@@ -90,7 +90,7 @@ const Page: NextPage<{ postsData: IPosts }> = ({ postsData }) => {
                               <h1 className="text-[#C5165D] text-sm uppercase">
                                 {post.category}
                               </h1>
-                              <h4 className="text-[#242239] text-lg font-medium md:mt-1">
+                              <h4 className="text-[#242239] text-base font-medium md:mt-1">
                                 {post.title}
                               </h4>
                               <div className="text-xs text-[#4F547B] mt-2 md:mt-3">

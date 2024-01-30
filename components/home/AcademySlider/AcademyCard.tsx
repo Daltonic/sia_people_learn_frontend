@@ -62,22 +62,6 @@ const AcademyCard: React.FC<ComponentProps> = ({ data }) => {
                 <Image
                   width={0}
                   height={0}
-                  src="/images/home/coursesCards/icons/1.svg"
-                  alt="icon"
-                  className="w-5 h-5  md:w-3 md:h-3"
-                />
-              </div>
-              <p className="md:text-xs">
-                {data.courses?.length} course
-                {data.courses?.length !== 1 ? "s" : ""}
-              </p>
-            </div>
-
-            <div className="flex items-center">
-              <div className="mr-2 md:mr-1">
-                <Image
-                  width={0}
-                  height={0}
                   src="/images/home/coursesCards/icons/2.svg"
                   alt="icon"
                   className="w-5 h-5 md:w-3 md:h-3"
