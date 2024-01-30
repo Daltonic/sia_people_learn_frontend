@@ -1,12 +1,18 @@
+"use client";
+
 import InputField from "@/components/reusableComponents/InputField";
-import React, { ChangeEvent, SyntheticEvent, useState } from "react";
+import React, { ChangeEvent, SyntheticEvent, useEffect, useState } from "react";
 import Button from "../reusableComponents/Button";
 import TextAreaField from "../reusableComponents/TextAreaField";
 import { useRouter } from "next/navigation";
-import { _useContext } from "@/context/Context";
+import { useSelector, useDispatch } from "react-redux";
+import { userActions } from "@/store/userSlice";
+import { RootState } from "@/utils/type.dt";
 
 const Instructorform: React.FC = () => {
-  const { user } = _useContext();
+  const dispatch = useDispatch();
+  const { setUserData } = userActions;
+  const { userData } = useSelector((states: RootState) => states.userStates);
   const [instructorDetails, setInstructorDetails] = useState({
     specialization: "",
     linkedIn: "",
@@ -17,6 +23,15 @@ const Instructorform: React.FC = () => {
   const router = useRouter();
 
   const [submitting, setSubmitting] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (!userData) {
+      const sessionUser = JSON.parse(sessionStorage.getItem("user")!);
+      if (sessionUser) {
+        dispatch(setUserData(sessionUser));
+      }
+    }
+  }, [dispatch, setUserData, userData]);
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -86,14 +101,14 @@ const Instructorform: React.FC = () => {
         <InputField
           label="First Name"
           name="firstname"
-          placeholder={user?.firstName!}
+          placeholder={userData?.firstName!}
           required={false}
           inputType="text"
         />
         <InputField
           label="Last Name"
           name="lastname"
-          placeholder={user?.lastName!}
+          placeholder={userData?.lastName!}
           inputType="text"
           required={false}
         />
@@ -103,7 +118,7 @@ const Instructorform: React.FC = () => {
           <InputField
             label="Email"
             name="email"
-            placeholder={user?.email!}
+            placeholder={userData?.email!}
             required={false}
             inputType="email"
           />

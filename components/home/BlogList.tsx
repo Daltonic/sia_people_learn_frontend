@@ -1,5 +1,4 @@
 import React from "react";
-import { blogs } from "@/data/blogs";
 import Link from "next/link";
 import Button from "@/components/reusableComponents/Button";
 import { GoArrowUpRight } from "react-icons/go";

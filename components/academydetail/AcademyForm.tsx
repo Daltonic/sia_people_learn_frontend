@@ -3,8 +3,7 @@ import Button from "@/components/reusableComponents/Button";
 import InputField from "@/components/reusableComponents/InputField";
 import SelectField from "@/components/reusableComponents/SelectField";
 import TextAreaField from "@/components/reusableComponents/TextAreaField";
-import { _useContext } from "@/context/Context";
-import { IAcademy } from "@/utils/type.dt";
+import { IAcademy, RootState } from "@/utils/type.dt";
 import { useRouter } from "next/navigation";
 import React, {
   useState,
@@ -13,6 +12,8 @@ import React, {
   SyntheticEvent,
   useEffect,
 } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { userActions } from "@/store/userSlice";
 
 interface AcademyProps {
   academy: IAcademy;
@@ -20,13 +21,18 @@ interface AcademyProps {
 
 const AcademyForm: React.FC<AcademyProps> = ({ academy }) => {
   const router = useRouter();
-  const { user } = _useContext();
+  const dispatch = useDispatch();
+  const { setUserData } = userActions;
+  const { userData } = useSelector((states: RootState) => states.userStates);
 
   useEffect(() => {
-    if (!user) {
-      router.push("/login");
+    if (!userData) {
+      const sessionUser = JSON.parse(sessionStorage.getItem("user")!);
+      if (sessionUser) {
+        dispatch(setUserData(sessionUser));
+      }
     }
-  }, [router, user]);
+  }, [dispatch, setUserData, userData]);
   const [productDetails, setProductDetails] = useState({
     title: academy.name,
     description: academy.description,
@@ -136,8 +142,8 @@ const AcademyForm: React.FC<AcademyProps> = ({ academy }) => {
     e.preventDefault();
 
     if (
-      user?.userType !== "instructor" &&
-      String(user?._id) === String(academy.userId._id)
+      userData?.userType !== "instructor" &&
+      String(userData?._id) === String(academy.userId._id)
     ) {
       throw new Error("Only instructors can create products");
     }

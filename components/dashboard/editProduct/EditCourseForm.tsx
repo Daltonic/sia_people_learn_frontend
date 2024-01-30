@@ -1,19 +1,25 @@
 import InputField from "@/components/reusableComponents/InputField";
 import SelectField from "@/components/reusableComponents/SelectField";
 import TextAreaField from "@/components/reusableComponents/TextAreaField";
-import { _useContext } from "@/context/Context";
+import { useSelector, useDispatch } from "react-redux";
+import { userActions } from "@/store/userSlice";
 import React, { useEffect, useState } from "react";
+import { RootState } from "@/utils/type.dt";
 
 const EditCourseForm: React.FC = () => {
   const [selectedOption, setSelectedOption] = useState("");
-  const { user, setUser } = _useContext();
+  const dispatch = useDispatch();
+  const { setUserData } = userActions;
+  const { userData } = useSelector((states: RootState) => states.userStates);
 
   useEffect(() => {
-    const sessionUser = JSON.parse(sessionStorage.getItem("user")!);
-    if (!user) {
-      setUser(sessionUser);
+    if (!userData) {
+      const sessionUser = JSON.parse(sessionStorage.getItem("user")!);
+      if (sessionUser) {
+        dispatch(setUserData(sessionUser));
+      }
     }
-  }, [setUser, user]);
+  }, [dispatch, setUserData, userData]);
 
   const handleChange = (value: any) => {
     setSelectedOption(value);

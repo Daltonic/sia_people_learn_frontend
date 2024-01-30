@@ -3,20 +3,28 @@ import { GetServerSidePropsContext, NextPage } from "next";
 import { useEffect, useState } from "react";
 
 import AcademyHead from "@/components/academydetail/AcademyHead";
-import { _useContext } from "@/context/Context";
 import { useRouter } from "next/navigation";
 import Tabs from "@/components/academydetail/Tabs";
 import { IAcademy } from "@/utils/type.dt";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/utils/type.dt";
+import { userActions } from "@/store/userSlice";
 
 const Page: NextPage<{ academyData: IAcademy }> = ({ academyData }) => {
   const router = useRouter();
-  const { user } = _useContext();
+  const dispatch = useDispatch();
+  const { setUserData } = userActions;
+  const { userData } = useSelector((states: RootState) => states.userStates);
 
   useEffect(() => {
-    if (!user) {
-      router.push("/login");
+    if (!userData) {
+      const sessionUser = JSON.parse(sessionStorage.getItem("user")!);
+      if (sessionUser) {
+        dispatch(setUserData(sessionUser));
+      }
     }
-  }, [router, user]);
+  }, [dispatch, setUserData, userData]);
+
   const [showSlider, setShowSlider] = useState<boolean>(false);
 
   useEffect(() => {

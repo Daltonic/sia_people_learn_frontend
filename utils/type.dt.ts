@@ -178,3 +178,32 @@ export interface IPosts {
   isNext: boolean;
   numofPages: number;
 }
+
+export interface CartState {
+  cartAcademyItems: IAcademy[];
+  cartAcademyItem: IAcademy | null;
+  cartCourseItems: ICourse[];
+  cartCourseItem: ICourse | null;
+}
+
+export interface IUser {
+  firstName: string;
+  lastName: string;
+  email: string;
+  username: string;
+  userType: "admin" | "user" | "instructor";
+  lastLogin: boolean;
+  createdAt: string;
+  updatedAt: string;
+  imgUrl?: string;
+  _id: string;
+}
+
+export interface UserState {
+  userData: IUser | null;
+}
+
+export interface RootState {
+  cartStates: CartState;
+  userStates: UserState;
+}

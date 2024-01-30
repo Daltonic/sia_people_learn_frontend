@@ -1,13 +1,16 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import SearchAndFilterBar from "@/components/reusableComponents/SearchAndFilterBar";
-import { _useContext } from "@/context/Context";
-import { IPost, IPosts } from "@/utils/type.dt";
+import { IPost, IPosts, RootState } from "@/utils/type.dt";
 import BlogCard from "@/components/blogs/BlogCard";
 import EmptyComponent from "@/components/reusableComponents/EmptyComponent";
+import { useSelector, useDispatch } from "react-redux";
+import { userActions } from "@/store/userSlice";
 
 const Tabs: React.FC = () => {
-  const { user } = _useContext();
+  const dispatch = useDispatch();
+  const { setUserData } = userActions;
+  const { userData } = useSelector((states: RootState) => states.userStates);
 
   const [activeTab, setActiveTab] = useState<number>(1);
   const [publishedPosts, setPublishedPosts] = useState<IPost[]>([]);
@@ -15,12 +18,21 @@ const Tabs: React.FC = () => {
   const [hasNext, setHasNext] = useState<boolean>(true);
   const [pagePagesCount, setPagesCount] = useState<number>(0);
 
+  useEffect(() => {
+    if (!userData) {
+      const sessionUser = JSON.parse(sessionStorage.getItem("user")!);
+      if (sessionUser) {
+        dispatch(setUserData(sessionUser));
+      }
+    }
+  }, [dispatch, setUserData, userData]);
+
   const handleTabClick = (tabNumber: number) => {
     setActiveTab(tabNumber);
   };
 
   useEffect(() => {
-    if (!user) return;
+    if (!userData) return;
     const fetchPublishedBlogs = async () => {
       const requestDetails = {
         method: "GET",
@@ -50,7 +62,7 @@ const Tabs: React.FC = () => {
       }
     };
     fetchPublishedBlogs();
-  }, [user]);
+  }, [userData]);
 
   useEffect(() => {
     const fetchBlogs = async () => {

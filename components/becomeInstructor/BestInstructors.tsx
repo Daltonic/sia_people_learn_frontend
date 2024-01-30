@@ -1,4 +1,3 @@
-"use client";
 import Link from "next/link";
 import Button from "../reusableComponents/Button";
 import { GoArrowUpRight } from "react-icons/go";
@@ -14,7 +13,8 @@ const BestInstructors: React.FC = () => {
             Learn from the best instructors
           </h2>
           <p className="text-[#4F547B] text-sm">
-          Master Web3 and Blockchain with top-notch instructors at Dapp Mentors Academy.
+            Master Web3 and Blockchain with top-notch instructors at Dapp
+            Mentors Academy.
           </p>
         </div>
 

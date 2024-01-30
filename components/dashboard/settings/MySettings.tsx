@@ -1,19 +1,29 @@
 import React, { useEffect } from "react";
 import Tabs from "./Tabs";
-import { _useContext } from "@/context/Context";
+import { useSelector, useDispatch } from "react-redux";
+import { userActions } from "@/store/userSlice";
 import DashboardHeading from "../dashboardLayout/DashboardHeading";
+import { RootState } from "@/utils/type.dt";
 
 const MySettings: React.FC = () => {
-  const { user, setUser } = _useContext();
+  const dispatch = useDispatch();
+  const { setUserData } = userActions;
+  const { userData } = useSelector((states: RootState) => states.userStates);
+
   useEffect(() => {
-    const sessionUser = JSON.parse(sessionStorage.getItem("user")!);
-    if (!user) {
-      setUser(sessionUser);
+    if (!userData) {
+      const sessionUser = JSON.parse(sessionStorage.getItem("user")!);
+      if (sessionUser) {
+        dispatch(setUserData(sessionUser));
+      }
     }
-  }, [setUser, user]);
+  }, [dispatch, setUserData, userData]);
   return (
     <div className="">
-      <DashboardHeading title="Settings" description="Customize your account preferences and privacy settings." />
+      <DashboardHeading
+        title="Settings"
+        description="Customize your account preferences and privacy settings."
+      />
       <Tabs />
     </div>
   );

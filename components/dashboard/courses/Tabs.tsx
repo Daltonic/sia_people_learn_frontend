@@ -3,17 +3,23 @@ import React, { useEffect, useState } from "react";
 import MyCourseCard from "./MyCourseCard";
 import { coursesData } from "@/data/courses";
 import SearchAndFilterBar from "@/components/reusableComponents/SearchAndFilterBar";
-import { _useContext } from "@/context/Context";
-import EmptyComponent from "@/components/reusableComponents/EmptyComponent";
+import { useSelector, useDispatch } from "react-redux";
+import { userActions } from "@/store/userSlice";
+import { RootState } from "@/utils/type.dt";
 
 const Tabs: React.FC = () => {
-  const { user, setUser } = _useContext();
+  const dispatch = useDispatch();
+  const { setUserData } = userActions;
+  const { userData } = useSelector((states: RootState) => states.userStates);
+
   useEffect(() => {
-    const sessionUser = JSON.parse(sessionStorage.getItem("user")!);
-    if (!user) {
-      setUser(sessionUser);
+    if (!userData) {
+      const sessionUser = JSON.parse(sessionStorage.getItem("user")!);
+      if (sessionUser) {
+        dispatch(setUserData(sessionUser));
+      }
     }
-  }, [setUser, user]);
+  }, [dispatch, setUserData, userData]);
   const [activeTab, setActiveTab] = useState<number>(1);
 
   const handleTabClick = (tabNumber: number) => {
@@ -63,39 +69,11 @@ const Tabs: React.FC = () => {
         <div className="py-4 text-[#4F547B]">
           {activeTab === 1 && (
             <div className="flex justify-between  w-full flex-wrap">
-            {coursesData.map((elm, i: number) => (
+              {coursesData.map((elm, i: number) => (
                 <MyCourseCard data={elm} index={i} key={i} />
               ))}
-          </div>
-          )}
-          {/* {activeTab === 2 && (
-            <div className="flex justify-between  w-full flex-wrap">
-              {coursesData.length > 0 ? (
-                coursesData.map((elm, i: number) => (
-                  <MyCourseCard data={elm} index={i} key={i} />
-                ))
-              ) : (
-                <EmptyComponent
-                  title="No Courses Available"
-                  buttonText="Create One Now"
-                />
-              )}
             </div>
           )}
-          {activeTab === 3 && (
-            <div className="flex justify-between w-full flex-wrap">
-              {coursesData.length > 0 ? (
-                coursesData.map((elm, i: number) => (
-                  <MyCourseCard data={elm} index={i} key={i} />
-                ))
-              ) : (
-                <EmptyComponent
-                  title="No Courses Available"
-                  buttonText="Create One Now"
-                />
-              )}
-            </div>
-          )} */}
         </div>
       </div>
     </div>

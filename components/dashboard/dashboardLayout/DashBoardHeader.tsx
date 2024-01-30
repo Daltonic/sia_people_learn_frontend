@@ -7,28 +7,33 @@ import { HiOutlineBell, HiOutlineShoppingBag } from "react-icons/hi2";
 import { HiOutlineMail } from "react-icons/hi";
 import { FaBarsStaggered } from "react-icons/fa6";
 import DashBoardSidebar from "./DashBoardSidebar";
-import { IUser, _useContext } from "@/context/Context";
 import Modal from "@/components/reusableComponents/Modal";
-import Button from "@/components/reusableComponents/Button";
 import PowerSVG from "../dashboardSVGs/PowerSVG";
 import { useRouter } from "next/navigation";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/utils/type.dt";
+import { userActions } from "@/store/userSlice";
 
 type SidebarProps = {};
 
 const DashBoardHeader: React.FC<SidebarProps> = () => {
-  const { user, setUser } = _useContext();
+  const dispatch = useDispatch();
+  const { setUserData } = userActions;
+  const { userData } = useSelector((states: RootState) => states.userStates);
+
   const [isOpen, setIsOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [sessionUser, setSessionUser] = useState<IUser>(user!);
 
   const router = useRouter();
 
   useEffect(() => {
-    if (!user) {
-      const refreshUser = JSON.parse(sessionStorage.getItem("user")!);
-      setSessionUser(refreshUser);
+    if (!userData) {
+      const sessionUser = JSON.parse(sessionStorage.getItem("user")!);
+      if (sessionUser) {
+        dispatch(setUserData(sessionUser));
+      }
     }
-  }, [user]);
+  }, [dispatch, setUserData, userData]);
 
   const handleToggleModal = () => {
     setShowModal((prevShowModal) => !prevShowModal);
@@ -66,7 +71,8 @@ const DashBoardHeader: React.FC<SidebarProps> = () => {
         sessionStorage.removeItem("accessToken");
         sessionStorage.removeItem("refreshToken");
         sessionStorage.removeItem("user");
-        setUser(null);
+        // setUser(null);
+        dispatch(setUserData(null));
       } catch (e: any) {
         console.log(e.message);
         alert(e.message);
@@ -123,18 +129,18 @@ const DashBoardHeader: React.FC<SidebarProps> = () => {
           <HiOutlineBell />
         </div>
         <div className="">
-          {sessionUser && (
+          {userData && (
             <div onClick={handleToggleModal} className="cursor-pointer ">
-              {sessionUser.imgUrl ? (
+              {userData.imgUrl ? (
                 <Image
                   width={28}
                   height={28}
-                  src={sessionUser.imgUrl}
+                  src={userData.imgUrl}
                   alt="profile"
                   className="rounded-full "
                 />
               ) : (
-                <div className="text-white bg-[#C5165D] text-[16px] flex items-center justify-center h-8 w-8 p-1 rounded-full">{`${sessionUser?.firstName[0].toUpperCase()}${sessionUser?.lastName[0].toUpperCase()}`}</div>
+                <div className="text-white bg-[#C5165D] text-[16px] flex items-center justify-center h-8 w-8 p-1 rounded-full">{`${userData?.firstName[0].toUpperCase()}${userData?.lastName[0].toUpperCase()}`}</div>
               )}
             </div>
           )}

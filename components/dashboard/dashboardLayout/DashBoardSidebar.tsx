@@ -8,7 +8,9 @@ import {
 import { useRouter } from "next/router";
 import { useRouter as useNavigationRouter } from "next/navigation";
 import PowerSVG from "../dashboardSVGs/PowerSVG";
-import { _useContext } from "@/context/Context";
+import { useSelector, useDispatch } from "react-redux";
+import { userActions } from "@/store/userSlice";
+import { RootState } from "@/utils/type.dt";
 
 interface DashboardSidebarProps {
   isOpen: boolean;
@@ -24,18 +26,21 @@ interface ISidebarItem {
 const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ isOpen }) => {
   const router = useRouter();
   const navigationRouter = useNavigationRouter();
-  const { setUser, user } = _useContext();
+  const dispatch = useDispatch();
+  const { setUserData } = userActions;
+  const { userData } = useSelector((states: RootState) => states.userStates);
+
   const [sidebarItems, setSidebarItems] = useState<ISidebarItem[]>();
 
   useEffect(() => {
-    if (user?.userType === "admin") {
+    if (userData?.userType === "admin") {
       setSidebarItems(adminSidebarItems);
-    } else if (user?.userType === "instructor") {
+    } else if (userData?.userType === "instructor") {
       setSidebarItems(instructorSidebarItems);
     } else {
       setSidebarItems(userSidebarItems);
     }
-  }, [user?.userType]);
+  }, [userData?.userType]);
 
   const handleLogout = () => {
     navigationRouter.push("/");
@@ -61,7 +66,7 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ isOpen }) => {
         sessionStorage.removeItem("accessToken");
         sessionStorage.removeItem("refreshToken");
         sessionStorage.removeItem("user");
-        setUser(null);
+        dispatch(setUserData(null));
       } catch (e: any) {
         console.log(e.message);
         alert(e.message);

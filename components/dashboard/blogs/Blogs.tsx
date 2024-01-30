@@ -1,26 +1,30 @@
 import BlogCard from "@/components/blogs/BlogCard";
-import { _useContext } from "@/context/Context";
-import { IPost, IPosts } from "@/utils/type.dt";
-import { useRouter } from "next/navigation";
+import { IPost, IPosts, RootState } from "@/utils/type.dt";
 import { useEffect, useState } from "react";
 import DashboardHeading from "../dashboardLayout/DashboardHeading";
+import { useSelector, useDispatch } from "react-redux";
+import { userActions } from "@/store/userSlice";
 
 const Blogs: React.FC = () => {
-  const { user, setUser } = _useContext();
+  const dispatch = useDispatch();
+  const { setUserData } = userActions;
+  const { userData } = useSelector((states: RootState) => states.userStates);
   const [posts, setPosts] = useState<IPost[]>([]);
   const [hasNext, setHasNext] = useState<boolean>(true);
   const [numOfPages, setNumberOfPages] = useState<number>(0);
   const [searchQuery, setSearchQuery] = useState<string>("");
 
   useEffect(() => {
-    const sessionUser = JSON.parse(sessionStorage.getItem("user")!);
-    if (!user) {
-      setUser(sessionUser);
+    if (!userData) {
+      const sessionUser = JSON.parse(sessionStorage.getItem("user")!);
+      if (sessionUser) {
+        dispatch(setUserData(sessionUser));
+      }
     }
-  }, [setUser, user]);
+  }, [dispatch, setUserData, userData]);
 
   useEffect(() => {
-    if (!user) return;
+    if (!userData) return;
     const fetchBlogs = async () => {
       const requestDetails = {
         method: "GET",
@@ -56,7 +60,7 @@ const Blogs: React.FC = () => {
       }
     };
     fetchBlogs();
-  }, [searchQuery, user]);
+  }, [searchQuery, userData]);
 
   return (
     <div className="">
