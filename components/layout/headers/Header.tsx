@@ -18,6 +18,9 @@ const Header: React.FC = () => {
   const dispatch = useDispatch();
   const { setUserData } = userActions;
   const { userData } = useSelector((states: RootState) => states.userStates);
+  const { cartCourseItems, cartAcademyItems } = useSelector(
+    (states: RootState) => states.cartStates
+  );
 
   const [showModal, setShowModal] = useState(false);
   const router = useRouter();
@@ -128,7 +131,13 @@ const Header: React.FC = () => {
 
           <div className="text-white flex items-center gap-5 md:gap-10">
             <Navbar />
-            <Link href="/shopcart">
+            <Link href="/shopcart" className="relative">
+              {cartAcademyItems.length + cartCourseItems.length > 0 && (
+                <div className="fixed w-6 h-6 text-white bg-[#C5165D] text-[14px] flex justify-center items-center top-[8px] p-[2px] rounded-full">
+                  {cartAcademyItems.length + cartCourseItems.length}
+                </div>
+              )}
+
               <FiShoppingCart className="text-2xl text-black icon icon-basket" />
             </Link>
             {userData ? (

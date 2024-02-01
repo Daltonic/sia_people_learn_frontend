@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { IoIosStar } from "react-icons/io";
 import Image from "next/image";
 import { ICourse } from "@/utils/type.dt";
+import { convertStringToDate } from "@/utils";
 
 interface ComponentProps {
   course: ICourse;
@@ -68,7 +69,7 @@ const CourseHead: React.FC<ComponentProps> = ({ course }) => {
               />
             </div>
             <div className="md:text-sm text-[#4F547B]">
-              Last updated 11/2021
+              {`Last updates: ${convertStringToDate(course.updatedAt)}`}
             </div>
           </div>
         </div>

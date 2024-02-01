@@ -1,6 +1,6 @@
 "use client";
-import React, { useEffect } from "react";
-import { ICourse } from "@/utils/type.dt";
+import React, { useEffect, useState } from "react";
+import { ICourse, RootState } from "@/utils/type.dt";
 import Image from "next/image";
 import Button from "../reusableComponents/Button";
 import {
@@ -10,12 +10,40 @@ import {
   FaTwitter,
 } from "react-icons/fa";
 import Link from "next/link";
+import { useDispatch, useSelector } from "react-redux";
+import { cartActions } from "@/store/cartSlice";
 
 interface ComponentProps {
   course: ICourse;
 }
 
 const CourseCardDetail: React.FC<ComponentProps> = ({ course }) => {
+  const { cartCourseItems } = useSelector(
+    (states: RootState) => states.cartStates
+  );
+  const { setCartCourseItems } = cartActions;
+  const dispatch = useDispatch();
+  const [buttonText, setButtonText] = useState<string>(() => {
+    const currentCourse = cartCourseItems.find(
+      (item) => item._id === course._id
+    );
+    return currentCourse ? "Remove from Cart" : "Add to Cart";
+  });
+
+  const handleAddToCart = () => {
+    const cartCourse = cartCourseItems.find((item) => item._id === course._id);
+    if (cartCourse) {
+      const updatedCourses = cartCourseItems.filter(
+        (item) => item._id !== course._id
+      );
+      dispatch(setCartCourseItems(updatedCourses));
+      setButtonText("Add To Cart");
+    } else {
+      const updatedCourses = [...cartCourseItems, course];
+      dispatch(setCartCourseItems(updatedCourses));
+      setButtonText("Remove from Cart");
+    }
+  };
   return (
     <div className="bg-white w-full md:w-[25%] md:right-10 md:top-0 md:absolute md:border border-[#EDEDED] p-2 space-y-2 mt-10 md:mt-0 rounded-md z-10">
       <div className="relative flex justify-center items-center">
@@ -46,14 +74,17 @@ const CourseCardDetail: React.FC<ComponentProps> = ({ course }) => {
         </div>
 
         <div className="block ">
+          <Button
+            variant="pink"
+            className="w-full mb-3"
+            onClick={handleAddToCart}
+          >
+            {buttonText}
+          </Button>
+
           <Link href="/shopcart">
-            <Button variant="pink" className="w-full mb-3">
-              Add To Cart
-            </Button>
-          </Link>
-          <Link href="/invoice">
             <Button variant="pinkoutline" className="w-full">
-              Buy Now
+              Proceed to Cart
             </Button>
           </Link>
         </div>

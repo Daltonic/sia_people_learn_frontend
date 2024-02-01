@@ -57,6 +57,7 @@ export const getServerSideProps = async () => {
     );
 
     const academies = await academiesRes.json();
+    console.log(academies);
 
     const coursesRes = await fetch(
       `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/courses?type=Course`,

@@ -1,6 +1,6 @@
 "use client";
-import React from "react";
-import { IAcademy } from "@/utils/type.dt";
+import React, { useState } from "react";
+import { IAcademy, RootState } from "@/utils/type.dt";
 import Image from "next/image";
 import Button from "../reusableComponents/Button";
 import {
@@ -10,6 +10,9 @@ import {
   FaTwitter,
 } from "react-icons/fa";
 import Link from "next/link";
+import { useDispatch, useSelector } from "react-redux";
+import { cartActions } from "@/store/cartSlice";
+import { useRouter } from "next/navigation";
 
 interface ComponentProps {
   academy: IAcademy;
@@ -17,6 +20,71 @@ interface ComponentProps {
 }
 
 const AcademyDetails: React.FC<ComponentProps> = ({ academy }) => {
+  console.log(academy);
+  const router = useRouter();
+  const { cartAcademyItems } = useSelector(
+    (states: RootState) => states.cartStates
+  );
+  const { setCartAcademyItems } = cartActions;
+  const dispatch = useDispatch();
+  const [buttonText, setButtonText] = useState<string>(() => {
+    const currentAcademy = cartAcademyItems.find(
+      (item) => item._id === academy._id
+    );
+    return currentAcademy ? "Remove from Cart" : "Add to Cart";
+  });
+
+  const handleAddToCart = () => {
+    const cartCourse = cartAcademyItems.find(
+      (item) => item._id === academy._id
+    );
+    if (cartCourse) {
+      const updatedAcademies = cartAcademyItems.filter(
+        (item) => item._id !== academy._id
+      );
+      dispatch(setCartAcademyItems(updatedAcademies));
+      setButtonText("Add To Cart");
+    } else {
+      const updatedAcademies = [...cartAcademyItems, academy];
+      dispatch(setCartAcademyItems(updatedAcademies));
+      setButtonText("Remove from Cart");
+    }
+  };
+
+  const handleSubscribe = () => {
+    const subscribe = async () => {
+      const requestDetails = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
+        },
+      };
+
+      try {
+        const subscriptionBody = {
+          productId: academy._id,
+          paymentType: "Stripe",
+        };
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/processors/stripe/subscribe`,
+          { ...requestDetails, body: JSON.stringify(subscriptionBody) }
+        );
+
+        if (response.status === 400) {
+          const message = await response.text();
+          alert(message);
+        } else {
+          const result = await response.json();
+          console.log(result);
+          router.push(result.url);
+        }
+      } catch (e: any) {
+        console.log(e.message);
+      }
+    };
+    subscribe();
+  };
   return (
     <div className="bg-white w-full md:w-[25%] md:right-10 md:top-0 md:absolute md:border border-[#EDEDED] p-2 space-y-2 mt-10 md:mt-0 rounded-md z-10">
       <div className="relative flex justify-center items-center">
@@ -49,14 +117,27 @@ const AcademyDetails: React.FC<ComponentProps> = ({ academy }) => {
         </div>
 
         <div className="block ">
-          <Link href="/shopcart">
-            <Button variant="pink" className="w-full mb-3">
-              Add To Cart
+          {academy.validity < 1 ? (
+            <Button
+              variant="pink"
+              className="w-full mb-3"
+              onClick={handleAddToCart}
+            >
+              {buttonText}
             </Button>
-          </Link>
-          <Link href="/invoice">
+          ) : (
+            <Button
+              variant="pink"
+              className="w-full mb-3"
+              onClick={handleSubscribe}
+            >
+              Subscribe
+            </Button>
+          )}
+
+          <Link href="/shopcart">
             <Button variant="pinkoutline" className="w-full">
-              Buy Now
+              Proceed to Cart
             </Button>
           </Link>
         </div>
@@ -76,7 +157,7 @@ const AcademyDetails: React.FC<ComponentProps> = ({ academy }) => {
               />
               <p className="text-[#321463]">Courses</p>
             </div>
-            <p className="text-[#4F547B]">{academy.courses.length}</p>
+            {/* <p className="text-[#4F547B]">{academy.courses.length}</p> */}
           </div>
           <div className="flex justify-between items-center border-b py-2 border-[#EDEDED]">
             <div className="flex gap-2 items-center">
