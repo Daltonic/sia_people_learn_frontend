@@ -97,6 +97,7 @@ export interface ICourse {
   difficulty: "Advanced" | "Intermediate" | "Beginner";
   duration: number;
   imageUrl: string | null;
+  validity: number;
   submitted: boolean;
   approved: boolean;
   deleted: boolean;
@@ -184,6 +185,7 @@ export interface CartState {
   cartAcademyItem: IAcademy | null;
   cartCourseItems: ICourse[];
   cartCourseItem: ICourse | null;
+  cartAmount: number;
 }
 
 export interface IUser {
