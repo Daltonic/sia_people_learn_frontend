@@ -1,68 +1,45 @@
-# Monthly Project Report (December 2023)
+# Monthly Project Report (January 2024)
 
-## Progress Update
+## Summary
 
-In December 2023, we made substantial progress, including:
+This report outlines the progress of the project in January 2024, highlighting key accomplishments, challenges faced, and planned actions for the upcoming month.
 
-- Translating the Figma design into frontend code using NextJs, Tailwind CSS, and Typescript
-- Open-sourcing the frontend code on GitHub and [Vercel](https://sia-people-learn-frontend.vercel.app/)
-- Developing 60% of the backend API services using NodeJs and Typescript
-- Open-sourcing the backend API services on GitHub
+## Highlights
 
-These achievements marked the completion of the frontend development phase and the beginning of the backend integration stage.
+In January, we achieved significant milestones:
 
-## Current Milestone
+* Successfully integrated API endpoints with the frontend.
+* Implemented critical services:
+  - Stripe payment service
+  - Email service
+  - Sia Renterd service (currently on Zen Testnet, pending mainnet release).
 
-The team is now focusing on backend code development, adding various endpoints to the existing codebase, and implementing two major services: Payment services and File upload service. These tasks are crucial in streamlining the workload for future milestones.
+![Renterd Zen Testnet File Uploads](https://i.ibb.co/NCjP4WV/Screenshot-2024-02-02-at-1-38-35-PM.png)
 
-## Accomplishments
+These advancements marked the transition from backend integration to refinement, testing, and deployment stages.
 
-Frontend development accomplishments include:
+## Ongoing Work
 
-- [Home page](https://github.com/Daltonic/sia_people_learn_frontend/blob/main/pages/index.tsx)
-- [Dashboard and all its subpages (Course creation, settings, reviews, etc.)](https://github.com/Daltonic/sia_people_learn_frontend/tree/main/pages/(dashboard))
-- [About page](https://github.com/Daltonic/sia_people_learn_frontend/blob/main/pages/about/index.tsx)
-- [Blog and blog details page](https://github.com/Daltonic/sia_people_learn_frontend/blob/main/pages/blog/index.tsx) 
-- [Instructors and become Instructor Page](https://github.com/Daltonic/sia_people_learn_frontend/blob/main/pages/instructor/index.tsx) 
-- [Contact Page](https://github.com/Daltonic/sia_people_learn_frontend/blob/main/pages/contact/index.tsx)
-- [Course and course details page](https://github.com/Daltonic/sia_people_learn_frontend/blob/main/pages/courses/index.tsx)
-- [Lessons page](https://github.com/Daltonic/sia_people_learn_frontend/blob/main/pages/lessonSingle/index.tsx)
-- [Login and Signup page](https://github.com/Daltonic/sia_people_learn_frontend/blob/main/pages/login/index.tsx)
-- [404 Page](https://github.com/Daltonic/sia_people_learn_frontend/blob/main/pages/not-found/index.tsx)
-- [Shopping cart, checkout, and orders page](https://github.com/Daltonic/sia_people_learn_frontend/blob/main/pages/shopcart/index.tsx)
-- [Pricing page](https://github.com/Daltonic/sia_people_learn_frontend/blob/main/pages/pricing/index.tsx)
-- [Terms and Condition page](https://github.com/Daltonic/sia_people_learn_frontend/blob/main/pages/terms/index.tsx)
-- etc.
+The team is currently focusing on refining, testing, and deploying the services to ensure optimal functionality.
 
-Backend development accomplishments include:
+## Achievements
 
-- [Endpoints for Academies](https://github.com/Daltonic/sia_people_learn_backend/blob/main/src/resources/academy/academy.controller.ts)
-- [Endpoints for Courses](https://github.com/Daltonic/sia_people_learn_backend/blob/main/src/resources/course/course.controller.ts)
-- [Endpoints for Lessons](https://github.com/Daltonic/sia_people_learn_backend/blob/main/src/resources/lesson/lesson.controller.ts)
-- [Endpoints for Orders](https://github.com/Daltonic/sia_people_learn_backend/blob/main/src/resources/order/order.controller.ts)
-- [Endpoints for Blog posts](https://github.com/Daltonic/sia_people_learn_backend/blob/main/src/resources/post/post.controller.ts)
-- [Endpoints for Promo Codes](https://github.com/Daltonic/sia_people_learn_backend/blob/main/src/resources/promo/promo.controllers.ts)
-- [Endpoints for Reviews](https://github.com/Daltonic/sia_people_learn_backend/blob/main/src/resources/review/review.controller.ts)
-- [Endpoints for Sessions](https://github.com/Daltonic/sia_people_learn_backend/blob/main/src/resources/session/session.controller.ts)
-- [Endpoints for Settings](https://github.com/Daltonic/sia_people_learn_backend/blob/main/src/resources/settings/settings.controller.ts)
-- [Endpoints for Cart](https://github.com/Daltonic/sia_people_learn_backend/blob/main/src/resources/subscription/subscription.controller.ts)
-- [Endpoints for Testimonies](https://github.com/Daltonic/sia_people_learn_backend/blob/main/src/resources/testimony/testimony.controller.ts)
-- [Endpoints for Users](https://github.com/Daltonic/sia_people_learn_backend/blob/main/src/resources/user/user.controller.ts)
-- [Endpoints for Wishlists](https://github.com/Daltonic/sia_people_learn_backend/blob/main/src/resources/wishlist/wishlist.controller.ts)
-- etc.
+* [Seamless integration of API endpoints with the frontend](https://shorturl.at/kuO48).
+* [Implementation of critical services](https://shorturl.at/isX48): 
+   - [Stripe payment service](https://github.com/Daltonic/sia_people_learn_backend/tree/main/src/resources/processors)
+   - Email service
+   - Sia Renterd service
+
 
 ## Challenges
-
-Challenges faced include maintaining code quality and managing the workload of completing two milestones simultaneously. The team overcame these by sacrificing some leisure time, which allowed for more feature development.
+* Challenges arose while testing the Sia Renterd API on Zen Testnet due to limitations of the API documentation.
+* Initial difficulties integrating Stripe as the payment processor.
 
 ## Next Steps
 
-In January 2024, the team plans to:
+In February, we aim to:
 
-- Integrate the developed API endpoints with the frontend
-- Add critical services including Payment service, Email service, and Sia Renterd service
-
-**For any queries or more information:**
-Please contact: darlingtongospel@gmail.com
-Darlington Gospel
-Lead Developer at Dapp Mentors
+* Finalize the project.
+* Host the Project online.
+* Launch the Renterd Service on the Mainnet.
+* Replace the old system with the new one.
