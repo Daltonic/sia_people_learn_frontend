@@ -33,10 +33,15 @@ const LoginPage: NextPage = () => {
       const parsedUser = JSON.parse(user as string) as IUser;
 
       dispatch(setUserData(parsedUser));
+      const previousPath = sessionStorage.getItem("prevPath");
+      if (!previousPath) {
+        router.push("/(dashboard)/dashboard");
+      } else {
+        router.push(previousPath);
+      }
+      sessionStorage.removeItem("prevPath");
       sessionStorage.setItem("accessToken", token as string);
       sessionStorage.setItem("user", JSON.stringify(parsedUser));
-
-      router.push("/(dashboard)/dashboard");
     }
   }, [router, dispatch, setUserData, token, user]);
 
@@ -81,7 +86,13 @@ const LoginPage: NextPage = () => {
       } else {
         const { user, accessToken, refreshToken } = await response.json();
         dispatch(setUserData(user));
-        router.push("/(dashboard)/dashboard");
+        const previousPath = sessionStorage.getItem("prevPath");
+        if (!previousPath) {
+          router.push("/(dashboard)/dashboard");
+        } else {
+          router.push(previousPath);
+        }
+        sessionStorage.removeItem("prevPath");
         sessionStorage.setItem("accessToken", accessToken);
         sessionStorage.setItem("refreshToken", refreshToken);
         sessionStorage.setItem("user", JSON.stringify(user));
