@@ -1,9 +1,12 @@
+"use client";
+
 import { cartActions } from "@/store/cartSlice";
 import { RootState } from "@/utils/type.dt";
 import Image from "next/image";
 import { LiaTimesSolid } from "react-icons/lia";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 interface Product {
   imageUrl: string | null;
@@ -16,6 +19,11 @@ interface Product {
 
 const ShopCartTable: React.FC = () => {
   const router = useRouter();
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
   const { setCartAcademyItems, setCartCourseItems, setCartAmount } =
     cartActions;
   const dispatch = useDispatch();
@@ -23,59 +31,29 @@ const ShopCartTable: React.FC = () => {
     (states: RootState) => states.cartStates
   );
 
-  const subscriptionProducts: Product[] = [];
-  const oneOffProducts: Product[] = [];
+  const cartItems: Product[] = [];
 
-  for (let item of cartAcademyItems) {
-    if (item.validity === 0) {
-      oneOffProducts.push({
-        imageUrl: item?.imageUrl,
-        name: item.name,
-        type: "Academy",
-        price: item.price,
-        discountedPrice: item.price,
-        _id: item._id,
-      });
-    } else {
-      subscriptionProducts.push({
-        imageUrl: item?.imageUrl,
-        name: item.name,
-        type: "Academy",
-        price: item.price,
-        discountedPrice: item.price,
-        _id: item._id,
-      });
-    }
-  }
+  cartAcademyItems.forEach((item) =>
+    cartItems.push({
+      imageUrl: item?.imageUrl,
+      name: item.name,
+      type: "Academy",
+      price: item.price,
+      discountedPrice: item.price,
+      _id: item._id,
+    })
+  );
 
-  for (let item of cartCourseItems) {
-    if (item.validity === 0) {
-      oneOffProducts.push({
-        imageUrl: item?.imageUrl,
-        name: item.name,
-        type: "Course",
-        price: item.price,
-        discountedPrice: item.price,
-        _id: item._id,
-      });
-    } else {
-      subscriptionProducts.push({
-        imageUrl: item?.imageUrl,
-        name: item.name,
-        type: "Academy",
-        price: item.price,
-        discountedPrice: item.price,
-        _id: item._id,
-      });
-    }
-  }
-
-  let initialTotal = 0;
-  for (let item of oneOffProducts) {
-    initialTotal += item.price;
-  }
-
-  dispatch(setCartAmount(initialTotal));
+  cartCourseItems.forEach((item) => {
+    cartItems.push({
+      imageUrl: item?.imageUrl,
+      name: item.name,
+      type: "Course",
+      price: item.price,
+      discountedPrice: item.price,
+      _id: item._id,
+    });
+  });
 
   const handleRemoveFromCart = (
     _id: string,
@@ -87,12 +65,19 @@ const ShopCartTable: React.FC = () => {
         (item) => item._id !== _id
       );
       dispatch(setCartAcademyItems(updatedAcademies));
+      sessionStorage.setItem(
+        "sessionAcademies",
+        JSON.stringify(updatedAcademies)
+      );
       const currentAmount = cartAmount - price;
+      sessionStorage.setItem("cartAmount", JSON.stringify(currentAmount));
       dispatch(setCartAmount(currentAmount));
     } else {
       const updatedCourses = cartCourseItems.filter((item) => item._id !== _id);
       dispatch(setCartCourseItems(updatedCourses));
+      sessionStorage.setItem("sessionCourses", JSON.stringify(updatedCourses));
       const currentAmount = cartAmount - price;
+      sessionStorage.setItem("cartAmount", JSON.stringify(currentAmount));
       dispatch(setCartAmount(currentAmount));
     }
   };
@@ -112,7 +97,7 @@ const ShopCartTable: React.FC = () => {
           productId: string;
           productType: "Course" | "Academy";
         }[] = [];
-        for (let item of oneOffProducts) {
+        for (let item of cartItems) {
           products.push({
             productId: item._id,
             productType: item.type === "Academy" ? "Academy" : "Course",
@@ -120,10 +105,10 @@ const ShopCartTable: React.FC = () => {
         }
         const subscriptionBody = {
           products,
-          paymentFrequency: "One-Off",
+          paymentType: "Stripe",
         };
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/subscriptions/create`,
+          `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/processors/stripe/checkout`,
           { ...requestDetails, body: JSON.stringify(subscriptionBody) }
         );
         if (response.status === 400) {
@@ -132,28 +117,7 @@ const ShopCartTable: React.FC = () => {
         } else {
           const result = await response.json();
           console.log(result);
-          const subscriptionIds: string[] = [];
-          for (let item of result) {
-            subscriptionIds.push(item?._id);
-          }
-          const stripeBody = {
-            subscriptionIds,
-            paymentType: "Stripe",
-          };
-
-          const stripeResponse = await fetch(
-            `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/processors/stripe/checkout`,
-            { ...requestDetails, body: JSON.stringify(stripeBody) }
-          );
-
-          if (stripeResponse.status === 400) {
-            const message = await stripeResponse.text();
-            alert(message);
-          } else {
-            const result = await stripeResponse.json();
-            console.log(result);
-            router.push(result.url!);
-          }
+          router.push(result.url);
         }
       } catch (e: any) {
         console.log(e.message);
@@ -162,134 +126,12 @@ const ShopCartTable: React.FC = () => {
     checkout();
   };
 
-  const handleSubscribe = (
-    productId: string,
-    productType: "Course" | "Academy" | "Book",
-    paymentFrequency: "Month" | "Year"
-  ) => {
-    const subscribe = async () => {
-      const requestDetails = {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
-        },
-      };
-
-      try {
-        const subscriptionBody = {
-          products: [
-            {
-              productId,
-              productType: productType === "Academy" ? "Academy" : "Course",
-            },
-          ],
-          paymentFrequency,
-        };
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/subscriptions/create`,
-          { ...requestDetails, body: JSON.stringify(subscriptionBody) }
-        );
-        if (response.status === 400) {
-          const message = await response.text();
-          alert(message);
-        } else {
-          const result = await response.json();
-          console.log(result);
-          const subscriptionId = result[0]._id;
-          console.log(subscriptionId);
-
-          const stripeBody = {
-            subscriptionId,
-            paymentType: "Stripe",
-            paymentFrequency,
-          };
-
-          const stripeResponse = await fetch(
-            `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/processors/stripe/subscribe`,
-            { ...requestDetails, body: JSON.stringify(stripeBody) }
-          );
-
-          if (stripeResponse.status === 400) {
-            const message = await stripeResponse.text();
-            alert(message);
-          } else {
-            console.log("Success");
-          }
-        }
-      } catch (e: any) {
-        console.log(e.message);
-      }
-    };
-    subscribe();
-  };
-
   return (
-    <div className="w-full flex flex-col justify-center px-10 md:p-0">
-      {subscriptionProducts.length > 0 && (
-        <div className="flex flex-col items-center overflow-hidden w-full">
-          <table className="mt-14 md:w-5/6">
-            <thead className="bg-[#F5F7FE] text-[#C5165D] font-medium h-20 rounded-md">
-              <tr>
-                <th className="text-start pl-10">Product</th>
-                <th className="px-10 w-1/8 text-start">Type</th>
-                <th className="px-10 w-1/8 text-start">Price</th>
-                <th className="px-10 w-1/8 text-start">Subtotal</th>
-                <th className="px-10 w-1/8 text-start">Remove</th>
-                <th className="px-10 w-1/8 text-start">Subscribe</th>
-              </tr>
-            </thead>
-            <tbody>
-              {subscriptionProducts.map((item, i) => (
-                <tr key={i} className="border-b border-[#EDEDED]">
-                  <td className="flex items-center gap-5 pl-10 py-2 w-fit px-5">
-                    <Image
-                      className="w-20 rounded-md"
-                      alt=""
-                      width={0}
-                      height={0}
-                      src={item.imageUrl || "/images/shape.svg"}
-                    />
-                    <span className="text-[#321463] font-medium">
-                      {item.name}
-                    </span>
-                  </td>
-                  <td className="w-1/8 px-10 text-start text-[#4F547B]">
-                    {item.type}
-                  </td>
-                  <td className="w-1/8 px-10 text-start text-[#4F547B]">
-                    ${item.price}
-                  </td>
-                  <td className="w-1/8 px-10 text-start text-[#321463] font-medium">
-                    ${item.price}
-                  </td>
-                  <td className="w-1/8 px-16 text-base text-[#1A3454]">
-                    <div
-                      onClick={() =>
-                        handleRemoveFromCart(item._id, item.type, item.price)
-                      }
-                      className="cursor-pointer w-fit flex items-center justify-center bg-slate-400 rounded-full"
-                    >
-                      <LiaTimesSolid className="w-full" />
-                    </div>
-                  </td>
-                  <td className="w-1/8 px-16 text-base text-[#1A3454]">
-                    <div
-                      onClick={() =>
-                        handleSubscribe(item._id, item.type, "Month")
-                      }
-                      className="cursor-pointer w-fit flex items-center justify-center bg-green-400 rounded-full"
-                    >
-                      <LiaTimesSolid className="w-full" />
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
-      {oneOffProducts.length > 0 && (
+    <div
+      className="w-full flex flex-col justify-center px-10 md:p-0"
+      suppressHydrationWarning
+    >
+      {cartItems.length > 0 && (
         <div className="flex flex-col items-center overflow-hidden w-full">
           <table className="mt-14 md:w-5/6">
             <thead className="bg-[#F5F7FE] text-[#C5165D] font-medium h-20 rounded-md">
@@ -302,7 +144,7 @@ const ShopCartTable: React.FC = () => {
               </tr>
             </thead>
             <tbody>
-              {oneOffProducts.map((item, i) => (
+              {cartItems.map((item, i) => (
                 <tr key={i} className="border-b border-[#EDEDED]">
                   <td className="flex items-center gap-5 pl-10 py-2 w-fit px-5">
                     <Image

@@ -18,10 +18,10 @@ interface ComponentProps {
 }
 
 const CourseCardDetail: React.FC<ComponentProps> = ({ course }) => {
-  const { cartCourseItems } = useSelector(
+  const { cartCourseItems, cartAmount } = useSelector(
     (states: RootState) => states.cartStates
   );
-  const { setCartCourseItems } = cartActions;
+  const { setCartCourseItems, setCartAmount } = cartActions;
   const dispatch = useDispatch();
   const [buttonText, setButtonText] = useState<string>(() => {
     const currentCourse = cartCourseItems.find(
@@ -30,6 +30,13 @@ const CourseCardDetail: React.FC<ComponentProps> = ({ course }) => {
     return currentCourse ? "Remove from Cart" : "Add to Cart";
   });
 
+  useEffect(() => {
+    const currentCourse = cartCourseItems.find(
+      (item) => item._id === course._id
+    );
+    setButtonText(currentCourse ? "Remove from Cart" : "Add to Cart");
+  }, [cartCourseItems, course._id]);
+
   const handleAddToCart = () => {
     const cartCourse = cartCourseItems.find((item) => item._id === course._id);
     if (cartCourse) {
@@ -37,13 +44,23 @@ const CourseCardDetail: React.FC<ComponentProps> = ({ course }) => {
         (item) => item._id !== course._id
       );
       dispatch(setCartCourseItems(updatedCourses));
+      sessionStorage.setItem("sessionCourses", JSON.stringify(updatedCourses));
       setButtonText("Add To Cart");
+      const newCartAmount = cartAmount - course.price;
+      sessionStorage.setItem("cartAmount", JSON.stringify(newCartAmount));
+      dispatch(setCartAmount(newCartAmount));
     } else {
       const updatedCourses = [...cartCourseItems, course];
       dispatch(setCartCourseItems(updatedCourses));
+      sessionStorage.setItem("sessionCourses", JSON.stringify(updatedCourses));
       setButtonText("Remove from Cart");
+      const newCartAmount = cartAmount + course.price;
+      sessionStorage.setItem("cartAmount", JSON.stringify(newCartAmount));
+      dispatch(setCartAmount(newCartAmount));
     }
   };
+  console.log(cartAmount);
+
   return (
     <div className="bg-white w-full md:w-[25%] md:right-10 md:top-0 md:absolute md:border border-[#EDEDED] p-2 space-y-2 mt-10 md:mt-0 rounded-md z-10">
       <div className="relative flex justify-center items-center">

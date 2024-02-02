@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IAcademy, RootState } from "@/utils/type.dt";
 import Image from "next/image";
 import Button from "../reusableComponents/Button";
@@ -20,12 +20,11 @@ interface ComponentProps {
 }
 
 const AcademyDetails: React.FC<ComponentProps> = ({ academy }) => {
-  console.log(academy);
   const router = useRouter();
-  const { cartAcademyItems } = useSelector(
+  const { cartAcademyItems, cartAmount } = useSelector(
     (states: RootState) => states.cartStates
   );
-  const { setCartAcademyItems } = cartActions;
+  const { setCartAcademyItems, setCartAmount } = cartActions;
   const dispatch = useDispatch();
   const [buttonText, setButtonText] = useState<string>(() => {
     const currentAcademy = cartAcademyItems.find(
@@ -33,6 +32,13 @@ const AcademyDetails: React.FC<ComponentProps> = ({ academy }) => {
     );
     return currentAcademy ? "Remove from Cart" : "Add to Cart";
   });
+
+  useEffect(() => {
+    const currentAcademy = cartAcademyItems.find(
+      (item) => item._id === academy._id
+    );
+    setButtonText(currentAcademy ? "Remove from Cart" : "Add to Cart");
+  }, [academy._id, cartAcademyItems]);
 
   const handleAddToCart = () => {
     const cartCourse = cartAcademyItems.find(
@@ -44,12 +50,28 @@ const AcademyDetails: React.FC<ComponentProps> = ({ academy }) => {
       );
       dispatch(setCartAcademyItems(updatedAcademies));
       setButtonText("Add To Cart");
+      sessionStorage.setItem(
+        "sessionAcademies",
+        JSON.stringify(updatedAcademies)
+      );
+      const newCartAmount = cartAmount - academy.price;
+      sessionStorage.setItem("cartAmount", JSON.stringify(newCartAmount));
+      dispatch(setCartAmount(newCartAmount));
     } else {
       const updatedAcademies = [...cartAcademyItems, academy];
       dispatch(setCartAcademyItems(updatedAcademies));
       setButtonText("Remove from Cart");
+      sessionStorage.setItem(
+        "sessionAcademies",
+        JSON.stringify(updatedAcademies)
+      );
+      const newCartAmount = cartAmount + academy.price;
+      sessionStorage.setItem("cartAmount", JSON.stringify(newCartAmount));
+      dispatch(setCartAmount(newCartAmount));
     }
   };
+
+  console.log(cartAmount);
 
   const handleSubscribe = () => {
     const subscribe = async () => {
@@ -157,7 +179,7 @@ const AcademyDetails: React.FC<ComponentProps> = ({ academy }) => {
               />
               <p className="text-[#321463]">Courses</p>
             </div>
-            {/* <p className="text-[#4F547B]">{academy.courses.length}</p> */}
+            <p className="text-[#4F547B]">{academy.courses.length}</p>
           </div>
           <div className="flex justify-between items-center border-b py-2 border-[#EDEDED]">
             <div className="flex gap-2 items-center">
