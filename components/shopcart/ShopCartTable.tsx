@@ -19,11 +19,7 @@ interface Product {
 
 const ShopCartTable: React.FC = () => {
   const router = useRouter();
-  const [isClient, setIsClient] = useState(false);
 
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
   const { setCartAcademyItems, setCartCourseItems, setCartAmount } =
     cartActions;
   const dispatch = useDispatch();

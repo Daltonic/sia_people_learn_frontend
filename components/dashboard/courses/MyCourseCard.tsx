@@ -4,19 +4,20 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { IoIosStar, IoMdMore } from "react-icons/io";
+import { IUserSubscription } from "@/utils/type.dt";
 
 interface ComponentProps {
-  data: any;
+  product: IUserSubscription;
   index?: number;
 }
 
-const MyCourseCard: React.FC<ComponentProps> = ({ data, index }) => {
+const MyCourseCard: React.FC<ComponentProps> = ({ product, index }) => {
   const [rating, setRating] = useState<string[]>([]);
 
   useEffect(() => {
     const newRating = Array(5).fill("star");
     setRating(newRating);
-  }, [data.rating]);
+  }, [product.productId.rating]);
 
   return (
     <div
@@ -24,14 +25,17 @@ const MyCourseCard: React.FC<ComponentProps> = ({ data, index }) => {
       style={{ height: "fit-content" }}
     >
       <div className="">
-        <Link className="linkCustom" href={`/coursedetail/${data.id}`}>
+        <Link
+          className="linkCustom"
+          href={`/coursedetail/${product.productId._id}`}
+        >
           <div className=" relative">
             <Image
               width={500}
               height={400}
               style={{ height: "100%", width: "100%" }}
               className="rounded-lg"
-              src={data.imageSrc}
+              src={product.productId.imageUrl || "/images/courseCard/card1.svg"}
               alt="image"
             />
             <div className="text-[#6A7A99] bg-white p-1 text-xl rounded-md absolute top-3 right-3">
@@ -41,10 +45,13 @@ const MyCourseCard: React.FC<ComponentProps> = ({ data, index }) => {
         </Link>
         <div className="my-2 p-2 space-y-2">
           <div className="flex items-center justify-between md:md:text-xs gap-4">
-            <p className="text-[#4F547B]">{data.authorName}</p>
+            <p className="text-[#4F547B]">
+              {product.productId.userId.firstName}{" "}
+              {product.productId.userId.lastName}
+            </p>
 
             <div className="flex items-center gap-1">
-              <p className="text-[#E59819]">{data.rating}</p>
+              <p className="text-[#E59819]">{product.productId.rating}</p>
               <div className="flex items-center">
                 {rating.map((itm, i: number) => (
                   <div key={i} className="text-[#E59819]">
@@ -56,7 +63,7 @@ const MyCourseCard: React.FC<ComponentProps> = ({ data, index }) => {
           </div>
 
           <div className="md:text-sm font-medium text-[#321463] mt-2 h-14">
-            {data.title}
+            {product.productId.name}
           </div>
           <div>
             <div className="w-full h-1 bg-[#F9F9F9] rounded-full">
