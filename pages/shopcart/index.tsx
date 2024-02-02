@@ -21,23 +21,6 @@ const Page: NextPage = () => {
           </p>
         </div>
         {isDesktopOrLaptop ? <ShopCartTable /> : <ShopCartMobile />}
-        {/* <div className="flex flex-col items-center md:items-end w-full md:w-5/6 mt-16 px-5 md:px-0">
-          <div className="borderborder-[#EDEDED] bg-slate-50 p-5 rounded-lg w-full md:w-1/3">
-            <div className="flex justify-between border-b border-[#EDEDED] py-2">
-              <h1 className="text-[#321463] font-medium">Subtotal</h1>
-              <p className="text-[#4F547B]">$1.298</p>
-            </div>
-            <div className=" flex justify-between  py-2">
-              <h1 className="text-[#321463] font-medium">Total </h1>
-              <p className="text-[#4F547B]"> $3.298</p>
-            </div>
-            <Link href="/shopcheckout">
-              <button className="text-white text-center font-medium whitespace-nowrap bg-pink-700 justify-center items-center px-16 py-4 rounded-lg max-md:px-5 mt-6">
-                Proceed to checkout
-              </button>
-            </Link>
-          </div>
-        </div> */}
       </div>
     </Layout>
   );

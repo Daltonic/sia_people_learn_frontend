@@ -5,8 +5,7 @@ import { RootState } from "@/utils/type.dt";
 import Image from "next/image";
 import { LiaTimesSolid } from "react-icons/lia";
 import { useDispatch, useSelector } from "react-redux";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
 
 interface Product {
   imageUrl: string | null;
@@ -19,17 +18,15 @@ interface Product {
 
 const ShopCartTable: React.FC = () => {
   const router = useRouter();
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
+  const pathname = usePathname();
   const { setCartAcademyItems, setCartCourseItems, setCartAmount } =
     cartActions;
   const dispatch = useDispatch();
   const { cartAcademyItems, cartCourseItems, cartAmount } = useSelector(
     (states: RootState) => states.cartStates
   );
+
+  const { userData } = useSelector((states: RootState) => states.userStates);
 
   const cartItems: Product[] = [];
 
@@ -83,6 +80,10 @@ const ShopCartTable: React.FC = () => {
   };
 
   const handleCheckout = () => {
+    if (!userData) {
+      sessionStorage.setItem("prevPath", pathname);
+      router.push("/login");
+    }
     const checkout = async () => {
       const requestDetails = {
         method: "POST",
