@@ -64,7 +64,6 @@ export const getServerSideProps = async () => {
     );
 
     const courses = await coursesRes.json();
-    console.log(courses);
 
     const booksRes = await fetch(
       `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/courses?type=Book`,

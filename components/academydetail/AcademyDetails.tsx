@@ -13,6 +13,7 @@ import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import { cartActions } from "@/store/cartSlice";
 import { useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 interface ComponentProps {
   academy: IAcademy;
@@ -21,6 +22,8 @@ interface ComponentProps {
 
 const AcademyDetails: React.FC<ComponentProps> = ({ academy }) => {
   const router = useRouter();
+  const pathname = usePathname();
+  const { userData } = useSelector((states: RootState) => states.userStates);
   const { cartAcademyItems, cartAmount } = useSelector(
     (states: RootState) => states.cartStates
   );
@@ -71,9 +74,11 @@ const AcademyDetails: React.FC<ComponentProps> = ({ academy }) => {
     }
   };
 
-  console.log(cartAmount);
-
   const handleSubscribe = () => {
+    if (!userData) {
+      sessionStorage.setItem("prevPath", pathname);
+      router.push("/login");
+    }
     const subscribe = async () => {
       const requestDetails = {
         method: "POST",
