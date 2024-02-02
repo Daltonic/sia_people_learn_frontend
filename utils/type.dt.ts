@@ -209,3 +209,30 @@ export interface RootState {
   cartStates: CartState;
   userStates: UserState;
 }
+
+export interface IUserSubscription {
+  _id: string;
+  productType: "Course" | "Academy";
+  productId: {
+    _id: string;
+    name: string;
+    difficulty: "Beginner" | "Intermediate" | "Advanced";
+    overview: string;
+    description: string;
+    rating: number;
+    imageUrl?: string;
+    userId: {
+      _id: string;
+      firstName: string;
+      lastName: string;
+    };
+  };
+  currentCourse: any[];
+  currentLesson: any[];
+}
+
+export interface IUserSubscriptions {
+  subscriptions: IUserSubscription[];
+  isNext: boolean;
+  numOfPages: number;
+}

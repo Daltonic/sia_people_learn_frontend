@@ -1,8 +1,6 @@
 "use client";
 import Layout from "@/components/layout/Layout";
 import { NextPage } from "next";
-import { coursesData } from "../../data/courses";
-import Link from "next/link";
 import ShopCartTable from "@/components/shopcart/ShopCartTable";
 import ShopCartMobile from "@/components/shopcart/ShopCartMobile";
 
