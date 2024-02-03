@@ -199,6 +199,7 @@ export interface IUser {
   updatedAt: string;
   imgUrl?: string;
   _id: string;
+  subscriptions: string[];
 }
 
 export interface UserState {

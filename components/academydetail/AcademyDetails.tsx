@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { IAcademy, RootState } from "@/utils/type.dt";
+import { IAcademy, IUserSubscriptions, RootState } from "@/utils/type.dt";
 import Image from "next/image";
 import Button from "../reusableComponents/Button";
 import {
@@ -29,6 +29,7 @@ const AcademyDetails: React.FC<ComponentProps> = ({ academy }) => {
   );
   const { setCartAcademyItems, setCartAmount } = cartActions;
   const dispatch = useDispatch();
+  const [isSubscribed, setIsSubscribed] = useState<boolean>(false);
   const [buttonText, setButtonText] = useState<string>(() => {
     const currentAcademy = cartAcademyItems.find(
       (item) => item._id === academy._id
@@ -103,7 +104,6 @@ const AcademyDetails: React.FC<ComponentProps> = ({ academy }) => {
           alert(message);
         } else {
           const result = await response.json();
-          console.log(result);
           router.push(result.url);
         }
       } catch (e: any) {
@@ -112,6 +112,40 @@ const AcademyDetails: React.FC<ComponentProps> = ({ academy }) => {
     };
     subscribe();
   };
+
+  useEffect(() => {
+    const fetchAcademies = async () => {
+      const requestDetails = {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
+        },
+      };
+
+      try {
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/subscriptions/user?productType=Academy&pageSize=1000`,
+          requestDetails
+        );
+
+        if (response.status === 400) {
+          alert("Something went wrong");
+        } else {
+          const { subscriptions } =
+            (await response.json()) as IUserSubscriptions;
+          const isAcademyFound = subscriptions.find(
+            (sub) => sub.productId._id === academy._id
+          );
+          setIsSubscribed(isAcademyFound ? true : false);
+        }
+      } catch (e: any) {
+        console.log(e.message);
+      }
+    };
+    fetchAcademies();
+  }, [academy._id]);
+
   return (
     <div className="bg-white w-full md:w-[25%] md:right-10 md:top-0 md:absolute md:border border-[#EDEDED] p-2 space-y-2 mt-10 md:mt-0 rounded-md z-10">
       <div className="relative flex justify-center items-center">
@@ -144,29 +178,41 @@ const AcademyDetails: React.FC<ComponentProps> = ({ academy }) => {
         </div>
 
         <div className="block ">
-          {academy.validity < 1 ? (
-            <Button
-              variant="pink"
-              className="w-full mb-3"
-              onClick={handleAddToCart}
-            >
-              {buttonText}
+          {isSubscribed ? (
+            <Button className="w-full mb-3 bg-[#C5165D] text-white" disabled>
+              {academy.validity === 0
+                ? "Already Purchased"
+                : "Already Subscribed"}
             </Button>
           ) : (
-            <Button
-              variant="pink"
-              className="w-full mb-3"
-              onClick={handleSubscribe}
-            >
-              Subscribe
-            </Button>
-          )}
+            <>
+              {academy.validity === 0 ? (
+                <Button
+                  variant="pink"
+                  className="w-full mb-3"
+                  onClick={handleAddToCart}
+                >
+                  {buttonText}
+                </Button>
+              ) : (
+                <Button
+                  variant="pink"
+                  className="w-full mb-3"
+                  onClick={handleSubscribe}
+                >
+                  Subscribe
+                </Button>
+              )}
 
-          <Link href="/shopcart">
-            <Button variant="pinkoutline" className="w-full">
-              Proceed to Cart
-            </Button>
-          </Link>
+              {academy.validity === 0 && (
+                <Link href="/shopcart">
+                  <Button variant="pinkoutline" className="w-full">
+                    Proceed to Cart
+                  </Button>
+                </Link>
+              )}
+            </>
+          )}
         </div>
         <p className="text-[#4F547B] text-sm text-center">
           30-Day Money-Back Guarantee
@@ -225,19 +271,7 @@ const AcademyDetails: React.FC<ComponentProps> = ({ academy }) => {
             </div>
             <p className="text-[#4F547B]">{"English"}</p>
           </div>
-          <div className="flex justify-between items-center border-b py-2 border-[#EDEDED]">
-            {/* <div className="flex gap-2 items-center">
-              <Image
-                width={5}
-                height={5}
-                className="rounded-md w-4 h-4"
-                src="/images/cardInfo/infinity.svg"
-                alt="image"
-              />
-              <p className="text-[#321463]">Full lifetime access</p>
-            </div>
-            <p className="text-[#4F547B]">{course.viewStatus}</p> */}
-          </div>
+
           <div className="flex justify-center gap-2 items-center">
             <div className="p-4 rounded-full hover:bg-[#F9F9F9] text-[#4F547B] hover:bg-opacity-50 transition duration-500 ease-in-out cursor-pointer">
               <FaFacebookF />
