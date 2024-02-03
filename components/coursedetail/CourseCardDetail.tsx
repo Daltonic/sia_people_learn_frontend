@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { ICourse, RootState } from "@/utils/type.dt";
+import { ICourse, IUserSubscriptions, RootState } from "@/utils/type.dt";
 import Image from "next/image";
 import Button from "../reusableComponents/Button";
 import {
@@ -23,6 +23,7 @@ const CourseCardDetail: React.FC<ComponentProps> = ({ course }) => {
   );
   const { setCartCourseItems, setCartAmount } = cartActions;
   const dispatch = useDispatch();
+  const [isSubscribed, setIsSubscribed] = useState<boolean>(false);
   const [buttonText, setButtonText] = useState<string>(() => {
     const currentCourse = cartCourseItems.find(
       (item) => item._id === course._id
@@ -59,7 +60,39 @@ const CourseCardDetail: React.FC<ComponentProps> = ({ course }) => {
       dispatch(setCartAmount(newCartAmount));
     }
   };
-  console.log(cartAmount);
+
+  useEffect(() => {
+    const fetchCourses = async () => {
+      const requestDetails = {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
+        },
+      };
+
+      try {
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/subscriptions/user?productType=Course&pageSize=1000`,
+          requestDetails
+        );
+
+        if (response.status === 400) {
+          alert("Something went wrong");
+        } else {
+          const { subscriptions } =
+            (await response.json()) as IUserSubscriptions;
+          const isAcademyFound = subscriptions.find(
+            (sub) => sub.productId._id === course._id
+          );
+          setIsSubscribed(isAcademyFound ? true : false);
+        }
+      } catch (e: any) {
+        console.log(e.message);
+      }
+    };
+    fetchCourses();
+  }, [course._id]);
 
   return (
     <div className="bg-white w-full md:w-[25%] md:right-10 md:top-0 md:absolute md:border border-[#EDEDED] p-2 space-y-2 mt-10 md:mt-0 rounded-md z-10">
@@ -91,19 +124,27 @@ const CourseCardDetail: React.FC<ComponentProps> = ({ course }) => {
         </div>
 
         <div className="block ">
-          <Button
-            variant="pink"
-            className="w-full mb-3"
-            onClick={handleAddToCart}
-          >
-            {buttonText}
-          </Button>
-
-          <Link href="/shopcart">
-            <Button variant="pinkoutline" className="w-full">
-              Proceed to Cart
+          {isSubscribed ? (
+            <Button className="w-full mb-3 bg-[#C5165D] text-white" disabled>
+              Already Purchased
             </Button>
-          </Link>
+          ) : (
+            <>
+              <Button
+                variant="pink"
+                className="w-full mb-3"
+                onClick={handleAddToCart}
+              >
+                {buttonText}
+              </Button>
+
+              <Link href="/shopcart">
+                <Button variant="pinkoutline" className="w-full">
+                  Proceed to Cart
+                </Button>
+              </Link>
+            </>
+          )}
         </div>
         <p className="text-[#4F547B] text-sm text-center">
           30-Day Money-Back Guarantee

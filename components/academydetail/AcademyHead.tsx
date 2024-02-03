@@ -9,6 +9,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { MdOutlineRateReview } from "react-icons/md";
 import { useSelector } from "react-redux";
+import { convertStringToDate } from "@/utils";
 
 interface ComponentProps {
   academy: IAcademy;
@@ -223,11 +224,11 @@ const AcademyHead: React.FC<ComponentProps> = ({ academy }) => {
             </div>
             <div className="flex gap-5  items-center">
               <p className="md:text-sm text-[#4F547B]">
-                Created At {academy.createdAt}
+                Created on {convertStringToDate(academy.createdAt)}
               </p>
 
               <p className="md:text-sm text-[#4F547B]">
-                Updated At {academy.updatedAt}
+                Updated on {convertStringToDate(academy.updatedAt)}
               </p>
             </div>
             <div className="flex items-center gap-10 mt-2 md:mt-0">

@@ -24,16 +24,16 @@ const AcademyCard: React.FC<ComponentProps> = ({ data }) => {
       style={{ height: "fit-content" }}
     >
       <div className="">
-        <div className="">
+        <Link className="linkCustom" href={`/academies/${data._id}`}>
           <Image
-            width={0}
-            height={0}
-            style={{ height: "100%", width: "100%" }}
-            className="rounded-lg"
+            height={64}
+            width={36}
+            // style={{ height: "100%", width: "100%" }}
+            className="rounded-lg object-left-top h-36 w-64"
             src={data.imageUrl || "/images/courseCard/card1.svg"}
             alt="image"
           />
-        </div>
+        </Link>
 
         <div className="my-2 p-2">
           <div className="flex items-center md:md:text-xs gap-4">
@@ -50,9 +50,11 @@ const AcademyCard: React.FC<ComponentProps> = ({ data }) => {
             </div>
           </div>
 
-          <div className="md:text-sm font-medium text-[#321463] mt-2">
+          <div className=" md:text-sm font-medium text-[#321463] mt-2 mb-6">
             <Link className="linkCustom" href={`/academies/${data._id}`}>
-              {data.name}
+              <div className="line-clamp-1 hover:overflow-visible">
+                {data.name}
+              </div>
             </Link>
           </div>
 
@@ -88,13 +90,20 @@ const AcademyCard: React.FC<ComponentProps> = ({ data }) => {
 
           <div className="flex justify-between items-center bottom-0 mb-0">
             <div className="flex items-center gap-2">
-              <Image
-                width={0}
-                height={0}
-                src={data.userId.imgUrl || "/images/courseCard/card1.svg"}
-                alt="image"
-                className="object-cover rounded-full w-10 h-10"
-              />
+              {data.userId.imgUrl ? (
+                <Image
+                  width={0}
+                  height={0}
+                  src={data.userId.imgUrl || "/images/courseCard/card1.svg"}
+                  alt="image"
+                  className="object-cover rounded-full w-10 h-10"
+                />
+              ) : (
+                <div className="rounded-full w-10 h-10 text-white px-4 bg-[#C5165D] text-[16px] flex items-center justify-center">
+                  {data.userId.firstName[0]}
+                  {data.userId.lastName[0]}
+                </div>
+              )}
               <p className="md:text-xs text-[#4F547B]">
                 {data.userId.firstName} {data.userId.lastName}
               </p>

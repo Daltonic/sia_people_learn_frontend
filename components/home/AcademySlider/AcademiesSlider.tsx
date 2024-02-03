@@ -19,8 +19,6 @@ const CoursesSlider: React.FC<{ academyObj: IAcademies }> = ({
     setShowSlider(true);
   }, []);
 
-  console.log(academyObj.academies);
-
   return (
     <section className="relative z-10 md:mx-10 lg:mx-20 md:my-20">
       <div className="px-5 sm:px-10 md:px-28 py-12 md:py-10 bg-[#F9F9F9] relative md:rounded-2xl">
