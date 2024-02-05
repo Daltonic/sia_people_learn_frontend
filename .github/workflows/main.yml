@@ -46,10 +46,10 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            if docker ps -a --filter "name=dma_frontend_container" --format "{{.Names}}" | grep -q "^dma_frontend_container$"; then
-              echo "Stopping and removing dma_frontend_container"
-              docker stop dma_frontend_container || true
-              docker rm dma_frontend_container || true
+            if docker ps -a --filter "name=dma_frontend_instance" --format "{{.Names}}" | grep -q "^dma_frontend_instance$"; then
+              echo "Stopping and removing dma_frontend_instance"
+              docker stop dma_frontend_instance || true
+              docker rm dma_frontend_instance || true
             fi
 
       - name: Create Docker volume if not exists
@@ -72,4 +72,21 @@ jobs:
           script: |
             cd /dockerized/containers/dappmentors_frontend
             docker build -t dma_frontend_image .
-            docker run -d --name dma_frontend_container -e NEXT_PUBLIC_BACKEND_URI=${{secrets.NEXT_PUBLIC_BACKEND_URI}} -p 80:3000 -v dma_frontend_volume:/data dma_frontend_image
+            docker run -d --name dma_frontend_instance -e NEXT_PUBLIC_BACKEND_URI=${{secrets.NEXT_PUBLIC_BACKEND_URI}} -p 80:3000 -v dma_frontend_volume:/data dma_frontend_image
+
+      - name: Print environment information
+        run: |
+            echo "Node version:"
+            node -v
+            echo "npm version:"
+            npm -v
+            echo "Contents of package-lock.json:"
+            cat package-lock.json
+      
+      - name: Cache node modules
+        uses: actions/cache@v2
+        with:
+            path: ~/.npm
+            key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+            restore-keys: |
+              ${{ runner.os }}-node-
