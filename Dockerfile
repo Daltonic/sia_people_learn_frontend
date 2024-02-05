@@ -19,5 +19,8 @@ RUN npm run build
 # Expose the port that the application will run on
 EXPOSE 3000
 
+# Create a directory for persistent data storage
+VOLUME /data
+
 # Define the command to start the application
 CMD ["npm", "start"]
