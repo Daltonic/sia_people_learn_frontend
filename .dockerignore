@@ -3,6 +3,6 @@
 .env.*
 
 # Ignore other unnecessary files
-node_modules/
-dist/
-.next/
+# node_modules/
+# dist/
+# .next/
