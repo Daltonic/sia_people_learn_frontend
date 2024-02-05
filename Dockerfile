@@ -1,26 +1,48 @@
-# Use an official Node runtime as the base image
-FROM node:18.18.0
+# Base image with Node.js
+FROM node:18-alpine AS base
 
-# Set the working directory in the container to /app
+# Install build tools required by Next.js
+RUN apk add --no-cache g++ make python3
+
+# Set working directory
 WORKDIR /app
 
-# Copy yarn.lock to the working directory
-COPY yarn.lock ./
+# Copy package.json and package-lock.json
+COPY package*.json ./
 
-# Install dependencies in the container
-RUN yarn install --frozen-lockfile
+# Expose port for the Next.js application
+EXPOSE  3000
 
-# Copy the rest of the application source code to the working directory
+# Builder stage to build the Next.js application
+FROM base AS builder
+
+# Copy the rest of the application code
 COPY . .
 
 # Build the Next.js application
-RUN yarn build
+RUN npm install && npm run build
 
-# Expose the port that the application will run on
-EXPOSE 3000
+# Production stage for the runtime environment
+FROM base AS production
 
-# Create a directory for persistent data storage
-VOLUME /data
+# Set environment variable for production
+ENV NODE_ENV=production
 
-# Define the command to start the application
-CMD ["yarn", "start"]
+# Install only production dependencies
+RUN npm ci
+
+# Add group and user for security purposes
+RUN addgroup -g  1001 -S nodejs \
+    && adduser -S nextjs -u  1001 -G nodejs
+
+# Switch to the non-root user
+USER nextjs
+
+# Copy over the build artifacts
+COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/package.json ./package.json
+COPY --from=builder /app/public ./public
+
+# Start the application
+CMD ["npm", "start"]
