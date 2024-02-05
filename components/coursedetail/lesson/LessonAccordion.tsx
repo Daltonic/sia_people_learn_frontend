@@ -11,7 +11,7 @@ const LessonAccordion: React.FC = () => {
   };
 
   return (
-    <div className="space-y-4 w-full border md:w-[33%] md:pr-10 md:pt-8">
+    <div className="space-y-4 w-full border md:pr-10 md:pt-8">
       {lessonItems.map((lesson, index) => (
         <div
           key={index}
