@@ -72,4 +72,4 @@ jobs:
           script: |
             cd /dockerized/containers/dappmentors_frontend
             docker build -t dma_frontend_image .
-            docker run -d --name dma_frontend_container -e NEXT_PUBLIC_BACKEND_URI=${{NEXT_PUBLIC_BACKEND_URI}} -p 80:3000 -v dma_frontend_volume:/data dma_frontend_image
+            docker run -d --name dma_frontend_container -e NEXT_PUBLIC_BACKEND_URI=${{secrets.NEXT_PUBLIC_BACKEND_URI}} -p 80:3000 -v dma_frontend_volume:/data dma_frontend_image
