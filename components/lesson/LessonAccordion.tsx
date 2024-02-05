@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { FaPlay } from "react-icons/fa";
 import { lessonItems } from "@/data/aboutcourses";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+import Image from "next/image";
 
 const LessonAccordion: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState(-1);
@@ -11,7 +12,7 @@ const LessonAccordion: React.FC = () => {
   };
 
   return (
-    <div className="space-y-4 w-full border md:w-[33%] md:pr-10 md:pt-8">
+    <div className="space-y-4 w-full border md:p-5 rounded-md">
       {lessonItems.map((lesson, index) => (
         <div
           key={index}
@@ -33,15 +34,20 @@ const LessonAccordion: React.FC = () => {
           {activeIndex === index && (
             <div className="mt-4">
               {lesson.lessons.map((lesson) => (
-                <div key={lesson.id} className="flex gap-5 bg-white py-2 px-4">
-                  <div className="p-2 rounded-full bg-[#FBEFF4] w-fit h-fit">
-                    <FaPlay size={10} color="#C5165D" />
-                  </div>
-                  <div>
-                    <div  className="text-[#4F547B] md:text-sm">
-                      <h3>{lesson.title}</h3>
-                      <div className="flex gap-3">
-                        <p className="underline text-[#C5165D]">Preview</p>
+                <div key={lesson.id} className=" bg-white py-2 px-4">
+                  <div className="text-[#4F547B] md:text-sm">
+                    <div className="flex item-center gap-2">
+                      <div>
+                        <Image
+                          height={100}
+                          width={100}
+                          src={"/images/courseCard/card3.svg"}
+                          alt="Course Image"
+                          className="w-14 h-10 object-cover rounded-md"
+                        />
+                      </div>
+                      <div className="w-64">
+                        <h3  className="font-medium">{lesson.title}</h3>
                         <p className="underline">{lesson.duration}</p>
                       </div>
                     </div>
