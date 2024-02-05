@@ -63,30 +63,21 @@ jobs:
               docker volume create dma_frontend_volume
             fi
 
-      - name: Spin up Docker container with persistent volume
+      - name: Build Docker image
         uses: appleboy/ssh-action@v0.1.3
         with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USERNAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            cd /dockerized/containers/dappmentors_frontend
-            docker build -t dma_frontend_image .
-            docker run -d --name dma_frontend_instance -e NEXT_PUBLIC_BACKEND_URI=${{secrets.NEXT_PUBLIC_BACKEND_URI}} -p 80:3000 -v dma_frontend_volume:/data dma_frontend_image
-
-      - name: Print environment information
-        run: |
-            echo "Node version:"
-            node -v
-            echo "npm version:"
-            npm -v
-            echo "Contents of package-lock.json:"
-            cat package-lock.json
+            host: ${{ secrets.SSH_HOST }}
+            username: ${{ secrets.SSH_USERNAME }}
+            key: ${{ secrets.SSH_PRIVATE_KEY }}
+            script: |
+              cd /dockerized/containers/dappmentors_frontend
+              docker build -t dma_frontend_image .
       
-      - name: Cache node modules
-        uses: actions/cache@v2
+      - name: Run Docker container
+        uses: appleboy/ssh-action@v0.1.3
         with:
-            path: ~/.npm
-            key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-            restore-keys: |
-              ${{ runner.os }}-node-
+            host: ${{ secrets.SSH_HOST }}
+            username: ${{ secrets.SSH_USERNAME }}
+            key: ${{ secrets.SSH_PRIVATE_KEY }}
+            script: |
+              docker run -d --name dma_frontend_instance -e NEXT_PUBLIC_BACKEND_URI=${{secrets.NEXT_PUBLIC_BACKEND_URI}} -p 80:3000 -v dma_frontend_volume:/data dma_frontend_image
