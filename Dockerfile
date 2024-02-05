@@ -4,17 +4,20 @@ FROM node:18-alpine
 # Set the working directory in the container to /app
 WORKDIR /app
 
-# Copy package.json and package-lock.json to the working directory
-COPY package*.json ./
+# Install pnpm globally
+RUN npm install -g pnpm
 
-# Install dependencies in the container
-RUN npm ci
+# Copy package.json and pnpm-lock.yaml to the working directory
+COPY package*.json pnpm-lock.yaml* ./
+
+# Install dependencies in the container using pnpm
+RUN pnpm install --frozen-lockfile
 
 # Copy the rest of the application source code to the working directory
 COPY . .
 
 # Build the Next.js application
-RUN npm run build
+RUN pnpm run build
 
 # Expose the port that the application will run on
 EXPOSE 3000
@@ -23,4 +26,4 @@ EXPOSE 3000
 VOLUME /data
 
 # Define the command to start the application
-CMD ["npm", "start"]
+CMD ["pnpm", "run", "start"]
