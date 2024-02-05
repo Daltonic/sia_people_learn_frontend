@@ -1,0 +1,75 @@
+name: Deploy to Ubuntu VPS
+
+on:
+ push:
+    branches:
+      - main # Trigger on push to main branch
+
+jobs:
+ deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Ensure target directory exists on VPS
+        uses: appleboy/ssh-action@v0.1.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            if [ ! -d "/dockerized/containers/dappmentors_frontend" ]; then
+              mkdir -p /dockerized/containers/dappmentors_frontend
+            fi
+
+      - name: Copy Dockerfile to VPS
+        uses: appleboy/scp-action@v0.1.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: "Dockerfile"
+          target: "/dockerized/containers/dappmentors_frontend"
+
+      - name: Verify Dockerfile copied
+        uses: appleboy/ssh-action@v0.1.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: ls -la /dockerized/containers/dappmentors_frontend
+
+      - name: Stop and remove Docker container if exists
+        uses: appleboy/ssh-action@v0.1.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            if docker ps -a --filter "name=dma_frontend_container" --format "{{.Names}}" | grep -q "^dma_frontend_container$"; then
+              echo "Stopping and removing dma_frontend_container"
+              docker stop dma_frontend_container || true
+              docker rm dma_frontend_container || true
+            fi
+
+      - name: Create Docker volume if not exists
+        uses: appleboy/ssh-action@v0.1.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            if ! docker volume inspect dma_frontend_volume > /dev/null 2>&1; then
+              docker volume create dma_frontend_volume
+            fi
+
+      - name: Spin up Docker container with persistent volume
+        uses: appleboy/ssh-action@v0.1.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd /dockerized/containers/dappmentors_frontend
+            docker build -t dma_frontend_image .
+            docker run -d --name dma_frontend_container -e NEXT_PUBLIC_BACKEND_URI=${{NEXT_PUBLIC_BACKEND_URI}} -p 80:3000 -v dma_frontend_volume:/data dma_frontend_image
