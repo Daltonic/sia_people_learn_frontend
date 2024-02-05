@@ -4,17 +4,17 @@ FROM node:18.18.0
 # Set the working directory in the container to /app
 WORKDIR /app
 
-# Copy package.json and package-lock.json to the working directory
-COPY package*.json ./
+# Copy yarn.lock to the working directory
+COPY yarn.lock ./
 
 # Install dependencies in the container
-RUN npm ci
+RUN yarn install --frozen-lockfile
 
 # Copy the rest of the application source code to the working directory
 COPY . .
 
 # Build the Next.js application
-RUN npm run build
+RUN yarn build
 
 # Expose the port that the application will run on
 EXPOSE 3000
@@ -23,4 +23,4 @@ EXPOSE 3000
 VOLUME /data
 
 # Define the command to start the application
-CMD ["npm", "start"]
+CMD ["yarn", "start"]
