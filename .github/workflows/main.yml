@@ -28,7 +28,7 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "Dockerfile"
+          source: "./"
           target: "/dockerized/containers/dappmentors_frontend"
 
       - name: Verify Dockerfile copied
