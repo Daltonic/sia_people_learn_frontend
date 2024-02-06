@@ -89,4 +89,8 @@ jobs:
             username: ${{ secrets.SSH_USERNAME }}
             key: ${{ secrets.SSH_PRIVATE_KEY }}
             script: |
-              docker run -d --restart unless-stopped --name dma_frontend_instance -e NEXT_PUBLIC_BACKEND_URI='${{secrets.NEXT_PUBLIC_BACKEND_URI}}'' -p 80:3000 -v dma_frontend_volume:/data dma_frontend_image
+              docker run -d --restart unless-stopped --name dma_frontend_instance \
+                -e NEXT_PUBLIC_BACKEND_URI='${{secrets.NEXT_PUBLIC_BACKEND_URI}}' \
+                -p  80:3000 \
+                -v dma_frontend_volume:/data \
+                dma_frontend_image
