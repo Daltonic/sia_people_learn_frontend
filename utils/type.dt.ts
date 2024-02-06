@@ -118,7 +118,14 @@ export interface ICourse {
     username: string;
     imgUrl: string | null;
   };
-  lessons: { _id: string; title: string }[];
+  lessons: {
+    _id: string;
+    title: string;
+    duration: number;
+    imageUrl: string;
+    videoUrl: string;
+    downloadableUrl: string;
+  }[];
   createdAt: string;
   updatedAt: string;
 }
@@ -234,6 +241,31 @@ export interface IUserSubscription {
 
 export interface IUserSubscriptions {
   subscriptions: IUserSubscription[];
+  isNext: boolean;
+  numOfPages: number;
+}
+
+export interface IReview {
+  _id: string;
+  starRating: number;
+  comment: string;
+  createdAt: string;
+  updatedAt: string;
+  userId: {
+    _id: string;
+    username: string;
+    firstName: string;
+    lastName: string;
+    imgUrl?: string;
+  };
+  productId: {
+    _id: string;
+    name: string;
+  };
+}
+
+export interface IReviews {
+  reviews: IReview[];
   isNext: boolean;
   numOfPages: number;
 }

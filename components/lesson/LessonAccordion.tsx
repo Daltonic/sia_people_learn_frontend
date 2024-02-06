@@ -1,10 +1,31 @@
-import React, { useState } from "react";
+"use client";
+
+import React, { useEffect, useState } from "react";
 import { FaPlay } from "react-icons/fa";
 import { lessonItems } from "@/data/aboutcourses";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import Image from "next/image";
+import { ICourse, RootState } from "@/utils/type.dt";
+import { useDispatch, useSelector } from "react-redux";
+import { userActions } from "@/store/userSlice";
 
-const LessonAccordion: React.FC = () => {
+interface Props {
+  course: ICourse;
+}
+
+const LessonAccordion: React.FC<Props> = ({ course }) => {
+  const dispatch = useDispatch();
+  const { setUserData } = userActions;
+  const { userData } = useSelector((states: RootState) => states.userStates);
+
+  useEffect(() => {
+    if (!userData) {
+      const sessionUser = JSON.parse(sessionStorage.getItem("user")!);
+      if (sessionUser) {
+        dispatch(setUserData(sessionUser));
+      }
+    }
+  }, [dispatch, setUserData, userData]);
   const [activeIndex, setActiveIndex] = useState(-1);
 
   const handleTitleClick = (index: number) => {
@@ -33,21 +54,23 @@ const LessonAccordion: React.FC = () => {
           </div>
           {activeIndex === index && (
             <div className="mt-4">
-              {lesson.lessons.map((lesson) => (
-                <div key={lesson.id} className=" bg-white py-2 px-4">
+              {course.lessons.map((lesson) => (
+                <div key={lesson._id} className=" bg-white py-2 px-4">
                   <div className="text-[#4F547B] md:text-sm">
                     <div className="flex item-center gap-2">
                       <div>
                         <Image
                           height={100}
                           width={100}
-                          src={"/images/courseCard/card3.svg"}
+                          src={
+                            lesson.imageUrl || "/images/courseCard/card3.svg"
+                          }
                           alt="Course Image"
                           className="w-14 h-10 object-cover rounded-md"
                         />
                       </div>
                       <div className="w-64">
-                        <h3  className="font-medium">{lesson.title}</h3>
+                        <h3 className="font-medium">{lesson.title}</h3>
                         <p className="underline">{lesson.duration}</p>
                       </div>
                     </div>

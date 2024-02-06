@@ -6,7 +6,6 @@ import ReviewSection from "@/components/blogs/ReviewSection";
 import ReviewForm from "@/components/blogs/ReviewForm";
 import LessonAccordion from "@/components/lesson/LessonAccordion";
 
-
 const Page: NextPage<{ courseData: ICourse }> = ({ courseData }) => {
   return (
     <Layout>
@@ -18,17 +17,18 @@ const Page: NextPage<{ courseData: ICourse }> = ({ courseData }) => {
               width={100}
               src={
                 // courseData.imageUrl  ||
-                "/images/courseCard/card3.svg"}
+                "/images/courseCard/card3.svg"
+              }
               alt="Course Image"
               className="w-full md:h-[70vh] object-cover rounded-lg"
             />
           </div>
           <div className="md:w-[30%] mt-4 md:mt-0">
-            <LessonAccordion />
+            {/* <LessonAccordion /> */}
           </div>
         </div>
-        <ReviewSection/>
-        <ReviewForm/>
+        <ReviewSection />
+        <ReviewForm />
       </div>
     </Layout>
   );

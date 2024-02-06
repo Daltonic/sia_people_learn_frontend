@@ -27,7 +27,7 @@ const MyCourseCard: React.FC<ComponentProps> = ({ product, index }) => {
       <div className="">
         <Link
           className="linkCustom"
-          href={`/coursedetail/${product.productId._id}`}
+          href={`/course/learn/${product.productId._id}`}
         >
           <div className=" relative">
             <Image
