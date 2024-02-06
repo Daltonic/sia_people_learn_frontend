@@ -105,6 +105,7 @@ const Tabs: React.FC = () => {
     };
     fetchAcademies();
   }, []);
+  console.log(coursesSubs);
 
   return (
     <div className="bg-white p-5 rounded-xl">
@@ -113,20 +114,22 @@ const Tabs: React.FC = () => {
         <div className="flex space-x-5 border-b">
           <button
             onClick={() => handleTabClick(1)}
-            className={`py-2 border-b-4 transition-colors duration-300 text-[#4F547B] font-medium ${activeTab === 1
+            className={`py-2 border-b-4 transition-colors duration-300 text-[#4F547B] font-medium ${
+              activeTab === 1
                 ? "border-[#C5165D] text-[#C5165D]"
                 : "border-transparent hover:border-gray-200"
-              }`}
+            }`}
             type="button"
           >
             My Courses
           </button>
           <button
             onClick={() => handleTabClick(2)}
-            className={`py-2 border-b-4 transition-colors duration-300 text-[#4F547B] font-medium ${activeTab === 2
+            className={`py-2 border-b-4 transition-colors duration-300 text-[#4F547B] font-medium ${
+              activeTab === 2
                 ? "border-[#C5165D] text-[#C5165D]"
                 : "border-transparent hover:border-gray-200"
-              }`}
+            }`}
             type="button"
           >
             My Academies
@@ -136,26 +139,33 @@ const Tabs: React.FC = () => {
         <div className="py-4 text-[#4F547B]">
           {activeTab === 1 ? (
             <div className="flex justify-between w-full flex-wrap">
-              {coursesSubs.subscriptions && coursesSubs.subscriptions.length > 0 ? (
+              {coursesSubs.subscriptions &&
+              coursesSubs.subscriptions.length > 0 ? (
                 coursesSubs.subscriptions.map((sub, i: number) => (
                   <MyCourseCard product={sub} index={i} key={sub._id} />
                 ))
               ) : (
-                <EmptyComponent title="No Courses Subscribed" buttonText="Explore Courses" />
+                <EmptyComponent
+                  title="No Courses Subscribed"
+                  buttonText="Explore Courses"
+                />
               )}
             </div>
           ) : (
             <div className="flex justify-between w-full flex-wrap">
-              {academiesSubs.subscriptions && academiesSubs.subscriptions.length > 0 ? (
+              {academiesSubs.subscriptions &&
+              academiesSubs.subscriptions.length > 0 ? (
                 academiesSubs.subscriptions.map((sub, i: number) => (
                   <MyCourseCard product={sub} index={i} key={sub._id} />
                 ))
               ) : (
-                <EmptyComponent title="No Academies Subscribed" buttonText="Explore Academies" />
+                <EmptyComponent
+                  title="No Academies Subscribed"
+                  buttonText="Explore Academies"
+                />
               )}
             </div>
           )}
-
         </div>
       </div>
     </div>

@@ -189,9 +189,8 @@ const CourseCardDetail: React.FC<ComponentProps> = ({ course }) => {
             <p className="text-[#4F547B]">{course.difficulty}</p>
           </div>
           <div className="flex justify-center py-2">
-          <SocialMediaIcons/>
-
-        </div>
+            <SocialMediaIcons />
+          </div>
         </div>
       </div>
     </div>
