@@ -10,6 +10,7 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import Button from "@/components/reusableComponents/Button";
 import { GoArrowUpRight } from "react-icons/go";
 import { ICourses } from "@/utils/type.dt";
+import AllButton from "@/components/reusableComponents/AllButton";
 
 const CoursesSlider: React.FC<{ coursesObj: ICourses }> = ({ coursesObj }) => {
   const [showSlider, setShowSlider] = useState(false);
@@ -34,12 +35,11 @@ const CoursesSlider: React.FC<{ coursesObj: ICourses }> = ({ coursesObj }) => {
           <div className="">
             <Link
               href="/courses"
-              className="font-medium text-sm text-center px-3 flex items-center rounded-md bg-[#6440FB12] text-[#1A064F]  hover:text-[#C5165D] border-2 border-transparent hover:border-[#C5165D] hover:bg-transparent w-fit"
             >
-              <Button className=""> All Courses </Button>
-              <GoArrowUpRight className="md:-ml-4 text-lg font-bold" />
+              <AllButton> All Courses</AllButton>
             </Link>
           </div>
+
         </div>
 
         <div className="mt-14">
@@ -92,12 +92,12 @@ const CoursesSlider: React.FC<{ coursesObj: ICourses }> = ({ coursesObj }) => {
 
           <div className="hidden md:flex">
             {/* Left button */}
-            <button className="absolute left-16 top-1/2 transform -translate-y-1/2 bg-[#1A064F] text-white w-10 h-10 p-2 flex justify-center items-center rounded-full z-10">
+            <button className="absolute left-16 top-1/2 transform -translate-y-1/2 bg-[#1A064F] hover:bg-[#C5165D] text-white w-10 h-10 p-2 flex justify-center items-center rounded-full z-10">
               <FaArrowLeft className="icon-arrow-left " />
             </button>
 
             {/* Right button */}
-            <button className="absolute right-16 top-1/2 transform -translate-y-1/2 bg-[#1A064F] text-white w-10 h-10 p-2 flex justify-center items-center rounded-full z-10">
+            <button className="absolute right-16 top-1/2 transform -translate-y-1/2 bg-[#1A064F] hover:bg-[#C5165D] text-white w-10 h-10 p-2 flex justify-center items-center rounded-full z-10">
               <FaArrowRight className="icon-arrow-right" />
             </button>
           </div>

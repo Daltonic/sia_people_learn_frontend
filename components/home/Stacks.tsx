@@ -70,16 +70,16 @@ const Stacks: React.FC = () => {
                         data-aos="fade-left"
                         data-aos-duration={(i + 1) * 300}
                       >
-                        <div className="h-10 mb-6">
+                        <div className="h-10 mb-4">
                           <Image
                             width={50}
                             height={30}
                             src={elm.imageSrc}
                             alt="image"
-                            className=""
+                            className=" h-full w-full"
                           />
                         </div>
-                        <h5 className="text-[#321463] font-medium">
+                        <h5 className="text-[#4F547B] font-medium">
                           {elm.skill}
                         </h5>
                       </div>

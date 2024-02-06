@@ -5,6 +5,7 @@ import SearchAndFilterBar from "@/components/reusableComponents/SearchAndFilterB
 import { useSelector, useDispatch } from "react-redux";
 import { userActions } from "@/store/userSlice";
 import { RootState } from "@/utils/type.dt";
+import EmptyComponent from "@/components/reusableComponents/EmptyComponent";
 
 const Tabs: React.FC = () => {
   const dispatch = useDispatch();
@@ -158,33 +159,30 @@ const Tabs: React.FC = () => {
         <div className="flex space-x-5 border-b">
           <button
             onClick={() => handleTabClick(1)}
-            className={`py-2 border-b-4 transition-colors duration-300 text-[#4F547B] font-medium ${
-              activeTab === 1
+            className={`py-2 border-b-4 transition-colors duration-300 text-[#4F547B] font-medium ${activeTab === 1
                 ? "border-[#C5165D] text-[#C5165D]"
                 : "border-transparent hover:border-gray-200"
-            }`}
+              }`}
             type="button"
           >
             Courses
           </button>
           <button
             onClick={() => handleTabClick(2)}
-            className={`py-2 border-b-4 transition-colors duration-300 text-[#4F547B] font-medium ${
-              activeTab === 2
+            className={`py-2 border-b-4 transition-colors duration-300 text-[#4F547B] font-medium ${activeTab === 2
                 ? "border-[#C5165D] text-[#C5165D]"
                 : "border-transparent hover:border-gray-200"
-            }`}
+              }`}
             type="button"
           >
             Books
           </button>
           <button
             onClick={() => handleTabClick(3)}
-            className={`py-2 border-b-4 transition-colors duration-300 text-[#4F547B] font-medium ${
-              activeTab === 3
+            className={`py-2 border-b-4 transition-colors duration-300 text-[#4F547B] font-medium ${activeTab === 3
                 ? "border-[#C5165D] text-[#C5165D]"
                 : "border-transparent hover:border-gray-200"
-            }`}
+              }`}
             type="button"
           >
             Academy
@@ -192,10 +190,14 @@ const Tabs: React.FC = () => {
         </div>
 
         <div className="py-4 text-[#4F547B]">
-          <div className="flex justify-between  w-full flex-wrap">
-            {tabData?.map((elm, i: number) => (
-              <MyCourseCard data={elm} key={i} type={type} />
-            ))}
+          <div className="flex justify-between gap-5 w-full flex-wrap">
+            {tabData && tabData.length > 0 ? (
+              tabData.map((elm, i: number) => (
+                <MyCourseCard data={elm} key={i} type={type} />
+              ))
+            ) : (
+              <EmptyComponent title="No Products Available" buttonText="Create One Now" />
+            )}
           </div>
         </div>
       </div>

@@ -26,7 +26,7 @@ export const skillsOne = [
     },
     {
       id: 5,
-      imageSrc: "/images/home/stacks/tailwind.svg",
+      imageSrc: "/images/home/stacks/tailwindcss.svg",
       skill: "Tailwind CSS",
       delay: 5,
     },

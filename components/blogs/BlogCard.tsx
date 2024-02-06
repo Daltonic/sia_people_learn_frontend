@@ -58,6 +58,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog, i }) => {
       data-aos="fade-left"
       data-aos-duration={(i + 1) * 500}
     >
+        <Link className="linkCustom" href={`/blogs/${blog._id}`}>
       <div className="w-full relative">
         {showButton && (
           <div
@@ -77,7 +78,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog, i }) => {
         <Image
           width={0}
           height={0}
-          src={blog.imageUrl || "/images/blog-list/1.svg"}
+          src={blog.imageUrl || "/images/cardimg.svg"}
           alt="image"
           className="rounded-lg w-full h-full object-cover"
         />
@@ -87,14 +88,15 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog, i }) => {
           {blog.category}
         </h1>
         <h4 className="text-[#321463] font-medium md:text-sm">
-          <Link className="linkCustom" href={`/blogs/${blog._id}`}>
+        
             {blog.title}
-          </Link>
+        
         </h4>
         <p className="mt-1 text-[#4F547B] text-sm md:text-xs">
           {convertStringToDate(blog.createdAt)}
         </p>
       </div>
+      </Link>
     </div>
   );
 };

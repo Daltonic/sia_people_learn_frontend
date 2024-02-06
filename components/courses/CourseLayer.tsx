@@ -31,13 +31,13 @@ const CourseLayer: React.FC<ComponentProps> = ({ data }) => {
               <div className="flex flex-col items-stretch md:w-4/5">
                 <div className="">
                   <div className="flex md:flex-row flex-col items-start">
-                    <div className="flex flex-col items-stretch w-full md:w-[28%]">
+                    <div className="flex flex-col items-stretch w-full h-36 md:w-[28%]">
                       <Image
                         width={500}
                         height={500}
                         style={{ height: "100%", width: "100%" }}
-                        className="rounded-md"
-                        src={course.imageUrl || "/images/courseCard/card1.svg"}
+                        className="rounded-md object-cover"
+                        src={course.imageUrl || "/images/cardimg.svg"}
                         alt="image"
                       />
                     </div>
@@ -61,20 +61,24 @@ const CourseLayer: React.FC<ComponentProps> = ({ data }) => {
                         <div className="text-violet-950 text-lg font-medium capitalize self-stretch md:w-[80%]">
                           {course.name}
                         </div>
-                        <div className="text-slate-600 text-sm leading-6 self-stretch ">
+                        <div className="text-slate-600 text-sm leading-6 self-stretch line-clamp-1">
                           {course.description}
                         </div>
                         <div className="flex flex-wrap items-center gap-3 mt-3">
-                          <Image
-                            width={30}
-                            height={30}
-                            src={
-                              course.userId.imgUrl ||
-                              "/images/instructors/instructor1.svg"
-                            }
-                            alt="image"
-                            className="object-cover rounded-full h-10 w-10"
-                          />
+                          {course.userId.imgUrl ? (
+                            <Image
+                              width={10}
+                              height={10}
+                              src={course.userId.imgUrl || "/images/courseCard/card1.svg"}
+                              alt="image"
+                              className="object-cover rounded-full w-8 h-8"
+                            />
+                          ) : (
+                            <div className="rounded-full w-8 h-8 text-white px-4 bg-[#C5165D] text-sm flex items-center justify-center">
+                              {course.userId.firstName[0]}
+                              {course.userId.lastName[0]}
+                            </div>
+                          )}
                           <p className="text-sm text-[#4F547B]">
                             {course.userId.firstName} {course.userId.lastName}
                           </p>

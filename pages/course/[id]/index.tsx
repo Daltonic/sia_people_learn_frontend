@@ -16,7 +16,6 @@ const Page: NextPage<{ courseData: ICourse }> = ({ courseData }) => {
     <Layout>
       <div className="md:px-14 md:py-10 p-5 sm:px-10 md:relative overflow-x-hidden">
         <InstructorCourseHead course={courseData} />
-
         <Tabs type="lesson" data={courseData} course={courseData} />
       </div>
     </Layout>

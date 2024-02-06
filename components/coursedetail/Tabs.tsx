@@ -72,9 +72,12 @@ const Tabs: React.FC<ComponentProps> = ({ course, type, data }) => {
         <div className="py-4 md:mt-4">
           {activeTab === 1 && (
             <div>
+              <h4 className="text-xl md:text-lg text-[#321463] font-medium mb-3">
+              Description
+              </h4>
               <p
                 className={
-                  showMore ? "text-[#4F547B]" : "line-clamp-3 text-[#4F547B] "
+                  showMore ? "text-[#4F547B]" : "line-clamp-3 text-[#4F547B]" 
                 }
               >
                 {course.description}
@@ -89,11 +92,10 @@ const Tabs: React.FC<ComponentProps> = ({ course, type, data }) => {
           )}
           {activeTab === 2 && (
             <div className="">
-              <h4 className="text-xl md:text-lg text-[#321463] font-medium mb-3 md:mb-5">
+              <h4 className="text-xl md:text-lg text-[#321463] font-medium mb-3">
                 What you will learn
               </h4>
-              <div className="w-5/6">
-                <div className="space-y-5">
+                <div className="space-y-2">
                   {course.requirements.map((requirement, index) => (
                     <div
                       key={index}
@@ -106,22 +108,21 @@ const Tabs: React.FC<ComponentProps> = ({ course, type, data }) => {
                     </div>
                   ))}
                 </div>
-              </div>
             </div>
           )}
           {activeTab === 3 && (
-            <div className="mt-15">
-              <h4 className="text-xl md:text-lg text-[#321463] font-medium mb-3 md:mb-5">
+            <div className="">
+              <h4 className="text-xl md:text-lg text-[#321463] font-medium mb-3">
                 Requirements
               </h4>
-              <ul className="space-y-5 md:pt-15">
+              <ul className="space-y-2">
                 {course.requirements.map((requirement, index) => (
                   <div key={index} className="flex items-center gap-2 md:gap-5">
                     <div>
                       <FaCircle className="text-[10px] text-[#4F547B]" />
                     </div>
 
-                    <span key={index}>{requirement}</span>
+                    <span  className="text-[#4F547B]" key={index}>{requirement}</span>
                   </div>
                 ))}
               </ul>
