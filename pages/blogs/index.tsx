@@ -1,6 +1,6 @@
 "use client";
 import Layout from "@/components/layout/Layout";
-import { NextPage } from "next";
+import { GetServerSidePropsContext, NextPage } from "next";
 import { blogs, categories } from "@/data/blogs";
 import { useEffect, useState } from "react";
 import Image from "next/image";
@@ -64,17 +64,17 @@ const Page: NextPage<{ postsData: IPosts }> = ({ postsData }) => {
               ))}
             </div>
 
-            <SearchAndFilterBar/>
+            <SearchAndFilterBar
+              searchPlaceholder="Search Blog Posts Here..."
+              route="/blogs"
+            />
 
             <div className="relative pt-10">
               <div className="top-0 is-active">
                 <div className="flex justify-between gap-6 flex-wrap w-full">
                   {postsData &&
                     postsData.posts.map((post, i: number) => (
-                      <div
-                        key={i}
-                        className="w-full sm:w-80 md:w-56 mb-4 "
-                      >
+                      <div key={i} className="w-full sm:w-80 md:w-56 mb-4 ">
                         <div className="w-full">
                           <Link
                             className="linkCustom"
@@ -118,7 +118,9 @@ const Page: NextPage<{ postsData: IPosts }> = ({ postsData }) => {
 
 export default Page;
 
-export const getServerSideProps = async () => {
+export const getServerSideProps = async (
+  context: GetServerSidePropsContext
+) => {
   const requestDetails = {
     method: "GET",
     headers: {
@@ -126,9 +128,11 @@ export const getServerSideProps = async () => {
     },
   };
 
+  const searchQuery = context.query.q || "";
+
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/posts?parentsOnly=true`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/posts?parentsOnly=true&searchQuery=${searchQuery}`,
       requestDetails
     );
 

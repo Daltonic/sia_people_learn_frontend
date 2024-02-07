@@ -1,3 +1,6 @@
+import qs from "query-string";
+import { RemoveUrlQueryParams, UrlQueryParams } from "./type.dt";
+
 export const convertStringToDate = (date: string): string => {
   const dateObj = new Date(date);
   const year = dateObj.getFullYear();
@@ -85,4 +88,35 @@ export const getTimestamp = (date: string): string => {
     const years = Math.floor(timeDifference / year);
     return `${years} ${years === 1 ? "year" : "years"} ago`;
   }
+};
+
+export const formUrlQuery = ({ params, key, value }: UrlQueryParams) => {
+  const currentUrl = qs.parse(params);
+  currentUrl[key] = value;
+  return qs.stringifyUrl(
+    {
+      url: window.location.pathname,
+      query: currentUrl,
+    },
+    { skipNull: true }
+  );
+};
+
+export const removeKeysFromQuery = ({
+  params,
+  keysToRemove,
+}: RemoveUrlQueryParams) => {
+  const currentUrl = qs.parse(params);
+
+  keysToRemove.forEach((keyToRemove) => {
+    delete currentUrl[keyToRemove];
+  });
+
+  return qs.stringifyUrl(
+    {
+      url: window.location.pathname,
+      query: currentUrl,
+    },
+    { skipNull: true }
+  );
 };

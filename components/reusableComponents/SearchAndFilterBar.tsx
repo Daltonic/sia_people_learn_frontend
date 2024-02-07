@@ -1,7 +1,13 @@
 import React, { useState } from "react";
 import { CiSearch } from "react-icons/ci";
+import SearchInput from "./SearchInput";
 
-const SearchAndFilterBar: React.FC = () => {
+interface Props {
+  searchPlaceholder?: string;
+  route?: string;
+}
+
+const SearchAndFilterBar: React.FC<Props> = ({ searchPlaceholder, route }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [ratingOption, setRatingOption] = useState("all");
   const [sortOption, setSortOption] = useState("ascending");
@@ -20,16 +26,7 @@ const SearchAndFilterBar: React.FC = () => {
 
   return (
     <div className="md:flex justify-between items-center my-3 md:my-6">
-      <div className="flex gap-5 items-center border border-[#E1DDDD] text-[#4F547B] rounded-md p-3 md:p-2 w-full mb-5 md:mb-0 md:w-96">
-        <CiSearch className=" text-[#4F547B] text-xl" />
-        <input
-          type="text"
-          placeholder="Search..."
-          className="focus:outline-none"
-          value={searchQuery}
-          onChange={handleSearchChange}
-        />
-      </div>
+      <SearchInput route={route || "/"} placeholder={searchPlaceholder || ""} />
       <div className="flex md:gap-5 items-center justify-between md:justify-normal">
         <select
           value={ratingOption}
