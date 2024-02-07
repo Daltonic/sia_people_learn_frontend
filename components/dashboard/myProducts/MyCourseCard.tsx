@@ -20,7 +20,7 @@ const MyCourseCard: React.FC<ComponentProps> = ({ data, type }) => {
 
   return (
     <div
-      className=" bg-white rounded-lg w-full sm:w-80 md:w-56 h-48 border-[#EDEDED] border-1 p-2 shadow-[#EDEDED] shadow"
+      className="bg-white rounded-lg w-full sm:w-80 md:w-48 h-52 border-[#EDEDED] border-1 p-2 shadow-[#EDEDED] shadow"
     >
       <div className="">
         <Link
@@ -29,17 +29,16 @@ const MyCourseCard: React.FC<ComponentProps> = ({ data, type }) => {
             type === "Academy" ? `/academy/${data._id}` : `/course/${data._id}`
           }
         >
-          <div className=" relative">
+          <div className="h-20 relative">
             <Image
-              width={500}
-              height={400}
-              style={{ height: "100%", width: "100%" }}
-            className="rounded-lg"
-              src={data.imageUrl || "/images/heroImage.svg"}
+              width={100}
+              height={100}
+              className="rounded-lg object-cover h-full w-full"
+              src={data.imageUrl || "/images/cardimg.svg"}
               alt="image"
             />
           </div>
-        </Link>
+      
 
         <div className="my-2 p-2 space-y-2">
           <div className="flex items-center justify-between md:md:text-xs gap-4">
@@ -57,10 +56,11 @@ const MyCourseCard: React.FC<ComponentProps> = ({ data, type }) => {
             </div>
           </div>
 
-          <div className="md:text-sm font-medium text-[#321463] mt-2">
+          <div className="md:text-sm font-medium text-[#321463] mt-2 line-clamp-1 hover:overflow-visible">
             {data.name}
           </div>
         </div>
+        </Link>
       </div>
     </div>
   );

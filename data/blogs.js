@@ -77,13 +77,13 @@ export const blogs = [
 
 export const categories = [
   "All Categories",
-  "Animation",
-  "Design",
-  "Illustration",
-  "Lifestyle",
-  "Photo & Film",
-  "Business",
-  "Writing",
+  "Solidity",
+  "Blockchain",
+  "Ethereum",
+  "DApp",
+  "Smart Contract",
+  "Crypto",
+  "DeFi",
 ];
 
 export const tags = [

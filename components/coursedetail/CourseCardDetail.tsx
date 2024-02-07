@@ -12,6 +12,7 @@ import {
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import { cartActions } from "@/store/cartSlice";
+import SocialMediaIcons from "../reusableComponents/SocialMediaIcons";
 
 interface ComponentProps {
   course: ICourse;
@@ -103,7 +104,7 @@ const CourseCardDetail: React.FC<ComponentProps> = ({ course }) => {
             height={250}
             style={{ height: "30%", width: "100%" }}
             className="rounded-md w-full"
-            src={course.imageUrl || "/images/courseCard/card1.svg"}
+            src={course.imageUrl || "/images/cardimg.svg"}
             alt="image"
           />
         </div>
@@ -125,7 +126,7 @@ const CourseCardDetail: React.FC<ComponentProps> = ({ course }) => {
 
         <div className="block ">
           {isSubscribed ? (
-            <Button className="w-full mb-3 bg-[#C5165D] text-white" disabled>
+            <Button variant="pink" className="w-full mb-3" disabled>
               Already Purchased
             </Button>
           ) : (
@@ -146,9 +147,6 @@ const CourseCardDetail: React.FC<ComponentProps> = ({ course }) => {
             </>
           )}
         </div>
-        <p className="text-[#4F547B] text-sm text-center">
-          30-Day Money-Back Guarantee
-        </p>
 
         <div>
           <div className="flex justify-between items-center border-b py-2 border-[#EDEDED]">
@@ -190,20 +188,10 @@ const CourseCardDetail: React.FC<ComponentProps> = ({ course }) => {
             </div>
             <p className="text-[#4F547B]">{course.difficulty}</p>
           </div>
-          <div className="flex justify-center gap-2 items-center">
-            <div className="p-4 rounded-full hover:bg-[#F9F9F9] text-[#4F547B] hover:bg-opacity-50 transition duration-500 ease-in-out cursor-pointer">
-              <FaFacebookF />
-            </div>
-            <div className="p-4 rounded-full hover:bg-[#F9F9F9] text-[#4F547B] hover:bg-opacity-50 transition duration-500 ease-in-out cursor-pointer">
-              <FaTwitter />
-            </div>
-            <div className="p-4 rounded-full hover:bg-[#F9F9F9] text-[#4F547B] hover:bg-opacity-50 transition duration-500 ease-in-out cursor-pointer">
-              <FaInstagram />
-            </div>
-            <div className="p-4 rounded-full hover:bg-[#F9F9F9] text-[#4F547B] hover:bg-opacity-50 transition duration-500 ease-in-out cursor-pointer">
-              <FaLinkedinIn />
-            </div>
-          </div>
+          <div className="flex justify-center py-2">
+          <SocialMediaIcons/>
+
+        </div>
         </div>
       </div>
     </div>
