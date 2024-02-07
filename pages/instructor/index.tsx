@@ -20,13 +20,13 @@ const Page: React.FC<{ usersData: IUsers }> = ({ usersData }) => {
           </div>
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 flex-wrap mt-10">
             {usersData?.users &&
-              usersData.users.map((user, i: number) => (
+              usersData.users.map((data, i: number) => (
                 <Link
                   key={i}
                   className="linkCustom w-full sm:w-fit"
-                  href={/instructors/${user?._id}}
+                  href={`/instructors/${data?._id}`}
                 >
-                  <InstructorCard user={user} />
+                  <InstructorCard user={data} />
                 </Link>
               ))}
           </div>
@@ -59,7 +59,7 @@ export const getServerSideProps = async () => {
 
   try {
     const response = await fetch(
-      ${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/users?userType=instructor,
+      `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/users?userType=instructor`,
       requestDetails
     );
 
