@@ -2,7 +2,7 @@ import PageHeader from "@/components/reusableComponents/PageHeader";
 import CourseLayer from "@/components/courses/CourseLayer";
 import Filterlayer from "@/components/courses/Filterlayer";
 import Layout from "@/components/layout/Layout";
-import { NextPage } from "next";
+import { GetServerSidePropsContext, NextPage } from "next";
 import { IAcademies } from "@/utils/type.dt";
 import AcademyLayer from "@/components/academies/AcademyLayer";
 
@@ -17,7 +17,10 @@ const Page: NextPage<{ academiesObj: IAcademies }> = ({ academiesObj }) => {
               Explore our trending Academies in Blockchain and We3 Development.
             </p>
           </div>
-          <Filterlayer />
+          <Filterlayer
+            searchPlaceholder="Search Academies Here..."
+            route="/academies"
+          />
           <AcademyLayer data={academiesObj} />
         </div>
       </div>
@@ -27,7 +30,9 @@ const Page: NextPage<{ academiesObj: IAcademies }> = ({ academiesObj }) => {
 
 export default Page;
 
-export const getServerSideProps = async () => {
+export const getServerSideProps = async (
+  context: GetServerSidePropsContext
+) => {
   const requestDetails = {
     method: "GET",
     headers: {
@@ -35,9 +40,11 @@ export const getServerSideProps = async () => {
     },
   };
 
+  const searchQuery = context.query.q || "";
+
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/academies`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/academies?searchQuery=${searchQuery}`,
       requestDetails
     );
 

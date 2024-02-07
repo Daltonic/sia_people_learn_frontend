@@ -2,7 +2,7 @@ import PageHeader from "@/components/reusableComponents/PageHeader";
 import CourseLayer from "@/components/courses/CourseLayer";
 import Filterlayer from "@/components/courses/Filterlayer";
 import Layout from "@/components/layout/Layout";
-import { NextPage } from "next";
+import { GetServerSidePropsContext, NextPage } from "next";
 import { ICourses } from "@/utils/type.dt";
 
 const Page: NextPage<{ coursesObj: ICourses }> = ({ coursesObj }) => {
@@ -16,7 +16,10 @@ const Page: NextPage<{ coursesObj: ICourses }> = ({ coursesObj }) => {
               Explore our trending courses in Blockchain and We3 Development.
             </p>
           </div>
-          <Filterlayer />
+          <Filterlayer
+            searchPlaceholder="Search Courses Here..."
+            route="/courses"
+          />
           <CourseLayer data={coursesObj} />
         </div>
       </div>
@@ -26,7 +29,9 @@ const Page: NextPage<{ coursesObj: ICourses }> = ({ coursesObj }) => {
 
 export default Page;
 
-export const getServerSideProps = async () => {
+export const getServerSideProps = async (
+  context: GetServerSidePropsContext
+) => {
   const requestDetails = {
     method: "GET",
     headers: {
@@ -34,9 +39,11 @@ export const getServerSideProps = async () => {
     },
   };
 
+  const searchQuery = context.query.q || "";
+
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/courses?type=Course`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/courses?type=Course&searchQuery=${searchQuery}`,
       requestDetails
     );
 
