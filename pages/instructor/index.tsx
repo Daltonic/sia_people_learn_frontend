@@ -1,12 +1,10 @@
 import InstructorCard from "@/components/becomeInstructor/InstructorCard";
-import { teamMembers } from "../../data/instructors";
 import Layout from "@/components/layout/Layout";
 import Link from "next/link";
 import Button from "@/components/reusableComponents/Button";
-import SearchAndFilterBar from "@/components/reusableComponents/SearchAndFilterBar";
-import Pagination from "@/components/reusableComponents/Pagination";
+import { IUsers } from "@/utils/type.dt";
 
-const Page: React.FC = () => {
+const Page: React.FC<{ usersData: IUsers }> = ({ usersData }) => {
   return (
     <Layout>
       <div>
@@ -20,19 +18,18 @@ const Page: React.FC = () => {
               Development.
             </p>
           </div>
-          <SearchAndFilterBar/>
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 flex-wrap mt-10">
-            {teamMembers.slice(0, 12).map((data, i: number) => (
-              <Link
-                key={i}
-                className="linkCustom w-full sm:w-fit"
-                href={`/instructors/${data.id}`}
-              >
-                <InstructorCard data={data} />
-              </Link>
-            ))}
+            {usersData?.users &&
+              usersData.users.map((data, i: number) => (
+                <Link
+                  key={i}
+                  className="linkCustom w-full sm:w-fit"
+                  href={`/instructors/${data?._id}`}
+                >
+                  <InstructorCard user={data} />
+                </Link>
+              ))}
           </div>
-          <Pagination totalPages={2}/>
         </div>
         <div className="bg-[#242239] px-5 sm:px-10 py-16 flex md:justify-center bg-[url('/images/instructors/instructorbg.svg')] bg-cover">
           <div className="flex flex-col md:flex-row gap-5 md:gap-0 justify-between md:w-4/5 md:items-center">
@@ -41,7 +38,7 @@ const Page: React.FC = () => {
               <p className="text-[#C5165D] text-xl">Dapp Mentors</p>
             </div>
             <Link href="/signup">
-              <Button variant="pink"> Create Account</Button>
+              <Button variant="pink">Create Account</Button>
             </Link>
           </div>
         </div>
@@ -51,3 +48,35 @@ const Page: React.FC = () => {
 };
 
 export default Page;
+
+export const getServerSideProps = async () => {
+  const requestDetails = {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/users?userType=instructor`,
+      requestDetails
+    );
+
+    const users = (await response.json()) as IUsers;
+    console.log(users);
+
+    return {
+      props: {
+        usersData: JSON.parse(JSON.stringify(users)),
+      },
+    };
+  } catch (e: any) {
+    console.log(e);
+    return {
+      props: {
+        usersData: {} as IUsers,
+      },
+    };
+  }
+};

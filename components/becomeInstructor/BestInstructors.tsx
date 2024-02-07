@@ -31,7 +31,7 @@ const BestInstructors: React.FC = () => {
       </div>
       <div className="flex justify-between flex-wrap mt-10">
         {teamMembers.slice(0, 4).map((data, i: number) => (
-          <InstructorCard data={data} key={i} />
+          <InstructorCard user={data} key={i} />
         ))}
       </div>
     </div>
