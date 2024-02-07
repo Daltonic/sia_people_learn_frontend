@@ -209,6 +209,12 @@ export interface IUser {
   subscriptions: string[];
 }
 
+export interface IUsers {
+  users: Partial<IUser>[];
+  isNext: boolean;
+  numOfPages: number;
+}
+
 export interface UserState {
   userData: IUser | null;
 }
