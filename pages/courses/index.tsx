@@ -4,6 +4,7 @@ import Filterlayer from "@/components/courses/Filterlayer";
 import Layout from "@/components/layout/Layout";
 import { GetServerSidePropsContext, NextPage } from "next";
 import { ICourses } from "@/utils/type.dt";
+import Pagination from "@/components/reusableComponents/Pagination";
 
 const Page: NextPage<{ coursesObj: ICourses }> = ({ coursesObj }) => {
   return (
@@ -21,6 +22,7 @@ const Page: NextPage<{ coursesObj: ICourses }> = ({ coursesObj }) => {
             route="/courses"
           />
           <CourseLayer data={coursesObj} />
+          <Pagination totalPages={coursesObj.numOfPages} />
         </div>
       </div>
     </Layout>
@@ -40,10 +42,15 @@ export const getServerSideProps = async (
   };
 
   const searchQuery = context.query.q || "";
+  const page = context.query.page;
 
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/courses?type=Course&searchQuery=${searchQuery}`,
+      `${
+        process.env.NEXT_PUBLIC_BACKEND_URI
+      }/api/v1/courses?type=Course&searchQuery=${searchQuery}&page=${Number(
+        page
+      )}`,
       requestDetails
     );
 

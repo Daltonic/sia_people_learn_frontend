@@ -184,7 +184,7 @@ export interface IPost {
 export interface IPosts {
   posts: IPost[];
   isNext: boolean;
-  numofPages: number;
+  numOfPages: number;
 }
 
 export interface CartState {
