@@ -21,8 +21,8 @@ const CourseLayer: React.FC<ComponentProps> = ({ data }) => {
 
   return (
     <div className="mt-10">
-      {data.courses.map((course) => (
-        <div className="w-full border-b border-[#EDEDED] py-5">
+      {data.courses.map((course, index) => (
+        <div key={index} className="w-full border-b border-[#EDEDED] py-5">
           <div className=" flex md:flex-row flex-col">
             <div className="flex flex-col items-stretch md:w-4/5">
               <div className="">
@@ -167,7 +167,7 @@ const CourseLayer: React.FC<ComponentProps> = ({ data }) => {
           </div>
         </div>
       ))}
-      <Pagination totalPages={2}/>
+      <Pagination totalPages={2} />
     </div>
   );
 };
