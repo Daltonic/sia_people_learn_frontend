@@ -92,8 +92,8 @@ const Header: React.FC = () => {
 
   return (
     <header
-      className={`px-5 sm:px-10 lg:px-20 py-5 sticky h-20 top-0 w-full z-50 ${
-        isScrolled ? "bg-white shadow-md" : "bg-transparent"
+      className={`px-5 py-3 sm:px-10 lg:px-20 sticky top-0 w-full z-50 ${
+        isScrolled ? "bg-white shadow-md shadow-purple-900/10" : "bg-transparent"
       }`}
     >
       <div>
