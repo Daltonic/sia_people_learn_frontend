@@ -9,6 +9,7 @@ import { IPosts } from "@/utils/type.dt";
 import { convertStringToDate } from "@/utils";
 import console from "console";
 import Pagination from "@/components/reusableComponents/Pagination";
+import SearchAndFilterBar from "@/components/reusableComponents/SearchAndFilterBar";
 
 type Blog = {
   id: number;
@@ -42,7 +43,7 @@ const Page: NextPage<{ postsData: IPosts }> = ({ postsData }) => {
         </p>
       </div>
 
-      <section className="mt-14">
+      <section className="mt-5">
         <div className="px-5 sm:px-10 md:px-20">
           <div className="font-medium">
             <div className="flex md:justify-center flex-wrap md:gap-3">
@@ -62,6 +63,8 @@ const Page: NextPage<{ postsData: IPosts }> = ({ postsData }) => {
                 </div>
               ))}
             </div>
+
+            <SearchAndFilterBar/>
 
             <div className="relative pt-10">
               <div className="top-0 is-active">

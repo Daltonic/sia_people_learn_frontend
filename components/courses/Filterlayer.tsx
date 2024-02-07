@@ -1,30 +1,36 @@
 import * as React from "react";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import { IoFilterSharp } from "react-icons/io5";
+import SearchInput from "../reusableComponents/SearchInput";
 
 function Filterlayer() {
+  const handleSearchChange = (query: string) => {
+    // Handle search query change logic here
+    console.log('Search query:', query);
+  };
   return (
-    <div className="md:flex-row flex flex-col md:items-center justify-between gap-5 mt-5 md:mt-20">
-      <div className="text-violet-950 text-sm grow whitespace-nowrap my-auto">
-        <span className=" text-slate-600">Showing </span>
-        <span className="font-medium text-violet-950">250</span>
-        <span className=" text-slate-600"> total results</span>
+    <div className="md:flex-row flex flex-col md:items-center justify-between gap-5 mt-5 md:mt-16">
+      <div className="text-sm flex gap-2">
+        <p className=" text-slate-600">Showing </p>
+        <p className="font-medium text-violet-950">250</p>
+        <p className=" text-slate-600"> total results</p>
       </div>
-      <div className="flex items-center gap-2 md:gap-10">
-        <div className="text-violet-950 text-sm font-medium grow whitespace-nowrap my-auto">
+      <SearchInput onSearchChange={handleSearchChange} />
+      <div className="flex items-center gap-2 md:gap-4">
+        <p className="text-violet-950 text-sm font-medium">
           Sort by:
-        </div>
+        </p>
         <button className="bg-stone-50 flex justify-between gap-5 px-2 md:px-5 py-3 rounded-lg w-fit">
-          <div className="text-slate-600 text-sm">
+          <p className="text-slate-600 text-sm">
             Most Popular
-          </div>
+          </p>
           <RiArrowDropDownLine  className=""/>
         </button>
         <div className="bg-sky-100 text-pink-700 flex items-stretch gap-2.5 px-3 md:px-5 py-3 rounded-lg self-start max-md:px-5 w-fit">
         <IoFilterSharp />
-          <div className=" text-sm self-center grow whitespace-nowrap my-auto">
+          <p className=" text-sm self-center">
             Filter
-          </div>
+          </p>
         </div>
       </div>
     </div>
