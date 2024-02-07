@@ -1,4 +1,4 @@
-name: Deploy to Ubuntu VPS
+name: Frontend Deployment to Ubuntu VPS
 
 on:
  push:
@@ -28,16 +28,8 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "./"
+          source: "Dockerfile"
           target: "/dockerized/containers/dappmentors_frontend"
-
-      - name: Verify Dockerfile copied
-        uses: appleboy/ssh-action@v0.1.3
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USERNAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: ls -la /dockerized/containers/dappmentors_frontend
 
       - name: Stop and remove Docker container if exists
         uses: appleboy/ssh-action@v0.1.3
@@ -72,15 +64,6 @@ jobs:
             script: |
               cd /dockerized/containers/dappmentors_frontend
               docker build -t dma_frontend_image .
-
-      - name: Remove untagged Docker images
-        uses: appleboy/ssh-action@v0.1.3
-        with:
-            host: ${{ secrets.SSH_HOST }}
-            username: ${{ secrets.SSH_USERNAME }}
-            key: ${{ secrets.SSH_PRIVATE_KEY }}
-            script: |
-                docker rmi $(docker images -f "dangling=true" -q) || true
       
       - name: Run Docker container
         uses: appleboy/ssh-action@v0.1.3
@@ -89,8 +72,4 @@ jobs:
             username: ${{ secrets.SSH_USERNAME }}
             key: ${{ secrets.SSH_PRIVATE_KEY }}
             script: |
-              docker run -d --restart unless-stopped --name dma_frontend_instance \
-                -e NEXT_PUBLIC_BACKEND_URI='${{secrets.NEXT_PUBLIC_BACKEND_URI}}' \
-                -p  80:3000 \
-                -v dma_frontend_volume:/data \
-                dma_frontend_image
+              docker run -d --name dma_frontend_instance -e NEXT_PUBLIC_BACKEND_URI=${{secrets.NEXT_PUBLIC_BACKEND_URI}} -p ${{secrets.PORT}}:3000 -v dma_frontend_volume:/data dma_frontend_image
