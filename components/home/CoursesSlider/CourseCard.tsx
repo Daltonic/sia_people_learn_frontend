@@ -34,6 +34,8 @@ const CourseCard: React.FC<ComponentProps> = ({ data, index }) => {
               alt="image"
             />
           </div>
+        </Link>
+
           <div className="p-2">
             <div className="flex items-center md:md:text-xs gap-4">
               <div className="flex items-center gap-1">
@@ -48,12 +50,13 @@ const CourseCard: React.FC<ComponentProps> = ({ data, index }) => {
                 <p className="text-[#4F547B]">({data.reviews?.length || 0})</p>
               </div>
             </div>
-
+            <Link className="linkCustom" href={`/coursedetail/${data._id}`}>
             <div className=" md:text-sm font-medium text-[#321463] mt-2 mb-6">
               <div className="line-clamp-1 hover:overflow-visible">
                 {data.name}
               </div>
             </div>
+            </Link>
 
             <div className="flex justify-between items-center my-2 border-b border-[#EDEDED] pb-1">
               <div className="flex items-center">
@@ -117,7 +120,6 @@ const CourseCard: React.FC<ComponentProps> = ({ data, index }) => {
               </div>
             </div>
           </div>
-        </Link>
       </div>
     </div>
   );

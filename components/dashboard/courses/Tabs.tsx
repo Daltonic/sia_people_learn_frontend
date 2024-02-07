@@ -138,7 +138,7 @@ const Tabs: React.FC = () => {
 
         <div className="py-4 text-[#4F547B]">
           {activeTab === 1 ? (
-            <div className="flex justify-between w-full flex-wrap">
+            <div className="flex justify-between w-full flex-wrap gap-5">
               {coursesSubs.subscriptions &&
               coursesSubs.subscriptions.length > 0 ? (
                 coursesSubs.subscriptions.map((sub, i: number) => (
@@ -152,7 +152,7 @@ const Tabs: React.FC = () => {
               )}
             </div>
           ) : (
-            <div className="flex justify-between w-full flex-wrap">
+            <div className="flex justify-between w-full flex-wrap gap-5">
               {academiesSubs.subscriptions &&
               academiesSubs.subscriptions.length > 0 ? (
                 academiesSubs.subscriptions.map((sub, i: number) => (

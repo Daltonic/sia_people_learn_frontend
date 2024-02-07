@@ -33,6 +33,7 @@ const AcademyCard: React.FC<ComponentProps> = ({ data }) => {
               alt="image"
             />
           </div>
+          </Link>
 
 
           <div className="p-2">
@@ -119,7 +120,6 @@ const AcademyCard: React.FC<ComponentProps> = ({ data }) => {
               </div>
             </div>
           </div>
-        </Link>
       </div>
     </div>
   );

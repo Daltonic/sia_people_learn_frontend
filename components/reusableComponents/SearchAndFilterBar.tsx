@@ -45,8 +45,8 @@ const SearchAndFilterBar: React.FC = () => {
           onChange={handleSortChange}
           className="border border-[#E1DDDD] text-[#4F547B] rounded-md p-3 md:p-2"
         >
-          <option value="ascending">Old Review</option>
-          <option value="descending">Descending</option>
+          <option value="newest">Newest</option>
+          <option value="oldest">Oldest</option>
         </select>
       </div>
     </div>

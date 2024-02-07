@@ -25,7 +25,7 @@ const Page: React.FC<{ usersData: IUsers }> = ({ usersData }) => {
                 <Link
                   key={i}
                   className="linkCustom w-full sm:w-fit"
-                  href={`/instructors/${user?._id}`}
+                  href={/instructors/${user?._id}}
                 >
                   <InstructorCard user={user} />
                 </Link>
@@ -60,7 +60,7 @@ export const getServerSideProps = async () => {
 
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/users?userType=instructor`,
+      ${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/users?userType=instructor,
       requestDetails
     );
 
