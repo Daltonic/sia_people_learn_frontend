@@ -12,6 +12,7 @@ import { LiaTimesSolid } from "react-icons/lia";
 import { useDispatch, useSelector } from "react-redux";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import EmptyComponent from "../reusableComponents/EmptyComponent";
 
 interface Product {
   imageUrl: string | null;
@@ -36,6 +37,8 @@ const ShopCartTable: React.FC = () => {
   const [subscibedCourses, setSubscribedCourses] = useState<
     IUserSubscription[]
   >([]);
+
+  console.log(cartCourseItems);
 
   const cartItems: Product[] = [];
 
@@ -192,6 +195,14 @@ const ShopCartTable: React.FC = () => {
       className="w-full flex flex-col justify-center px-10 md:p-0"
       suppressHydrationWarning
     >
+      {cartItems.length === 0 && (
+        <div className="w-5/6 mt-10 mx-auto">
+          <EmptyComponent
+            title="Cart is Empty"
+            buttonText="Add an Item to Cart"
+          />
+        </div>
+      )}
       {cartItems.length > 0 && (
         <div className="flex flex-col items-center overflow-hidden w-full">
           <table className="mt-14 md:w-5/6">

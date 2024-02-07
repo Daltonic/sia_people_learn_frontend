@@ -7,6 +7,7 @@ import { LiaTimesSolid } from "react-icons/lia";
 import { useDispatch, useSelector } from "react-redux";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import EmptyComponent from "../reusableComponents/EmptyComponent";
 
 interface Product {
   imageUrl: string | null;
@@ -130,6 +131,14 @@ const ShopCartMobile: React.FC = () => {
   return (
     <div>
       <div className="px-5 mt-10">
+        {cartItems.length === 0 && (
+          <div className="w-5/6 mt-10 mx-auto">
+            <EmptyComponent
+              title="Cart is Empty"
+              buttonText="Add an Item to Cart"
+            />
+          </div>
+        )}
         {cartItems.length > 0 && (
           <div className="flex flex-col gap-4 items-center justify-center">
             {cartItems.map((item, index) => (

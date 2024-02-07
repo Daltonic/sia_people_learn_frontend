@@ -251,6 +251,7 @@ export interface IReview {
   comment: string;
   createdAt: string;
   updatedAt: string;
+  approved: boolean;
   userId: {
     _id: string;
     username: string;
