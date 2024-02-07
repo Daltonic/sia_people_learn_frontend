@@ -3,7 +3,6 @@ import Layout from "@/components/layout/Layout";
 import { NextPage } from "next";
 import ShopCartTable from "@/components/shopcart/ShopCartTable";
 import ShopCartMobile from "@/components/shopcart/ShopCartMobile";
-import EmptyComponent from "@/components/reusableComponents/EmptyComponent";
 
 const Page: NextPage = () => {
   const isDesktopOrLaptop =
@@ -19,14 +18,7 @@ const Page: NextPage = () => {
             Manage your selected courses and proceed to checkout.
           </p>
         </div>
-        {true
-
-          ? 
-          <div className="w-5/6 mt-10">
-          <EmptyComponent title="No Courses Available" buttonText="Create One Now" />
-          </div>
-          : (isDesktopOrLaptop ? <ShopCartTable /> : <ShopCartMobile />)
-        }
+        {isDesktopOrLaptop ? <ShopCartTable /> : <ShopCartMobile />}
       </div>
     </Layout>
   );
