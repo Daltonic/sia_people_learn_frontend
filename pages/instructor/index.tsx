@@ -3,6 +3,8 @@ import { teamMembers } from "../../data/instructors";
 import Layout from "@/components/layout/Layout";
 import Link from "next/link";
 import Button from "@/components/reusableComponents/Button";
+import SearchAndFilterBar from "@/components/reusableComponents/SearchAndFilterBar";
+import Pagination from "@/components/reusableComponents/Pagination";
 
 const Page: React.FC = () => {
   return (
@@ -18,6 +20,7 @@ const Page: React.FC = () => {
               Development.
             </p>
           </div>
+          <SearchAndFilterBar/>
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 flex-wrap mt-10">
             {teamMembers.slice(0, 12).map((data, i: number) => (
               <Link
@@ -29,6 +32,7 @@ const Page: React.FC = () => {
               </Link>
             ))}
           </div>
+          <Pagination totalPages={2}/>
         </div>
         <div className="bg-[#242239] px-5 sm:px-10 py-16 flex md:justify-center bg-[url('/images/instructors/instructorbg.svg')] bg-cover">
           <div className="flex flex-col md:flex-row gap-5 md:gap-0 justify-between md:w-4/5 md:items-center">

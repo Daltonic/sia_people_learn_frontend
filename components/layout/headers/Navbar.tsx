@@ -37,13 +37,13 @@ const Navbar: React.FC = () => {
               </div>
               <div className="text-2xl font-medium space-y-8 p-5">
                 <li>
-                  <Link href="/" onClick={closeMenu}>
+                  <Link href="/academies" onClick={closeMenu}>
                     <span
                       className={`${
-                        router.pathname === "/" ? "text-[#C5165D]" : ""
+                        router.pathname === "/academies" ? "text-[#C5165D]" : ""
                       }`}
                     >
-                      Home
+                      Academies
                     </span>
                   </Link>
                 </li>
@@ -99,7 +99,7 @@ const Navbar: React.FC = () => {
       <div className="hidden md:block">
         <ul className="text-[#321463] text-md flex gap-5">
           <li className="text-[15px]">
-            <Link href="/">Home</Link>
+            <Link href="/academies">Academies</Link>
           </li>
           <li>
             <Link href="/courses">Courses</Link>

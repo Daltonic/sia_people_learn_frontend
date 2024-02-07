@@ -12,6 +12,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
+    "types": ["@types/node", "@types/react", "@types/react-dom", "@types/d3-array"],
     "incremental": true,
     "plugins": [
       {
