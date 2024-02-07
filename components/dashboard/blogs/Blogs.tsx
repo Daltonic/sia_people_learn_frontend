@@ -50,7 +50,7 @@ const Blogs: React.FC = () => {
         } else {
           const result = (await response.json()) as IPosts;
           setPosts(result.posts);
-          setNumberOfPages(result.numofPages);
+          setNumberOfPages(result.numOfPages);
           setHasNext(result.isNext);
         }
       } catch (e: any) {

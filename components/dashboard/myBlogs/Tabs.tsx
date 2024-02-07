@@ -51,10 +51,10 @@ const Tabs: React.FC = () => {
           const message = await response.text();
           alert(message);
         } else {
-          const { posts, isNext, numofPages } =
+          const { posts, isNext, numOfPages } =
             (await response.json()) as IPosts;
           setPublishedPosts(posts);
-          setPagesCount(numofPages);
+          setPagesCount(numOfPages);
           setHasNext(isNext);
         }
       } catch (e: any) {
@@ -83,10 +83,10 @@ const Tabs: React.FC = () => {
           const message = await response.text();
           alert(message);
         } else {
-          const { posts, isNext, numofPages } =
+          const { posts, isNext, numOfPages } =
             (await response.json()) as IPosts;
           setUnpublishedPosts(posts);
-          setPagesCount(numofPages);
+          setPagesCount(numOfPages);
           setHasNext(isNext);
         }
       } catch (e: any) {
