@@ -1,5 +1,4 @@
 import InstructorCard from "@/components/becomeInstructor/InstructorCard";
-import { teamMembers } from "../../data/instructors";
 import Layout from "@/components/layout/Layout";
 import Link from "next/link";
 import Button from "@/components/reusableComponents/Button";
