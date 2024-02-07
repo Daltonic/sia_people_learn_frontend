@@ -38,8 +38,6 @@ const MyCourseCard: React.FC<ComponentProps> = ({ data, type }) => {
               alt="image"
             />
           </div>
-      
-
         <div className="my-2 p-2 space-y-2">
           <div className="flex items-center justify-between md:md:text-xs gap-4">
             <p className="text-[#4F547B]">{data.userId.firstName}</p>
@@ -56,7 +54,7 @@ const MyCourseCard: React.FC<ComponentProps> = ({ data, type }) => {
             </div>
           </div>
 
-          <div className="md:text-sm font-medium text-[#321463] mt-2 line-clamp-1 hover:overflow-visible">
+          <div className="md:text-sm font-medium text-[#321463] mt-2">
             {data.name}
           </div>
         </div>

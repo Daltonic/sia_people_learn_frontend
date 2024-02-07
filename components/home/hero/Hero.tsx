@@ -15,7 +15,7 @@ const Hero: React.FC = () => {
       className="max-h-[48vh] md:max-h-[100vh] md:mx-10 lg:mx-20 bg-cover md:rounded-2xl overflow-hidden"
       data-bg="images/heroImage.svg"
     >
-      <div className="bg-gray-300/30">
+      <div className="bg-purple-900/20">
       <div className="ml-5 sm:ml-10 py-10 md:py-20 pr-5 md:pr-0 sm:w-4/5 md:w-[35%]">
         <p className="text-white text-xs sm:text-md"> Unlock the Potential of Web3.</p>
         <h1 className="font-medium text-2xl sm:text-4xl md:text-5xl text-white mt-2 sm:mt-6 md:mt-8 sm:leading-[50px]">
