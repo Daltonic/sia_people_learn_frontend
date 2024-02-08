@@ -27,12 +27,8 @@ const CourseLayer: React.FC<ComponentProps> = ({ data }) => {
             <div className="flex flex-col items-stretch md:w-4/5">
               <div className="">
                 <div className="flex md:flex-row flex-col items-start">
-
                   <div className="w-full h-36 md:w-[28%]">
-                    <Link
-                      key={course._id}
-                      href={`/coursedetail/${course._id}`}
-                    >
+                    <Link key={course._id} href={`/coursedetail/${course._id}`}>
                       <Image
                         width={500}
                         height={500}
@@ -41,7 +37,6 @@ const CourseLayer: React.FC<ComponentProps> = ({ data }) => {
                         alt="image"
                       />
                     </Link>
-
                   </div>
 
                   <div className="md:ml-3 flex flex-col items-stretch md:w-[70%] mt-3 md:mt-0">
@@ -78,7 +73,10 @@ const CourseLayer: React.FC<ComponentProps> = ({ data }) => {
                           <Image
                             width={10}
                             height={10}
-                            src={course.userId.imgUrl || "/images/courseCard/card1.svg"}
+                            src={
+                              course.userId.imgUrl ||
+                              "/images/courseCard/card1.svg"
+                            }
                             alt="image"
                             className="object-cover rounded-full w-8 h-8"
                           />
@@ -144,9 +142,7 @@ const CourseLayer: React.FC<ComponentProps> = ({ data }) => {
                     <p className="text-sm text-[#4F547B] line-through">
                       ${course.price}
                     </p>
-                    <p className="text-2xl  text-[#321463]">
-                      ${course.price}
-                    </p>
+                    <p className="text-2xl  text-[#321463]">${course.price}</p>
                   </div>
                 ) : (
                   <>
@@ -167,7 +163,6 @@ const CourseLayer: React.FC<ComponentProps> = ({ data }) => {
           </div>
         </div>
       ))}
-      <Pagination totalPages={2} />
     </div>
   );
 };

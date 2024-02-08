@@ -1,10 +1,10 @@
 import PageHeader from "@/components/reusableComponents/PageHeader";
-import CourseLayer from "@/components/courses/CourseLayer";
 import Filterlayer from "@/components/courses/Filterlayer";
 import Layout from "@/components/layout/Layout";
 import { GetServerSidePropsContext, NextPage } from "next";
 import { IAcademies } from "@/utils/type.dt";
 import AcademyLayer from "@/components/academies/AcademyLayer";
+import Pagination from "@/components/reusableComponents/Pagination";
 
 const Page: NextPage<{ academiesObj: IAcademies }> = ({ academiesObj }) => {
   return (
@@ -22,6 +22,7 @@ const Page: NextPage<{ academiesObj: IAcademies }> = ({ academiesObj }) => {
             route="/academies"
           />
           <AcademyLayer data={academiesObj} />
+          <Pagination totalPages={academiesObj.numOfPages} />
         </div>
       </div>
     </Layout>
@@ -41,10 +42,13 @@ export const getServerSideProps = async (
   };
 
   const searchQuery = context.query.q || "";
+  const page = context.query.page;
 
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/academies?searchQuery=${searchQuery}`,
+      `${
+        process.env.NEXT_PUBLIC_BACKEND_URI
+      }/api/v1/academies?searchQuery=${searchQuery}&page=${Number(page)}`,
       requestDetails
     );
 

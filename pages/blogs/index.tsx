@@ -106,7 +106,7 @@ const Page: NextPage<{ postsData: IPosts }> = ({ postsData }) => {
                     ))}
                 </div>
 
-                <Pagination totalPages={5} />
+                <Pagination totalPages={postsData.numOfPages} />
               </div>
             </div>
           </div>
@@ -129,10 +129,15 @@ export const getServerSideProps = async (
   };
 
   const searchQuery = context.query.q || "";
+  const page = context.query.page;
 
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/posts?parentsOnly=true&searchQuery=${searchQuery}`,
+      `${
+        process.env.NEXT_PUBLIC_BACKEND_URI
+      }/api/v1/posts?parentsOnly=true&searchQuery=${searchQuery}&page=${Number(
+        page
+      )}`,
       requestDetails
     );
 
