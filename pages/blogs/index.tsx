@@ -20,6 +20,11 @@ type Blog = {
   desc: string;
 };
 
+const sortOptions = [
+  { name: "Newest", value: "newest" },
+  { name: "Oldest", value: "oldest" },
+];
+
 const Page: NextPage<{ postsData: IPosts }> = ({ postsData }) => {
   const [pageItems, setPageItems] = useState<Blog[]>([]);
   const [currentCategory, setCurrentCategory] = useState("All Categories");
@@ -67,6 +72,8 @@ const Page: NextPage<{ postsData: IPosts }> = ({ postsData }) => {
             <SearchAndFilterBar
               searchPlaceholder="Search Blog Posts Here..."
               route="/blogs"
+              sortLabel="Sort by Date:"
+              sortOptions={sortOptions}
             />
 
             <div className="relative pt-10">
@@ -130,6 +137,7 @@ export const getServerSideProps = async (
 
   const searchQuery = context.query.q || "";
   const page = context.query.page;
+  const filter = context.query.filter || "newest";
 
   try {
     const response = await fetch(
@@ -137,7 +145,7 @@ export const getServerSideProps = async (
         process.env.NEXT_PUBLIC_BACKEND_URI
       }/api/v1/posts?parentsOnly=true&searchQuery=${searchQuery}&page=${Number(
         page
-      )}`,
+      )}&filter=${filter}`,
       requestDetails
     );
 

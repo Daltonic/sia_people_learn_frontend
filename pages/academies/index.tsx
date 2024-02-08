@@ -6,6 +6,17 @@ import { IAcademies } from "@/utils/type.dt";
 import AcademyLayer from "@/components/academies/AcademyLayer";
 import Pagination from "@/components/reusableComponents/Pagination";
 
+const sortOptions = [
+  { name: "Newest", value: "newest" },
+  { name: "Oldest", value: "oldest" },
+];
+
+const filterOptions = [
+  { name: "Beginner", value: "Beginner" },
+  { name: "Intermediate", value: "Intermediate" },
+  { name: "Advanced", value: "Advanced" },
+];
+
 const Page: NextPage<{ academiesObj: IAcademies }> = ({ academiesObj }) => {
   return (
     <Layout>
@@ -20,6 +31,10 @@ const Page: NextPage<{ academiesObj: IAcademies }> = ({ academiesObj }) => {
           <Filterlayer
             searchPlaceholder="Search Academies Here..."
             route="/academies"
+            filterLabel="Filter by Difficulty:"
+            filterOptions={filterOptions}
+            sortLabel="Sort by Date"
+            sortOptions={sortOptions}
           />
           <AcademyLayer data={academiesObj} />
           <Pagination totalPages={academiesObj.numOfPages} />
@@ -43,12 +58,16 @@ export const getServerSideProps = async (
 
   const searchQuery = context.query.q || "";
   const page = context.query.page;
+  const filter = context.query.filter || "newest";
+  const difficulty = context.query.difficulty;
 
   try {
     const response = await fetch(
       `${
         process.env.NEXT_PUBLIC_BACKEND_URI
-      }/api/v1/academies?searchQuery=${searchQuery}&page=${Number(page)}`,
+      }/api/v1/academies?searchQuery=${searchQuery}&page=${Number(
+        page
+      )}&filter=${filter}${difficulty ? `&difficulty=${difficulty}` : ""}`,
       requestDetails
     );
 

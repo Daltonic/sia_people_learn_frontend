@@ -6,6 +6,17 @@ import { GetServerSidePropsContext, NextPage } from "next";
 import { ICourses } from "@/utils/type.dt";
 import Pagination from "@/components/reusableComponents/Pagination";
 
+const sortOptions = [
+  { name: "Newest", value: "newest" },
+  { name: "Oldest", value: "oldest" },
+];
+
+const filterOptions = [
+  { name: "Beginner", value: "Beginner" },
+  { name: "Intermediate", value: "Intermediate" },
+  { name: "Advanced", value: "Advanced" },
+];
+
 const Page: NextPage<{ coursesObj: ICourses }> = ({ coursesObj }) => {
   return (
     <Layout>
@@ -20,6 +31,10 @@ const Page: NextPage<{ coursesObj: ICourses }> = ({ coursesObj }) => {
           <Filterlayer
             searchPlaceholder="Search Courses Here..."
             route="/courses"
+            filterLabel="Filter by Difficulty:"
+            filterOptions={filterOptions}
+            sortLabel="Sort by Date"
+            sortOptions={sortOptions}
           />
           <CourseLayer data={coursesObj} />
           <Pagination totalPages={coursesObj.numOfPages} />
@@ -43,6 +58,8 @@ export const getServerSideProps = async (
 
   const searchQuery = context.query.q || "";
   const page = context.query.page;
+  const filter = context.query.filter || "newest";
+  const difficulty = context.query.difficulty;
 
   try {
     const response = await fetch(
@@ -50,7 +67,7 @@ export const getServerSideProps = async (
         process.env.NEXT_PUBLIC_BACKEND_URI
       }/api/v1/courses?type=Course&searchQuery=${searchQuery}&page=${Number(
         page
-      )}`,
+      )}&filter=${filter}${difficulty ? `&difficulty=${difficulty}` : ""}`,
       requestDetails
     );
 
