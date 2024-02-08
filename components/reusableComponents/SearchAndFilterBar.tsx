@@ -1,13 +1,21 @@
 import React, { useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import SearchInput from "./SearchInput";
+import Filters from "./Filters";
 
 interface Props {
   searchPlaceholder?: string;
   route?: string;
+  sortOptions?: { name: string; value: string }[];
+  sortLabel?: string;
 }
 
-const SearchAndFilterBar: React.FC<Props> = ({ searchPlaceholder, route }) => {
+const SearchAndFilterBar: React.FC<Props> = ({
+  searchPlaceholder,
+  route,
+  sortLabel,
+  sortOptions,
+}) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [ratingOption, setRatingOption] = useState("all");
   const [sortOption, setSortOption] = useState("ascending");
@@ -27,7 +35,10 @@ const SearchAndFilterBar: React.FC<Props> = ({ searchPlaceholder, route }) => {
   return (
     <div className="md:flex justify-between items-center my-3 md:my-6">
       <SearchInput route={route || "/"} placeholder={searchPlaceholder || ""} />
-      <div className="flex md:gap-5 items-center justify-between md:justify-normal">
+      {sortOptions && sortLabel && (
+        <Filters label={sortLabel} options={sortOptions} type="filter" />
+      )}
+      {/* <div className="flex md:gap-5 items-center justify-between md:justify-normal">
         <select
           value={ratingOption}
           onChange={handleRatingChange}
@@ -45,7 +56,7 @@ const SearchAndFilterBar: React.FC<Props> = ({ searchPlaceholder, route }) => {
           <option value="newest">Newest</option>
           <option value="oldest">Oldest</option>
         </select>
-      </div>
+      </div> */}
     </div>
   );
 };
