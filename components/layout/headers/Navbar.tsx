@@ -9,6 +9,8 @@ const Navbar: React.FC = () => {
   const router = useRouter();
   const closeMenu = () => setMenuOpen(false);
 
+  const activeLinkStyle = "text-[#c5165ccc]"; // Define the styling for active link
+
   return (
     <div className="">
       <div className="block md:hidden">
@@ -36,87 +38,36 @@ const Navbar: React.FC = () => {
                 </p>
               </div>
               <div className="text-2xl font-medium space-y-8 p-5">
-                <li>
-                  <Link href="/academies" onClick={closeMenu}>
-                    <span
-                      className={`${
-                        router.pathname === "/academies" ? "text-[#C5165D]" : ""
-                      }`}
-                    >
-                      Academies
-                    </span>
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/courses" onClick={closeMenu}>
-                    <span
-                      className={`${
-                        router.pathname === "/courses" ? "text-[#C5165D]" : ""
-                      }`}
-                    >
-                      Courses
-                    </span>
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/blogs" onClick={closeMenu}>
-                    <span
-                      className={`${
-                        router.pathname === "/blogs" ? "text-[#C5165D]" : ""
-                      }`}
-                    >
-                      Blogs
-                    </span>
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/contact" onClick={closeMenu}>
-                    <span
-                      className={`${
-                        router.pathname === "/contact" ? "text-[#C5165D]" : ""
-                      }`}
-                    >
-                      Contact
-                    </span>
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/about" onClick={closeMenu}>
-                    <span
-                      className={`${
-                        router.pathname === "/about" ? "text-[#C5165D]" : ""
-                      }`}
-                    >
-                      About
-                    </span>
-                  </Link>
-                </li>
+                <NavItem href="/academies" activeLinkStyle={activeLinkStyle} currentPath={router.pathname}>Academies</NavItem>
+                <NavItem href="/courses" activeLinkStyle={activeLinkStyle} currentPath={router.pathname}>Courses</NavItem>
+                <NavItem href="/blogs" activeLinkStyle={activeLinkStyle} currentPath={router.pathname}>Blogs</NavItem>
+                <NavItem href="/contact" activeLinkStyle={activeLinkStyle} currentPath={router.pathname}>Contact</NavItem>
+                <NavItem href="/about" activeLinkStyle={activeLinkStyle} currentPath={router.pathname}>About</NavItem>
               </div>
             </ul>
           </div>
         )}
       </div>
       <div className="hidden md:block">
-        <ul className="text-[#321463] text-md flex gap-5">
-          <li className="text-[15px]">
-            <Link href="/academies">Academies</Link>
-          </li>
-          <li>
-            <Link href="/courses">Courses</Link>
-          </li>
-          <li>
-            <Link href="/blogs">Blogs</Link>
-          </li>
-          <li>
-            <Link href="/contact">Contact</Link>
-          </li>
-          <li>
-            <Link href="/about">About</Link>
-          </li>
+        <ul className="text-[#321463] text-sm flex gap-5">
+          <NavItem href="/academies" activeLinkStyle={activeLinkStyle} currentPath={router.pathname}>Academies</NavItem>
+          <NavItem href="/courses" activeLinkStyle={activeLinkStyle} currentPath={router.pathname}>Courses</NavItem>
+          <NavItem href="/blogs" activeLinkStyle={activeLinkStyle} currentPath={router.pathname}>Blogs</NavItem>
+          <NavItem href="/contact" activeLinkStyle={activeLinkStyle} currentPath={router.pathname}>Contact</NavItem>
+          <NavItem href="/about" activeLinkStyle={activeLinkStyle} currentPath={router.pathname}>About</NavItem>
         </ul>
       </div>
     </div>
   );
 };
+
+const NavItem = ({ href, activeLinkStyle, currentPath, children }: { href: string, activeLinkStyle: string, currentPath: string, children: React.ReactNode }) => {
+  return (
+    <li className={`transition-colors duration-400 ${currentPath === href ? activeLinkStyle : 'hover:text-[#C5165D]'}`}>
+      <Link href={href}>{children}</Link>
+    </li>
+  );
+};
+
 
 export default Navbar;

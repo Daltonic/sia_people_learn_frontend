@@ -105,9 +105,9 @@ const Header: React.FC = () => {
                 height={35}
                 src="/images/logoImg.svg"
                 alt="logo"
-                className="object-cover w-10 h-10 rounded-full"
+                className="object-cover w-8 h-8 rounded-full"
               />
-              <p className="text-[#321463] text-lg md:text-md font-medium">
+              <p className="text-[#321463] text-lg md:text-sm font-medium">
                 Dapp Mentors
               </p>
             </div>
@@ -132,13 +132,12 @@ const Header: React.FC = () => {
           <div className="text-white flex items-center gap-5 md:gap-10">
             <Navbar />
             <Link href="/shopcart" className="relative">
+              <FiShoppingCart className="text-2xl text-black icon icon-basket" />
               {cartAcademyItems.length + cartCourseItems.length > 0 && (
-                <div className="fixed w-6 h-6 text-white bg-[#C5165D] text-[14px] flex justify-center items-center top-[8px] p-[2px] rounded-full">
+                <div className="absolute w-3.5 h-3.5 text-white bg-red-500 text-[10px] flex justify-center items-center bottom-5 left-5 p-[2px] rounded-full">
                   {cartAcademyItems.length + cartCourseItems.length}
                 </div>
               )}
-
-              <FiShoppingCart className="text-2xl text-black icon icon-basket" />
             </Link>
             {userData ? (
               <>
