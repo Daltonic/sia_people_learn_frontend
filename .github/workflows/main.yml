@@ -31,6 +31,25 @@ jobs:
           source: "Dockerfile"
           target: "/dockerized/containers/dappmentors_frontend"
 
+      - name: Create .env file
+        uses: appleboy/ssh-action@v0.1.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cat << EOF > /dockerized/containers/dappmentors_frontend/.env
+            NEXT_PUBLIC_BACKEND_URI=${{ secrets.NEXT_PUBLIC_BACKEND_URI }}
+            EOF
+
+      - name: Verify Dockerfile copied
+        uses: appleboy/ssh-action@v0.1.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: ls -la /dockerized/containers/dappmentors_frontend
+
       - name: Stop and remove Docker container if exists
         uses: appleboy/ssh-action@v0.1.3
         with:
@@ -72,4 +91,4 @@ jobs:
             username: ${{ secrets.SSH_USERNAME }}
             key: ${{ secrets.SSH_PRIVATE_KEY }}
             script: |
-              docker run -d --name dma_frontend_instance -e NEXT_PUBLIC_BACKEND_URI=${{secrets.NEXT_PUBLIC_BACKEND_URI}} -p ${{secrets.PORT}}:3000 -v dma_frontend_volume:/data dma_frontend_image
+              docker run -d --name dma_frontend_instance -p ${{secrets.PORT}}:3000 -v dma_frontend_volume:/data dma_frontend_image
