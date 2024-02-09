@@ -10,6 +10,12 @@ COPY package*.json ./
 # Install dependencies in the container
 RUN npm ci
 
+# Copy the .env file into the container
+COPY .env ./
+
+# Load environment variables from the .env file
+RUN export $(cat .env | xargs)
+
 # Copy the rest of the application source code to the working directory
 COPY . .
 
@@ -17,7 +23,7 @@ COPY . .
 RUN npm run build
 
 # Expose the port that the application will run on
-EXPOSE 3000
+EXPOSE  3000
 
 # Create a directory for persistent data storage
 VOLUME /data
