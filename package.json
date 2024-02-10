@@ -21,6 +21,7 @@
     "@types/react-tag-input": "^6.6.6",
     "@types/swiper": "^6.0.0",
     "aos": "^2.3.4",
+    "axios": "^1.6.7",
     "date-fns": "^3.0.6",
     "dayjs": "^1.11.10",
     "gsap": "^3.12.1",
