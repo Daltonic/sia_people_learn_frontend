@@ -82,7 +82,7 @@ jobs:
             key: ${{ secrets.SSH_PRIVATE_KEY }}
             script: |
               cd /dockerized/containers/dappmentors_frontend
-              docker build --pull --no-cache --rm -t dma_frontend_image .
+              docker build -t dma_frontend_image .
       
       - name: Run Docker container
         uses: appleboy/ssh-action@v0.1.3
