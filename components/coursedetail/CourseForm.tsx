@@ -14,6 +14,7 @@ import React, {
 } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { userActions } from "@/store/userSlice";
+import FilePicker from "../reusableComponents/FilePicker";
 
 interface CourseProps {
   course: ICourse;
@@ -24,6 +25,7 @@ const CourseForm: React.FC<CourseProps> = ({ course }) => {
   const dispatch = useDispatch();
   const { setUserData } = userActions;
   const { userData } = useSelector((states: RootState) => states.userStates);
+  const [imageUrl, setImageUrl] = useState<string>("");
 
   useEffect(() => {
     if (!userData) {
@@ -250,6 +252,12 @@ const CourseForm: React.FC<CourseProps> = ({ course }) => {
           />
         </div>
         <div className="md:flex gap-8">
+          <FilePicker
+            type="Image"
+            label="Image Url"
+            fileName={imageUrl}
+            setFileName={setImageUrl}
+          />
           <InputField
             label="Price"
             name="price"
@@ -257,15 +265,6 @@ const CourseForm: React.FC<CourseProps> = ({ course }) => {
             required
             inputType="number"
             value={productDetails.price}
-            handleChange={handleChange}
-          />
-          <InputField
-            label="ImageURL"
-            name="imageUrl"
-            placeholder="Enter Product ImageURL"
-            required={false}
-            inputType="url"
-            value={productDetails.imageUrl}
             handleChange={handleChange}
           />
         </div>
@@ -282,6 +281,7 @@ const CourseForm: React.FC<CourseProps> = ({ course }) => {
             handleChange={handleChange}
           />
         </div>
+
         <div className="md:flex gap-8">
           <SelectField
             label=" Product Type"

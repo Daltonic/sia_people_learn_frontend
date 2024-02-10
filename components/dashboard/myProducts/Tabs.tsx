@@ -67,170 +67,171 @@ const Tabs: React.FC = () => {
   };
 
   useEffect(() => {
-    const delaydebounceFn = setTimeout(
-      () => {
-        const requestDetails = {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
-          },
-        };
+    const requestDetails = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
+      },
+    };
+
+    if (search) {
+      const delaydebounceFn = setTimeout(() => {
         const updateSearch = async () => {
-          if (search) {
-            let url: string;
-            if (activeTab === 1) {
-              url = `${
-                process.env.NEXT_PUBLIC_BACKEND_URI
-              }/api/v1/courses?instructor=${userData?._id!}&type=Course&searchQuery=${search}&page=${Number(
-                page
-              )}`;
-            } else if (activeTab === 2) {
-              url = `${
-                process.env.NEXT_PUBLIC_BACKEND_URI
-              }/api/v1/courses?instructor=${userData?._id!}&type=Book&searchQuery=${search}&page=${Number(
-                page
-              )}`;
-            } else {
-              url = `${
-                process.env.NEXT_PUBLIC_BACKEND_URI
-              }/api/v1/academies?instructor=${userData?._id!}&searchQuery=${search}&page=${Number(
-                page
-              )}`;
-            }
-
-            try {
-              const response = await fetch(url, requestDetails);
-
-              if (response.status === 400) {
-                alert("Something went wrong");
-              }
-
-              if (activeTab === 1) {
-                const { courses, numOfPages } = await response.json();
-                setCourses(courses);
-                setCoursesPages(numOfPages);
-              } else if (activeTab === 2) {
-                const { courses, numOfPages } = await response.json();
-                setBooks(courses);
-                setBooksPages(numOfPages);
-              } else {
-                const { academies, numOfPages } = await response.json();
-                setAcademies(academies);
-                setAcademiesPages(numOfPages);
-              }
-            } catch (e: any) {
-              console.log(e.message);
-            }
+          let url: string;
+          if (activeTab === 1) {
+            url = `${
+              process.env.NEXT_PUBLIC_BACKEND_URI
+            }/api/v1/courses?instructor=${userData?._id!}&type=Course&searchQuery=${search}&page=${Number(
+              page || 1
+            )}`;
+          } else if (activeTab === 2) {
+            url = `${
+              process.env.NEXT_PUBLIC_BACKEND_URI
+            }/api/v1/courses?instructor=${userData?._id!}&type=Book&searchQuery=${search}&page=${Number(
+              page || 1
+            )}`;
           } else {
-            if (initialLoading) {
-              // Fetch Academies at initial state
-              const academiesResponse = await fetch(
-                `${
-                  process.env.NEXT_PUBLIC_BACKEND_URI
-                }/api/v1/academies?instructor=${userData?._id!}`,
-                requestDetails
-              );
+            url = `${
+              process.env.NEXT_PUBLIC_BACKEND_URI
+            }/api/v1/academies?instructor=${userData?._id!}&searchQuery=${search}&page=${Number(
+              page || 1
+            )}`;
+          }
 
-              if (academiesResponse.status === 400) {
-                alert("Something went wrong");
-              }
+          try {
+            const response = await fetch(url, requestDetails);
 
-              const { academies, numOfPages: academiesPages } =
-                await academiesResponse.json();
-              setAcademies(academies);
-              setAcademiesPages(academiesPages);
-
-              //Fetch Courses
-              const coursesResponse = await fetch(
-                `${
-                  process.env.NEXT_PUBLIC_BACKEND_URI
-                }/api/v1/courses?instructor=${userData?._id!}&type=Course`,
-                requestDetails
-              );
-
-              if (coursesResponse.status === 400) {
-                alert("Something went wrong");
-              }
-
-              const { courses, numOfPages: coursesPages } =
-                await coursesResponse.json();
-              setCourses(courses);
-              setCoursesPages(coursesPages);
-
-              // Fetch Books
-              const booksResponse = await fetch(
-                `${
-                  process.env.NEXT_PUBLIC_BACKEND_URI
-                }/api/v1/courses?instructor=${userData?._id!}&type=Book`,
-                requestDetails
-              );
-
-              if (booksResponse.status === 400) {
-                alert("Something went wrong");
-              }
-
-              const { courses: books, numOfPages: booksPages } =
-                await booksResponse.json();
-              setBooks(books);
-              setBooksPages(booksPages);
-
-              setInitialLoading(false);
-            } else {
-              let url: string;
-              if (activeTab === 1) {
-                url = `${
-                  process.env.NEXT_PUBLIC_BACKEND_URI
-                }/api/v1/courses?instructor=${userData?._id!}&type=Course&page=${Number(
-                  page || 1
-                )}`;
-              } else if (activeTab === 2) {
-                url = `${
-                  process.env.NEXT_PUBLIC_BACKEND_URI
-                }/api/v1/courses?instructor=${userData?._id!}&type=Book&page=${Number(
-                  page || 1
-                )}`;
-              } else {
-                url = `${
-                  process.env.NEXT_PUBLIC_BACKEND_URI
-                }/api/v1/academies?instructor=${userData?._id!}&page=${Number(
-                  page || 1
-                )}`;
-              }
-
-              try {
-                const response = await fetch(url, requestDetails);
-
-                if (response.status === 400) {
-                  alert("Something went wrong");
-                }
-
-                if (activeTab === 1) {
-                  const { courses, numOfPages } = await response.json();
-                  setCourses(courses);
-                  setCoursesPages(numOfPages);
-                } else if (activeTab === 2) {
-                  const { courses, numOfPages } = await response.json();
-                  setBooks(courses);
-                  setBooksPages(numOfPages);
-                } else {
-                  const { academies, numOfPages } = await response.json();
-                  setAcademies(academies);
-                  setAcademiesPages(numOfPages);
-                }
-              } catch (e: any) {
-                console.log(e.message);
-              }
+            if (response.status === 400) {
+              alert("Something went wrong");
             }
+
+            if (activeTab === 1) {
+              const { courses, numOfPages } = await response.json();
+              setCourses(courses);
+              setCoursesPages(numOfPages);
+            } else if (activeTab === 2) {
+              const { courses, numOfPages } = await response.json();
+              setBooks(courses);
+              setBooksPages(numOfPages);
+            } else {
+              const { academies, numOfPages } = await response.json();
+              setAcademies(academies);
+              setAcademiesPages(numOfPages);
+            }
+          } catch (e: any) {
+            console.log(e.message);
           }
         };
 
         updateSearch();
-      },
-      initialLoading ? 0 : 300
-    );
+      }, 300);
 
-    return () => clearTimeout(delaydebounceFn);
+      return () => clearTimeout(delaydebounceFn);
+    } else {
+      const getProducts = async () => {
+        if (initialLoading) {
+          // Fetch Academies at initial state
+          const academiesResponse = await fetch(
+            `${
+              process.env.NEXT_PUBLIC_BACKEND_URI
+            }/api/v1/academies?instructor=${userData?._id!}`,
+            requestDetails
+          );
+
+          if (academiesResponse.status === 400) {
+            alert("Something went wrong");
+          }
+
+          const { academies, numOfPages: academiesPages } =
+            await academiesResponse.json();
+          setAcademies(academies);
+          setAcademiesPages(academiesPages);
+
+          //Fetch Courses
+          const coursesResponse = await fetch(
+            `${
+              process.env.NEXT_PUBLIC_BACKEND_URI
+            }/api/v1/courses?instructor=${userData?._id!}&type=Course`,
+            requestDetails
+          );
+
+          if (coursesResponse.status === 400) {
+            alert("Something went wrong");
+          }
+
+          const { courses, numOfPages: coursesPages } =
+            await coursesResponse.json();
+          setCourses(courses);
+          setCoursesPages(coursesPages);
+
+          // Fetch Books
+          const booksResponse = await fetch(
+            `${
+              process.env.NEXT_PUBLIC_BACKEND_URI
+            }/api/v1/courses?instructor=${userData?._id!}&type=Book`,
+            requestDetails
+          );
+
+          if (booksResponse.status === 400) {
+            alert("Something went wrong");
+          }
+
+          const { courses: books, numOfPages: booksPages } =
+            await booksResponse.json();
+          setBooks(books);
+          setBooksPages(booksPages);
+
+          setInitialLoading(false);
+        } else {
+          let url: string;
+          if (activeTab === 1) {
+            url = `${
+              process.env.NEXT_PUBLIC_BACKEND_URI
+            }/api/v1/courses?instructor=${userData?._id!}&type=Course&page=${Number(
+              page || 1
+            )}`;
+          } else if (activeTab === 2) {
+            url = `${
+              process.env.NEXT_PUBLIC_BACKEND_URI
+            }/api/v1/courses?instructor=${userData?._id!}&type=Book&page=${Number(
+              page || 1
+            )}`;
+          } else {
+            url = `${
+              process.env.NEXT_PUBLIC_BACKEND_URI
+            }/api/v1/academies?instructor=${userData?._id!}&page=${Number(
+              page || 1
+            )}`;
+          }
+
+          try {
+            const response = await fetch(url, requestDetails);
+
+            if (response.status === 400) {
+              alert("Something went wrong");
+            }
+
+            if (activeTab === 1) {
+              const { courses, numOfPages } = await response.json();
+              setCourses(courses);
+              setCoursesPages(numOfPages);
+            } else if (activeTab === 2) {
+              const { courses, numOfPages } = await response.json();
+              setBooks(courses);
+              setBooksPages(numOfPages);
+            } else {
+              const { academies, numOfPages } = await response.json();
+              setAcademies(academies);
+              setAcademiesPages(numOfPages);
+            }
+          } catch (e: any) {
+            console.log(e.message);
+          }
+        }
+      };
+      getProducts();
+    }
   }, [activeTab, search, userData?._id, pathname, query, page, initialLoading]);
 
   return (

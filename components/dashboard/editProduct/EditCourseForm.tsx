@@ -57,6 +57,7 @@ const EditCourseForm: React.FC = () => {
             inputType="text"
           />
         </div>
+
         <div className="md:flex gap-8">
           <SelectField
             label="Course Level"
