@@ -7,8 +7,8 @@ WORKDIR /app
 # Copy the rest of the application source code to the working directory
 COPY . .
 
-# Install dependencies in the container
-RUN npm ci
+# Install dependencies
+RUN npm install
 
 # Load environment variables from the .env file
 RUN export $(cat .env | xargs)
