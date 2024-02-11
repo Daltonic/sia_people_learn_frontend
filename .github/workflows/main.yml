@@ -63,7 +63,7 @@ jobs:
             docker build -t dma_frontend_image:${{ steps.git_info.outputs.commit }} .
 
   stop_and_start_container:
-    needs: cleanup_old_images
+    needs: build_image
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
