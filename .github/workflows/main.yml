@@ -78,6 +78,9 @@ jobs:
             docker stop dma_frontend_instance || true
             docker rm dma_frontend_instance || true
 
+      - name: Print commit hash before Docker run
+        run: echo "Commit hash before Docker run: ${{ steps.git_info.outputs.commit }}"
+
       - name: Run new Docker container
         uses: appleboy/ssh-action@v0.1.3
         with:
@@ -85,7 +88,12 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            docker run -d --name dma_frontend_instance -p ${{secrets.PORT}}:3000 -v dma_frontend_volume:/data dma_frontend_image:${{ steps.git_info.outputs.commit }}
+            docker run \
+              -d \
+              --name dma_frontend_instance \
+              -p ${{secrets.PORT}}:3000 \
+              -v dma_frontend_volume:/data \
+              dma_frontend_image:${{ steps.git_info.outputs.commit }}
 
   clean_up_previous_docker_images_except_the_latest:
     needs: stop_and_start_container
