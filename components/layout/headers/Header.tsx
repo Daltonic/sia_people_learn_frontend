@@ -13,6 +13,7 @@ import Modal from "@/components/reusableComponents/Modal";
 import PowerSVG from "@/components/dashboard/dashboardSVGs/PowerSVG";
 import { useRouter } from "next/navigation";
 import { RootState } from "@/utils/type.dt";
+import Cookies from "universal-cookie";
 
 const Header: React.FC = () => {
   const dispatch = useDispatch();
@@ -21,6 +22,7 @@ const Header: React.FC = () => {
   const { cartCourseItems, cartAcademyItems } = useSelector(
     (states: RootState) => states.cartStates
   );
+  const cookies = new Cookies();
 
   const [showModal, setShowModal] = useState(false);
   const router = useRouter();
@@ -81,6 +83,8 @@ const Header: React.FC = () => {
         sessionStorage.removeItem("accessToken");
         sessionStorage.removeItem("refreshToken");
         sessionStorage.removeItem("user");
+        cookies.remove("accessToken");
+
         dispatch(setUserData(null));
       } catch (e: any) {
         console.log(e.message);
@@ -93,7 +97,9 @@ const Header: React.FC = () => {
   return (
     <header
       className={`px-5 py-3 sm:px-10 lg:px-20 sticky top-0 w-full z-50 ${
-        isScrolled ? "bg-white shadow-md shadow-purple-900/10" : "bg-transparent"
+        isScrolled
+          ? "bg-white shadow-md shadow-purple-900/10"
+          : "bg-transparent"
       }`}
     >
       <div>

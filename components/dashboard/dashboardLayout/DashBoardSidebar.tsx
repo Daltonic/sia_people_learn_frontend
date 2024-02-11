@@ -11,6 +11,7 @@ import PowerSVG from "../dashboardSVGs/PowerSVG";
 import { useSelector, useDispatch } from "react-redux";
 import { userActions } from "@/store/userSlice";
 import { RootState } from "@/utils/type.dt";
+import Cookies from "universal-cookie";
 
 interface DashboardSidebarProps {
   isOpen: boolean;
@@ -29,6 +30,7 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ isOpen }) => {
   const dispatch = useDispatch();
   const { setUserData } = userActions;
   const { userData } = useSelector((states: RootState) => states.userStates);
+  const cookies = new Cookies();
 
   const [sidebarItems, setSidebarItems] = useState<ISidebarItem[]>();
 
@@ -66,6 +68,7 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ isOpen }) => {
         sessionStorage.removeItem("accessToken");
         sessionStorage.removeItem("refreshToken");
         sessionStorage.removeItem("user");
+        cookies.remove("accessToken");
         dispatch(setUserData(null));
       } catch (e: any) {
         console.log(e.message);

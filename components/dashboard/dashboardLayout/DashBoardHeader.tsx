@@ -13,6 +13,7 @@ import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/utils/type.dt";
 import { userActions } from "@/store/userSlice";
+import Cookies from "universal-cookie";
 
 type SidebarProps = {};
 
@@ -20,6 +21,8 @@ const DashBoardHeader: React.FC<SidebarProps> = () => {
   const dispatch = useDispatch();
   const { setUserData } = userActions;
   const { userData } = useSelector((states: RootState) => states.userStates);
+
+  const cookies = new Cookies();
 
   const [isOpen, setIsOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -71,6 +74,7 @@ const DashBoardHeader: React.FC<SidebarProps> = () => {
         sessionStorage.removeItem("accessToken");
         sessionStorage.removeItem("refreshToken");
         sessionStorage.removeItem("user");
+        cookies.remove("accessToken");
         // setUser(null);
         dispatch(setUserData(null));
       } catch (e: any) {

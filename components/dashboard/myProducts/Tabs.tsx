@@ -1,18 +1,32 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import MyCourseCard from "./MyCourseCard";
-import SearchAndFilterBar from "@/components/reusableComponents/SearchAndFilterBar";
 import { useSelector, useDispatch } from "react-redux";
 import { userActions } from "@/store/userSlice";
-import { RootState } from "@/utils/type.dt";
+import { IAcademies, ICourses, RootState } from "@/utils/type.dt";
 import EmptyComponent from "@/components/reusableComponents/EmptyComponent";
-import { usePathname, useSearchParams } from "next/navigation";
 import { CiSearch } from "react-icons/ci";
-import SearchInput from "@/components/reusableComponents/SearchInput";
-import { URLSearchParams } from "url";
-import Pagination from "@/components/reusableComponents/Pagination";
+import LocalPagination from "@/components/reusableComponents/LocalPagination";
+import LocalFilters from "@/components/reusableComponents/LocalFilter";
 
-const Tabs: React.FC = () => {
+interface Props {
+  academiesData: IAcademies;
+  coursesData: ICourses;
+  booksData: ICourses;
+}
+
+const sortOptions = [
+  { name: "Newest", value: "newest" },
+  { name: "Oldest", value: "oldest" },
+];
+
+const filterOptions = [
+  { name: "Beginner", value: "Beginner" },
+  { name: "Intermediate", value: "Intermediate" },
+  { name: "Advanced", value: "Advanced" },
+];
+
+const Tabs: React.FC<Props> = ({ academiesData, coursesData, booksData }) => {
   const dispatch = useDispatch();
   const { setUserData } = userActions;
   const { userData } = useSelector((states: RootState) => states.userStates);
@@ -26,22 +40,17 @@ const Tabs: React.FC = () => {
     }
   }, [dispatch, setUserData, userData]);
 
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const query = searchParams.get("q");
-  const page = searchParams.get("page");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [search, setSearch] = useState<string>("");
+  const [difficulty, setDifficulty] = useState<string>("");
+  const [sort, setSort] = useState<string>("newest");
 
-  const [search, setSearch] = useState<string>(query || "");
+  const [academiesObj, setAcademiesObj] = useState<IAcademies>(academiesData);
+  const [coursesObj, setCoursesObj] = useState<ICourses>(coursesData);
+  const [booksObj, setBooksObj] = useState<ICourses>(booksData);
 
-  const [initialLoading, setInitialLoading] = useState<boolean>(true);
   const [activeTab, setActiveTab] = useState<number>(1);
-  const [courses, setCourses] = useState<any[]>([]);
-  const [books, setBooks] = useState<any[]>([]);
-  const [academies, setAcademies] = useState<any[]>([]);
-  const [academiesPages, setAcademiesPages] = useState<number>(0);
-  const [coursesPages, setCoursesPages] = useState<number>(0);
-  const [booksPages, setBooksPages] = useState<number>(0);
-  const [pageNumbers, setPageNumbers] = useState(coursesPages);
+  const [pageNumbers, setPageNumbers] = useState(coursesObj.numOfPages);
   const [type, setType] = useState<"Course" | "Book" | "Academy">("Course");
   const [searchPlaceholder, setSearchPlaceholder] = useState<string>(
     "Search Courses Here..."
@@ -52,22 +61,25 @@ const Tabs: React.FC = () => {
     if (tabNumber === 1) {
       setType("Course");
       setSearchPlaceholder("Search Courses Here...");
-      setPageNumbers(coursesPages);
+      setPageNumbers(coursesObj.numOfPages);
+      setCurrentPage(1);
     }
     if (tabNumber === 2) {
       setType("Book");
       setSearchPlaceholder("Search Books Here...");
-      setPageNumbers(booksPages);
+      setPageNumbers(booksObj.numOfPages);
+      setCurrentPage(1);
     }
     if (tabNumber === 3) {
       setType("Academy");
       setSearchPlaceholder("Search Academies Here...");
-      setPageNumbers(academiesPages);
+      setPageNumbers(academiesObj.numOfPages);
+      setCurrentPage(1);
     }
   };
 
-  useEffect(() => {
-    const requestDetails = {
+  const updateSearch = async () => {
+    const requestOptions = {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -75,176 +87,91 @@ const Tabs: React.FC = () => {
       },
     };
 
+    try {
+      if (activeTab === 1) {
+        const url = `${
+          process.env.NEXT_PUBLIC_BACKEND_URI
+        }/api/v1/courses?instructor=true&type=Course&searchQuery=${search}&page=${Number(
+          currentPage || 1
+        )}&filter=${sort}${difficulty && `&difficulty=${difficulty}`}`;
+        const response = await fetch(url, requestOptions);
+
+        if (response.status === 400) {
+          alert("Something went wrong");
+        }
+        const result = (await response.json()) as ICourses;
+        setCoursesObj(result);
+      } else if (activeTab === 2) {
+        const url = `${
+          process.env.NEXT_PUBLIC_BACKEND_URI
+        }/api/v1/courses?instructor=true&type=Book&searchQuery=${search}&page=${Number(
+          currentPage || 1
+        )}&filter=${sort}${difficulty && `&difficulty=${difficulty}`}`;
+
+        const response = await fetch(url, requestOptions);
+
+        if (response.status === 400) {
+          alert("Something went wrong");
+        }
+        const result = (await response.json()) as ICourses;
+        setBooksObj(result);
+      } else {
+        const url = `${
+          process.env.NEXT_PUBLIC_BACKEND_URI
+        }/api/v1/academies?instructor=true&searchQuery=${search}&page=${Number(
+          currentPage || 1
+        )}&filter=${sort}${difficulty && `&difficulty=${difficulty}`}`;
+        const response = await fetch(url, requestOptions);
+
+        if (response.status === 400) {
+          alert("Something went wrong");
+        }
+        const result = (await response.json()) as IAcademies;
+        setAcademiesObj(result);
+      }
+    } catch (e: any) {
+      console.log(e);
+    }
+  };
+
+  useEffect(() => {
     if (search) {
       const delaydebounceFn = setTimeout(() => {
-        const updateSearch = async () => {
-          let url: string;
-          if (activeTab === 1) {
-            url = `${
-              process.env.NEXT_PUBLIC_BACKEND_URI
-            }/api/v1/courses?instructor=${userData?._id!}&type=Course&searchQuery=${search}&page=${Number(
-              page || 1
-            )}`;
-          } else if (activeTab === 2) {
-            url = `${
-              process.env.NEXT_PUBLIC_BACKEND_URI
-            }/api/v1/courses?instructor=${userData?._id!}&type=Book&searchQuery=${search}&page=${Number(
-              page || 1
-            )}`;
-          } else {
-            url = `${
-              process.env.NEXT_PUBLIC_BACKEND_URI
-            }/api/v1/academies?instructor=${userData?._id!}&searchQuery=${search}&page=${Number(
-              page || 1
-            )}`;
-          }
-
-          try {
-            const response = await fetch(url, requestDetails);
-
-            if (response.status === 400) {
-              alert("Something went wrong");
-            }
-
-            if (activeTab === 1) {
-              const { courses, numOfPages } = await response.json();
-              setCourses(courses);
-              setCoursesPages(numOfPages);
-            } else if (activeTab === 2) {
-              const { courses, numOfPages } = await response.json();
-              setBooks(courses);
-              setBooksPages(numOfPages);
-            } else {
-              const { academies, numOfPages } = await response.json();
-              setAcademies(academies);
-              setAcademiesPages(numOfPages);
-            }
-          } catch (e: any) {
-            console.log(e.message);
-          }
-        };
-
         updateSearch();
       }, 300);
 
       return () => clearTimeout(delaydebounceFn);
     } else {
-      const getProducts = async () => {
-        if (initialLoading) {
-          // Fetch Academies at initial state
-          const academiesResponse = await fetch(
-            `${
-              process.env.NEXT_PUBLIC_BACKEND_URI
-            }/api/v1/academies?instructor=${userData?._id!}`,
-            requestDetails
-          );
-
-          if (academiesResponse.status === 400) {
-            alert("Something went wrong");
-          }
-
-          const { academies, numOfPages: academiesPages } =
-            await academiesResponse.json();
-          setAcademies(academies);
-          setAcademiesPages(academiesPages);
-
-          //Fetch Courses
-          const coursesResponse = await fetch(
-            `${
-              process.env.NEXT_PUBLIC_BACKEND_URI
-            }/api/v1/courses?instructor=${userData?._id!}&type=Course`,
-            requestDetails
-          );
-
-          if (coursesResponse.status === 400) {
-            alert("Something went wrong");
-          }
-
-          const { courses, numOfPages: coursesPages } =
-            await coursesResponse.json();
-          setCourses(courses);
-          setCoursesPages(coursesPages);
-
-          // Fetch Books
-          const booksResponse = await fetch(
-            `${
-              process.env.NEXT_PUBLIC_BACKEND_URI
-            }/api/v1/courses?instructor=${userData?._id!}&type=Book`,
-            requestDetails
-          );
-
-          if (booksResponse.status === 400) {
-            alert("Something went wrong");
-          }
-
-          const { courses: books, numOfPages: booksPages } =
-            await booksResponse.json();
-          setBooks(books);
-          setBooksPages(booksPages);
-
-          setInitialLoading(false);
-        } else {
-          let url: string;
-          if (activeTab === 1) {
-            url = `${
-              process.env.NEXT_PUBLIC_BACKEND_URI
-            }/api/v1/courses?instructor=${userData?._id!}&type=Course&page=${Number(
-              page || 1
-            )}`;
-          } else if (activeTab === 2) {
-            url = `${
-              process.env.NEXT_PUBLIC_BACKEND_URI
-            }/api/v1/courses?instructor=${userData?._id!}&type=Book&page=${Number(
-              page || 1
-            )}`;
-          } else {
-            url = `${
-              process.env.NEXT_PUBLIC_BACKEND_URI
-            }/api/v1/academies?instructor=${userData?._id!}&page=${Number(
-              page || 1
-            )}`;
-          }
-
-          try {
-            const response = await fetch(url, requestDetails);
-
-            if (response.status === 400) {
-              alert("Something went wrong");
-            }
-
-            if (activeTab === 1) {
-              const { courses, numOfPages } = await response.json();
-              setCourses(courses);
-              setCoursesPages(numOfPages);
-            } else if (activeTab === 2) {
-              const { courses, numOfPages } = await response.json();
-              setBooks(courses);
-              setBooksPages(numOfPages);
-            } else {
-              const { academies, numOfPages } = await response.json();
-              setAcademies(academies);
-              setAcademiesPages(numOfPages);
-            }
-          } catch (e: any) {
-            console.log(e.message);
-          }
-        }
-      };
-      getProducts();
+      updateSearch();
     }
-  }, [activeTab, search, userData?._id, pathname, query, page, initialLoading]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [search, currentPage, sort, difficulty]);
 
   return (
     <div className="bg-white p-5 rounded-xl">
       <div className="">
-        <div className="flex gap-5 items-center border border-[#E1DDDD] text-[#4F547B] rounded-md p-3 md:p-2 w-full mb-5 md:mb-0 md:w-96">
-          <CiSearch className="text-[#4F547B] text-xl" />
-          <input
-            type="text"
-            placeholder={searchPlaceholder}
-            className="focus:outline-none"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
+        <div className="flex items-center justify-evenly">
+          <div className="flex gap-5 items-center border border-[#E1DDDD] text-[#4F547B] rounded-md p-3 md:p-2 w-full mb-5 md:mb-0 md:w-96">
+            <CiSearch className="text-[#4F547B] text-xl" />
+            <input
+              type="text"
+              placeholder={searchPlaceholder}
+              className="focus:outline-none"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          </div>
+          <LocalFilters
+            label="Filter by Difficulty"
+            options={filterOptions}
+            currFilter={difficulty}
+            setCurrFilter={setDifficulty}
+          />
+          <LocalFilters
+            label="Sort by Date"
+            options={sortOptions}
+            currFilter={sort}
+            setCurrFilter={setSort}
           />
         </div>
         <div className="flex space-x-5 border-b">
@@ -286,8 +213,8 @@ const Tabs: React.FC = () => {
         <div className="py-4 text-[#4F547B]">
           {activeTab === 1 && (
             <div className="flex justify-between gap-5 w-full flex-wrap">
-              {courses && courses.length > 0 ? (
-                courses.map((elm, i: number) => (
+              {coursesObj && coursesObj.courses.length > 0 ? (
+                coursesObj.courses.map((elm, i: number) => (
                   <MyCourseCard data={elm} key={i} type={type} />
                 ))
               ) : (
@@ -301,8 +228,8 @@ const Tabs: React.FC = () => {
 
           {activeTab === 2 && (
             <div className="flex justify-between gap-5 w-full flex-wrap">
-              {books && books.length > 0 ? (
-                books.map((elm, i: number) => (
+              {booksObj.courses && booksObj.courses.length > 0 ? (
+                booksObj.courses.map((elm, i: number) => (
                   <MyCourseCard data={elm} key={i} type={type} />
                 ))
               ) : (
@@ -315,8 +242,8 @@ const Tabs: React.FC = () => {
           )}
           {activeTab === 3 && (
             <div className="flex justify-between gap-5 w-full flex-wrap">
-              {academies && academies.length > 0 ? (
-                academies.map((elm, i: number) => (
+              {academiesObj.academies && academiesObj.academies.length > 0 ? (
+                academiesObj.academies.map((elm, i: number) => (
                   <MyCourseCard data={elm} key={i} type={type} />
                 ))
               ) : (
@@ -329,7 +256,13 @@ const Tabs: React.FC = () => {
           )}
         </div>
       </div>
-      {pageNumbers > 1 && <Pagination totalPages={pageNumbers} />}
+      {pageNumbers > 1 && (
+        <LocalPagination
+          totalPages={pageNumbers}
+          activePage={currentPage}
+          setActivePage={setCurrentPage}
+        />
+      )}
     </div>
   );
 };

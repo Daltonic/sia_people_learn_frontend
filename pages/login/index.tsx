@@ -12,10 +12,12 @@ import { IUser } from "@/utils/type.dt";
 import { useRouter as Router } from "next/router";
 import { useDispatch } from "react-redux";
 import { userActions } from "@/store/userSlice";
+import Cookies from "universal-cookie";
 
 const LoginPage: NextPage = () => {
   const dispatch = useDispatch();
   const { setUserData } = userActions;
+  const cookies = new Cookies();
 
   const router = useRouter();
   const router_ = Router();
@@ -28,6 +30,13 @@ const LoginPage: NextPage = () => {
 
   const { user, token } = router_.query;
 
+  const afterSuccessfulLogin = (token: string, parsedUser: IUser) => {
+    sessionStorage.setItem("accessToken", token as string);
+    sessionStorage.setItem("user", JSON.stringify(parsedUser));
+    cookies.set("accessToken", token as String, { path: "/" });
+  };
+
+  // Social Login
   useEffect(() => {
     if (user && token) {
       const parsedUser = JSON.parse(user as string) as IUser;
@@ -39,10 +48,10 @@ const LoginPage: NextPage = () => {
       } else {
         router.push(previousPath);
       }
+      afterSuccessfulLogin(token as string, parsedUser);
       sessionStorage.removeItem("prevPath");
-      sessionStorage.setItem("accessToken", token as string);
-      sessionStorage.setItem("user", JSON.stringify(parsedUser));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router, dispatch, setUserData, token, user]);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -54,6 +63,7 @@ const LoginPage: NextPage = () => {
     }));
   };
 
+  // Direct login
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
 
@@ -93,9 +103,10 @@ const LoginPage: NextPage = () => {
           router.push(previousPath);
         }
         sessionStorage.removeItem("prevPath");
-        sessionStorage.setItem("accessToken", accessToken);
-        sessionStorage.setItem("refreshToken", refreshToken);
-        sessionStorage.setItem("user", JSON.stringify(user));
+        afterSuccessfulLogin(accessToken, user as IUser);
+        // sessionStorage.setItem("accessToken", accessToken);
+        // sessionStorage.setItem("refreshToken", refreshToken);
+        // sessionStorage.setItem("user", JSON.stringify(user));
 
         setLoginDetails({
           email: "",

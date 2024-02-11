@@ -3,6 +3,18 @@ import Image from "next/image";
 import React, { Dispatch, SetStateAction, useState } from "react";
 import axios from "axios";
 
+interface FileUpload {
+  name: string;
+  data: Buffer;
+  size: number;
+  encoding: string;
+  tempFilePath: string;
+  truncated: boolean;
+  mimetype: string;
+  md5: string;
+  mv: Function;
+}
+
 interface Props {
   type: "Image" | "Video" | "PDF" | "Aud";
   label: string;
@@ -16,96 +28,90 @@ const FilePicker: React.FC<Props> = ({
   fileName,
   setFileName,
 }) => {
-  const [file, setFile] = useState<File | "">("");
+  const [file, setFile] = useState<any>(null);
+  const [fileInfo, setFileInfo] = useState<any>(null);
   const [showFilePicker, setShowFilePicker] = useState<boolean>(false);
 
+  const handleSelectFile = (e: any) => {
+    const reader = new FileReader();
+    setFileInfo(e.target.files[0]);
+    console.log(e.target.files[0]);
+
+    // Define what happens when the file has been read
+    reader.onload = function (e: any) {
+      // e.target.result contains the file's data as a Blob
+      const fileData = e.target.result;
+      console.log(fileData); // Log the file's data to the console
+      setFile(fileData);
+    };
+
+    // Read the file as a Blob
+    reader.readAsArrayBuffer(e.target.files[0]);
+  };
+
   const handleFileUpload = () => {
-    if (file === "") return;
-    const formData = new FormData();
-    formData.append("file", file);
+    if (!file) return;
 
-    const upload = async () => {
-      try {
-        const fileId = generateAlphanumeric(10);
-        const folderName = type.toLowerCase();
-        const url = `${process.env.NEXT_PUBLIC_RENTERD_BASE_URI}${process.env.NEXT_PUBLIC_WORKER_API_PREFIX}/objects/${folderName}/${fileId}?bucket=${process.env.NEXT_PUBLIC_BUCKET}`;
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", fileInfo.type);
 
-        const requestOptions = {
-          method: "PUT",
-          headers: {
-            Authorization: `Basic ${Buffer.from(
-              `:${process.env.NEXT_PUBLIC_RENTERD_API_PASSWORD}`
-            ).toString("base64")}`,
-          },
-          body: formData,
-        };
+    myHeaders.append(
+      "Authorization",
+      `Basic ${Buffer.from(
+        `:${process.env.NEXT_PUBLIC_RENTERD_API_PASSWORD}`
+      ).toString("base64")}`
+    );
 
-        const config = {
-          method: "put",
-          maxBodyLength: Infinity,
-          url,
-          headers: {
-            Authorization: `Basic ${Buffer.from(
-              `:${process.env.NEXT_PUBLIC_RENTERD_API_PASSWORD}}`
-            ).toString("base64")}`,
-            "Content-Type": type,
-          },
-          data: formData,
-        };
-
-        console.log(config);
-
-        const response = await axios.request(config);
-
-        // const response = await fetch(url, requestOptions);
-        console.log(response);
-
-        // const text = await response.text();
-        // if (response.status === 400) {
-        //   alert(text);
-        // } else {
-        //   const result = response.json();
-        //   console.log(result);
-        //   setFileName(url);
-        // }
-      } catch (e: any) {
-        alert(e);
-        console.log(e.message);
-      }
+    const requestOptions = {
+      method: "PUT",
+      headers: myHeaders,
+      body: file,
     };
-    upload();
+    const url = `${process.env.NEXT_PUBLIC_RENTERD_BASE_URI}${
+      process.env.NEXT_PUBLIC_WORKER_API_PREFIX
+    }/objects/${fileInfo?.type.split("/")[0]}/${generateAlphanumeric(
+      6
+    )}?bucket=${process.env.NEXT_PUBLIC_BUCKET}`;
+
+    fetch(url, requestOptions)
+      .then((response) => response.text())
+      .then(() => {
+        console.log("Uploaded successfully");
+        setFileName(url);
+      })
+      .catch((error) => console.log("error", error));
   };
 
-  const useBackend = () => {
-    if (file === "") return;
-    const formData = new FormData();
-    formData.append("file", file);
+  // const handleFileUpload = async () => {
+  //   if (!file) return;
 
-    const upload = async () => {
-      try {
-        const requestDetails = {
-          method: "POST",
-          headers: {
-            authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
-          },
-          body: formData,
-        };
+  //   const alphanumericId = generateAlphanumeric(6);
+  //   const url = `${process.env.NEXT_PUBLIC_RENTERD_BASE_URI}${
+  //     process.env.NEXT_PUBLIC_WORKER_API_PREFIX
+  //   }/objects/${fileInfo?.type.split("/")[0]}/${alphanumericId}?bucket=${
+  //     process.env.NEXT_PUBLIC_BUCKET
+  //   }`;
 
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/media/sia/upload`,
-          requestDetails
-        );
+  //   const config = {
+  //     method: "PUT",
+  //     maxBodyLength: Infinity,
+  //     url,
+  //     headers: {
+  //       "Content-Type": fileInfo.type,
+  //       Authorization: `Basic ${Buffer.from(
+  //         `:${process.env.NEXT_PUBLIC_RENTERD_API_PASSWORD}`
+  //       ).toString("base64")}`,
+  //     },
+  //     data: file,
+  //   };
 
-        const text = await res.text();
-        alert(text);
-
-        const result = await res.json();
-      } catch (e: any) {
-        console.log(e.message);
-      }
-    };
-    upload();
-  };
+  //   try {
+  //     const response = await axios.request(config);
+  //     console.log("Uploaded successfully");
+  //   } catch (error) {
+  //     console.log("error", error);
+  //   }
+  // };
 
   return (
     <div className="flex flex-col w-full my-3 relative">
@@ -132,7 +138,8 @@ const FilePicker: React.FC<Props> = ({
                   type="file"
                   accept="image/*"
                   style={{ display: "none" }}
-                  onChange={(e) => setFile((e.target.files as FileList)[0])}
+                  // onChange={(e) => setFile((e.target.files as FileList)[0])}
+                  onChange={(e) => handleSelectFile(e)}
                 />
                 <label
                   htmlFor="file-upload"
@@ -167,3 +174,17 @@ const FilePicker: React.FC<Props> = ({
 };
 
 export default FilePicker;
+
+// var myHeaders = new Headers();
+// myHeaders.append("Authorization", "Basic OnRlc3Q=");
+
+// var requestOptions = {
+//   method: 'GET',
+//   headers: myHeaders,
+//   redirect: 'follow'
+// };
+
+// fetch("https://zen.dappmentors.duckdns.org/api/worker/objects/image/Q4Urjt?bucket=dappmentors", requestOptions)
+//   .then(response => response.text())
+//   .then(result => console.log(result))
+//   .catch(error => console.log('error', error));
