@@ -5,7 +5,6 @@ import { FaBookmark } from "react-icons/fa";
 import Link from "next/link";
 import { ICourses } from "@/utils/type.dt";
 import { IoIosStar } from "react-icons/io";
-import Pagination from "../reusableComponents/Pagination";
 
 interface ComponentProps {
   data: ICourses;

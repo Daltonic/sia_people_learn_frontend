@@ -46,7 +46,8 @@
     "sass": "^1.63.4",
     "svg": "^0.1.0",
     "swiper": "^8.0.0",
-    "tsparticles": "^2.11.0"
+    "tsparticles": "^2.11.0",
+    "universal-cookie": "^7.0.2"
   },
   "devDependencies": {
     "@types/aos": "^3.0.7",
