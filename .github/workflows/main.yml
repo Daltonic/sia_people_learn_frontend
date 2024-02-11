@@ -59,8 +59,9 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
+            export COMMIT_HASH=${{ steps.git_info.outputs.commit }}
             cd /dockerized/containers/dappmentors_frontend
-            docker build -t dma_frontend_image:${{ steps.git_info.outputs.commit }} .
+            docker build -t dma_frontend_image:$COMMIT_HASH .
 
   stop_and_start_container:
     needs: build_image
@@ -90,9 +91,9 @@ jobs:
               --name dma_frontend_instance \
               -p ${{secrets.PORT}}:3000 \
               -v dma_frontend_volume:/data \
-              dma_frontend_image:${{ steps.git_info.outputs.commit }}
+              dma_frontend_image:$COMMIT_HASH
 
-  clean_up_previous_docker_images_except_the_latest:
+  clean_up_except_the_latest:
     needs: stop_and_start_container
     runs-on: ubuntu-latest
     steps:
