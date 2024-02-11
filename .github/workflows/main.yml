@@ -1,12 +1,12 @@
 name: Frontend Deployment to Ubuntu VPS
 
 on:
- push:
+  push:
     branches:
       - main # Trigger on push to main branch
 
 jobs:
- deploy:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -77,18 +77,27 @@ jobs:
       - name: Build Docker image
         uses: appleboy/ssh-action@v0.1.3
         with:
-            host: ${{ secrets.SSH_HOST }}
-            username: ${{ secrets.SSH_USERNAME }}
-            key: ${{ secrets.SSH_PRIVATE_KEY }}
-            script: |
-              cd /dockerized/containers/dappmentors_frontend
-              docker build -t dma_frontend_image .
-      
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd /dockerized/containers/dappmentors_frontend
+            docker build -t dma_frontend_image .
+
+      - name: Remove untagged Docker images
+        uses: appleboy/ssh-action@v0.1.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            docker rmi $(docker images -f "dangling=true" -q) || true
+
       - name: Run Docker container
         uses: appleboy/ssh-action@v0.1.3
         with:
-            host: ${{ secrets.SSH_HOST }}
-            username: ${{ secrets.SSH_USERNAME }}
-            key: ${{ secrets.SSH_PRIVATE_KEY }}
-            script: |
-              docker run -d --name dma_frontend_instance -p ${{secrets.PORT}}:3000 -v dma_frontend_volume:/data dma_frontend_image
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            docker run -d --name dma_frontend_instance -p ${{secrets.PORT}}:3000 -v dma_frontend_volume:/data dma_frontend_image

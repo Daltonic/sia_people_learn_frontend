@@ -23,6 +23,9 @@ const LoginPage: NextPage = () => {
   const router_ = Router();
 
   const [submitting, setSubmitting] = useState<boolean>(false);
+  const [passwordType, setPasswordType] = useState<"password" | "text">(
+    "password"
+  );
   const [loginDetails, setLoginDetails] = useState({
     email: "",
     password: "",
@@ -146,9 +149,10 @@ const LoginPage: NextPage = () => {
               name="password"
               placeholder="********"
               required
-              inputType="password"
+              inputType={passwordType}
               handleChange={handleChange}
               value={loginDetails.password}
+              isPassword
             />
             <div className="flex justify-between">
               <div className="flex gap-2">

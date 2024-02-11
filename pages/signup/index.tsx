@@ -145,6 +145,7 @@ const LoginPage: NextPage = () => {
               inputType="password"
               handleChange={handleChange}
               value={signupDetails.password}
+              isPassword
             />
 
             <InputField
@@ -155,6 +156,7 @@ const LoginPage: NextPage = () => {
               inputType="password"
               handleChange={handleChange}
               value={signupDetails.confirmPassword}
+              isPassword
             />
           </div>
 

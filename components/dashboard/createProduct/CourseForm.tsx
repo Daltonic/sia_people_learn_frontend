@@ -10,12 +10,16 @@ import React, {
   ChangeEvent,
   SyntheticEvent,
   useEffect,
+  useRef,
 } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { userActions } from "@/store/userSlice";
 import { RootState } from "@/utils/type.dt";
+import { Editor } from "@tinymce/tinymce-react";
+import axios from "axios";
 
 const CourseForm: React.FC = () => {
+  const editorRef = useRef<any>(null);
   const router = useRouter();
   const dispatch = useDispatch();
   const { setUserData } = userActions;
@@ -146,7 +150,6 @@ const CourseForm: React.FC = () => {
     setSubmitting(true);
     const {
       title,
-      description,
       overview,
       price,
       imageUrl,
@@ -159,7 +162,7 @@ const CourseForm: React.FC = () => {
 
     const productInput = {
       name: title,
-      description,
+      description: editorRef.current.getContent(),
       overview,
       imageUrl,
       price: Number(price),
@@ -170,88 +173,62 @@ const CourseForm: React.FC = () => {
     };
 
     if (productType === "Academy") {
-      const requestDetails = {
-        method: "POST",
+      const config = {
+        method: "post",
+        url: `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/academies/create`,
         headers: {
           "Content-Type": "application/json",
-          authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
+          Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
         },
-        body: JSON.stringify(productInput),
+        data: productInput,
       };
 
       try {
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/academies/create`,
-          requestDetails
-        );
-
-        if (response.status === 400) {
-          alert("Something went wrong");
-        }
-
-        const { result } = await response.json();
+        const response = await axios.request(config);
+        const { result } = response.data;
         console.log(result);
-        router.push("/(dashboard)/dashboard");
-      } catch (e: any) {
-        console.log(e.message);
-        alert(e.message);
-      } finally {
-        setSubmitting(false);
-        setProductDetails({
-          title: "",
-          description: "",
-          overview: "",
-          price: 0,
-          imageUrl: "",
-          difficulty: "Beginner",
-          productType: "Course",
-          tags: [] as string[],
-          requirements: [] as string[],
-          highlights: [] as string[],
-        });
+        // router.push('/(dashboard)/myProducts');
+        resetForm();
+      } catch (error) {
+        console.log(error);
+        alert(error);
       }
     } else {
-      const requestDetails = {
-        method: "POST",
+      const config = {
+        method: "post",
+        url: `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/courses/create`,
         headers: {
           "Content-Type": "application/json",
-          authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
+          Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
         },
-        body: JSON.stringify({ ...productInput, type: productType }),
+        data: { ...productInput, type: productType },
       };
 
       try {
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/courses/create`,
-          requestDetails
-        );
-
-        if (response.status === 400) {
-          alert("Something went wrong");
-        }
-
-        const { result } = await response.json();
+        const response = await axios(config);
+        const { result } = response.data;
         console.log(result);
-        router.push("/(dashboard)/dashboard");
-      } catch (e: any) {
-        console.log(e.message);
-        alert(e.message);
-      } finally {
-        setSubmitting(false);
-        setProductDetails({
-          title: "",
-          description: "",
-          overview: "",
-          price: 0,
-          imageUrl: "",
-          difficulty: "Beginner",
-          productType: "Course",
-          tags: [] as string[],
-          requirements: [] as string[],
-          highlights: [] as string[],
-        });
+        // router.push('/(dashboard)/dashboard')
+      } catch (error) {
+        console.log(error);
+        alert(error);
       }
     }
+  };
+
+  const resetForm = () => {
+    setProductDetails({
+      title: "",
+      description: "",
+      overview: "",
+      price: 0,
+      imageUrl: "",
+      difficulty: "Beginner",
+      productType: "Course",
+      tags: [] as string[],
+      requirements: [] as string[],
+      highlights: [] as string[],
+    });
   };
 
   return (
@@ -271,13 +248,6 @@ const CourseForm: React.FC = () => {
         />
         <div className="md:flex gap-8">
           <TextAreaField
-            label="Description"
-            id="description"
-            name="description"
-            value={productDetails.description}
-            handleChange={handleChange}
-          />
-          <TextAreaField
             label="Overview"
             id="overview"
             name="overview"
@@ -285,6 +255,7 @@ const CourseForm: React.FC = () => {
             handleChange={handleChange}
           />
         </div>
+
         <div className="md:flex gap-8">
           <InputField
             label="Price"
@@ -317,8 +288,7 @@ const CourseForm: React.FC = () => {
             value={productDetails.difficulty}
             handleChange={handleChange}
           />
-        </div>
-        <div className="md:flex gap-8">
+
           <SelectField
             label=" Product Type"
             name="productType"
@@ -397,6 +367,46 @@ const CourseForm: React.FC = () => {
               />
             ))}
           </div>
+        </div>
+
+        <div className="flex flex-col w-full my-3 relative">
+          <label className="text-violet-950 font-medium">Description</label>
+
+          <Editor
+            apiKey="h3r0yb4wltqwanftl730o5x9ybrxhz9mxuoeu5keq71mrcyx"
+            onInit={(evt, editor) => (editorRef.current = editor)}
+            initialValue="<p>Start typing...</p>"
+            init={{
+              height: 250,
+              menubar: false,
+              plugins: [
+                "advlist",
+                "autolink",
+                "lists",
+                "link",
+                "image",
+                "charmap",
+                "preview",
+                "anchor",
+                "searchreplace",
+                "visualblocks",
+                "code",
+                "fullscreen",
+                "insertdatetime",
+                "media",
+                "table",
+                "code",
+                "wordcount",
+              ],
+              toolbar:
+                "undo redo | blocks | " +
+                "bold italic forecolor | alignleft aligncenter " +
+                "alignright alignjustify | bullist numlist outdent indent | " +
+                "removeformat",
+              content_style:
+                "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+            }}
+          />
         </div>
         {/* <div className="md:flex gap-8">
           <TextAreaField
