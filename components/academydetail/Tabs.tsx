@@ -1,23 +1,23 @@
-"use client";
-import React, { useState } from "react";
-import { FaCheck, FaCircle } from "react-icons/fa";
-import { IAcademy } from "@/utils/type.dt";
-import Link from "next/link";
-import Image from "next/image";
+'use client'
+import React, { useState } from 'react'
+import { FaCheck, FaCircle } from 'react-icons/fa'
+import { IAcademy } from '@/utils/type.dt'
+import Link from 'next/link'
+import Image from 'next/image'
 
 interface ComponentProps {
-  academy: IAcademy;
-  data: any;
-  type: "Academy" | "Book" | "Course";
+  academy: IAcademy
+  data: any
+  type: 'Academy' | 'Book' | 'Course'
 }
 
 const Tabs: React.FC<ComponentProps> = ({ academy, type, data }) => {
-  const [activeTab, setActiveTab] = useState<number>(1);
-  const [showMore, setShowMore] = useState(false);
+  const [activeTab, setActiveTab] = useState<number>(1)
+  const [showMore, setShowMore] = useState(false)
 
   const handleTabClick = (tabNumber: number) => {
-    setActiveTab(tabNumber);
-  };
+    setActiveTab(tabNumber)
+  }
 
   return (
     <div className="flex justify-center mt-10 md:w-[57%]">
@@ -27,8 +27,8 @@ const Tabs: React.FC<ComponentProps> = ({ academy, type, data }) => {
             onClick={() => handleTabClick(1)}
             className={`py-2 border-b-4 transition-colors duration-300 text-[#4F547B] font-medium ${
               activeTab === 1
-                ? "border-[#C5165D] text-[#C5165D]"
-                : "border-transparent hover:border-gray-200"
+                ? 'border-[#C5165D] text-[#C5165D]'
+                : 'border-transparent hover:border-gray-200'
             }`}
             type="button"
           >
@@ -38,8 +38,8 @@ const Tabs: React.FC<ComponentProps> = ({ academy, type, data }) => {
             onClick={() => handleTabClick(2)}
             className={`py-2 border-b-4 transition-colors duration-300 text-[#4F547B] font-medium ${
               activeTab === 2
-                ? "border-[#C5165D] text-[#C5165D]"
-                : "border-transparent hover:border-gray-200"
+                ? 'border-[#C5165D] text-[#C5165D]'
+                : 'border-transparent hover:border-gray-200'
             }`}
             type="button"
           >
@@ -49,8 +49,8 @@ const Tabs: React.FC<ComponentProps> = ({ academy, type, data }) => {
             onClick={() => handleTabClick(3)}
             className={`py-2 border-b-4 transition-colors duration-300 text-[#4F547B] font-medium ${
               activeTab === 3
-                ? "border-[#C5165D] text-[#C5165D]"
-                : "border-transparent hover:border-gray-200"
+                ? 'border-[#C5165D] text-[#C5165D]'
+                : 'border-transparent hover:border-gray-200'
             }`}
             type="button"
           >
@@ -60,8 +60,8 @@ const Tabs: React.FC<ComponentProps> = ({ academy, type, data }) => {
             onClick={() => handleTabClick(4)}
             className={`py-2 border-b-4 transition-colors duration-300 text-[#4F547B] font-medium ${
               activeTab === 4
-                ? "border-[#C5165D] text-[#C5165D]"
-                : "border-transparent hover:border-gray-200"
+                ? 'border-[#C5165D] text-[#C5165D]'
+                : 'border-transparent hover:border-gray-200'
             }`}
             type="button"
           >
@@ -72,13 +72,12 @@ const Tabs: React.FC<ComponentProps> = ({ academy, type, data }) => {
         <div className="py-4 md:mt-4">
           {activeTab === 1 && (
             <div>
-              <p
+              <div
+                dangerouslySetInnerHTML={{ __html: academy.description }}
                 className={
-                  showMore ? "text-[#4F547B]" : "line-clamp-3 text-[#4F547B] "
+                  showMore ? 'text-[#4F547B]' : 'line-clamp-3 text-[#4F547B] '
                 }
-              >
-                {academy.description}
-              </p>
+              />
               <button
                 onClick={() => setShowMore(!showMore)}
                 className="mt-2  text-[#C5165D] "
@@ -135,7 +134,7 @@ const Tabs: React.FC<ComponentProps> = ({ academy, type, data }) => {
                     <Image
                       height={0}
                       width={0}
-                      src={course.imageUrl || "/images/courseCard/card4.svg"}
+                      src={course.imageUrl || '/images/courseCard/card4.svg'}
                       alt=""
                       className="w-20 h-12 overflow-hidden object-cover rounded-md"
                     />
@@ -148,7 +147,7 @@ const Tabs: React.FC<ComponentProps> = ({ academy, type, data }) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Tabs;
+export default Tabs
