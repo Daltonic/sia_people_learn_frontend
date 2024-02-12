@@ -73,7 +73,7 @@ const BlogList: React.FC<Props> = ({ postsObj }) => {
 
                 {postsObj.posts &&
                   postsObj.posts.map((blog, i: number) => (
-                    <SwiperSlide >
+                    <SwiperSlide key={i}>
                       <BlogCard i={i} blog={blog} />
                     </SwiperSlide>
                   ))}
