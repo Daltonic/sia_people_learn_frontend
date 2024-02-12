@@ -16,6 +16,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { userActions } from '@/store/userSlice'
 import FilePicker from '../reusableComponents/FilePicker'
 import WYSIWYG from '../reusableComponents/WYSIWYG'
+import axios from 'axios'
 
 interface CourseProps {
   course: ICourse
@@ -154,70 +155,38 @@ const CourseForm: React.FC<CourseProps> = ({ course }) => {
     }
 
     setSubmitting(true)
-    const {
-      title,
-      overview,
-      price,
-      imageUrl,
-      difficulty,
-      tags,
-      productType,
-      highlights,
-      requirements,
-    } = productDetails
 
     const productInput = {
-      name: title,
-      description: editorContent,
-      overview,
-      imageUrl,
-      price: Number(price),
-      type: productType,
-      difficulty,
-      requirements,
-      tags,
-      highlights,
+      ...productDetails,
+      name: productDetails.title,
+      description: editorContent || productDetails.description,
+      price: Number(productDetails.price),
+      type: productDetails.productType,
     }
 
-    const requestDetails = {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        authorization: `Bearer ${sessionStorage.getItem('accessToken')}`,
-      },
-      body: JSON.stringify(productInput),
-    }
+    console.log(productInput)
 
     try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/courses/update/${course._id}`,
-        requestDetails
-      )
-
-      if (response.status === 400) {
-        alert('Something went wrong')
+      const url = `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/courses/update/${course._id}`
+      const config = {
+        method: 'PUT',
+        maxBodyLength: Infinity,
+        url,
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${sessionStorage.getItem('accessToken')}`,
+        },
+        data: JSON.stringify(productInput), // Pass the stream as the data
       }
 
-      const { result } = await response.json()
-      console.log(result)
-      router.push('/(dashboard)/myProducts')
-    } catch (e: any) {
-      console.log(e.message)
-      alert(e.message)
-    } finally {
+      const response = await axios.request(config)
+      console.log(response.data)
       setSubmitting(false)
-      setProductDetails({
-        title: '',
-        description: '',
-        overview: '',
-        price: 0,
-        imageUrl: '',
-        difficulty: 'Beginner',
-        productType: 'Course',
-        tags: [] as string[],
-        requirements: [] as string[],
-        highlights: [] as string[],
-      })
+      // router.push('/(dashboard)/myProducts')
+    } catch (error) {
+      console.log(error)
+      setSubmitting(false)
+      alert(error)
     }
   }
 
