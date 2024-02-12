@@ -82,7 +82,7 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            docker run -d --name dma_frontend_instance -p ${{secrets.PORT}}:3000 -v dma_frontend_volume:/data dma_frontend_image
+            docker run -d --name dma_frontend_instance --restart unless-stopped -p ${{secrets.PORT}}:3000 -v dma_frontend_volume:/data dma_frontend_image
 
   clean_up_except_the_latest:
     needs: stop_and_start_container
