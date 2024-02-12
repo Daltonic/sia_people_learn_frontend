@@ -1,6 +1,5 @@
 import DashboardLayout from "@/components/dashboard/dashboardLayout/DashboardLayout";
 import MyProducts from "@/components/dashboard/myProducts/MyProducts";
-import { coursesData } from "@/data/courses";
 import { IAcademies, ICourses } from "@/utils/type.dt";
 import { GetServerSidePropsContext } from "next";
 
