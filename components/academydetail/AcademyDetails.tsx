@@ -147,7 +147,7 @@ const AcademyDetails: React.FC<ComponentProps> = ({ academy }) => {
   }, [academy._id]);
 
   return (
-    <div className="bg-white w-full md:w-[25%] md:right-10 md:top-0 md:absolute md:border border-[#EDEDED] p-2 space-y-2 mt-10 md:mt-0 rounded-md z-10">
+    <div className="bg-white w-full md:w-[25%] md:right-10 md:top-0 md:absolute md:border border-[#EDEDED] p-2 space-y-2 mt-10 rounded-md z-10">
       <div className="relative flex justify-center items-center">
         <div className="w-full">
           <Image

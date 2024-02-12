@@ -46,71 +46,76 @@ const Testimonials: React.FC<{ backgroundComponent?: boolean }> = ({
         </div>
 
         <div className="mt-5 ">
-            <div className="overflow-hidden">
-              {showSlider && (
-                <Swiper
-                  className="overflow-visible"
-                  // {...setting}
-                  modules={[Navigation, Pagination]}
-                  loop={true}
-                  spaceBetween={4}
-                  speed={1000}
-                  slidesPerView={1}
-                  onSwiper={(swiper) => {
-                    swiperRef.current = swiper; // Store the Swiper instance in the ref
-                  }}
-                  onSlideChange={handleSlideChange}
-                >
-                  {testimonialsTwo.map((elm, i: number) => (
-                    <SwiperSlide key={i} className="">
-                      <div className="swiper-slide h-100">
-                        <div
-                          className="testimonials -type-2 text-center"
-                          data-aos="fade-up"
-                          data-aos-duration={600}
-                        >
-                          <div className="flex md:justify-center">
-                            <Image
-                              width={40}
-                              height={35}
-                              src="/images/home/quotes.svg"
-                              alt="quote"
-                            />
-                          </div>
-                          <div className="text-[#321463] font-medium md:px-10">
-                            {elm.text}
-                          </div>
-                          <div className="mt-5">
-                            <h5 className="text-[#321463] font-medium text-md md:text-xs">
-                              {elm.author}
-                            </h5>
-                            <p className="text-[#4F547B] text-md md:text-xs">{elm.position}</p>
-                          </div>
+          <div className="overflow-hidden">
+            {showSlider && (
+              <Swiper
+                className="overflow-visible"
+                // {...setting}
+                modules={[Navigation, Pagination]}
+                loop={true}
+                spaceBetween={4}
+                speed={1000}
+                slidesPerView={1}
+                onSwiper={(swiper) => {
+                  swiperRef.current = swiper; // Store the Swiper instance in the ref
+                }}
+                onSlideChange={handleSlideChange}
+              >
+                {testimonialsTwo.map((elm, i: number) => (
+                  <SwiperSlide key={i} className="">
+                    <div className="swiper-slide h-100">
+                      <div
+                        className="testimonials -type-2 text-center"
+                        data-aos="fade-up"
+                        data-aos-duration={600}
+                      >
+                        <div className="flex md:justify-center">
+                          <Image
+                            width={40}
+                            height={35}
+                            src="/images/home/quotes.svg"
+                            alt="quote"
+                          />
+                        </div>
+                        <div className="text-[#321463] font-medium md:px-10">
+                          {elm.text}
+                        </div>
+                        <div className="mt-5">
+                          <h5 className="text-[#321463] font-medium text-md md:text-xs">
+                            {elm.author}
+                          </h5>
+                          <p className="text-[#4F547B] text-md md:text-xs">{elm.position}</p>
                         </div>
                       </div>
-                    </SwiperSlide>
-                  ))}
-                </Swiper>
-              )}
-
-                <div className="flex justify-between flex-wrap gap-5 sm:justify-center mt-5">
-                  {paginationImages.map((elm, i: number) => (
-                    <div
-                      key={i}
-                      onClick={() => handlePaginationClick(i)}
-                      className=" "
-                    >
-                      <div
-                        className={`pagination__item ${
-                          currentSlideIndex == i ? "is-active" : ""
-                        }`}
-                      >
-                        <Image width={40} height={40} className="rounded-full border w-16 h-16 md:w-12 md:h-12 cursor-pointer hover:border-2 hover:border-[#C5165D]" src={elm} alt="author" />
-                      </div>
                     </div>
-                  ))}
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            )}
+
+            <div className="flex justify-between flex-wrap gap-5 sm:justify-center mt-5 h-14">
+              {paginationImages.map((elm, i: number) => (
+                <div
+                  key={i}
+                  onClick={() => handlePaginationClick(i)}
+                  className=" "
+                >
+                  <div
+                    className={`pagination__item ${currentSlideIndex == i ? "is-active" : ""}`}
+                  >
+                    <Image
+                      width={40}
+                      height={40}
+                      className="rounded-full w-16 h-16 md:w-12 md:h-12 cursor-pointer transition duration-300 ease-in-out transform hover:scale-110 hover:shadow-[#C5165D] hover:shadow"
+                      src={elm}
+                      alt="author"
+                    />
+                  </div>
+
                 </div>
+              ))}
             </div>
+          </div>
         </div>
       </div>
     </section>

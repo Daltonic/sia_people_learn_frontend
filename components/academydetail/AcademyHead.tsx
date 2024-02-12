@@ -93,11 +93,9 @@ const AcademyHead: React.FC<ComponentProps> = ({ academy }) => {
   };
 
   return (
-    <div className="md:flex justify-between w-full">
       <div className="flex flex-col items-start w-full md:w-[57%]">
         <div className="flex flex-col md:flex-row gap-4 md:gap-0 items-start md:items-center justify-between w-full">
-          {/* there is not tag in the academy */}
-          {/* <div className="flex items-center justify-between gap-5 max-md:justify-center">
+          <div className="flex items-center justify-between gap-5 max-md:justify-center">
             {academy.tags.map((tag) => (
               <h1
                 className="text-slate-500 text-xs font-medium bg-slate-100 p-2 rounded-md"
@@ -106,7 +104,7 @@ const AcademyHead: React.FC<ComponentProps> = ({ academy }) => {
                 {tag.name}
               </h1>
             ))}
-          </div> */}
+          </div>
           <div className="flex items-center justify-between gap-5 max-md:justify-center">
             <Link href={`/academy/edit/${String(academy._id)}`}>
               <button className="text-white flex gap-2 items-center text-xs font-medium bg-sky-400 p-2 rounded-md">
@@ -146,7 +144,7 @@ const AcademyHead: React.FC<ComponentProps> = ({ academy }) => {
             </button>
           </div>
         </div>
-        <div className="flex flex-col gap-2.5 mt-3 w-full">
+        <div className="flex flex-col gap-2.5 mt-3 w-full ">
           <div className="flex items-center gap-2">
             <p className="text-[#E59819]">{academy.rating}0</p>
             <div className="flex items-center">
@@ -165,16 +163,6 @@ const AcademyHead: React.FC<ComponentProps> = ({ academy }) => {
           </h1>
           <div className="text-[#4F547B] text-base  md:mt-2">
             {academy.overview}
-          </div>
-
-          <div className="block md:hidden md:w-[38%] mt-4 md:mt-0">
-            <Image
-              height={0}
-              width={0}
-              src={academy.imageUrl || "/images/courseCard/card3.svg"}
-              alt=""
-              className="w-full h-full rounded-lg"
-            />
           </div>
 
           <div className="flex flex-col md:text-sm gap-5">
@@ -254,16 +242,6 @@ const AcademyHead: React.FC<ComponentProps> = ({ academy }) => {
           </div>
         </div>
       </div>
-      <div className="hidden md:block md:w-[30rem] mt-4 md:mt-0">
-        <Image
-          height={0}
-          width={0}
-          src={academy.imageUrl || "/images/courseCard/card3.svg"}
-          alt=""
-          className="w-full h-full rounded-lg"
-        />
-      </div>
-    </div>
   );
 };
 

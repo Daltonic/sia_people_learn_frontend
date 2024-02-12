@@ -7,8 +7,6 @@ import { Navigation, Pagination, Autoplay } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Link from "next/link";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
-import Button from "@/components/reusableComponents/Button";
-import { GoArrowUpRight } from "react-icons/go";
 import { ICourses } from "@/utils/type.dt";
 import AllButton from "@/components/reusableComponents/AllButton";
 

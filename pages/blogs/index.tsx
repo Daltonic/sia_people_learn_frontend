@@ -72,7 +72,7 @@ const Page: NextPage<{ postsData: IPosts }> = ({ postsData }) => {
             <SearchAndFilterBar
               searchPlaceholder="Search Blog Posts Here..."
               route="/blogs"
-              sortLabel="Sort by Date:"
+              sortLabel="Order By:"
               sortOptions={sortOptions}
             />
 

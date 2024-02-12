@@ -29,7 +29,7 @@ const AcademyLayer: React.FC<ComponentProps> = ({ data }) => {
                   <div className="w-full  h-36 md:w-[28%]">
                     <Link
                       key={academy._id}
-                      href={`/coursedetail/${academy._id}`}
+                      href={`/academies/${academy._id}`}
                     >
                       <Image
                         width={500}
@@ -60,7 +60,7 @@ const AcademyLayer: React.FC<ComponentProps> = ({ data }) => {
                       </div>
                       <Link
                         key={academy._id}
-                        href={`/coursedetail/${academy._id}`}
+                        href={`/academies/${academy._id}`}
                       >
                         <div className="text-violet-950 text-lg font-medium capitalize self-stretch">
                           {academy.name}
