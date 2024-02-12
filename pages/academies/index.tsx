@@ -31,9 +31,9 @@ const Page: NextPage<{ academiesObj: IAcademies }> = ({ academiesObj }) => {
           <Filterlayer
             searchPlaceholder="Search Academies Here..."
             route="/academies"
-            filterLabel="Filter by Difficulty:"
+            filterLabel="Difficulty"
             filterOptions={filterOptions}
-            sortLabel="Sort by Date"
+            sortLabel="Order By"
             sortOptions={sortOptions}
           />
           <AcademyLayer data={academiesObj} />

@@ -8,6 +8,7 @@ import { IAcademy, IAcademies } from "@/utils/type.dt";
 import AcademyCard from "@/components/home/AcademySlider/AcademyCard";
 import AcademyHead from "@/components/academydetail/AcademyHead";
 import AcademyDetails from "@/components/academydetail/AcademyDetails";
+import Tabs from "@/components/academydetail/Tabs";
 
 const Page: NextPage<{
   academyData: IAcademy;
@@ -26,7 +27,7 @@ const Page: NextPage<{
           <AcademyHead academy={academyData} />
           <AcademyDetails academy={academyData} />
         </div>
-        {/* <Tabs data={courseData} type="Course" course={courseData} /> */}
+        <Tabs data={academyData} type="Course" academy={academyData} />
         <div className="mt-14 relative">
           <div className="mb-5">
             <h4 className="text-2xl md:text-xl text-[#321463] font-bold">

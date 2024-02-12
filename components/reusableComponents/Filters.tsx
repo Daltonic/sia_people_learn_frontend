@@ -27,10 +27,10 @@ const Filters: React.FC<Props> = ({ label, options, type }) => {
     router.push(newUrl, { scroll: false });
   };
   return (
-    <div className="flex w-full my-4 gap-2 items-center">
-      <label className="text-violet-950 font-medium w-full">{label}</label>
+    <div className="flex my-4 gap-2 items-center flex-1 text-sm">
+      <label className="text-violet-950 font-medium">{label}</label>
       <select
-        className="text-slate-600 border focus:outline-none border-[color:var(--border-2,#E1DDDD)] w-full justify-center mt-3 p-3 py-1.5 rounded-lg items-start mb-2"
+        className="text-slate-600 border focus:outline-none border-[color:var(--border-2,#E1DDDD)] w-28 justify-center mt-3 p-3 py-1.5 rounded-lg items-start mb-2"
         value={currVal}
         name="filter"
         onChange={handleChange}

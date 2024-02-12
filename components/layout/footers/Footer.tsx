@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { footerData1, footerData2, footerData3 } from "@/data/footer";
+import { footerData2, footerData3 } from "@/data/footer";
 import SocialMediaIcons from "@/components/reusableComponents/SocialMediaIcons";
 
 const Footer: React.FC = () => {
@@ -57,26 +57,21 @@ const Footer: React.FC = () => {
               <p className="hover:text-[#C5165D]">
                 <Link href="/terms">Terms</Link>
               </p>
+             
             </div>
           </div>
           <div>
             <h1 className="text-[#321463] text-lg font-semibold md:text-sm mb-3 md:mb-4 md:font-medium">
               USEFUL LINKS
             </h1>
-            {footerData1.map((elm, i: number) => (
-              <Link href={elm.link} key={i}>
-                <div className="flex items-center gap-2 md:gap-1 mt-2">
-                  <Image
-                    width={16}
-                    height={16}
-                    src={elm.imageSrc}
-                    alt="Academy"
-                    className="w-6 md:w-4"
-                  />
-                  <p className="text-[#4F547B] md:text-sm"> {elm.title}</p>
-                </div>
-              </Link>
-            ))}
+            <div className="space-y-2 text-[#4F547B] text-sm ">
+            <p className="hover:text-[#C5165D]">
+                <Link href="/instructor">Instructor</Link>
+              </p>
+              <p className="hover:text-[#C5165D]">
+                <Link href="/becomeinstructor">Become Instructor</Link>
+              </p>
+            </div>
           </div>
           <div className="md:mt-8">
             {footerData2.map((elm, i: number) => (

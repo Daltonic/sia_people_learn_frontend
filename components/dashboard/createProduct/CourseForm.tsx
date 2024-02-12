@@ -191,6 +191,8 @@ const CourseForm: React.FC = () => {
       } catch (error) {
         console.log(error)
         alert(error)
+      } finally {
+        setSubmitting(false)
       }
     } else {
       const config = {
@@ -211,6 +213,8 @@ const CourseForm: React.FC = () => {
       } catch (error) {
         console.log(error)
         alert(error)
+      } finally {
+        setSubmitting(false)
       }
     }
   }

@@ -168,7 +168,7 @@ const Tabs: React.FC<Props> = ({ academiesData, coursesData, booksData }) => {
             setCurrFilter={setDifficulty}
           />
           <LocalFilters
-            label="Sort by Date"
+            label="Order By"
             options={sortOptions}
             currFilter={sort}
             setCurrFilter={setSort}
