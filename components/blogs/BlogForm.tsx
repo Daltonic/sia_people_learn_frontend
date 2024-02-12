@@ -9,7 +9,8 @@ import { categories } from '@/data/blogs'
 import { useSelector, useDispatch } from 'react-redux'
 import { userActions } from '@/store/userSlice'
 import WYSIWYG from '../reusableComponents/WYSIWYG'
-import axios from 'axios'
+import { toast } from 'react-toastify'
+import { createPost, updatePost } from '@/services/backend.services'
 
 interface PostProps {
   post?: IPost
@@ -60,9 +61,7 @@ const PostForm: React.FC<PostProps> = ({ post, type }) => {
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault()
 
-    const { title, overview, imageUrl, category } = postDetails
-
-    if (!title || !overview || !category) {
+    if (!postDetails.title || !postDetails.overview || !postDetails.category) {
       alert('Missing required fields')
       return
     }
@@ -70,46 +69,36 @@ const PostForm: React.FC<PostProps> = ({ post, type }) => {
     setSubmitting(true)
 
     const postInput = {
-      title,
+      ...postDetails,
       description: editorContent,
-      overview,
-      imageUrl,
-      category,
       userId: userData?._id,
     }
 
-    const method = type === 'create' ? 'POST' : 'PUT'
-    const data =
-      type === 'create' ? { ...postInput, userId: userData?._id } : postInput
-
-    const createUrl = `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/posts/create`
-    const updateUrl = `${
-      process.env.NEXT_PUBLIC_BACKEND_URI
-    }/api/v1/posts/update/${post?._id!}`
-
-    const url = type === 'create' ? createUrl : updateUrl
-
-    try {
-      const config = {
-        method,
-        url,
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${sessionStorage.getItem('accessToken')}`,
-        },
-        data,
+    await toast.promise(
+      new Promise<void>((resolve, reject) => {
+        if (type === 'create') {
+          createPost(postInput)
+            .then((result) => {
+              router.push('/(dashboard)/myBlogs')
+              resetForm()
+              resolve(result)
+            })
+            .catch((error) => reject(error))
+        } else {
+          updatePost(postInput, String(post?._id))
+            .then((result) => {
+              router.push('/(dashboard)/myBlogs')
+              resolve(result)
+            })
+            .catch((error) => reject(error))
+        }
+      }),
+      {
+        pending: 'Processing...',
+        success: 'Successfully saved 👌',
+        error: 'Encountered error 🤯',
       }
-
-      const response = await axios.request(config)
-      const { result } = response.data
-      console.log(result)
-
-      // router.push('/(dashboard)/myBlogs')
-      resetForm()
-    } catch (error) {
-      console.log(error)
-      alert(JSON.stringify(error))
-    }
+    )
   }
 
   const resetForm = () => {
