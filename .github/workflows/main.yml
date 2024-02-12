@@ -48,10 +48,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Get the latest commit hash
-        id: git_info
-        run: echo ::set-output name=commit::$(git rev-parse HEAD)
-
       - name: Build Docker image with commit hash
         uses: appleboy/ssh-action@v0.1.3
         with:
@@ -59,9 +55,8 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            export COMMIT_HASH=${{ steps.git_info.outputs.commit }}
             cd /dockerized/containers/dappmentors_frontend
-            docker build -t dma_frontend_image:$COMMIT_HASH .
+            docker build -t dma_frontend_image .
 
   stop_and_start_container:
     needs: build_image
@@ -86,16 +81,7 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            # Retrieve the tag of the most recent Docker image
-            LATEST_IMAGE_TAG=$(docker images --filter=reference='dma_frontend_image*' --sort=created --format "{{.Tag}}" | head -n  1)
-            echo "Recent tag: $LATEST_IMAGE_TAG"
-            # Run the Docker container with the latest image tag
-            docker run \
-              -d \
-              --name dma_frontend_instance \
-              -p   3000:3000 \
-              -v dma_frontend_volume:/data \
-              dma_frontend_image:$LATEST_IMAGE_TAG
+            docker run -d --name dma_frontend_instance -p ${{secrets.PORT}}:3000 -v dma_frontend_volume:/data dma_frontend_image
 
   clean_up_except_the_latest:
     needs: stop_and_start_container
