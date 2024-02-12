@@ -8,6 +8,8 @@ import { FaRegCheckCircle, FaTimes } from "react-icons/fa";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { MdOutlineRateReview } from "react-icons/md";
+import { toast } from "react-toastify";
+import { deleteCourse, submitCourse } from "@/services/backend.services";
 
 interface ComponentProps {
   course: ICourse;
@@ -22,71 +24,51 @@ const CourseHead: React.FC<ComponentProps> = ({ course }) => {
     setRating(newRating);
   }, [course]);
 
-  const handleSubmit = () => {
-    const submitAcademy = async () => {
-      const requestDetails = {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
-        },
-        body: JSON.stringify({ submitted: true }),
-      };
-
-      try {
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/courses/submit/${course._id}`,
-          requestDetails
+  const handleSubmit = async () => {
+    await toast.promise(
+      new Promise<void>(async (resolve, reject) => {
+        const status = await submitCourse(
+          {
+            submitted: true,
+          },
+          course._id
         );
 
-        if (response.status === 400) {
-          alert("Something went wrong");
+        if (status === 200) {
+          router.push("/(dashboard)/myProducts");
+
+          resolve();
+        } else {
+          reject();
         }
-
-        const message = await response.text();
-        console.log(message);
-        alert(message);
-        router.push("/(dashboard)/myProducts");
-      } catch (e: any) {
-        console.log(e.message);
-        alert(e.message);
+      }),
+      {
+        pending: `Submitting...`,
+        success: `Course submitted successfully 👌`,
+        error: "Encountered error 🤯",
       }
-    };
-
-    submitAcademy();
+    );
   };
 
-  const handleDelete = () => {
-    const deleteAcademy = async () => {
-      const requestDetails = {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
-        },
-      };
+  const handleDelete = async () => {
+    await toast.promise(
+      new Promise<void>(async (resolve, reject) => {
+        const status = await deleteCourse(course._id);
 
-      try {
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/courses/delete/${course._id}`,
-          requestDetails
-        );
+        if (status === 200) {
+          router.push("/(dashboard)/myProducts");
 
-        if (response.status === 400) {
-          alert("Something went wrong");
+          resolve();
+        } else {
+          reject();
         }
-
-        const message = await response.text();
-
-        alert(message);
-        router.push("/(dashboard)/myProducts");
-      } catch (e: any) {
-        console.log(e.message);
-        alert(e.message);
+      }),
+      {
+        pending: `Deleting...`,
+        success: `Course deleted successfully 👌`,
+        error: "Encountered error 🤯",
       }
-    };
-
-    deleteAcademy();
+    );
   };
 
   return (

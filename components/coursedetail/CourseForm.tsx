@@ -1,194 +1,197 @@
-import Badge from '@/components/reusableComponents/Badge'
-import Button from '@/components/reusableComponents/Button'
-import InputField from '@/components/reusableComponents/InputField'
-import SelectField from '@/components/reusableComponents/SelectField'
-import TextAreaField from '@/components/reusableComponents/TextAreaField'
-import { ICourse, RootState } from '@/utils/type.dt'
-import { useRouter } from 'next/navigation'
+import Badge from "@/components/reusableComponents/Badge";
+import Button from "@/components/reusableComponents/Button";
+import InputField from "@/components/reusableComponents/InputField";
+import SelectField from "@/components/reusableComponents/SelectField";
+import TextAreaField from "@/components/reusableComponents/TextAreaField";
+import { ICourse, RootState } from "@/utils/type.dt";
+import { useRouter } from "next/navigation";
 import React, {
   useState,
   KeyboardEvent,
   ChangeEvent,
   SyntheticEvent,
   useEffect,
-} from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { userActions } from '@/store/userSlice'
-import FilePicker from '../reusableComponents/FilePicker'
-import WYSIWYG from '../reusableComponents/WYSIWYG'
-import axios from 'axios'
+} from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { userActions } from "@/store/userSlice";
+import FilePicker from "../reusableComponents/FilePicker";
+import WYSIWYG from "../reusableComponents/WYSIWYG";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { updateCourse } from "@/services/backend.services";
 
 interface CourseProps {
-  course: ICourse
+  course: ICourse;
 }
 
 const CourseForm: React.FC<CourseProps> = ({ course }) => {
-  const [editorContent, setEditorContent] = useState<string>('')
-  const router = useRouter()
-  const dispatch = useDispatch()
-  const { setUserData } = userActions
-  const { userData } = useSelector((states: RootState) => states.userStates)
-  const [imageUrl, setImageUrl] = useState<string>('')
+  const [editorContent, setEditorContent] = useState<string>("");
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const { setUserData } = userActions;
+  const { userData } = useSelector((states: RootState) => states.userStates);
+  const [imageUrl, setImageUrl] = useState<string>("");
 
   useEffect(() => {
     if (!userData) {
-      const sessionUser = JSON.parse(sessionStorage.getItem('user')!)
+      const sessionUser = JSON.parse(sessionStorage.getItem("user")!);
       if (sessionUser) {
-        dispatch(setUserData(sessionUser))
+        dispatch(setUserData(sessionUser));
       }
     }
-  }, [dispatch, setUserData, userData])
+  }, [dispatch, setUserData, userData]);
   const [productDetails, setProductDetails] = useState({
     title: course.name,
     description: course.description,
     overview: course.overview,
     price: course.price,
-    imageUrl: course.imageUrl || '',
+    imageUrl: course.imageUrl || "",
     difficulty: course.difficulty,
     productType: course.type,
     tags: course.tags ? course.tags.map((tag) => tag.name) : [],
     requirements: course.requirements ? course.requirements : [],
     highlights: course.highlights ? course.highlights : [],
-  })
+  });
 
-  const [submitting, setSubmitting] = useState<boolean>(false)
+  const [submitting, setSubmitting] = useState<boolean>(false);
 
   const handleInputKeyDown = (
     e: KeyboardEvent<HTMLInputElement>,
-    field: 'tags' | 'requirements' | 'highlights'
+    field: "tags" | "requirements" | "highlights"
   ) => {
-    if (e.key === 'Enter') {
-      e.preventDefault()
+    if (e.key === "Enter") {
+      e.preventDefault();
 
-      const input = e.target as HTMLInputElement
-      const value = input.value.trim()
+      const input = e.target as HTMLInputElement;
+      const value = input.value.trim();
 
-      if (value !== '') {
+      if (value !== "") {
         switch (field) {
-          case 'highlights':
+          case "highlights":
             if (!productDetails.highlights.includes(value)) {
               setProductDetails((prev) => ({
                 ...prev,
                 highlights: [...prev.highlights, value],
-              }))
-              input.value = ''
+              }));
+              input.value = "";
             } else {
-              input.value = ''
+              input.value = "";
             }
-            break
-          case 'requirements':
+            break;
+          case "requirements":
             if (!productDetails.requirements.includes(value)) {
               setProductDetails((prev) => ({
                 ...prev,
                 requirements: [...prev.requirements, value],
-              }))
-              input.value = ''
+              }));
+              input.value = "";
             } else {
-              input.value = ''
+              input.value = "";
             }
-            break
+            break;
 
-          case 'tags':
+          case "tags":
             if (!productDetails.tags.includes(value)) {
               setProductDetails((prev) => ({
                 ...prev,
                 tags: [...prev.tags, value],
-              }))
-              input.value = ''
+              }));
+              input.value = "";
             } else {
-              input.value = ''
+              input.value = "";
             }
-            break
+            break;
         }
       }
     }
-  }
+  };
 
   const handleRemoveItem = (
-    field: 'highlights' | 'requirements' | 'tags',
+    field: "highlights" | "requirements" | "tags",
     value: string
   ) => {
     switch (field) {
-      case 'highlights':
+      case "highlights":
         const newHighlights = productDetails.highlights.filter(
           (highlight: string) => highlight !== value
-        )
-        setProductDetails((prev) => ({ ...prev, highlights: newHighlights }))
-        break
-      case 'requirements':
+        );
+        setProductDetails((prev) => ({ ...prev, highlights: newHighlights }));
+        break;
+      case "requirements":
         const newRequirements = productDetails.requirements.filter(
           (requirement: string) => requirement !== value
-        )
+        );
         setProductDetails((prev) => ({
           ...prev,
           requirements: newRequirements,
-        }))
-        break
-      case 'tags':
+        }));
+        break;
+      case "tags":
         const newTags = productDetails.tags.filter(
           (tag: string) => tag !== value
-        )
-        setProductDetails((prev) => ({ ...prev, tags: newTags }))
-        break
+        );
+        setProductDetails((prev) => ({ ...prev, tags: newTags }));
+        break;
     }
-  }
+  };
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
-    const { name, value } = e.currentTarget
+    const { name, value } = e.currentTarget;
 
     setProductDetails((prev) => ({
       ...prev,
       [name]: value,
-    }))
-  }
+    }));
+  };
 
   const handleSubmit = async (e: SyntheticEvent) => {
-    e.preventDefault()
+    e.preventDefault();
 
     if (
-      userData?.userType !== 'instructor' &&
+      userData?.userType !== "instructor" &&
       String(userData?._id) === String(course.userId._id)
     ) {
-      throw new Error('Only instructors can create products')
+      toast.warn("Only course instructor can update this course");
     }
 
-    setSubmitting(true)
+    setSubmitting(true);
 
-    const productInput = {
-      ...productDetails,
-      name: productDetails.title,
-      description: editorContent || productDetails.description,
-      price: Number(productDetails.price),
-      type: productDetails.productType,
-    }
+    await toast.promise(
+      new Promise<void>(async (resolve, reject) => {
+        const status = await updateCourse(
+          {
+            name: productDetails.title,
+            description: editorContent,
+            overview: productDetails.overview,
+            imageUrl: productDetails.imageUrl,
+            price: Number(productDetails.price),
+            difficulty: productDetails.difficulty,
+            requirements: productDetails.requirements,
+            tags: productDetails.tags,
+            highlights: productDetails.highlights,
+            type: productDetails.productType as "Book" | "Course",
+          },
+          course._id
+        );
 
-    console.log(productInput)
-
-    try {
-      const url = `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/courses/update/${course._id}`
-      const config = {
-        method: 'PUT',
-        maxBodyLength: Infinity,
-        url,
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${sessionStorage.getItem('accessToken')}`,
-        },
-        data: JSON.stringify(productInput), // Pass the stream as the data
+        if (status === 200) {
+          router.push("/(dashboard)/myProducts");
+          setSubmitting(false);
+          resolve();
+        } else {
+          setSubmitting(false);
+          reject();
+        }
+      }),
+      {
+        pending: `Updating your ${productDetails.productType}...`,
+        success: `${productDetails.productType} updated successfully 👌`,
+        error: "Encountered error 🤯",
       }
-
-      const response = await axios.request(config)
-      console.log(response.data)
-      setSubmitting(false)
-      // router.push('/(dashboard)/myProducts')
-    } catch (error) {
-      console.log(error)
-      setSubmitting(false)
-      alert(error)
-    }
-  }
+    );
+  };
 
   return (
     <div className="bg-white rounded-lg ">
@@ -236,9 +239,9 @@ const CourseForm: React.FC<CourseProps> = ({ course }) => {
             label="Difficulty"
             name="difficulty"
             options={[
-              { label: 'Beginner', value: 'Beginner' },
-              { label: 'Intermediate', value: 'Intermediate' },
-              { label: 'Advance', value: 'Advanced' },
+              { label: "Beginner", value: "Beginner" },
+              { label: "Intermediate", value: "Intermediate" },
+              { label: "Advance", value: "Advanced" },
             ]}
             value={productDetails.difficulty}
             handleChange={handleChange}
@@ -250,10 +253,10 @@ const CourseForm: React.FC<CourseProps> = ({ course }) => {
             label=" Product Type"
             name="productType"
             options={[
-              { label: 'Select', value: 'option1' },
-              { label: 'Course', value: 'Course' },
-              { label: 'Academy', value: 'Academy' },
-              { label: 'Book', value: 'Book' },
+              { label: "Select", value: "option1" },
+              { label: "Course", value: "Course" },
+              { label: "Academy", value: "Academy" },
+              { label: "Book", value: "Book" },
             ]}
             value={productDetails.productType}
             handleChange={handleChange}
@@ -267,7 +270,7 @@ const CourseForm: React.FC<CourseProps> = ({ course }) => {
               placeholder="Enter Product Requirements"
               required={false}
               inputType="text"
-              handleKeyDown={(e) => handleInputKeyDown(e, 'requirements')}
+              handleKeyDown={(e) => handleInputKeyDown(e, "requirements")}
             />
             <div className="flex flex-wrap w-full gap-2">
               {productDetails.requirements.map((requirement, index) => (
@@ -276,7 +279,7 @@ const CourseForm: React.FC<CourseProps> = ({ course }) => {
                   inputText={requirement}
                   imageUrl="/images/cancel.png"
                   handleIconClick={() =>
-                    handleRemoveItem('requirements', requirement)
+                    handleRemoveItem("requirements", requirement)
                   }
                 />
               ))}
@@ -289,7 +292,7 @@ const CourseForm: React.FC<CourseProps> = ({ course }) => {
               placeholder="Enter Tags"
               required={false}
               inputType="text"
-              handleKeyDown={(e) => handleInputKeyDown(e, 'tags')}
+              handleKeyDown={(e) => handleInputKeyDown(e, "tags")}
             />
             <div className="flex flex-wrap w-full gap-2">
               {productDetails.tags.map((tag, index) => (
@@ -297,7 +300,7 @@ const CourseForm: React.FC<CourseProps> = ({ course }) => {
                   key={index}
                   inputText={tag}
                   imageUrl="/images/cancel.png"
-                  handleIconClick={() => handleRemoveItem('tags', tag)}
+                  handleIconClick={() => handleRemoveItem("tags", tag)}
                 />
               ))}
             </div>
@@ -310,7 +313,7 @@ const CourseForm: React.FC<CourseProps> = ({ course }) => {
             placeholder="Enter Product Highlights"
             required={false}
             inputType="text"
-            handleKeyDown={(e) => handleInputKeyDown(e, 'highlights')}
+            handleKeyDown={(e) => handleInputKeyDown(e, "highlights")}
           />
           <div className="flex flex-col gap-2 w-full">
             {productDetails.highlights.map((highlight, index) => (
@@ -319,7 +322,7 @@ const CourseForm: React.FC<CourseProps> = ({ course }) => {
                 inputText={highlight}
                 imageUrl="/images/cancel.png"
                 handleIconClick={() =>
-                  handleRemoveItem('highlights', highlight)
+                  handleRemoveItem("highlights", highlight)
                 }
               />
             ))}
@@ -333,11 +336,11 @@ const CourseForm: React.FC<CourseProps> = ({ course }) => {
         </div>
 
         <Button variant="pink" className="mt-14" disabled={submitting}>
-          {submitting ? 'Editting' : 'Edit'}
+          {submitting ? "Editting" : "Edit"}
         </Button>
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default CourseForm
+export default CourseForm;

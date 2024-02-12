@@ -14,6 +14,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/utils/type.dt";
 import { userActions } from "@/store/userSlice";
 import Cookies from "universal-cookie";
+import { toast } from "react-toastify";
+import { logout } from "@/services/backend.services";
 
 type SidebarProps = {};
 
@@ -50,39 +52,29 @@ const DashBoardHeader: React.FC<SidebarProps> = () => {
     setIsOpen(false);
   };
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     router.push("/");
-    const logout = async () => {
-      const requestDetails = {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
-        },
-      };
 
-      try {
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/sessions/logout`,
-          requestDetails
-        );
+    await toast.promise(
+      new Promise<void>(async (resolve, reject) => {
+        const status = await logout();
 
-        if (response.status === 400) {
-          const message = response.text();
+        if (status === 200) {
+          resolve();
+          sessionStorage.removeItem("accessToken");
+          sessionStorage.removeItem("user");
+          cookies.remove("accessToken");
+          dispatch(setUserData(null));
+        } else {
+          reject();
         }
-
-        sessionStorage.removeItem("accessToken");
-        sessionStorage.removeItem("refreshToken");
-        sessionStorage.removeItem("user");
-        cookies.remove("accessToken");
-        // setUser(null);
-        dispatch(setUserData(null));
-      } catch (e: any) {
-        console.log(e.message);
-        alert(e.message);
+      }),
+      {
+        pending: "Logging out...",
+        success: "Logged out successfully 👌",
+        error: "Encountered error 🤯",
       }
-    };
-    logout();
+    );
   };
 
   return (
