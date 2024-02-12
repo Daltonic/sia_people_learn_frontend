@@ -10,16 +10,15 @@ import React, {
   ChangeEvent,
   SyntheticEvent,
   useEffect,
-  useRef,
 } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { userActions } from '@/store/userSlice'
 import { RootState } from '@/utils/type.dt'
-import { Editor } from '@tinymce/tinymce-react'
 import axios from 'axios'
+import WYSIWYG from '@/components/reusableComponents/WYSIWYG'
 
 const CourseForm: React.FC = () => {
-  const editorRef = useRef<any>(null)
+  const [editorContent, setEditorContent] = useState<string>('')
   const router = useRouter()
   const dispatch = useDispatch()
   const { setUserData } = userActions
@@ -162,7 +161,7 @@ const CourseForm: React.FC = () => {
 
     const productInput = {
       name: title,
-      description: editorRef.current.getContent(),
+      description: editorContent,
       overview,
       imageUrl,
       price: Number(price),
@@ -370,42 +369,9 @@ const CourseForm: React.FC = () => {
         </div>
 
         <div className="flex flex-col w-full my-3 relative">
-          <label className="text-violet-950 font-medium">Description</label>
-
-          <Editor
-            apiKey="h3r0yb4wltqwanftl730o5x9ybrxhz9mxuoeu5keq71mrcyx"
-            onInit={(evt, editor) => (editorRef.current = editor)}
-            initialValue="<p>Start typing...</p>"
-            init={{
-              height: 250,
-              menubar: false,
-              plugins: [
-                'advlist',
-                'autolink',
-                'lists',
-                'link',
-                'image',
-                'charmap',
-                'preview',
-                'anchor',
-                'searchreplace',
-                'visualblocks',
-                'code',
-                'fullscreen',
-                'insertdatetime',
-                'media',
-                'table',
-                'code',
-                'wordcount',
-              ],
-              toolbar:
-                'undo redo | blocks | ' +
-                'bold italic forecolor | alignleft aligncenter ' +
-                'alignright alignjustify | bullist numlist outdent indent | ' +
-                'removeformat',
-              content_style:
-                'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
-            }}
+          <WYSIWYG
+            value={productDetails.description}
+            handleChange={(content) => setEditorContent(content)}
           />
         </div>
         {/* <div className="md:flex gap-8">
