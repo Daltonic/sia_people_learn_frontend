@@ -17,7 +17,7 @@ const createPost = async (data: any): Promise<any> => {
     }
 
     const response = await axios.request(config)
-    return Promise.resolve(response)
+    return Promise.resolve(response.data)
   } catch (error) {
     reportError(error)
     return Promise.reject(error)
@@ -39,11 +39,32 @@ const updatePost = async (data: any, id: string): Promise<any> => {
     }
 
     const response = await axios.request(config)
-    return Promise.resolve(response)
+    return Promise.resolve(response.data)
   } catch (error) {
     reportError(error)
     return Promise.reject(error)
   }
 }
 
-export { createPost, updatePost }
+const updateAcademy = async (data: any, id: string): Promise<any> => {
+  try {
+    const url = `${BASE_URI}/api/v1/academies/update/${id}`
+    const config = {
+      method: 'PUT',
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${sessionStorage.getItem('accessToken')}`,
+      },
+      data, // Pass the stream as the data
+    }
+
+    const response = await axios.request(config)
+    return Promise.resolve(response.data)
+  } catch (error) {
+    reportError(error)
+    return Promise.reject(error)
+  }
+}
+
+export { createPost, updatePost, updateAcademy }

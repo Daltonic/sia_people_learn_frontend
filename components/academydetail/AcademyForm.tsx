@@ -14,8 +14,9 @@ import React, {
 } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { userActions } from '@/store/userSlice'
-import axios from 'axios'
+import { toast } from 'react-toastify'
 import WYSIWYG from '../reusableComponents/WYSIWYG'
+import { updateAcademy } from '@/services/backend.services'
 
 interface AcademyProps {
   academy: IAcademy
@@ -148,54 +149,37 @@ const AcademyForm: React.FC<AcademyProps> = ({ academy }) => {
       userData?.userType !== 'instructor' &&
       String(userData?._id) === String(academy.userId._id)
     ) {
-      throw new Error('Only instructors can create products')
+      return toast.warn('Only instructors can create products')
     }
 
     setSubmitting(true)
-    const {
-      title,
-      overview,
-      price,
-      imageUrl,
-      difficulty,
-      tags,
-      highlights,
-      requirements,
-    } = productDetails
 
     const productInput = {
-      name: title,
+      ...productDetails,
+      name: productDetails.title,
       description: editorContent,
-      overview,
-      imageUrl,
-      price: Number(price),
-      difficulty,
-      requirements,
-      tags,
-      highlights,
+      price: Number(productDetails.price),
     }
 
-    try {
-      const url = `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/academies/update/${academy._id}`
-      const config = {
-        method: 'put',
-        url,
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${sessionStorage.getItem('accessToken')}`,
-        },
-        data: productInput, // Pass the stream as the data
+    await toast.promise(
+      new Promise<void>((resolve, reject) => {
+        updateAcademy(productInput, String(academy?._id))
+          .then((result) => {
+            router.push('/(dashboard)/myProducts')
+            setSubmitting(false)
+            resolve(result)
+          })
+          .catch((error) => {
+            setSubmitting(false)
+            reject(error)
+          })
+      }),
+      {
+        pending: 'Saving...',
+        success: 'Successfully updated 👌',
+        error: 'Encountered error 🤯',
       }
-
-      const response = await axios.request(config)
-
-      const { result } = response.data
-      console.log(result)
-      // router.push('/(dashboard)/myProducts')
-    } catch (error) {
-      console.log(error)
-      alert(error)
-    }
+    )
   }
 
   return (
