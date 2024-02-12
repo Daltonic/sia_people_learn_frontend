@@ -331,8 +331,6 @@ const AcademyForm: React.FC<AcademyProps> = ({ academy }) => {
         </div>
 
         <div className="flex flex-col w-full my-3 relative">
-          <label className="text-violet-950 font-medium">Description</label>
-
           <WYSIWYG
             value={productDetails.description}
             handleChange={(content) => setEditorContent(content)}
