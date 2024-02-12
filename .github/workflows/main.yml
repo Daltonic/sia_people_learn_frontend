@@ -55,6 +55,7 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
+            export DOCKER_BUILDKIT=1
             cd /dockerized/containers/dappmentors_frontend
             docker build -t dma_frontend_image .
 

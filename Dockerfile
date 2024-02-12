@@ -4,14 +4,14 @@ FROM node:18-alpine
 # Set the working directory in the container to /app
 WORKDIR /app
 
-# Copy the rest of the application source code to the working directory
-COPY . .
+# Copy package.json and package-lock.json first to leverage Docker's caching
+COPY package*.json ./
 
 # Install dependencies
 RUN npm install
 
-# Load environment variables from the .env file
-RUN export $(cat .env | xargs)
+# Copy the rest of the application source code to the working directory
+COPY . .
 
 # Build the Next.js application
 RUN npm run build
