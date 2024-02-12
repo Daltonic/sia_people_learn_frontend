@@ -86,12 +86,16 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
+            # Retrieve the tag of the most recent Docker image
+            LATEST_IMAGE_TAG=$(docker images --filter=reference='dma_frontend_image*' --sort=created --format "{{.Tag}}" | head -n  1)
+            echo "Recent tag: $LATEST_IMAGE_TAG"
+            # Run the Docker container with the latest image tag
             docker run \
               -d \
               --name dma_frontend_instance \
-              -p ${{secrets.PORT}}:3000 \
+              -p   3000:3000 \
               -v dma_frontend_volume:/data \
-              dma_frontend_image:$COMMIT_HASH
+              dma_frontend_image:$LATEST_IMAGE_TAG
 
   clean_up_except_the_latest:
     needs: stop_and_start_container
