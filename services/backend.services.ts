@@ -1,3 +1,4 @@
+import { FetchProductsParams } from "@/utils/type.dt";
 import axios from "axios";
 
 const BASE_URI = process.env.NEXT_PUBLIC_BACKEND_URI;
@@ -348,6 +349,100 @@ const deleteCourse = async (courseId: string): Promise<any> => {
   }
 };
 
+const addCourseToAcademy = async (academyId: string, courseId: string) => {
+  const url = `${BASE_URI}/api/v1/academies/addCourse`;
+
+  const config = {
+    method: "PATCH",
+    url,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
+    },
+    params: {
+      academyId,
+      courseId,
+    },
+  };
+
+  try {
+    const response = await axios.request(config);
+    return Promise.resolve(response.data);
+  } catch (error) {
+    reportError(error);
+    return Promise.reject(error);
+  }
+};
+
+const removeCourseFromAcademy = async (academyId: string, courseId: string) => {
+  const url = `${BASE_URI}/api/v1/academies/removeCourse`;
+
+  const config = {
+    method: "PATCH",
+    url,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
+    },
+    params: {
+      academyId,
+      courseId,
+    },
+  };
+
+  try {
+    const response = await axios.request(config);
+    return Promise.resolve(response.data);
+  } catch (error) {
+    reportError(error);
+    return Promise.reject(error);
+  }
+};
+
+const fetchAcademy = async (academyId: string, token?: string) => {
+  const url = `${BASE_URI}/api/v1/academies/${academyId}`;
+
+  const config = {
+    method: "GET",
+    url,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  try {
+    const response = await axios.request(config);
+    return Promise.resolve(response.data);
+  } catch (error) {
+    reportError(error);
+    return Promise.reject(error);
+  }
+};
+
+const fetchCourses = async (query: FetchProductsParams, token?: string) => {
+  const url = `${BASE_URI}/api/v1/courses`;
+
+  const config = {
+    method: "GET",
+    url,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    params: { ...query },
+  };
+
+  try {
+    const response = await axios.request(config);
+    return Promise.resolve(response.data);
+  } catch (error) {
+    console.log(error);
+    reportError(error);
+    return Promise.reject(error);
+  }
+};
+
 export {
   createPost,
   updatePost,
@@ -362,4 +457,8 @@ export {
   updateLesson,
   submitCourse,
   deleteCourse,
+  addCourseToAcademy,
+  removeCourseFromAcademy,
+  fetchAcademy,
+  fetchCourses,
 };

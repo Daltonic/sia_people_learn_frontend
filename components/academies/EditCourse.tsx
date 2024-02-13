@@ -74,7 +74,7 @@ const EditCourse: React.FC<ComponentProps> = ({ academy }) => {
             />
             <p className="md:text-sm text-[#4F547B]">
               {academy.courses ? academy.courses.length : 0} course{""}
-              {academy.courses.length !== 1 ? "s" : ""}
+              {academy.courses?.length !== 1 ? "s" : ""}
             </p>
 
             <div className="flex items-center">

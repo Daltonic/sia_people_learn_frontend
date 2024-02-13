@@ -6,6 +6,7 @@ import { userActions } from "@/store/userSlice";
 import { RootState } from "@/utils/type.dt";
 import { IAcademy, ICourse } from "@/utils/type.dt";
 import AddRemoveCourse from "@/components/academydetail/AddRemoveCourse";
+import { fetchAcademy, fetchCourses } from "@/services/backend.services";
 
 const Page: NextPage<{ academyData: IAcademy; coursesData: ICourse[] }> = ({
   academyData,
@@ -41,30 +42,13 @@ export default Page;
 export const getServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
-  const { academyId, instructor } = context.query;
-
-  const requestDetails = {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
+  const { academyId } = context.query;
+  const token = context.req.cookies.accessToken;
 
   try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/academies/${academyId}`,
-      requestDetails
-    );
+    const academy = await fetchAcademy(academyId as string, token);
 
-    const academy = await response.json();
-
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/courses?instructor=${instructor}`,
-      requestDetails
-    );
-
-    const { courses } = await res.json();
-
+    const { courses } = await fetchCourses({ instructor: "true" }, token);
     return {
       props: {
         academyData: JSON.parse(JSON.stringify(academy)),
@@ -73,5 +57,11 @@ export const getServerSideProps = async (
     };
   } catch (e: any) {
     console.log(e.message);
+    return {
+      props: {
+        academyData: {},
+        coursesData: {},
+      },
+    };
   }
 };
