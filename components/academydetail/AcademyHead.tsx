@@ -10,6 +10,8 @@ import { useRouter } from "next/navigation";
 import { MdOutlineRateReview } from "react-icons/md";
 import { useSelector } from "react-redux";
 import { convertStringToDate } from "@/utils";
+import { toast } from "react-toastify";
+import { deleteAcademy, submitAcademy } from "@/services/backend.services";
 
 interface ComponentProps {
   academy: IAcademy;
@@ -26,70 +28,44 @@ const AcademyHead: React.FC<ComponentProps> = ({ academy }) => {
     setRating(newRating);
   }, [academy]);
 
-  const handleSubmit = () => {
-    const submitAcademy = async () => {
-      const requestDetails = {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
-        },
-      };
+  const handleSubmit = async () => {
+    await toast.promise(
+      new Promise<void>(async (resolve, reject) => {
+        const status = await submitAcademy(academy._id);
 
-      try {
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/academies/submit/${academy._id}`,
-          requestDetails
-        );
-
-        if (response.status === 400) {
-          alert("Something went wrong");
+        if (status === 200) {
+          router.push("/(dashboard)/myProducts");
+          resolve();
+        } else {
+          reject();
         }
-
-        const message = await response.text();
-        console.log(message);
-        alert(message);
-        router.push("/(dashboard)/myProducts");
-      } catch (e: any) {
-        console.log(e.message);
-        alert(e.message);
+      }),
+      {
+        pending: `Submitting...`,
+        success: `Academy submitted successfully 👌`,
+        error: "Encountered error 🤯",
       }
-    };
-
-    submitAcademy();
+    );
   };
 
-  const handleDelete = () => {
-    const deleteAcademy = async () => {
-      const requestDetails = {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
-        },
-      };
+  const handleDelete = async () => {
+    await toast.promise(
+      new Promise<void>(async (resolve, reject) => {
+        const status = await deleteAcademy(academy._id);
 
-      try {
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/academies/delete/${academy._id}`,
-          requestDetails
-        );
-
-        if (response.status === 400) {
-          alert("Something went wrong");
+        if (status === 200) {
+          router.push("/(dashboard)/myProducts");
+          resolve();
+        } else {
+          reject();
         }
-
-        const message = await response.text();
-        console.log(message);
-        alert(message);
-        router.push("/(dashboard)/myProducts");
-      } catch (e: any) {
-        console.log(e.message);
-        alert(e.message);
+      }),
+      {
+        pending: `Deleting...`,
+        success: `Academy deleted successfully 👌`,
+        error: "Encountered error 🤯",
       }
-    };
-
-    deleteAcademy();
+    );
   };
 
   return (

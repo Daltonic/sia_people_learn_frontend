@@ -7,6 +7,8 @@ import { IoIosStar, IoMdMore } from "react-icons/io";
 import Button from "@/components/reusableComponents/Button";
 import { FaCheck, FaTimes } from "react-icons/fa";
 import { IAcademy } from "@/utils/type.dt";
+import { toast } from "react-toastify";
+import { approveAcademy } from "@/services/backend.services";
 
 interface ComponentProps {
   data: IAcademy;
@@ -22,36 +24,24 @@ const Academy: React.FC<ComponentProps> = ({ data, index }) => {
     setRating(newRating);
   }, [data.rating]);
 
-  const handleApprove = () => {
-    const approve = async () => {
-      const requestDetails = {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
-        },
-      };
+  const handleApprove = async () => {
+    await toast.promise(
+      new Promise<void>(async (resolve, reject) => {
+        const status = await approveAcademy(data._id);
 
-      try {
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/academies/approve/${data._id}`,
-          requestDetails
-        );
-
-        if (response.status === 400) {
-          alert("Something went wrong");
+        if (status === 200) {
+          resolve();
+          setDisable(true);
+        } else {
+          reject();
         }
-
-        const message = await response.text();
-        alert(message);
-        setDisable(true);
-      } catch (e: any) {
-        alert(e.message);
-        console.log(e.message);
+      }),
+      {
+        pending: `Approving...`,
+        success: `Academy approved successfully 👌`,
+        error: "Encountered error 🤯",
       }
-    };
-
-    approve();
+    );
   };
 
   return (
@@ -149,7 +139,7 @@ const Academy: React.FC<ComponentProps> = ({ data, index }) => {
               {data.approved ? "Approved" : "Approve"}
               <FaCheck />
             </button>
-            {!data.approved && (
+            {!disable && (
               <button className="bg-red-500 hover:bg-transparent hover:border hover:border-red-500 hover:text-red-500  p-2 text-white rounded-md text-sm w-20 flex items-center gap-2">
                 Reject
                 <FaTimes />
