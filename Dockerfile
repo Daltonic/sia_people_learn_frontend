@@ -1,5 +1,5 @@
 # Use an official Node runtime as the base image
-FROM node:18-alpine
+FROM node:20-alpine
 
 # Set the working directory in the container to /app
 WORKDIR /app
@@ -7,11 +7,8 @@ WORKDIR /app
 # Copy package.json and package-lock.json first to leverage Docker's caching
 COPY package*.json ./
 
-# Clear npm cache
-RUN rm -rf /root/.npm/*
-
-# Install dependencies with verbose logging
-RUN npm install --verbose
+# Install dependencies
+RUN npm install
 
 # Copy the rest of the application source code to the working directory
 COPY . .
