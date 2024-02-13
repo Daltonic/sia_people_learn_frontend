@@ -5,10 +5,10 @@ import InputField from "@/components/reusableComponents/InputField";
 import AuthLayout from "@/components/layout/authLayout/AuthenticationLayout";
 import Link from "next/link";
 import { ChangeEvent, SyntheticEvent, useState } from "react";
-import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
+import { createAccount } from "@/services/backend.services";
 
 const LoginPage: NextPage = () => {
-  const router = useRouter();
   const [signupDetails, setSignupDetails] = useState({
     firstname: "",
     lastname: "",
@@ -49,48 +49,40 @@ const LoginPage: NextPage = () => {
       return;
     }
 
-    const userDetails = {
-      firstName: firstname,
-      lastName: lastname,
-      email: email,
-      password: password,
-    };
-
-    try {
-      const requestDetails = {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(userDetails),
-      };
-
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/users/register`,
-        requestDetails
-      );
-
-      if (response.status === 400) {
-        const { message } = await response.json();
-
-        if (message === "Account already exists") {
-          alert("Account already exists. Please login to continue");
-          router.push("/login");
+    await toast.promise(
+      new Promise<void>(async (resolve, reject) => {
+        const status = await createAccount({
+          firstName: firstname,
+          lastName: lastname,
+          email,
+          password,
+        });
+        if (status === 201) {
+          afterAccountCreation();
+          resolve();
+        } else {
+          afterAccountCreation();
+          reject();
         }
-      } else {
-        const { msg } = await response.json();
-        alert(msg);
+      }),
+      {
+        pending: "Creating your account...",
+        success:
+          "Account successfully created 👌\nCheck your email to verify your account",
+        error: "Encountered error 🤯",
       }
-    } catch (e: any) {
-      alert(e.message);
-    } finally {
-      setSubmitting(false);
-      setSignupDetails({
-        firstname: "",
-        lastname: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
-      });
-    }
+    );
+  };
+
+  const afterAccountCreation = () => {
+    setSubmitting(false);
+    setSignupDetails({
+      firstname: "",
+      lastname: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    });
   };
 
   return (

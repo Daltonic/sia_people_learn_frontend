@@ -6,6 +6,8 @@ import { userActions } from "@/store/userSlice";
 import { ILesson, RootState } from "@/utils/type.dt";
 import { useRouter } from "next/navigation";
 import React, { useState, ChangeEvent, SyntheticEvent, useEffect } from "react";
+import { toast } from "react-toastify";
+import { createLesson, updateLesson } from "@/services/backend.services";
 
 interface LessonProps {
   lesson?: ILesson;
@@ -27,7 +29,7 @@ const LessonForm: React.FC<LessonProps> = ({ lesson, courseId, type }) => {
       }
     }
   }, [dispatch, setUserData, userData]);
-  const [productDetails, setProductDetails] = useState({
+  const [lessonDetails, setlessonDetails] = useState({
     title: lesson?.title || "",
     description: lesson?.description || "",
     overview: lesson?.overview || "",
@@ -45,7 +47,7 @@ const LessonForm: React.FC<LessonProps> = ({ lesson, courseId, type }) => {
   ) => {
     const { name, value } = e.currentTarget;
 
-    setProductDetails((prev) => ({
+    setlessonDetails((prev) => ({
       ...prev,
       [name]: value,
     }));
@@ -54,71 +56,66 @@ const LessonForm: React.FC<LessonProps> = ({ lesson, courseId, type }) => {
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
 
-    setSubmitting(true);
-    const {
-      title,
-      description,
-      overview,
-      duration,
-      imageUrl,
-      videoUrl,
-      downloadableUrl,
-      order,
-    } = productDetails;
-
-    const productInput = {
-      title,
-      description,
-      overview,
-      duration: Number(duration),
-      imageUrl,
-      videoUrl,
-      downloadableUrl,
-      order: Number(order),
-    };
-
-    const queryMethod = type === "create" ? "POST" : "PUT";
-    const queryBody =
-      type === "create" ? { ...productInput, courseId } : productInput;
-    const url =
-      type === "create"
-        ? `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/lessons/create`
-        : `${
-            process.env.NEXT_PUBLIC_BACKEND_URI
-          }/api/v1/lessons/update/${lesson?._id!}`;
-
-    const requestDetails = {
-      method: queryMethod,
-      headers: {
-        "Content-Type": "application/json",
-        authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
-      },
-      body: JSON.stringify(queryBody),
-    };
-
-    try {
-      const response = await fetch(url, requestDetails);
-
-      if (response.status === 400) {
-        alert(await response.text());
-      }
-
-      await response.json();
-      router.push(`/course/${courseId}`);
-    } catch (e: any) {
-      alert(e.message);
-    } finally {
-      setSubmitting(false);
-      setProductDetails({
-        title: "",
-        description: "",
-        overview: "",
-        duration: 0,
-        imageUrl: "",
-        downloadableUrl: "",
-        videoUrl: "",
-        order: 0,
-      });
+    if (type === "create") {
+      await toast.promise(
+        new Promise<void>(async (resolve, reject) => {
+          const status = await createLesson({
+            title: lessonDetails.title,
+            description: lessonDetails.description,
+            overview: lessonDetails.overview,
+            duration: Number(lessonDetails.duration),
+            imageUrl: lessonDetails?.imageUrl,
+            videoUrl: lessonDetails.videoUrl,
+            downloadableUrl: lessonDetails.downloadableUrl,
+            order: Number(lessonDetails.order),
+            courseId: courseId,
+          });
+          if (status === 201) {
+            setSubmitting(false);
+            router.push(`/course/${courseId}`);
+            resolve();
+          } else {
+            setSubmitting(false);
+            reject();
+          }
+        }),
+        {
+          pending: "Saving ...",
+          success: "Lesson saved successfully 👌",
+          error: "Encountered error 🤯",
+        }
+      );
+    } else {
+      await toast.promise(
+        new Promise<void>(async (resolve, reject) => {
+          const status = await updateLesson(
+            {
+              title: lessonDetails.title,
+              description: lessonDetails.description,
+              overview: lessonDetails.overview,
+              duration: Number(lessonDetails.duration),
+              imageUrl: lessonDetails?.imageUrl,
+              videoUrl: lessonDetails.videoUrl,
+              downloadableUrl: lessonDetails.downloadableUrl,
+              order: Number(lessonDetails.order),
+            },
+            lesson?._id!
+          );
+          if (status === 200) {
+            setSubmitting(false);
+            router.push(`/course/${courseId}`);
+            resolve();
+          } else {
+            setSubmitting(false);
+            reject();
+          }
+        }),
+        {
+          pending: "Updating ...",
+          success: "Lesson updated successfully 👌",
+          error: "Encountered error 🤯",
+        }
+      );
     }
   };
 
@@ -134,7 +131,7 @@ const LessonForm: React.FC<LessonProps> = ({ lesson, courseId, type }) => {
           placeholder="Enter your product title"
           required
           inputType="text"
-          value={productDetails.title}
+          value={lessonDetails.title}
           handleChange={handleChange}
         />
         <div className="md:flex gap-8">
@@ -142,14 +139,14 @@ const LessonForm: React.FC<LessonProps> = ({ lesson, courseId, type }) => {
             label="Description"
             id="description"
             name="description"
-            value={productDetails.description}
+            value={lessonDetails.description}
             handleChange={handleChange}
           />
           <TextAreaField
             label="Overview"
             id="overview"
             name="overview"
-            value={productDetails.overview}
+            value={lessonDetails.overview}
             handleChange={handleChange}
           />
         </div>
@@ -160,7 +157,7 @@ const LessonForm: React.FC<LessonProps> = ({ lesson, courseId, type }) => {
             placeholder="Lesson Duration"
             required
             inputType="number"
-            value={productDetails.duration}
+            value={lessonDetails.duration}
             handleChange={handleChange}
           />
           <InputField
@@ -169,7 +166,7 @@ const LessonForm: React.FC<LessonProps> = ({ lesson, courseId, type }) => {
             placeholder="Enter ImageURL"
             required={false}
             inputType="url"
-            value={productDetails.imageUrl}
+            value={lessonDetails.imageUrl}
             handleChange={handleChange}
           />
         </div>
@@ -180,7 +177,7 @@ const LessonForm: React.FC<LessonProps> = ({ lesson, courseId, type }) => {
             placeholder="Enter VideoUrl"
             required={false}
             inputType="url"
-            value={productDetails.videoUrl}
+            value={lessonDetails.videoUrl}
             handleChange={handleChange}
           />
           <InputField
@@ -189,7 +186,7 @@ const LessonForm: React.FC<LessonProps> = ({ lesson, courseId, type }) => {
             placeholder="Enter DownloableURL"
             required={false}
             inputType="url"
-            value={productDetails.downloadableUrl}
+            value={lessonDetails.downloadableUrl}
             handleChange={handleChange}
           />
           <InputField
@@ -198,7 +195,7 @@ const LessonForm: React.FC<LessonProps> = ({ lesson, courseId, type }) => {
             placeholder="Enter Order"
             required
             inputType="number"
-            value={productDetails.order}
+            value={lessonDetails.order}
             handleChange={handleChange}
           />
         </div>
