@@ -6,6 +6,8 @@ import EditCourse from "../academies/EditCourse";
 import Link from "next/link";
 import { useSelector, useDispatch } from "react-redux";
 import { userActions } from "@/store/userSlice";
+import { toast } from "react-toastify";
+import { addCourseToAcademy } from "@/services/backend.services";
 
 interface Props {
   courses: ICourse[];
@@ -36,42 +38,56 @@ const AddRemoveCourse: React.FC<Props> = ({ courses, academy }) => {
 
   const [coursesToAdd, setCourseToAdd] = useState(availableCoursesToAdd);
 
-  const handleAdd = (courseId: string, name: string) => {
-    const addCourseToAcademy = async () => {
-      const requestDetails = {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
-        },
-      };
-      const searchQuery = new URLSearchParams({
-        academyId: academy._id,
-        courseId,
-      });
+  const handleAdd = async (courseId: string, name: string) => {
+    await toast.promise(
+      new Promise<void>(async (resolve, reject) => {
+        const result = await addCourseToAcademy(academy._id, courseId);
 
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/academies/addCourse?${searchQuery}`,
-        requestDetails
-      );
-
-      if (response.status === 400) {
-        alert("Something went wrong");
+        if (result) {
+          resolve();
+          setUpdatedAcademy(result);
+          setAcademyCourses((prev) => [...prev, { _id: courseId, name }]);
+          const newCoursesToAdd = coursesToAdd.filter(
+            (course) => course._id !== courseId
+          );
+          setCourseToAdd(newCoursesToAdd);
+        } else {
+          reject();
+        }
+      }),
+      {
+        pending: `Adding Course...`,
+        success: `Course added successfully 👌`,
+        error: "Encountered error 🤯",
       }
-
-      const result = await response.json();
-      setUpdatedAcademy(result);
-      setAcademyCourses((prev) => [...prev, { _id: courseId, name }]);
-      const newCoursesToAdd = coursesToAdd.filter(
-        (course) => course._id !== courseId
-      );
-      setCourseToAdd(newCoursesToAdd);
-    };
-
-    addCourseToAcademy();
+    );
   };
 
-  const handleRemove = (courseId: string, name: string) => {
+  const handleRemove = async (courseId: string, name: string) => {
+    await toast.promise(
+      new Promise<void>(async (resolve, reject) => {
+        const result = await addCourseToAcademy(academy._id, courseId);
+
+        if (result) {
+          resolve();
+          setUpdatedAcademy(result);
+          const newAcademyCourses = academyCourses.filter(
+            (course) => course._id !== courseId
+          );
+          setAcademyCourses(newAcademyCourses);
+
+          const newCoursesToAdd = [...coursesToAdd, { _id: courseId, name }];
+          setCourseToAdd(newCoursesToAdd);
+        } else {
+          reject();
+        }
+      }),
+      {
+        pending: `Removing Course...`,
+        success: `Course removed successfully 👌`,
+        error: "Encountered error 🤯",
+      }
+    );
     const removeCourseFromAcademy = async () => {
       const requestDetails = {
         method: "PATCH",

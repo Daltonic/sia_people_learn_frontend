@@ -291,3 +291,14 @@ export interface RemoveUrlQueryParams {
 export interface SearchParamsProps {
   searchParams: { [key: string]: string | undefined };
 }
+
+export interface FetchProductsParams {
+  page?: number;
+  pageSize?: number;
+  searchQuery?: string;
+  filter?: "newest" | "oldest";
+  difficulty?: "Beginner" | "Intermediate" | "Advanced";
+  deleted?: "true" | "false";
+  type?: "Course" | "Book";
+  instructor?: "true" | "false";
+}
