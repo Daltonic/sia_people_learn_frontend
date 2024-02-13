@@ -302,3 +302,24 @@ export interface FetchProductsParams {
   type?: "Course" | "Book";
   instructor?: "true" | "false";
 }
+
+export interface FetchPostsParams {
+  parentsOnly?: "true" | "false";
+  page?: number;
+  pageSize?: number;
+  searchQuery?: string;
+  filter?: "newest" | "oldest";
+  deleted?: "true" | "false";
+  published?: "true" | "false";
+  parentId?: string;
+  category?: string;
+}
+
+export interface FetchReviewsParams {
+  productId?: string;
+  productType?: "Academy" | "Course";
+  approved?: "true" | "false";
+  page?: number;
+  pageSize?: number;
+  filter?: "newest" | "oldest";
+}

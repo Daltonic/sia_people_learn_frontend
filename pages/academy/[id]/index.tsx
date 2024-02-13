@@ -9,6 +9,7 @@ import { IAcademy } from "@/utils/type.dt";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/utils/type.dt";
 import { userActions } from "@/store/userSlice";
+import { fetchAcademy } from "@/services/backend.services";
 
 const Page: NextPage<{ academyData: IAcademy }> = ({ academyData }) => {
   const router = useRouter();
@@ -50,20 +51,8 @@ export const getServerSideProps = async (
 ) => {
   const { id } = context.query;
 
-  const requestDetails = {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
-
   try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/academies/${id}`,
-      requestDetails
-    );
-
-    const academy = await response.json();
+    const academy = await fetchAcademy(id as string);
 
     return {
       props: {
@@ -72,5 +61,10 @@ export const getServerSideProps = async (
     };
   } catch (e: any) {
     console.log(e.message);
+    return {
+      props: {
+        academyData: {},
+      },
+    };
   }
 };

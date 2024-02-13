@@ -3,8 +3,9 @@ import CourseLayer from "@/components/courses/CourseLayer";
 import Filterlayer from "@/components/courses/Filterlayer";
 import Layout from "@/components/layout/Layout";
 import { GetServerSidePropsContext, NextPage } from "next";
-import { ICourses } from "@/utils/type.dt";
+import { FetchProductsParams, ICourses } from "@/utils/type.dt";
 import Pagination from "@/components/reusableComponents/Pagination";
+import { fetchCourses } from "@/services/backend.services";
 
 const sortOptions = [
   { name: "Newest", value: "newest" },
@@ -37,7 +38,9 @@ const Page: NextPage<{ coursesObj: ICourses }> = ({ coursesObj }) => {
             sortOptions={sortOptions}
           />
           <CourseLayer data={coursesObj} />
-          <Pagination totalPages={coursesObj.numOfPages} />
+          {coursesObj.numOfPages > 1 && (
+            <Pagination totalPages={coursesObj.numOfPages} />
+          )}
         </div>
       </div>
     </Layout>
@@ -49,29 +52,19 @@ export default Page;
 export const getServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
-  const requestDetails = {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
-
   const searchQuery = context.query.q || "";
   const page = context.query.page;
   const filter = context.query.filter || "newest";
   const difficulty = context.query.difficulty;
 
   try {
-    const response = await fetch(
-      `${
-        process.env.NEXT_PUBLIC_BACKEND_URI
-      }/api/v1/courses?type=Course&searchQuery=${searchQuery}&page=${Number(
-        page
-      )}&filter=${filter}${difficulty ? `&difficulty=${difficulty}` : ""}`,
-      requestDetails
-    );
-
-    const courses = await response.json();
+    const courses = await fetchCourses({
+      searchQuery: searchQuery as string,
+      page: Number(page),
+      filter: filter as FetchProductsParams["filter"],
+      difficulty: difficulty as FetchProductsParams["difficulty"],
+      type: "Course",
+    });
 
     return {
       props: {

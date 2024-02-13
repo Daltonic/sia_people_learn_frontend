@@ -16,7 +16,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { userActions } from "@/store/userSlice";
 import FilePicker from "../reusableComponents/FilePicker";
 import WYSIWYG from "../reusableComponents/WYSIWYG";
-import axios from "axios";
 import { toast } from "react-toastify";
 import { updateCourse } from "@/services/backend.services";
 
