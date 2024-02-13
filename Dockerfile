@@ -7,8 +7,11 @@ WORKDIR /app
 # Copy package.json and package-lock.json first to leverage Docker's caching
 COPY package*.json ./
 
-# Install dependencies
-RUN npm install
+# Clear npm cache
+RUN rm -rf /root/.npm/*
+
+# Install dependencies with verbose logging
+RUN npm install --verbose
 
 # Copy the rest of the application source code to the working directory
 COPY . .
