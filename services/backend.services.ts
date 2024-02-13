@@ -443,6 +443,90 @@ const fetchCourses = async (query: FetchProductsParams, token?: string) => {
   }
 };
 
+const submitAcademy = async (academyId: string): Promise<any> => {
+  const url = `${BASE_URI}/api/v1/academies/submit/${academyId}`;
+
+  const config = {
+    method: "PUT",
+    url,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
+    },
+  };
+
+  try {
+    const response = await axios.request(config);
+    return Promise.resolve(response.status);
+  } catch (error) {
+    reportError(error);
+    return Promise.reject(error);
+  }
+};
+
+const deleteAcademy = async (academyId: string): Promise<any> => {
+  const url = `${BASE_URI}/api/v1/academies/delete/${academyId}`;
+
+  const config = {
+    method: "DELETE",
+    url,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
+    },
+  };
+
+  try {
+    const response = await axios.request(config);
+    return Promise.resolve(response.status);
+  } catch (error) {
+    reportError(error);
+    return Promise.reject(error);
+  }
+};
+
+const approveAcademy = async (academyId: string): Promise<any> => {
+  const url = `${BASE_URI}/api/v1/academies/approve/${academyId}`;
+
+  const config = {
+    method: "PUT",
+    url,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
+    },
+  };
+
+  try {
+    const response = await axios.request(config);
+    return Promise.resolve(response.status);
+  } catch (error) {
+    reportError(error);
+    return Promise.reject(error);
+  }
+};
+
+const approveCourse = async (courseId: string): Promise<any> => {
+  const url = `${BASE_URI}/api/v1/courses/approve/${courseId}`;
+
+  const config = {
+    method: "PUT",
+    url,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
+    },
+  };
+
+  try {
+    const response = await axios.request(config);
+    return Promise.resolve(response.status);
+  } catch (error) {
+    reportError(error);
+    return Promise.reject(error);
+  }
+};
+
 export {
   createPost,
   updatePost,
@@ -461,4 +545,8 @@ export {
   removeCourseFromAcademy,
   fetchAcademy,
   fetchCourses,
+  deleteAcademy,
+  submitAcademy,
+  approveAcademy,
+  approveCourse,
 };
