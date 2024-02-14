@@ -14,7 +14,6 @@ import React, {
 import { useSelector, useDispatch } from "react-redux";
 import { userActions } from "@/store/userSlice";
 import { RootState } from "@/utils/type.dt";
-import axios from "axios";
 import WYSIWYG from "@/components/reusableComponents/WYSIWYG";
 import { toast } from "react-toastify";
 import { createAcademy, createCourse } from "@/services/backend.services";

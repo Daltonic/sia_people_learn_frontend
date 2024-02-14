@@ -9,24 +9,11 @@ import React, { useEffect, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { FaCheck, FaTimes } from "react-icons/fa";
 import { IoMdMore } from "react-icons/io";
-import { RootState } from "@/utils/type.dt";
+import { IUsers, RootState } from "@/utils/type.dt";
+import { toast } from "react-toastify";
+import { upgradeUser } from "@/services/backend.services";
 
-interface IDbUser {
-  _id: string;
-  firstName: string;
-  lastName: string;
-  username: string;
-  userType: "admin" | "instructor" | "user";
-  imgUrl?: string;
-  requests: {
-    _id: string;
-    requestType: "UserUpgradeRequent" | "UserDowngradeRequest";
-    status: "pending" | "approved" | "rejected";
-  }[];
-}
-
-const MyUsers: React.FC = () => {
-  const router = useRouter();
+const MyUsers: React.FC<{ usersObj: IUsers }> = ({ usersObj }) => {
   const dispatch = useDispatch();
   const { setUserData } = userActions;
   const { userData } = useSelector((states: RootState) => states.userStates);
@@ -40,69 +27,33 @@ const MyUsers: React.FC = () => {
     }
   }, [dispatch, setUserData, userData]);
 
-  const [dbUsers, setDbUsers] = useState<IDbUser[]>([]);
-
-  useEffect(() => {
-    const getUsers = async () => {
-      try {
-        const requestDetails = {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
-          },
-        };
-
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/users`,
-          requestDetails
-        );
-
-        if (response.status === 400) {
-          alert("Something went wrong");
-        }
-
-        const { users, isNext, numOfPages } = await response.json();
-        setDbUsers(users);
-      } catch (e: any) {
-        console.log(e.message);
-      }
-    };
-    getUsers();
-  }, []);
-
   const handleRequestAction = async (
     userId: string,
     requestId: string,
     action: "approved" | "rejected"
   ) => {
     try {
-      const requestObject = {
-        userId,
-        requestId,
-        status: action,
-        upgradeUserTo: "instructor",
-      };
-      const requestDetails = {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
-        },
-        body: JSON.stringify(requestObject),
-      };
+      await toast.promise(
+        new Promise<void>(async (resolve, reject) => {
+          const status = await upgradeUser({
+            userId,
+            requestId,
+            status: action,
+            upgradeUserTo: "instructor",
+          });
 
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/users/upgrade`,
-        requestDetails
+          if (status === 200) {
+            resolve();
+          } else {
+            reject();
+          }
+        }),
+        {
+          pending: `Upgrading...`,
+          success: `Upgrade successful 👌`,
+          error: "Encountered error 🤯",
+        }
       );
-
-      if (response.status === 400) {
-        alert("Something went wrong");
-      }
-
-      const message = await response.text();
-      alert(message);
     } catch (e: any) {
       console.log(e.message);
     }
@@ -159,7 +110,7 @@ const MyUsers: React.FC = () => {
               </tr>
             </thead>
             <tbody>
-              {dbUsers.map((user) => (
+              {usersObj.users.map((user) => (
                 <tr key={user._id}>
                   <td className="items-center flex gap-4 mt-2">
                     <Image
@@ -183,15 +134,21 @@ const MyUsers: React.FC = () => {
                   <td className="text-center ">
                     <h4
                       className={`font-medium text-[#4F547B ${getRequestClass(
-                        user.requests[0]?.requestType
+                        user!.requests!.length > 0
+                          ? user.requests![0].requestType
+                          : ""
                       )}`}
                     >
-                      {user.requests[0]?.requestType || "No Request"}
+                      {user?.requests!.length > 0
+                        ? user.requests![0].requestType
+                        : "No Request"}
                     </h4>
                   </td>
                   <td className=" text-center">
                     <h4 className="font-medium text-[#4F547B]">
-                      {user.requests[0]?.status || "N/A"}
+                      {user!.requests!.length
+                        ? user.requests![0].status
+                        : "N/A"}
                     </h4>
                   </td>
                   <td className="">
@@ -200,14 +157,14 @@ const MyUsers: React.FC = () => {
                         className="p-1 text-sm rounded-full text-red-500 bg-red-100 cursor-pointer"
                         onClick={() =>
                           handleRequestAction(
-                            user._id,
-                            user.requests[0]._id,
+                            user._id!,
+                            user.requests![0]._id,
                             "rejected"
                           )
                         }
                         disabled={
-                          user.requests.length === 0 ||
-                          user.requests[0].status !== "pending"
+                          user.requests!.length === 0 ||
+                          user.requests![0].status !== "pending"
                         }
                       >
                         <FaTimes />
@@ -216,14 +173,14 @@ const MyUsers: React.FC = () => {
                         className="p-1 text-sm rounded-full text-green-500 bg-green-100 cursor-pointer"
                         onClick={() =>
                           handleRequestAction(
-                            user._id,
-                            user.requests[0]._id,
+                            user._id!,
+                            user.requests![0]._id,
                             "approved"
                           )
                         }
                         disabled={
-                          user.requests.length === 0 ||
-                          user.requests[0].status !== "pending"
+                          user.requests!.length === 0 ||
+                          user.requests![0].status !== "pending"
                         }
                       >
                         <FaCheck />

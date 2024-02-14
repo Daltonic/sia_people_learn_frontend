@@ -121,5 +121,11 @@ export const getServerSideProps = async (
     };
   } catch (e: any) {
     console.log(e.message);
+    return {
+      props: {
+        academyData: {},
+        alternateAcademies: [],
+      },
+    };
   }
 };

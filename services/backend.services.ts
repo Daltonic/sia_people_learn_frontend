@@ -2,6 +2,8 @@ import {
   FetchPostsParams,
   FetchProductsParams,
   FetchReviewsParams,
+  FetchUsersParams,
+  UpgradeUserBody,
 } from "@/utils/type.dt";
 import axios from "axios";
 
@@ -707,6 +709,54 @@ const deleteLesson = async (lessonId: string): Promise<any> => {
   }
 };
 
+const fetchUsers = async (query: FetchUsersParams, token?: string) => {
+  const url = `${BASE_URI}/api/v1/users`;
+
+  const config = {
+    method: "GET",
+    url,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    params: { ...query },
+  };
+
+  try {
+    const response = await axios.request(config);
+    return Promise.resolve(response.data);
+  } catch (error) {
+    console.log(error);
+    reportError(error);
+    return Promise.reject(error);
+  }
+};
+
+const upgradeUser = async (data: UpgradeUserBody, token?: string) => {
+  const url = `${BASE_URI}/api/v1/users/upgrade`;
+
+  const config = {
+    method: "PUT",
+    url,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
+    },
+    data,
+  };
+
+  console.log(data);
+
+  try {
+    const response = await axios.request(config);
+    return Promise.resolve(response.status);
+  } catch (error) {
+    console.log(error);
+    reportError(error);
+    return Promise.reject(error);
+  }
+};
+
 export {
   createPost,
   updatePost,
@@ -737,4 +787,6 @@ export {
   fetchReviews,
   fetchLesson,
   deleteLesson,
+  fetchUsers,
+  upgradeUser,
 };

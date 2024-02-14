@@ -207,6 +207,11 @@ export interface IUser {
   imgUrl?: string;
   _id: string;
   subscriptions: string[];
+  requests: {
+    _id: string;
+    requestType: "UserUpgradeRequent" | "UserDowngradeRequest";
+    status: "pending" | "approved" | "rejected";
+  }[];
 }
 
 export interface IUsers {
@@ -322,4 +327,19 @@ export interface FetchReviewsParams {
   page?: number;
   pageSize?: number;
   filter?: "newest" | "oldest";
+}
+
+export interface FetchUsersParams {
+  page?: number;
+  pageSize?: number;
+  searchQuery?: string;
+  filter?: "newest" | "oldest";
+  userType?: "admin" | "instructor" | "user";
+}
+
+export interface UpgradeUserBody {
+  userId: string;
+  upgradeUserTo: "instructor" | "admin";
+  requestId: string;
+  status: "approved" | "rejected";
 }

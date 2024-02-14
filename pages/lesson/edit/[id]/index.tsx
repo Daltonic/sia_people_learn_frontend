@@ -1,6 +1,7 @@
 import CourseForm from "@/components/coursedetail/CourseForm";
 import EditCourseHeader from "@/components/coursedetail/EditCourseHeader";
 import DashboardLayout from "@/components/dashboard/dashboardLayout/DashboardLayout";
+import { fetchCourse } from "@/services/backend.services";
 import { ICourse } from "@/utils/type.dt";
 import { GetServerSidePropsContext, NextPage } from "next";
 
@@ -22,21 +23,10 @@ export const getServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
   const { id } = context.query;
-
-  const requestDetails = {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
+  const token = context.req.cookies.accessToken;
 
   try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/courses/${id}`,
-      requestDetails
-    );
-
-    const course = await response.json();
+    const course = await fetchCourse(id as string, token);
 
     return {
       props: {
@@ -45,5 +35,10 @@ export const getServerSideProps = async (
     };
   } catch (e: any) {
     console.log(e.message);
+    return {
+      props: {
+        courseData: {},
+      },
+    };
   }
 };
