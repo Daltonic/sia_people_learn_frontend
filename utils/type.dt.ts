@@ -302,7 +302,7 @@ export interface FetchProductsParams {
   pageSize?: number;
   searchQuery?: string;
   filter?: "newest" | "oldest";
-  difficulty?: "Beginner" | "Intermediate" | "Advanced";
+  difficulty?: "Beginner" | "Intermediate" | "Advanced" | null;
   deleted?: "true" | "false";
   type?: "Course" | "Book";
   instructor?: "true" | "false";

@@ -1,6 +1,10 @@
 import DashboardLayout from "@/components/dashboard/dashboardLayout/DashboardLayout";
 import MyProducts from "@/components/dashboard/myProducts/MyProducts";
-import { fetchAcademies } from "@/services/backend.services";
+import {
+  fetchAcademies,
+  fetchBooks,
+  fetchCourses,
+} from "@/services/backend.services";
 import { IAcademies, ICourses } from "@/utils/type.dt";
 import { GetServerSidePropsContext } from "next";
 
@@ -27,33 +31,18 @@ export const getServerSideProps = async (
 ) => {
   const token = context.req.cookies.accessToken;
 
-  const requestDetails = {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      authorization: `Bearer ${token}`,
-    },
-  };
-
   try {
     const academies = (await fetchAcademies(
       { instructor: "true" },
       token
     )) as IAcademies;
 
-    const coursesRes = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/courses?type=Course&instructor=true`,
-      requestDetails
+    const courses = await fetchCourses(
+      { type: "Course", instructor: "true" },
+      token
     );
 
-    const courses = (await coursesRes.json()) as ICourses;
-
-    const booksRes = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/courses?type=Book&instructor=true`,
-      requestDetails
-    );
-
-    const books = (await booksRes.json()) as ICourses;
+    const books = await fetchBooks({ type: "Book", instructor: "true" }, token);
 
     return {
       props: {
