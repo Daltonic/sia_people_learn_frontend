@@ -1,5 +1,6 @@
 import DashboardLayout from "@/components/dashboard/dashboardLayout/DashboardLayout";
 import MyProducts from "@/components/dashboard/myProducts/MyProducts";
+import { fetchAcademies } from "@/services/backend.services";
 import { IAcademies, ICourses } from "@/utils/type.dt";
 import { GetServerSidePropsContext } from "next";
 
@@ -35,12 +36,10 @@ export const getServerSideProps = async (
   };
 
   try {
-    const academiesRes = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/academies?instructor=true`,
-      requestDetails
-    );
-
-    const academies = (await academiesRes.json()) as IAcademies;
+    const academies = (await fetchAcademies(
+      { instructor: "true" },
+      token
+    )) as IAcademies;
 
     const coursesRes = await fetch(
       `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/courses?type=Course&instructor=true`,
