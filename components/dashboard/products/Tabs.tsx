@@ -6,9 +6,15 @@ import Academy from "./Academy";
 import Books from "./Books";
 import { useSelector, useDispatch } from "react-redux";
 import { userActions } from "@/store/userSlice";
-import { RootState } from "@/utils/type.dt";
+import { IAcademies, ICourses, RootState } from "@/utils/type.dt";
 
-const Tabs: React.FC = () => {
+interface Props {
+  academiesObj: IAcademies;
+  coursesObj: ICourses;
+  booksObj: ICourses;
+}
+
+const Tabs: React.FC<Props> = ({ academiesObj, coursesObj, booksObj }) => {
   const dispatch = useDispatch();
   const { setUserData } = userActions;
   const { userData } = useSelector((states: RootState) => states.userStates);
@@ -23,126 +29,27 @@ const Tabs: React.FC = () => {
   }, [dispatch, setUserData, userData]);
 
   const [activeTab, setActiveTab] = useState<number>(1);
-  const [courses, setCourses] = useState<any[]>([]);
-  const [books, setBooks] = useState<any[]>([]);
-  const [academies, setAcademies] = useState<any[]>([]);
+  const [courses, setCourses] = useState<ICourses>(coursesObj);
+  const [books, setBooks] = useState<ICourses>(booksObj);
+  const [academies, setAcademies] = useState<IAcademies>(academiesObj);
   const [tabData, setTabData] = useState<any[]>([]);
   const [type, setType] = useState<"Course" | "Book" | "Academy">("Course");
 
   const handleTabClick = (tabNumber: number) => {
     setActiveTab(tabNumber);
     if (tabNumber === 1) {
-      setTabData(courses);
+      setTabData(courses.courses);
       setType("Course");
     }
     if (tabNumber === 2) {
-      setTabData(books);
+      setTabData(books.courses);
       setType("Book");
     }
     if (tabNumber === 3) {
-      setTabData(academies);
+      setTabData(academies.academies);
       setType("Academy");
     }
   };
-
-  useEffect(() => {
-    const fetchAcademies = async () => {
-      const requestDetails = {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
-        },
-      };
-
-      try {
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/academies`,
-          requestDetails
-        );
-
-        if (response.status === 400) {
-          alert("Something went wrong");
-        }
-
-        const { academies, isNext, numOfPages } = await response.json();
-        setAcademies(academies);
-      } catch (e: any) {
-        alert(e.message);
-        console.log(e.message);
-      }
-    };
-    fetchAcademies();
-  }, []);
-
-  useEffect(() => {
-    const fetchCourses = async () => {
-      const requestDetails = {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
-        },
-      };
-
-      const searchQuery = new URLSearchParams({
-        type: "Course",
-      });
-
-      try {
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/courses?${searchQuery}`,
-          requestDetails
-        );
-
-        if (response.status === 400) {
-          alert("Something went wrong");
-        }
-
-        const { courses, isNext, numOfPages } = await response.json();
-        setCourses(courses);
-        setTabData(courses);
-      } catch (e: any) {
-        alert(e.message);
-        console.log(e.message);
-      }
-    };
-    fetchCourses();
-  }, []);
-
-  useEffect(() => {
-    const fetchBooks = async () => {
-      const requestDetails = {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
-        },
-      };
-
-      const searchQuery = new URLSearchParams({
-        type: "Book",
-      });
-
-      try {
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/courses?${searchQuery}`,
-          requestDetails
-        );
-
-        if (response.status === 400) {
-          alert("Something went wrong");
-        }
-
-        const { courses, isNext, numOfPages } = await response.json();
-        setBooks(courses);
-      } catch (e: any) {
-        alert(e.message);
-        console.log(e.message);
-      }
-    };
-    fetchBooks();
-  }, []);
 
   return (
     <div className="bg-white p-5 rounded-xl">
@@ -187,21 +94,21 @@ const Tabs: React.FC = () => {
         <div className="py-4 text-[#4F547B]">
           {activeTab === 1 && (
             <div className="flex p-5 gap-8 border w-full flex-wrap">
-              {courses.map((elm, i: number) => (
+              {courses.courses.map((elm, i: number) => (
                 <Courses data={elm} index={i} key={i} />
               ))}
             </div>
           )}
           {activeTab === 2 && (
             <div className="flex p-5 gap-5 border w-full flex-wrap">
-              {books.map((elm, i: number) => (
+              {books.courses.map((elm, i: number) => (
                 <Books data={elm} index={i} key={i} />
               ))}
             </div>
           )}
           {activeTab === 3 && (
             <div className="flex p-5 gap-8 border w-full flex-wrap">
-              {academies.map((elm, i: number) => (
+              {academies.academies.map((elm, i: number) => (
                 <Academy data={elm} index={i} key={i} />
               ))}
             </div>
