@@ -104,6 +104,9 @@ dependencies:
   react-tailwindcss-datepicker:
     specifier: ^1.6.6
     version: 1.6.6(dayjs@1.11.10)(react@18.2.0)
+  react-toastify:
+    specifier: ^10.0.4
+    version: 10.0.4(react-dom@18.2.0)(react@18.2.0)
   recharts:
     specifier: ^2.10.3
     version: 2.11.0(prop-types@15.6.0)(react-dom@18.2.0)(react@18.2.0)
@@ -3796,6 +3799,17 @@ packages:
     dependencies:
       dayjs: 1.11.10
       react: 18.2.0
+    dev: false
+
+  /react-toastify@10.0.4(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-etR3RgueY8pe88SA67wLm8rJmL1h+CLqUGHuAoNsseW35oTGJEri6eBTyaXnFKNQ80v/eO10hBYLgz036XRGgA==}
+    peerDependencies:
+      react: '>=16'
+      react-dom: '>=16'
+    dependencies:
+      clsx: 2.1.0
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
     dev: false
 
   /react-transition-group@2.9.0(react-dom@18.2.0)(react@18.2.0):

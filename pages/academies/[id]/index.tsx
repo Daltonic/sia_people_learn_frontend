@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { SwiperSlide, Swiper } from "swiper/react";
 import { IAcademy, IAcademies } from "@/utils/type.dt";
-import AcademyCard from "@/components/home/AcademySlider/AcademyCard";
+import AcademyCard from "@/components/academies/AcademyCard";
 import AcademyHead from "@/components/academydetail/AcademyHead";
 import AcademyDetails from "@/components/academydetail/AcademyDetails";
 import Tabs from "@/components/academydetail/Tabs";

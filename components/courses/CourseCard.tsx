@@ -5,6 +5,8 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { IoIosStar } from "react-icons/io";
 import { ICourse } from "@/utils/type.dt";
+import Button from "../reusableComponents/Button";
+import Badge from "../reusableComponents/Badge";
 
 interface ComponentProps {
   data: ICourse;
@@ -36,10 +38,10 @@ const CourseCard: React.FC<ComponentProps> = ({ data, index }) => {
           </div>
         </Link>
 
-        <div className="p-2">
-          <div className="flex items-center md:md:text-xs gap-4">
+        <div className="pt-2">
+          <div className="flex items-center justify-between md:text-xs gap-4">
             <div className="flex items-center gap-1">
-              <p className="text-[#E59819]">{data.rating}</p>
+              <p className="text-[#E59819]">{data.rating} 4.5</p>
               <div className="flex items-center">
                 {rating.map((itm, i: number) => (
                   <div key={i} className="text-[#E59819]">
@@ -49,6 +51,7 @@ const CourseCard: React.FC<ComponentProps> = ({ data, index }) => {
               </div>
               <p className="text-[#4F547B]">({data.reviews?.length || 0})</p>
             </div>
+            <button className="p-1 text-xs bg-[#6440FB12] text-[#1A064F] rounded-md">Add to Cart</button>
           </div>
           <Link className="linkCustom" href={`/coursedetail/${data._id}`}>
             <div className=" md:text-sm font-medium text-[#321463] mt-2 mb-6">

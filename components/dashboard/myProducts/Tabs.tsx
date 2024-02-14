@@ -155,14 +155,14 @@ const Tabs: React.FC<Props> = ({ academiesData, coursesData, booksData }) => {
 
   return (
     <div className="bg-white p-5 rounded-xl">
-      <div className="">
-        <div className="flex items-center justify-evenly">
-          <div className="flex gap-5 items-center border border-[#E1DDDD] text-[#4F547B] rounded-md p-3 md:p-2 w-full mb-5 md:mb-0 md:w-96">
+      <div className=""> 
+        <div className="md:flex items-center md:justify-between space-y-2 md:space-y-0 mb-4">
+          <div className="flex gap-5 items-center border border-[#E1DDDD] text-[#4F547B] rounded-md p-3 md:p-2 w-full md:w-96">
             <CiSearch className="text-[#4F547B] text-xl" />
             <input
               type="text"
               placeholder={searchPlaceholder}
-              className="focus:outline-none"
+              className="focus:outline-none w-full text-sm"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
