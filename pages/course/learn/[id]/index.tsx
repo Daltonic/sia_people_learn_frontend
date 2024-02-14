@@ -5,6 +5,7 @@ import { ICourse, IReviews } from "@/utils/type.dt";
 import ReviewSection from "@/components/blogs/ReviewSection";
 import ReviewForm from "@/components/blogs/ReviewForm";
 import LessonAccordion from "@/components/lesson/LessonAccordion";
+import { fetchCourse, fetchReviews } from "@/services/backend.services";
 
 const Page: NextPage<{ courseData: ICourse; reviews: IReviews }> = ({
   courseData,
@@ -41,27 +42,12 @@ export const getServerSideProps = async (
 ) => {
   const { id } = context.query;
 
-  const requestDetails = {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
-
   try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/courses/${id}`,
-      requestDetails
-    );
-
-    const course = (await response.json()) as ICourse;
-
-    const reviewResponse = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/reviews?productType=Course&productId${id}`,
-      requestDetails
-    );
-
-    const reviews = (await reviewResponse.json()) as IReviews;
+    const course = await fetchCourse(id as string);
+    const reviews = await fetchReviews({
+      productId: id as string,
+      productType: "Course",
+    });
 
     return {
       props: {
@@ -71,5 +57,11 @@ export const getServerSideProps = async (
     };
   } catch (e: any) {
     console.log(e.message);
+    return {
+      props: {
+        courseData: {},
+        reviewsData: {},
+      },
+    };
   }
 };

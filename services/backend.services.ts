@@ -1,4 +1,8 @@
-import { FetchProductsParams } from "@/utils/type.dt";
+import {
+  FetchPostsParams,
+  FetchProductsParams,
+  FetchReviewsParams,
+} from "@/utils/type.dt";
 import axios from "axios";
 
 const BASE_URI = process.env.NEXT_PUBLIC_BACKEND_URI;
@@ -443,6 +447,29 @@ const fetchCourses = async (query: FetchProductsParams, token?: string) => {
   }
 };
 
+const fetchBooks = async (query: FetchProductsParams, token?: string) => {
+  const url = `${BASE_URI}/api/v1/courses`;
+
+  const config = {
+    method: "GET",
+    url,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    params: { ...query },
+  };
+
+  try {
+    const response = await axios.request(config);
+    return Promise.resolve(response.data);
+  } catch (error) {
+    console.log(error);
+    reportError(error);
+    return Promise.reject(error);
+  }
+};
+
 const submitAcademy = async (academyId: string): Promise<any> => {
   const url = `${BASE_URI}/api/v1/academies/submit/${academyId}`;
 
@@ -527,6 +554,159 @@ const approveCourse = async (courseId: string): Promise<any> => {
   }
 };
 
+const fetchAcademies = async (query: FetchProductsParams, token?: string) => {
+  const url = `${BASE_URI}/api/v1/academies`;
+
+  const config = {
+    method: "GET",
+    url,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    params: { ...query },
+  };
+
+  try {
+    const response = await axios.request(config);
+    return Promise.resolve(response.data);
+  } catch (error) {
+    console.log(error);
+    reportError(error);
+    return Promise.reject(error);
+  }
+};
+
+const fetchPosts = async (query: FetchPostsParams, token?: string) => {
+  const url = `${BASE_URI}/api/v1/posts`;
+
+  const config = {
+    method: "GET",
+    url,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    params: { ...query },
+  };
+
+  try {
+    const response = await axios.request(config);
+    return Promise.resolve(response.data);
+  } catch (error) {
+    console.log(error);
+    reportError(error);
+    return Promise.reject(error);
+  }
+};
+
+const fetchPost = async (postId: string, token?: string) => {
+  const url = `${BASE_URI}/api/v1/posts/${postId}`;
+
+  const config = {
+    method: "GET",
+    url,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  try {
+    const response = await axios.request(config);
+    return Promise.resolve(response.data);
+  } catch (error) {
+    reportError(error);
+    return Promise.reject(error);
+  }
+};
+
+const fetchCourse = async (courseId: string, token?: string) => {
+  const url = `${BASE_URI}/api/v1/courses/${courseId}`;
+
+  const config = {
+    method: "GET",
+    url,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  try {
+    const response = await axios.request(config);
+    return Promise.resolve(response.data);
+  } catch (error) {
+    reportError(error);
+    return Promise.reject(error);
+  }
+};
+
+const fetchReviews = async (query: FetchReviewsParams, token?: string) => {
+  const url = `${BASE_URI}/api/v1/reviews`;
+
+  const config = {
+    method: "GET",
+    url,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    params: { ...query },
+  };
+
+  try {
+    const response = await axios.request(config);
+    return Promise.resolve(response.data);
+  } catch (error) {
+    console.log(error);
+    reportError(error);
+    return Promise.reject(error);
+  }
+};
+
+const fetchLesson = async (lessonId: string, token?: string) => {
+  const url = `${BASE_URI}/api/v1/lessons/${lessonId}`;
+
+  const config = {
+    method: "GET",
+    url,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  try {
+    const response = await axios.request(config);
+    return Promise.resolve(response.data);
+  } catch (error) {
+    reportError(error);
+    return Promise.reject(error);
+  }
+};
+
+const deleteLesson = async (lessonId: string): Promise<any> => {
+  const url = `${BASE_URI}/api/v1/lessons/delete/${lessonId}`;
+
+  const config = {
+    method: "DELETE",
+    url,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
+    },
+  };
+
+  try {
+    const response = await axios.request(config);
+    return Promise.resolve(response.status);
+  } catch (error) {
+    reportError(error);
+    return Promise.reject(error);
+  }
+};
+
 export {
   createPost,
   updatePost,
@@ -549,4 +729,12 @@ export {
   submitAcademy,
   approveAcademy,
   approveCourse,
+  fetchAcademies,
+  fetchBooks,
+  fetchPosts,
+  fetchPost,
+  fetchCourse,
+  fetchReviews,
+  fetchLesson,
+  deleteLesson,
 };

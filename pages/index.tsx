@@ -9,6 +9,12 @@ import Testimonials from "@/components/home/Testimonials";
 import Features from "@/components/home/hero/Features";
 import Hero from "@/components/home/hero/Hero";
 import Layout from "@/components/layout/Layout";
+import {
+  fetchAcademies,
+  fetchBooks,
+  fetchCourses,
+  fetchPosts,
+} from "@/services/backend.services";
 import { IAcademies, ICourses, IPosts } from "@/utils/type.dt";
 import { NextPage } from "next";
 
@@ -43,41 +49,14 @@ const Page: NextPage<{
 export default Page;
 
 export const getServerSideProps = async () => {
-  const requestDetails = {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
-
   try {
-    const academiesRes = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/academies`,
-      requestDetails
-    );
+    const academies = await fetchAcademies({});
 
-    const academies = await academiesRes.json();
+    const courses = await fetchCourses({ type: "Course" });
 
-    const coursesRes = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/courses?type=Course`,
-      requestDetails
-    );
+    const books = await fetchBooks({ type: "Book" });
 
-    const courses = await coursesRes.json();
-
-    const booksRes = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/courses?type=Book`,
-      requestDetails
-    );
-
-    const books = await booksRes.json();
-
-    const postsRes = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/posts`,
-      requestDetails
-    );
-
-    const posts = await postsRes.json();
+    const posts = await fetchPosts({});
 
     return {
       props: {

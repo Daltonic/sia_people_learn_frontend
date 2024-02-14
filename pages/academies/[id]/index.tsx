@@ -9,6 +9,7 @@ import AcademyCard from "@/components/home/AcademySlider/AcademyCard";
 import AcademyHead from "@/components/academydetail/AcademyHead";
 import AcademyDetails from "@/components/academydetail/AcademyDetails";
 import Tabs from "@/components/academydetail/Tabs";
+import { fetchAcademies, fetchAcademy } from "@/services/backend.services";
 
 const Page: NextPage<{
   academyData: IAcademy;
@@ -104,27 +105,10 @@ export const getServerSideProps = async (
 ) => {
   const { id } = context.query;
 
-  const requestDetails = {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
-
   try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/academies/${id}`,
-      requestDetails
-    );
+    const academy = (await fetchAcademy(id as string)) as IAcademy;
 
-    const academy = await response.json();
-
-    const AcademiesRes = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/academies`,
-      requestDetails
-    );
-
-    const academies = (await AcademiesRes.json()) as IAcademies;
+    const academies = (await fetchAcademies({})) as IAcademies;
     const alternateAcademies = academies.academies.filter(
       (academy) => academy._id !== id
     );

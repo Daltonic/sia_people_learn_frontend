@@ -1,50 +1,55 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
-import { ILesson } from "@/utils/type.dt";
+import { ILesson, RootState } from "@/utils/type.dt";
 import { FiEdit2 } from "react-icons/fi";
 import { FaTimes } from "react-icons/fa";
 import Link from "next/link";
 import InputField from "@/components/reusableComponents/InputField";
 import { useRouter } from "next/navigation";
+import { useDispatch, useSelector } from "react-redux";
+import { userActions } from "@/store/userSlice";
+import { toast } from "react-toastify";
+import { deleteLesson } from "@/services/backend.services";
 
 interface ComponentProps {
   lesson: ILesson;
-}  
+}
 
 const LessonDetails: React.FC<ComponentProps> = ({ lesson }) => {
   const router = useRouter();
+  const dispatch = useDispatch();
+  const { setUserData } = userActions;
+  const { userData } = useSelector((states: RootState) => states.userStates);
 
-  const handleDelete = () => {
-    const courseId = lesson.courseId;
-    const deleteLesson = async () => {
-      const requestDetails = {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
-        },
-      };
-
-      try { 
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/lessons/delete/${lesson._id}`,
-          requestDetails
-        );
-
-        if (response.status === 400) {
-          alert("Something went wrong");
-        }
-
-        const message = await response.text();
-        alert(message);
-        router.push(`/course/${courseId}`);
-      } catch (e: any) {
-        console.log(e.message);
+  useEffect(() => {
+    if (!userData) {
+      const sessionUser = JSON.parse(sessionStorage.getItem("user")!);
+      if (sessionUser) {
+        dispatch(setUserData(sessionUser));
       }
-    };
+    }
+  }, [dispatch, setUserData, userData]);
 
-    deleteLesson();
+  const handleDelete = async () => {
+    const courseId = lesson.courseId;
+    await toast.promise(
+      new Promise<void>(async (resolve, reject) => {
+        const status = await deleteLesson(lesson._id);
+
+        if (status === 200) {
+          router.push(`/course/${courseId}`);
+          resolve();
+        } else {
+          reject();
+        }
+      }),
+      {
+        pending: `Deleting...`,
+        success: `Lesson deleted successfully 👌`,
+        error: "Encountered error 🤯",
+      }
+    );
   };
 
   return (

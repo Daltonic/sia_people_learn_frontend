@@ -81,43 +81,45 @@ const AcademyHead: React.FC<ComponentProps> = ({ academy }) => {
             </h1>
           ))}
         </div>
-        <div className="flex items-center justify-between gap-5 max-md:justify-center">
-          <Link href={`/academy/edit/${String(academy._id)}`}>
-            <button className="text-white flex gap-2 items-center text-xs font-medium bg-sky-400 p-2 rounded-md">
-              Edit
-              <FiEdit2 />
-            </button>
-          </Link>
+        {userData?._id === academy.userId._id && (
+          <div className="flex items-center justify-between gap-5 max-md:justify-center">
+            <Link href={`/academy/edit/${String(academy._id)}`}>
+              <button className="text-white flex gap-2 items-center text-xs font-medium bg-sky-400 p-2 rounded-md">
+                Edit
+                <FiEdit2 />
+              </button>
+            </Link>
 
-          <Link
-            href={{
-              pathname: `/academy/courses`,
-              query: {
-                academyId: academy._id,
-              },
-            }}
-          >
-            <button className="text-white flex gap-2 items-center text-xs font-medium bg-green-400 p-2 rounded-md">
-              Update Courses
-              <FiPlusCircle />
-            </button>
-          </Link>
+            <Link
+              href={{
+                pathname: `/academy/courses`,
+                query: {
+                  academyId: academy._id,
+                },
+              }}
+            >
+              <button className="text-white flex gap-2 items-center text-xs font-medium bg-green-400 p-2 rounded-md">
+                Update Courses
+                <FiPlusCircle />
+              </button>
+            </Link>
 
-          <button
-            onClick={handleSubmit}
-            className="text-white flex gap-2 items-center text-xs font-medium bg-pink-400 p-2 rounded-md"
-          >
-            Submit
-            <FaRegCheckCircle />
-          </button>
-          <button
-            onClick={handleDelete}
-            className="text-white flex gap-2 items-center text-xs font-medium bg-red-500 p-2 rounded-md"
-          >
-            Delete
-            <FaTimes />
-          </button>
-        </div>
+            <button
+              onClick={handleSubmit}
+              className="text-white flex gap-2 items-center text-xs font-medium bg-pink-400 p-2 rounded-md"
+            >
+              Submit
+              <FaRegCheckCircle />
+            </button>
+            <button
+              onClick={handleDelete}
+              className="text-white flex gap-2 items-center text-xs font-medium bg-red-500 p-2 rounded-md"
+            >
+              Delete
+              <FaTimes />
+            </button>
+          </div>
+        )}
       </div>
       <div className="flex flex-col gap-2.5 mt-3 w-full ">
         <div className="flex items-center gap-2">
