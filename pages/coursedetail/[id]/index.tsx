@@ -9,6 +9,7 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { SwiperSlide, Swiper } from "swiper/react";
 import { ICourse, ICourses } from "@/utils/type.dt";
 import CourseCardDetail from "@/components/coursedetail/CourseCardDetail";
+import { fetchCourse, fetchCourses } from "@/services/backend.services";
 
 const Page: NextPage<{ courseData: ICourse; alternateCourses: ICourse[] }> = ({
   courseData,
@@ -103,28 +104,12 @@ export const getServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
   const { id } = context.query;
-
-  const requestDetails = {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
+  const token = context.req.cookies.accessToken;
 
   try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/courses/${id}`,
-      requestDetails
-    );
+    const course = (await fetchCourse(id as string, token)) as ICourse;
 
-    const course = await response.json();
-
-    const coursesRes = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/courses`,
-      requestDetails
-    );
-
-    const courses = (await coursesRes.json()) as ICourses;
+    const courses = (await fetchCourses({})) as ICourses;
     const alternateCourses = courses.courses.filter(
       (course) => course._id !== id
     );
@@ -137,5 +122,11 @@ export const getServerSideProps = async (
     };
   } catch (e: any) {
     console.log(e.message);
+    return {
+      props: {
+        courseData: {},
+        alternateCourses: [],
+      },
+    };
   }
 };

@@ -3,6 +3,8 @@ import Layout from "@/components/layout/Layout";
 import Link from "next/link";
 import Button from "@/components/reusableComponents/Button";
 import { IUsers } from "@/utils/type.dt";
+import { fetchUsers } from "@/services/backend.services";
+import { GetServerSidePropsContext } from "next";
 
 const Page: React.FC<{ usersData: IUsers }> = ({ usersData }) => {
   return (
@@ -49,22 +51,12 @@ const Page: React.FC<{ usersData: IUsers }> = ({ usersData }) => {
 
 export default Page;
 
-export const getServerSideProps = async () => {
-  const requestDetails = {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
-
+export const getServerSideProps = async (
+  context: GetServerSidePropsContext
+) => {
+  const token = context.req.cookies.accessToken;
   try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/users?userType=instructor`,
-      requestDetails
-    );
-
-    const users = (await response.json()) as IUsers;
-    console.log(users);
+    const users = await fetchUsers({ userType: "instructor" }, token);
 
     return {
       props: {
