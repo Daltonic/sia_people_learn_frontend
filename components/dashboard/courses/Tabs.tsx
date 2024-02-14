@@ -1,28 +1,41 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import MyCourseCard from "./MyCourseCard";
-import { coursesData } from "@/data/courses";
-import SearchAndFilterBar from "@/components/reusableComponents/SearchAndFilterBar";
 import { useSelector, useDispatch } from "react-redux";
 import { userActions } from "@/store/userSlice";
-import { IUserSubscriptions, RootState } from "@/utils/type.dt";
+import {
+  FetchUserSubscriptionsParams,
+  IUserSubscriptions,
+  RootState,
+} from "@/utils/type.dt";
 import EmptyComponent from "@/components/reusableComponents/EmptyComponent";
+import LocalFilters from "@/components/reusableComponents/LocalFilter";
+import LocalPagination from "@/components/reusableComponents/LocalPagination";
+import { fetchUserSubscriptions } from "@/services/backend.services";
 
-const Tabs: React.FC = () => {
+const sortOptions = [
+  { name: "Newest", value: "newest" },
+  { name: "Oldest", value: "oldest" },
+];
+
+interface Props {
+  academiesSubObj: IUserSubscriptions;
+  coursesSubObj: IUserSubscriptions;
+}
+
+const Tabs: React.FC<Props> = ({ academiesSubObj, coursesSubObj }) => {
   const dispatch = useDispatch();
   const { setUserData } = userActions;
   const { userData } = useSelector((states: RootState) => states.userStates);
-  const [coursesSubs, setCoursesSubs] = useState<IUserSubscriptions>({
-    subscriptions: [],
-    isNext: false,
-    numOfPages: 0,
-  });
+  const [coursesSubs, setCoursesSubs] =
+    useState<IUserSubscriptions>(coursesSubObj);
 
-  const [academiesSubs, setAcademiesSubs] = useState<IUserSubscriptions>({
-    subscriptions: [],
-    isNext: false,
-    numOfPages: 0,
-  });
+  const [academiesSubs, setAcademiesSubs] =
+    useState<IUserSubscriptions>(academiesSubObj);
+  const [sort, setSort] = useState<string>("newest");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageNumbers, setPageNumbers] = useState(coursesSubObj.numOfPages);
+  const [type, setType] = useState<"Course" | "Book" | "Academy">("Course");
 
   useEffect(() => {
     if (!userData) {
@@ -32,85 +45,62 @@ const Tabs: React.FC = () => {
       }
     }
   }, [dispatch, setUserData, userData]);
+
   const [activeTab, setActiveTab] = useState<number>(1);
 
   const handleTabClick = (tabNumber: number) => {
     setActiveTab(tabNumber);
+    if (tabNumber === 1) {
+      setType("Course");
+      setPageNumbers(coursesSubs.numOfPages);
+      setCurrentPage(1);
+    } else {
+      setType("Academy");
+      setPageNumbers(academiesSubs.numOfPages);
+      setCurrentPage(1);
+    }
+  };
+
+  const updateSearch = async () => {
+    const token = sessionStorage.getItem("accessToken") as string;
+    try {
+      const result = await fetchUserSubscriptions(
+        {
+          productType: type as FetchUserSubscriptionsParams["productType"],
+          filter: sort as FetchUserSubscriptionsParams["filter"],
+          page: Number(pageNumbers) | 1,
+        },
+        token
+      );
+      if (activeTab === 1) {
+        setCoursesSubs(result);
+      } else {
+        setAcademiesSubs(result);
+      }
+    } catch (e: any) {
+      console.log(e);
+    }
   };
 
   useEffect(() => {
-    const fetchCourses = async () => {
-      const requestDetails = {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
-        },
-      };
+    updateSearch();
 
-      try {
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/subscriptions/user?productType=Course`,
-          requestDetails
-        );
-
-        if (response.status === 400) {
-          alert("Something went wrong");
-        } else {
-          const { subscriptions, numOfPages, isNext } =
-            (await response.json()) as IUserSubscriptions;
-          setCoursesSubs({
-            subscriptions,
-            isNext,
-            numOfPages,
-          });
-        }
-      } catch (e: any) {
-        console.log(e.message);
-      }
-    };
-    fetchCourses();
-  }, []);
-
-  useEffect(() => {
-    const fetchAcademies = async () => {
-      const requestDetails = {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
-        },
-      };
-
-      try {
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/subscriptions/user?productType=Academy`,
-          requestDetails
-        );
-
-        if (response.status === 400) {
-          alert("Something went wrong");
-        } else {
-          const { subscriptions, numOfPages, isNext } =
-            (await response.json()) as IUserSubscriptions;
-          setAcademiesSubs({
-            subscriptions,
-            isNext,
-            numOfPages,
-          });
-        }
-      } catch (e: any) {
-        console.log(e.message);
-      }
-    };
-    fetchAcademies();
-  }, []);
-  console.log(coursesSubs);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentPage, sort]);
 
   return (
     <div className="bg-white p-5 rounded-xl">
       <div className="">
-        <SearchAndFilterBar />
+        <div className="flex items-center justify-end">
+          <div className="max-w-[400px]">
+            <LocalFilters
+              label="Order By"
+              options={sortOptions}
+              currFilter={sort}
+              setCurrFilter={setSort}
+            />
+          </div>
+        </div>
         <div className="flex space-x-5 border-b">
           <button
             onClick={() => handleTabClick(1)}
@@ -168,6 +158,13 @@ const Tabs: React.FC = () => {
           )}
         </div>
       </div>
+      {pageNumbers > 1 && (
+        <LocalPagination
+          totalPages={pageNumbers}
+          activePage={currentPage}
+          setActivePage={setCurrentPage}
+        />
+      )}
     </div>
   );
 };

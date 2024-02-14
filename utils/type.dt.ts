@@ -317,7 +317,7 @@ export interface FetchPostsParams {
   deleted?: "true" | "false";
   published?: "true" | "false";
   parentId?: string;
-  category?: string;
+  category?: string | null;
 }
 
 export interface FetchReviewsParams {
@@ -342,4 +342,21 @@ export interface UpgradeUserBody {
   upgradeUserTo: "instructor" | "admin";
   requestId: string;
   status: "approved" | "rejected";
+}
+
+export interface FetchSubscriptionsParams {
+  page?: number;
+  pageSize?: number;
+  filter?: "newest" | "oldest";
+  productType?: "Academy" | "Course";
+  status: "Pending" | "Completed";
+  searchQuery?: string;
+}
+
+export interface FetchUserSubscriptionsParams {
+  page?: number;
+  pageSize?: number;
+  filter?: "newest" | "oldest";
+  productType?: "Academy" | "Course";
+  searchQuery?: string;
 }
