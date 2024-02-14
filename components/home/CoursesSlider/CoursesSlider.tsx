@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 
-import CourseCard from "./CourseCard";
+import CourseCard from "../../courses/CourseCard";
 import { Navigation, Pagination, Autoplay } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Link from "next/link";

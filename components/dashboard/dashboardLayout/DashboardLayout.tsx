@@ -69,7 +69,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
   }, [cartAcademyItems.length, dispatch, setCartAcademyItems]);
 
   return (
-    <div className="bg-white">
+    <div className="bg-white overflow-hidden">
       <DashBoardHeader />
       <div className="flex justify-between md:pr-5">
         <div className=" md:sticky md:top-6 md:h-full">

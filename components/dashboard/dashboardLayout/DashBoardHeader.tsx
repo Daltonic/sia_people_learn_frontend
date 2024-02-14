@@ -16,6 +16,7 @@ import { userActions } from "@/store/userSlice";
 import Cookies from "universal-cookie";
 import { toast } from "react-toastify";
 import { logout } from "@/services/backend.services";
+import { FiShoppingCart } from "react-icons/fi";
 
 type SidebarProps = {};
 
@@ -77,6 +78,10 @@ const DashBoardHeader: React.FC<SidebarProps> = () => {
     );
   };
 
+  const { cartCourseItems, cartAcademyItems } = useSelector(
+    (states: RootState) => states.cartStates
+  );
+
   return (
     <div
       className="flex justify-between items-center p-5 sm:px-10 sticky h-20 top-0 w-full z-50 bg-white"
@@ -105,25 +110,15 @@ const DashBoardHeader: React.FC<SidebarProps> = () => {
           </Link>
         </div>
       </div>
-      <div className="hidden md:flex items-center text-[#6A7A99] text-lg relative">
-        <div className="hover:bg-[#F7F8FB] p-4 rounded-xl hover:text-[#C5165D]">
-          <FaRegMoon />
-        </div>
-        <Link href="/blogs">
-          <div className="hover:bg-[#F7F8FB] p-4 rounded-xl hover:text-[#C5165D]">
-            <CiMaximize2 />
-          </div>
+      <div className="flex gap-5 md:gap-10 items-center text-[#6A7A99] text-lg relative">
+        <Link href="/shopcart" className="relative">
+          <FiShoppingCart className="text-2xl text-black icon icon-basket" />
+          {cartAcademyItems.length + cartCourseItems.length > 0 && (
+            <div className="absolute w-3.5 h-3.5 text-white bg-red-500 text-[10px] flex justify-center items-center bottom-5 left-5 p-[2px] rounded-full">
+              {cartAcademyItems.length + cartCourseItems.length}
+            </div>
+          )}
         </Link>
-
-        <div className="hover:bg-[#F7F8FB] p-4 rounded-xl hover:text-[#C5165D]">
-          <HiOutlineShoppingBag />
-        </div>
-        <div className="hover:bg-[#F7F8FB] p-4 rounded-xl hover:text-[#C5165D]">
-          <HiOutlineMail />
-        </div>
-        <div className="hover:bg-[#F7F8FB] p-4 rounded-xl hover:text-[#C5165D]">
-          <HiOutlineBell />
-        </div>
         <div className="">
           {userData && (
             <div onClick={handleToggleModal} className="cursor-pointer ">
@@ -159,7 +154,7 @@ const DashBoardHeader: React.FC<SidebarProps> = () => {
           </Modal>
         </div>
       </div>
-      <div className="md:hidden">
+      <div className="hidden">
         <DashBoardSidebar isOpen={isOpen} />
       </div>
     </div>

@@ -152,7 +152,7 @@ const Header: React.FC = () => {
                     <div className="text-white bg-[#C5165D] text-[16px] flex items-center justify-center h-8 w-8 p-1 rounded-full">{`${userData?.firstName[0].toUpperCase()}${userData?.lastName[0].toUpperCase()}`}</div>
                   )}
                 </div>
-
+ 
                 <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
                   <Link
                     href={`/(dashboard)/dashboard`}
