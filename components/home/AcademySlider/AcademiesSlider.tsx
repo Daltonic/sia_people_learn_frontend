@@ -9,7 +9,7 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import Button from "@/components/reusableComponents/Button";
 import { GoArrowUpRight } from "react-icons/go";
 import { IAcademies } from "@/utils/type.dt";
-import AcademyCard from "./AcademyCard";
+import AcademyCard from "../../academies/AcademyCard";
 import AllButton from "@/components/reusableComponents/AllButton";
 
 const CoursesSlider: React.FC<{ academyObj: IAcademies }> = ({

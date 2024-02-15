@@ -1,6 +1,6 @@
 import CourseHead from "@/components/coursedetail/CourseHead";
 import Tabs from "@/components/coursedetail/Tabs";
-import CourseCard from "@/components/home/CoursesSlider/CourseCard";
+import CourseCard from "@/components/courses/CourseCard";
 import Layout from "@/components/layout/Layout";
 import { GetServerSidePropsContext, NextPage } from "next";
 import { Navigation, Pagination, Autoplay } from "swiper";

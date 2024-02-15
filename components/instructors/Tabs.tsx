@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { coursesData } from "@/data/courses";
-import CourseCard from "../../components/home/CoursesSlider/CourseCard";
+import CourseCard from "../courses/CourseCard";
 
 const Tabs: React.FC = () => {
   const [activeTab, setActiveTab] = useState<number>(1);
