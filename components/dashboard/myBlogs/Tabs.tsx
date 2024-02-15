@@ -1,22 +1,39 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import SearchAndFilterBar from "@/components/reusableComponents/SearchAndFilterBar";
-import { IPost, IPosts, RootState } from "@/utils/type.dt";
+import { FetchPostsParams, IPosts, RootState } from "@/utils/type.dt";
 import BlogCard from "@/components/blogs/BlogCard";
 import EmptyComponent from "@/components/reusableComponents/EmptyComponent";
 import { useSelector, useDispatch } from "react-redux";
 import { userActions } from "@/store/userSlice";
+import { CiSearch } from "react-icons/ci";
+import LocalFilters from "@/components/reusableComponents/LocalFilter";
+import LocalPagination from "@/components/reusableComponents/LocalPagination";
+import { fetchUserPosts } from "@/services/backend.services";
+import { categories } from "@/data/blogs";
 
-const Tabs: React.FC = () => {
+const sortOptions = [
+  { name: "Newest", value: "newest" },
+  { name: "Oldest", value: "oldest" },
+];
+
+const postCategories = categories.map((category) => ({
+  name: category,
+  value: category,
+}));
+
+interface Props {
+  publishedPostsData: IPosts;
+  unpublishedPostsData: IPosts;
+}
+
+const Tabs: React.FC<Props> = ({
+  publishedPostsData,
+  unpublishedPostsData,
+}) => {
   const dispatch = useDispatch();
   const { setUserData } = userActions;
   const { userData } = useSelector((states: RootState) => states.userStates);
-
-  const [activeTab, setActiveTab] = useState<number>(1);
-  const [publishedPosts, setPublishedPosts] = useState<IPost[]>([]);
-  const [unpublishedPosts, setUnpublishedPosts] = useState<IPost[]>([]);
-  const [hasNext, setHasNext] = useState<boolean>(true);
-  const [pagePagesCount, setPagesCount] = useState<number>(0);
 
   useEffect(() => {
     if (!userData) {
@@ -27,79 +44,103 @@ const Tabs: React.FC = () => {
     }
   }, [dispatch, setUserData, userData]);
 
+  const [activeTab, setActiveTab] = useState<number>(1);
+  const [publishedPosts, setPublishedPosts] =
+    useState<IPosts>(publishedPostsData);
+  const [unpublishedPosts, setUnpublishedPosts] =
+    useState<IPosts>(unpublishedPostsData);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageNumbers, setPageNumbers] = useState(publishedPosts.numOfPages);
+  const [search, setSearch] = useState<string>("");
+  const [sort, setSort] = useState<string>("newest");
+  const [category, setCategory] = useState<string>("All Category");
+  const [searchPlaceholder, setSearchPlaceholder] = useState<string>(
+    "Search Published Posts Here..."
+  );
+
   const handleTabClick = (tabNumber: number) => {
     setActiveTab(tabNumber);
+    if (tabNumber === 1) {
+      setSearchPlaceholder("Search Published Posts Here...");
+      setPageNumbers(publishedPosts.numOfPages);
+      setCurrentPage(1);
+    } else {
+      setSearchPlaceholder("Search Unpublished Posts Here...");
+      setPageNumbers(unpublishedPosts.numOfPages);
+      setCurrentPage(1);
+    }
+  };
+
+  const updateSearch = async () => {
+    const token = sessionStorage.getItem("accessToken") as string;
+    const published = activeTab === 1 ? "true" : "false";
+
+    try {
+      const result = await fetchUserPosts(
+        {
+          searchQuery: search,
+          filter: sort as FetchPostsParams["filter"],
+          published,
+          page: Number(currentPage) || 1,
+          category: category !== "All Categories" ? category : null,
+        },
+        token
+      );
+      if (activeTab === 1) {
+        setPublishedPosts(result);
+      } else {
+        setUnpublishedPosts(result);
+      }
+    } catch (e: any) {
+      console.log(e.message);
+    }
   };
 
   useEffect(() => {
-    if (!userData) return;
-    const fetchPublishedBlogs = async () => {
-      const requestDetails = {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
-        },
-      };
+    if (search) {
+      const delaydebounceFn = setTimeout(() => {
+        updateSearch();
+      }, 300);
 
-      try {
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/posts/user/posts?published=true`,
-          requestDetails
-        );
-        if (response.status === 400) {
-          const message = await response.text();
-          alert(message);
-        } else {
-          const { posts, isNext, numOfPages } =
-            (await response.json()) as IPosts;
-          setPublishedPosts(posts);
-          setPagesCount(numOfPages);
-          setHasNext(isNext);
-        }
-      } catch (e: any) {
-        console.log(e.message);
-      }
-    };
-    fetchPublishedBlogs();
-  }, [userData]);
-
-  useEffect(() => {
-    const fetchBlogs = async () => {
-      const requestDetails = {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
-        },
-      };
-
-      try {
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/posts/user/posts?published=false`,
-          requestDetails
-        );
-        if (response.status === 400) {
-          const message = await response.text();
-          alert(message);
-        } else {
-          const { posts, isNext, numOfPages } =
-            (await response.json()) as IPosts;
-          setUnpublishedPosts(posts);
-          setPagesCount(numOfPages);
-          setHasNext(isNext);
-        }
-      } catch (e: any) {
-        console.log(e.message);
-      }
-    };
-    fetchBlogs();
-  }, []);
+      return () => clearTimeout(delaydebounceFn);
+    } else {
+      updateSearch();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [search, currentPage, sort, category]);
 
   return (
     <div className="bg-white p-5 rounded-xl">
       <div className="">
-        <SearchAndFilterBar />
+        <div className="flex items-center justify-between">
+          <div className="flex gap-5 items-center border border-[#E1DDDD] text-[#4F547B] rounded-md p-3 md:p-2 w-full mb-5 md:mb-0 md:w-96">
+            <CiSearch className="text-[#4F547B] text-xl" />
+            <input
+              type="text"
+              placeholder={searchPlaceholder}
+              className="focus:outline-none"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          </div>
+          <div>
+            <LocalFilters
+              label="Filter by Difficulty"
+              options={postCategories}
+              currFilter={category}
+              setCurrFilter={setCategory}
+            />
+          </div>
+          <div className="max-w-[400px]">
+            <LocalFilters
+              label="Order By"
+              options={sortOptions}
+              currFilter={sort}
+              setCurrFilter={setSort}
+            />
+          </div>
+        </div>
         <div className="flex space-x-5 border-b">
           <button
             onClick={() => handleTabClick(1)}
@@ -128,8 +169,8 @@ const Tabs: React.FC = () => {
         <div className="py-4 text-[#4F547B]">
           {activeTab === 1 && (
             <div className="flex p-5 gap-8 border w-full flex-wrap">
-              {publishedPosts.length > 0 ? (
-                publishedPosts.map((post, index) => (
+              {publishedPosts.posts.length > 0 ? (
+                publishedPosts.posts.map((post, index) => (
                   <BlogCard blog={post} key={post._id} i={index} />
                 ))
               ) : (
@@ -144,8 +185,8 @@ const Tabs: React.FC = () => {
           )}
           {activeTab === 2 && (
             <div className="flex p-5 gap-8 border w-full flex-wrap">
-              {unpublishedPosts.length > 0 ? (
-                unpublishedPosts.map((post, index) => (
+              {unpublishedPosts.posts.length > 0 ? (
+                unpublishedPosts.posts.map((post, index) => (
                   <BlogCard blog={post} key={post._id} i={index} />
                 ))
               ) : (
@@ -160,6 +201,13 @@ const Tabs: React.FC = () => {
           )}
         </div>
       </div>
+      {pageNumbers > 1 && (
+        <LocalPagination
+          totalPages={pageNumbers}
+          activePage={currentPage}
+          setActivePage={setCurrentPage}
+        />
+      )}
     </div>
   );
 };

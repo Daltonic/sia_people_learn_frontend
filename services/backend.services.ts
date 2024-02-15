@@ -2,6 +2,7 @@ import {
   FetchPostsParams,
   FetchProductsParams,
   FetchReviewsParams,
+  FetchUserSubscriptionsParams,
   FetchUsersParams,
   UpgradeUserBody,
 } from "@/utils/type.dt";
@@ -602,6 +603,29 @@ const fetchPosts = async (query: FetchPostsParams, token?: string) => {
   }
 };
 
+const fetchUserPosts = async (query: FetchPostsParams, token?: string) => {
+  const url = `${BASE_URI}/api/v1/posts/user/posts`;
+
+  const config = {
+    method: "GET",
+    url,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    params: { ...query },
+  };
+
+  try {
+    const response = await axios.request(config);
+    return Promise.resolve(response.data);
+  } catch (error: any) {
+    console.log(error.message);
+    reportError(error);
+    return Promise.reject(error);
+  }
+};
+
 const fetchPost = async (postId: string, token?: string) => {
   const url = `${BASE_URI}/api/v1/posts/${postId}`;
 
@@ -745,11 +769,35 @@ const upgradeUser = async (data: UpgradeUserBody, token?: string) => {
     data,
   };
 
-  console.log(data);
-
   try {
     const response = await axios.request(config);
     return Promise.resolve(response.status);
+  } catch (error) {
+    console.log(error);
+    reportError(error);
+    return Promise.reject(error);
+  }
+};
+
+const fetchUserSubscriptions = async (
+  query: FetchUserSubscriptionsParams,
+  token: string
+) => {
+  const url = `${BASE_URI}/api/v1/subscriptions/user`;
+
+  const config = {
+    method: "GET",
+    url,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    params: { ...query },
+  };
+
+  try {
+    const response = await axios.request(config);
+    return Promise.resolve(response.data);
   } catch (error) {
     console.log(error);
     reportError(error);
@@ -789,4 +837,6 @@ export {
   deleteLesson,
   fetchUsers,
   upgradeUser,
+  fetchUserSubscriptions,
+  fetchUserPosts,
 };
