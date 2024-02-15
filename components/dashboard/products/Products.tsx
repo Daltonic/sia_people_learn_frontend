@@ -17,9 +17,9 @@ const Products: React.FC<Props> = ({ academiesObj, coursesObj, booksObj }) => {
         description="Access and manage all your products in one place."
       />
       <Tabs
-        academiesObj={academiesObj}
-        coursesObj={coursesObj}
-        booksObj={booksObj}
+        academiesData={academiesObj}
+        coursesData={coursesObj}
+        booksData={booksObj}
       />
     </div>
   );

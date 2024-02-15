@@ -437,7 +437,12 @@ const fetchCourses = async (query: FetchProductsParams, token?: string) => {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
-    params: { ...query },
+    params: {
+      ...query,
+      approved: query.approved || null,
+      deleted: query.deleted || null,
+      difficulty: query.difficulty || null,
+    },
   };
 
   try {
@@ -460,7 +465,12 @@ const fetchBooks = async (query: FetchProductsParams, token?: string) => {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
-    params: { ...query },
+    params: {
+      ...query,
+      approved: query.approved || null,
+      deleted: query.deleted || null,
+      difficulty: query.difficulty || null,
+    },
   };
 
   try {
@@ -567,7 +577,12 @@ const fetchAcademies = async (query: FetchProductsParams, token?: string) => {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
-    params: { ...query },
+    params: {
+      ...query,
+      approved: query.approved || null,
+      deleted: query.deleted || null,
+      difficulty: query.difficulty || null,
+    },
   };
 
   try {

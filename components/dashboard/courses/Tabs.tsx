@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import MyCourseCard from "./MyCourseCard";
 import { useSelector, useDispatch } from "react-redux";
 import { userActions } from "@/store/userSlice";
@@ -27,15 +27,6 @@ const Tabs: React.FC<Props> = ({ academiesSubObj, coursesSubObj }) => {
   const dispatch = useDispatch();
   const { setUserData } = userActions;
   const { userData } = useSelector((states: RootState) => states.userStates);
-  const [coursesSubs, setCoursesSubs] =
-    useState<IUserSubscriptions>(coursesSubObj);
-
-  const [academiesSubs, setAcademiesSubs] =
-    useState<IUserSubscriptions>(academiesSubObj);
-  const [sort, setSort] = useState<string>("newest");
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pageNumbers, setPageNumbers] = useState(coursesSubObj.numOfPages);
-  const [type, setType] = useState<"Course" | "Book" | "Academy">("Course");
 
   useEffect(() => {
     if (!userData) {
@@ -45,6 +36,17 @@ const Tabs: React.FC<Props> = ({ academiesSubObj, coursesSubObj }) => {
       }
     }
   }, [dispatch, setUserData, userData]);
+
+  const firstRender = useRef(true);
+
+  const [coursesSubs, setCoursesSubs] =
+    useState<IUserSubscriptions>(coursesSubObj);
+  const [academiesSubs, setAcademiesSubs] =
+    useState<IUserSubscriptions>(academiesSubObj);
+  const [sort, setSort] = useState<string>("newest");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageNumbers, setPageNumbers] = useState(coursesSubObj.numOfPages);
+  const [type, setType] = useState<"Course" | "Book" | "Academy">("Course");
 
   const [activeTab, setActiveTab] = useState<number>(1);
 
@@ -83,6 +85,11 @@ const Tabs: React.FC<Props> = ({ academiesSubObj, coursesSubObj }) => {
   };
 
   useEffect(() => {
+    if (firstRender.current) {
+      firstRender.current = false;
+      console.log("Initial");
+      return;
+    }
     updateSearch();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

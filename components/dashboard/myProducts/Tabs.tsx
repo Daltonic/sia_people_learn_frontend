@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import MyCourseCard from "./MyCourseCard";
 import { useSelector, useDispatch } from "react-redux";
 import { userActions } from "@/store/userSlice";
@@ -27,6 +27,7 @@ const sortOptions = [
 ];
 
 const filterOptions = [
+  { name: "All", value: "All" },
   { name: "Beginner", value: "Beginner" },
   { name: "Intermediate", value: "Intermediate" },
   { name: "Advanced", value: "Advanced" },
@@ -45,6 +46,8 @@ const Tabs: React.FC<Props> = ({ academiesData, coursesData, booksData }) => {
       }
     }
   }, [dispatch, setUserData, userData]);
+
+  const firstRender = useRef(true);
 
   const [currentPage, setCurrentPage] = useState(1);
   const [search, setSearch] = useState<string>("");
@@ -86,49 +89,37 @@ const Tabs: React.FC<Props> = ({ academiesData, coursesData, booksData }) => {
 
   const updateSearch = async () => {
     try {
-      if (activeTab === 1) {
+      if (activeTab === 1 || activeTab === 2) {
         const result = await fetchCourses(
           {
             instructor: "true",
-            type: "Course",
+            type: type as FetchProductsParams["type"],
             searchQuery: search,
             filter: sort as FetchProductsParams["filter"],
-            page: Number(pageNumbers) || 1,
+            page: Number(currentPage) || 1,
             difficulty:
-              difficulty !== ""
-                ? (difficulty as FetchProductsParams["difficulty"])
-                : null,
+              difficulty === "All"
+                ? null
+                : (difficulty as FetchProductsParams["difficulty"]),
           },
           sessionStorage.getItem("accessToken") as string
         );
-        setCoursesObj(result);
-      } else if (activeTab === 2) {
-        const result = await fetchCourses(
-          {
-            instructor: "true",
-            type: "Book",
-            searchQuery: search,
-            filter: sort as FetchProductsParams["filter"],
-            page: Number(pageNumbers) || 1,
-            difficulty:
-              difficulty !== ""
-                ? (difficulty as FetchProductsParams["difficulty"])
-                : null,
-          },
-          sessionStorage.getItem("accessToken") as string
-        );
-        setBooksObj(result);
+        if (activeTab === 1) {
+          setCoursesObj(result);
+        } else {
+          setBooksObj(result);
+        }
       } else {
         const result = await fetchAcademies(
           {
             instructor: "true",
             searchQuery: search,
             filter: sort as FetchProductsParams["filter"],
-            page: Number(pageNumbers) || 1,
+            page: Number(currentPage) || 1,
             difficulty:
-              difficulty !== ""
-                ? (difficulty as FetchProductsParams["difficulty"])
-                : null,
+              difficulty === "All"
+                ? null
+                : (difficulty as FetchProductsParams["difficulty"]),
           },
           sessionStorage.getItem("accessToken") as string
         );
@@ -141,6 +132,10 @@ const Tabs: React.FC<Props> = ({ academiesData, coursesData, booksData }) => {
   };
 
   useEffect(() => {
+    if (firstRender.current) {
+      firstRender.current = false;
+      return;
+    }
     if (search) {
       const delaydebounceFn = setTimeout(() => {
         updateSearch();
@@ -155,7 +150,7 @@ const Tabs: React.FC<Props> = ({ academiesData, coursesData, booksData }) => {
 
   return (
     <div className="bg-white p-5 rounded-xl">
-      <div className=""> 
+      <div className="">
         <div className="md:flex items-center md:justify-between space-y-2 md:space-y-0 mb-4">
           <div className="flex gap-5 items-center border border-[#E1DDDD] text-[#4F547B] rounded-md p-3 md:p-2 w-full md:w-96">
             <CiSearch className="text-[#4F547B] text-xl" />

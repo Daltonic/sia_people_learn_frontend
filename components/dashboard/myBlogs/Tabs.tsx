@@ -1,6 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
-import SearchAndFilterBar from "@/components/reusableComponents/SearchAndFilterBar";
+import React, { useState, useEffect, useRef } from "react";
 import { FetchPostsParams, IPosts, RootState } from "@/utils/type.dt";
 import BlogCard from "@/components/blogs/BlogCard";
 import EmptyComponent from "@/components/reusableComponents/EmptyComponent";
@@ -44,6 +43,7 @@ const Tabs: React.FC<Props> = ({
     }
   }, [dispatch, setUserData, userData]);
 
+  const firstRender = useRef(true);
   const [activeTab, setActiveTab] = useState<number>(1);
   const [publishedPosts, setPublishedPosts] =
     useState<IPosts>(publishedPostsData);
@@ -54,7 +54,7 @@ const Tabs: React.FC<Props> = ({
   const [pageNumbers, setPageNumbers] = useState(publishedPosts.numOfPages);
   const [search, setSearch] = useState<string>("");
   const [sort, setSort] = useState<string>("newest");
-  const [category, setCategory] = useState<string>("All Category");
+  const [category, setCategory] = useState<string>("All Categories");
   const [searchPlaceholder, setSearchPlaceholder] = useState<string>(
     "Search Published Posts Here..."
   );
@@ -79,7 +79,7 @@ const Tabs: React.FC<Props> = ({
     try {
       const result = await fetchUserPosts(
         {
-          searchQuery: search,
+          searchQuery: search !== "" ? search : null,
           filter: sort as FetchPostsParams["filter"],
           published,
           page: Number(currentPage) || 1,
@@ -87,6 +87,7 @@ const Tabs: React.FC<Props> = ({
         },
         token
       );
+
       if (activeTab === 1) {
         setPublishedPosts(result);
       } else {
@@ -98,6 +99,12 @@ const Tabs: React.FC<Props> = ({
   };
 
   useEffect(() => {
+    if (firstRender.current) {
+      firstRender.current = false;
+      console.log("Initial");
+      return;
+    }
+
     if (search) {
       const delaydebounceFn = setTimeout(() => {
         updateSearch();

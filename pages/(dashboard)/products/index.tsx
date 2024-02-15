@@ -39,18 +39,18 @@ export const getServerSideProps = async (
 
     return {
       props: {
-        academiesData: JSON.parse(JSON.stringify(academies)),
-        coursesData: JSON.parse(JSON.stringify(courses)),
-        booksData: JSON.parse(JSON.stringify(books)),
+        academiesData: JSON.parse(JSON.stringify(academies)) as IAcademies,
+        coursesData: JSON.parse(JSON.stringify(courses)) as ICourses,
+        booksData: JSON.parse(JSON.stringify(books)) as ICourses,
       },
     };
   } catch (e: any) {
     console.log(e);
     return {
       props: {
-        academiesData: {} as any,
-        coursesData: {} as any,
-        booksData: {} as any,
+        academiesData: {} as IAcademies,
+        coursesData: {} as ICourses,
+        booksData: {} as ICourses,
       },
     };
   }
