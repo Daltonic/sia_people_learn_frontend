@@ -1,49 +1,49 @@
-export interface CourseStruct {
-  id: number;
-  imageSrc: string;
-  authorImageSrc: string;
-  title: string;
-  rating: number;
-  ratingCount: number;
-  lessonCount: number;
-  duration: number;
-  level: string;
-  originalPrice: number;
-  discountedPrice: number;
-  paid: boolean;
-  category: string;
-  state: string;
-  languange: string;
-  authorName: string;
-  viewStatus: string;
-  difficulty: string;
-  quantity: number;
-  desc?: string;
-  description: string;
-  overview: string;
-  reviews: string[];
-  price: number;
-  name?: string;
-}
+// export interface CourseStruct {
+//   id: number;
+//   imageSrc: string;
+//   authorImageSrc: string;
+//   title: string;
+//   rating: number;
+//   ratingCount: number;
+//   lessonCount: number;
+//   duration: number;
+//   level: string;
+//   originalPrice: number;
+//   discountedPrice: number;
+//   paid: boolean;
+//   category: string;
+//   state: string;
+//   languange: string;
+//   authorName: string;
+//   viewStatus: string;
+//   difficulty: string;
+//   quantity: number;
+//   desc?: string;
+//   description: string;
+//   overview: string;
+//   reviews: string[];
+//   price: number;
+//   name?: string;
+// }
 
-export interface BlogStruct {
-  id: number;
-  imageSrc: string;
-  category: string;
-  title: string;
-  date: string;
-  desc: string;
-}
+// export interface BlogStruct {
+//   id: number;
+//   imageSrc: string;
+//   category: string;
+//   title: string;
+//   date: string;
+//   desc: string;
+// }
 
-export interface ReviewStruct {
-  id: number;
-  avatarSrc: string;
-  name: string;
-  date: string;
-  rating: number;
-  title: string;
-  comment: string;
-}
+// export interface ReviewStruct {
+//   id: number;
+//   avatarSrc: string;
+//   name: string;
+//   date: string;
+//   rating: number;
+//   title: string;
+//   comment: string;
+// }
 
 export interface IAcademy {
   _id: string;
@@ -303,7 +303,8 @@ export interface FetchProductsParams {
   searchQuery?: string;
   filter?: "newest" | "oldest";
   difficulty?: "Beginner" | "Intermediate" | "Advanced" | null;
-  deleted?: "true" | "false";
+  deleted?: "true" | "false" | null;
+  approved?: "true" | "false" | null;
   type?: "Course" | "Book";
   instructor?: "true" | "false";
 }
@@ -312,7 +313,7 @@ export interface FetchPostsParams {
   parentsOnly?: "true" | "false";
   page?: number;
   pageSize?: number;
-  searchQuery?: string;
+  searchQuery?: string | null;
   filter?: "newest" | "oldest";
   deleted?: "true" | "false";
   published?: "true" | "false";
