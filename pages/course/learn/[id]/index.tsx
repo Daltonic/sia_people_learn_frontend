@@ -41,14 +41,18 @@ export const getServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
   const { id } = context.query;
+  const token = context.req.cookies.accessToken;
 
   try {
-    const course = await fetchCourse(id as string);
-    const reviews = await fetchReviews({
-      productId: id as string,
-      productType: "Course",
-    });
-
+    const course = await fetchCourse(id as string, token);
+    const reviews = await fetchReviews(
+      {
+        productId: id as string,
+        productType: "Course",
+      },
+      token
+    );
+    console.log(course);
     return {
       props: {
         courseData: JSON.parse(JSON.stringify(course)),

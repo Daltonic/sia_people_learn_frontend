@@ -32,6 +32,7 @@ const LessonAccordion: React.FC<Props> = ({ course }) => {
     setActiveIndex((prevIndex) => (prevIndex === index ? -1 : index));
   };
 
+  console.log(course);
   return (
     <div className="space-y-4 w-full border md:p-5 rounded-md">
       {lessonItems.map((lesson, index) => (
@@ -54,29 +55,30 @@ const LessonAccordion: React.FC<Props> = ({ course }) => {
           </div>
           {activeIndex === index && (
             <div className="mt-4">
-              {course.lessons.map((lesson) => (
-                <div key={lesson._id} className=" bg-white py-2 px-4">
-                  <div className="text-[#4F547B] md:text-sm">
-                    <div className="flex item-center gap-2">
-                      <div>
-                        <Image
-                          height={100}
-                          width={100}
-                          src={
-                            lesson.imageUrl || "/images/courseCard/card3.svg"
-                          }
-                          alt="Course Image"
-                          className="w-14 h-10 object-cover rounded-md"
-                        />
-                      </div>
-                      <div className="w-64">
-                        <h3 className="font-medium">{lesson.title}</h3>
-                        <p className="underline">{lesson.duration}</p>
+              {course.lessons.length > 0 &&
+                course.lessons.map((lesson) => (
+                  <div key={lesson._id} className=" bg-white py-2 px-4">
+                    <div className="text-[#4F547B] md:text-sm">
+                      <div className="flex item-center gap-2">
+                        <div>
+                          <Image
+                            height={100}
+                            width={100}
+                            src={
+                              lesson.imageUrl || "/images/courseCard/card3.svg"
+                            }
+                            alt="Course Image"
+                            className="w-14 h-10 object-cover rounded-md"
+                          />
+                        </div>
+                        <div className="w-64">
+                          <h3 className="font-medium">{lesson.title}</h3>
+                          <p className="underline">{lesson.duration}</p>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))}
             </div>
           )}
         </div>
