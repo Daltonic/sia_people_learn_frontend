@@ -315,8 +315,8 @@ export interface FetchPostsParams {
   pageSize?: number;
   searchQuery?: string | null;
   filter?: "newest" | "oldest";
-  deleted?: "true" | "false";
-  published?: "true" | "false";
+  deleted?: "true" | "false" | null;
+  published?: "true" | "false" | null;
   parentId?: string;
   category?: string | null;
 }

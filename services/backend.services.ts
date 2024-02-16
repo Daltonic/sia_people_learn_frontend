@@ -605,7 +605,11 @@ const fetchPosts = async (query: FetchPostsParams, token?: string) => {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
-    params: { ...query },
+    params: {
+      ...query,
+      published: query.published || null,
+      deleted: query.deleted || null,
+    },
   };
 
   try {

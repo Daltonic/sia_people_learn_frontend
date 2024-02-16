@@ -11,7 +11,7 @@ interface Props {
 
 const Products: React.FC<Props> = ({ academiesObj, coursesObj, booksObj }) => {
   return (
-    <div className="">
+    <>
       <DashboardHeading
         title="Products"
         description="Access and manage all your products in one place."
@@ -21,7 +21,7 @@ const Products: React.FC<Props> = ({ academiesObj, coursesObj, booksObj }) => {
         coursesData={coursesObj}
         booksData={booksObj}
       />
-    </div>
+    </>
   );
 };
 
