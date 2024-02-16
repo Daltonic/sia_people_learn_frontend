@@ -14,6 +14,7 @@ import {
 import { CiSearch } from "react-icons/ci";
 import LocalFilters from "@/components/reusableComponents/LocalFilter";
 import { fetchAcademies, fetchCourses } from "@/services/backend.services";
+import LocalPagination from "@/components/reusableComponents/LocalPagination";
 
 const sortOptions = [
   { name: "Newest", value: "newest" },
@@ -272,6 +273,13 @@ const Tabs: React.FC<Props> = ({ academiesData, coursesData, booksData }) => {
           </div>
         )}
       </div>
+      {pageNumbers > 1 && (
+        <LocalPagination
+          totalPages={pageNumbers}
+          activePage={currentPage}
+          setActivePage={setCurrentPage}
+        />
+      )}
     </div>
   );
 };

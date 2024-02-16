@@ -36,14 +36,14 @@ export const getServerSideProps = async (
 
     return {
       props: {
-        postsObj: JSON.parse(JSON.stringify(posts)),
+        postsObj: JSON.parse(JSON.stringify(posts)) as IPosts,
       },
     };
   } catch (e: any) {
     console.log(e.message);
     return {
       props: {
-        postsObj: {},
+        postsObj: {} as IPosts,
       },
     };
   }
