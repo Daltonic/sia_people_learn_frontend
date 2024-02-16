@@ -24,8 +24,8 @@ const ReviewSection: React.FC<Props> = ({ reviewsData }) => {
             >
               {review.userId.imgUrl ? (
                 <Image
-                  width={0}
-                  height={0}
+                  width={100}
+                  height={100}
                   src={review.userId.imgUrl}
                   alt="image"
                   className="w-12 h-12 object-cover rounded-full"

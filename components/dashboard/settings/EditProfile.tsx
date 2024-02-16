@@ -10,8 +10,8 @@ const EditProfile: React.FC = () => {
       <div className="border-b border-[#EEEEEE] flex gap-5 items-start py-5">
         <div className="">
           <Image
-            width={0}
-            height={0}
+            width={100}
+            height={100}
             src="/images/testimonials/testimonial1.svg"
             alt="image"
             className="md:w-10 md:h-10 object-cover rounded-full"

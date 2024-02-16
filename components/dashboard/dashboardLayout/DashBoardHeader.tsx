@@ -93,6 +93,9 @@ const DashBoardHeader: React.FC<SidebarProps> = () => {
           onClick={toggleSidebar}
         >
           <FaBarsStaggered />
+          <div className="">
+        <DashBoardSidebar isOpen={isOpen} />
+      </div>
         </div>
         <div>
           <Link href="/">
@@ -154,9 +157,7 @@ const DashBoardHeader: React.FC<SidebarProps> = () => {
           </Modal>
         </div>
       </div>
-      <div className="hidden">
-        <DashBoardSidebar isOpen={isOpen} />
-      </div>
+    
     </div>
   );
 };

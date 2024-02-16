@@ -27,6 +27,7 @@ const sortOptions = [
 ];
 
 const filterOptions = [
+  { name: "Difficulty", value: "Difficulty" },
   { name: "All", value: "All" },
   { name: "Beginner", value: "Beginner" },
   { name: "Intermediate", value: "Intermediate" },
@@ -163,7 +164,7 @@ const Tabs: React.FC<Props> = ({ academiesData, coursesData, booksData }) => {
             />
           </div>
           <LocalFilters
-            label="Filter by Difficulty"
+            label="Filter"
             options={filterOptions}
             currFilter={difficulty}
             setCurrFilter={setDifficulty}

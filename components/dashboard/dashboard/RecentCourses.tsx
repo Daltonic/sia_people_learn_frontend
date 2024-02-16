@@ -50,8 +50,8 @@ const RecentCourses: React.FC<Props> = ({ resentCourses }) => {
                   <div className="flex gap-4 justify-between md:gap-0 sm:justify-start items-center md:space-x-5 mt-2 flex-wrap md:flex-nowrap">
                     <div className="flex items-center w-full md:w-fit">
                       <Image
-                        width={0}
-                        height={0}
+                        width={100}
+                        height={100}
                         className="object-cover mr-2 rounded-full w-5 h-5"
                         src={elm.authorImg}
                         alt="icon"

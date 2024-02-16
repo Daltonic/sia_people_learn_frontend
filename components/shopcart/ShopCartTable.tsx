@@ -222,8 +222,8 @@ const ShopCartTable: React.FC = () => {
                     <Image
                       className="w-20 rounded-md"
                       alt=""
-                      width={0}
-                      height={0}
+                      width={100}
+                      height={100}
                       src={item.imageUrl || "/images/shape.svg"}
                     />
                     <span className="text-[#321463] font-medium">

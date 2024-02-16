@@ -88,8 +88,8 @@ const LessonDetails: React.FC<ComponentProps> = ({ lesson }) => {
       <div className="w-full md:w-[55%]">
         <div className="w-full relative flex items-center justify-center">
           <Image
-            width={0}
-            height={0}
+            width={100}
+            height={100}
             className="rounded-md w-full object-cover"
             src={"/images/courseCard/card2.svg" || lesson.imageUrl}
             alt="image"
@@ -106,8 +106,8 @@ const LessonDetails: React.FC<ComponentProps> = ({ lesson }) => {
         </div>
         <div className="w-full relative flex items-center justify-center">
           {/* <Image
-          width={0}
-          height={0}
+          width={100}
+          height={100}
           className="rounded-md w-full object-cover"
           src={lesson.videoUrl || "/images/courseCard/card2.svg"}
           alt="image"

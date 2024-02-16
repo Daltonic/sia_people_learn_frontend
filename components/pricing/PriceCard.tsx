@@ -22,8 +22,8 @@ const PriceCard: React.FC<PricingItem> = (item) => {
        <p className="text-[#4F547B] md:text-sm">{item.period}</p>
      </div>
      <Image
-       width={0}
-       height={0}
+       width={100}
+       height={100}
        src={item.image}
        alt="icon"
        className="w-20 "

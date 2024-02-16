@@ -12,6 +12,7 @@ import { IoMdMore } from "react-icons/io";
 import { IUsers, RootState } from "@/utils/type.dt";
 import { toast } from "react-toastify";
 import { upgradeUser } from "@/services/backend.services";
+import UsersCard from "./UsersCard";
 
 const MyUsers: React.FC<{ usersObj: IUsers }> = ({ usersObj }) => {
   const dispatch = useDispatch();
@@ -77,6 +78,7 @@ const MyUsers: React.FC<{ usersObj: IUsers }> = ({ usersObj }) => {
     }
   }
 
+
   return (
     <div className="">
       <div className="mb-10 md:mb-16  px-5 sm:px-0">
@@ -99,7 +101,7 @@ const MyUsers: React.FC<{ usersObj: IUsers }> = ({ usersObj }) => {
           </div>
         </div>
         <div className="p-5">
-          <table className="table-auto w-full">
+          {/* <table className="table-auto w-full">
             <thead>
               <tr className="font-medium text-[#321463]">
                 <th className=" text-start">User</th>
@@ -114,8 +116,8 @@ const MyUsers: React.FC<{ usersObj: IUsers }> = ({ usersObj }) => {
                 <tr key={user._id}>
                   <td className="items-center flex gap-4 mt-2">
                     <Image
-                      width={0}
-                      height={0}
+                      width={100}
+                      height={100}
                       className="object-cover w-10 h-10 rounded-full"
                       src={user?.imgUrl || "/images/about/learning/1.svg"}
                       alt="image"
@@ -193,7 +195,12 @@ const MyUsers: React.FC<{ usersObj: IUsers }> = ({ usersObj }) => {
                 </tr>
               ))}
             </tbody>
-          </table>
+          </table> */}
+          <div className="flex justify-between gap-5 w-full flex-wrap">
+            {usersObj.users.map((user) => (
+              <UsersCard key={user._id} user={user} />
+            ))}
+          </div>
         </div>
       </div>
     </div>

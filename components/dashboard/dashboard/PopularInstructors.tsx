@@ -37,8 +37,8 @@ const PopularInstructors: React.FC<Props> = ({ teamMembers }) => {
               >
                 <div className="shrink-0">
                   <Image
-                    width={0}
-                    height={0}
+                    width={100}
+                    height={100}
                     className="object-cover w-10 h-10 rounded-full"
                     src={elm.image}
                     alt="image"
