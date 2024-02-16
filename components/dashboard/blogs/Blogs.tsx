@@ -15,6 +15,7 @@ const sortOptions = [
 ];
 
 const booleanOptions = [
+  { name: "Status", value: "Status" },
   { name: "All", value: "All" },
   { name: "True", value: "true" },
   { name: "False", value: "false" },
@@ -37,7 +38,7 @@ const Blogs: React.FC<Props> = ({ postsData }) => {
       }
     }
   }, [dispatch, setUserData, userData]);
-
+  
   const firstRender = useRef(true);
 
   const [postsObj, setPostsObj] = useState<IPosts>(postsData);
@@ -93,7 +94,7 @@ const Blogs: React.FC<Props> = ({ postsData }) => {
     <>
       <DashboardHeading title="Blogs" description="View and Manage all Blogs" />
       <div className="bg-white p-5 rounded-xl">
-        <div className="md:flex items-center md:justify-between space-y-2 md:space-y-0 mb-4">
+        <div className="flex flex-wrap items-center gap-5 md:justify-between mb-4">
           <div className="flex gap-5 items-center border border-[#E1DDDD] text-[#4F547B] rounded-md p-3 md:p-2 w-full md:w-96">
             <CiSearch className="text-[#4F547B] text-xl" />
             <input
@@ -105,13 +106,13 @@ const Blogs: React.FC<Props> = ({ postsData }) => {
             />
           </div>
           <LocalFilters
-            label="Filter by Approval"
+            label="Filter"
             options={booleanOptions}
             currFilter={published}
             setCurrFilter={setPublished}
           />
           <LocalFilters
-            label="Filter by Deleted"
+            label="Filter"
             options={booleanOptions}
             currFilter={deleted}
             setCurrFilter={setDeleted}
@@ -123,7 +124,7 @@ const Blogs: React.FC<Props> = ({ postsData }) => {
             setCurrFilter={setSort}
           />
         </div>
-        <div className="flex justify-between  w-full flex-wrap">
+        <div className="flex justify-between gap-5 w-full flex-wrap">
           {postsObj.posts &&
             postsObj.posts.map((post, index) => (
               <BlogCard key={post._id} blog={post} i={index} />

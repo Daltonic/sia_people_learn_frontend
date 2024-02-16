@@ -22,12 +22,14 @@ const sortOptions = [
 ];
 
 const booleanOptions = [
+  { name: "Status", value: "Status" },
   { name: "All", value: "All" },
   { name: "True", value: "true" },
   { name: "False", value: "false" },
 ];
 
 const filterOptions = [
+  { name: "Difficulty", value: "Difficulty" },
   { name: "All", value: "All" },
   { name: "Beginner", value: "Beginner" },
   { name: "Intermediate", value: "Intermediate" },
@@ -38,7 +40,7 @@ interface Props {
   academiesData: IAcademies;
   coursesData: ICourses;
   booksData: ICourses;
-}
+}  
 
 const Tabs: React.FC<Props> = ({ academiesData, coursesData, booksData }) => {
   const dispatch = useDispatch();
@@ -172,7 +174,7 @@ const Tabs: React.FC<Props> = ({ academiesData, coursesData, booksData }) => {
 
   return (
     <div className="bg-white p-5 rounded-xl">
-      <div className="md:flex items-center md:justify-between space-y-2 md:space-y-0 mb-4">
+      <div className="flex flex-wrap items-center gap-5 md:justify-between mb-4">
         <div className="flex gap-5 items-center border border-[#E1DDDD] text-[#4F547B] rounded-md p-3 md:p-2 w-full md:w-96">
           <CiSearch className="text-[#4F547B] text-xl" />
           <input
@@ -184,22 +186,24 @@ const Tabs: React.FC<Props> = ({ academiesData, coursesData, booksData }) => {
           />
         </div>
         <LocalFilters
-          label="Filter by Difficulty"
+          label="Filter"
           options={filterOptions}
           currFilter={difficulty}
           setCurrFilter={setDifficulty}
         />
         <LocalFilters
-          label="Filter by Approval"
-          options={booleanOptions}
-          currFilter={approved}
-          setCurrFilter={setApproved}
-        />
-        <LocalFilters
-          label="Filter by Deleted"
+          label="Deleted"
           options={booleanOptions}
           currFilter={deleted}
           setCurrFilter={setDeleted}
+        />
+      </div>
+      <div className="flex gap-5 ">
+        <LocalFilters
+          label="Filter"
+          options={booleanOptions}
+          currFilter={approved}
+          setCurrFilter={setApproved}
         />
         <LocalFilters
           label="Order By"
@@ -207,37 +211,35 @@ const Tabs: React.FC<Props> = ({ academiesData, coursesData, booksData }) => {
           currFilter={sort}
           setCurrFilter={setSort}
         />
+
       </div>
-      <div className="flex space-x-5 border-b">
+      <div className="flex space-x-5 border-b mt-5">
         <button
           onClick={() => handleTabClick(1)}
-          className={`py-2 border-b-4 transition-colors duration-300 text-[#4F547B] font-medium ${
-            activeTab === 1
-              ? "border-[#C5165D] text-[#C5165D]"
-              : "border-transparent hover:border-gray-200"
-          }`}
+          className={`py-2 border-b-4 transition-colors duration-300 text-[#4F547B] font-medium ${activeTab === 1
+            ? "border-[#C5165D] text-[#C5165D]"
+            : "border-transparent hover:border-gray-200"
+            }`}
           type="button"
         >
           Courses
         </button>
         <button
           onClick={() => handleTabClick(2)}
-          className={`py-2 border-b-4 transition-colors duration-300 text-[#4F547B] font-medium ${
-            activeTab === 2
-              ? "border-[#C5165D] text-[#C5165D]"
-              : "border-transparent hover:border-gray-200"
-          }`}
+          className={`py-2 border-b-4 transition-colors duration-300 text-[#4F547B] font-medium ${activeTab === 2
+            ? "border-[#C5165D] text-[#C5165D]"
+            : "border-transparent hover:border-gray-200"
+            }`}
           type="button"
         >
           Books
         </button>
         <button
           onClick={() => handleTabClick(3)}
-          className={`py-2 border-b-4 transition-colors duration-300 text-[#4F547B] font-medium ${
-            activeTab === 3
-              ? "border-[#C5165D] text-[#C5165D]"
-              : "border-transparent hover:border-gray-200"
-          }`}
+          className={`py-2 border-b-4 transition-colors duration-300 text-[#4F547B] font-medium ${activeTab === 3
+            ? "border-[#C5165D] text-[#C5165D]"
+            : "border-transparent hover:border-gray-200"
+            }`}
           type="button"
         >
           Academy
@@ -246,7 +248,7 @@ const Tabs: React.FC<Props> = ({ academiesData, coursesData, booksData }) => {
 
       <div className="py-4 text-[#4F547B]">
         {activeTab === 1 && (
-          <div className="flex p-5 gap-8 border w-full flex-wrap">
+          <div className="flex p-5 gap-8 w-full flex-wrap">
             {coursesObj.courses &&
               coursesObj.courses.length > 0 &&
               coursesObj.courses.map((elm, i: number) => (
@@ -255,7 +257,7 @@ const Tabs: React.FC<Props> = ({ academiesData, coursesData, booksData }) => {
           </div>
         )}
         {activeTab === 2 && (
-          <div className="flex p-5 gap-5 border w-full flex-wrap">
+          <div className="flex p-5 gap-5 w-full flex-wrap">
             {booksObj.courses &&
               booksObj.courses.length > 0 &&
               booksObj.courses.map((elm, i: number) => (
@@ -264,7 +266,7 @@ const Tabs: React.FC<Props> = ({ academiesData, coursesData, booksData }) => {
           </div>
         )}
         {activeTab === 3 && (
-          <div className="flex p-5 gap-8 border w-full flex-wrap">
+          <div className="flex p-5 gap-8 w-full flex-wrap">
             {academiesObj.academies &&
               academiesObj.academies.length > 0 &&
               academiesObj.academies.map((elm, i: number) => (

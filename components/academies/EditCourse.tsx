@@ -56,8 +56,8 @@ const EditCourse: React.FC<ComponentProps> = ({ academy }) => {
 
         <div className="md:w-full h-[20rem] mt-4 md:mt-0">
           <Image
-            height={0}
-            width={0}
+            height={100}
+            width={100}
             src={academy.imageUrl || "/images/courseCard/card3.svg"}
             alt=""
             className="w-full object-cover object-center h-full rounded-lg"
@@ -94,8 +94,8 @@ const EditCourse: React.FC<ComponentProps> = ({ academy }) => {
             <div className="flex items-center">
               <div className="mr-2 md:mr-1">
                 <Image
-                  width={0}
-                  height={0}
+                  width={100}
+                  height={100}
                   src="/images/home/coursesCards/icons/3.svg"
                   alt="difficulty"
                   className="w-5 h-5  md:w-3 md:h-3"
@@ -122,8 +122,8 @@ const EditCourse: React.FC<ComponentProps> = ({ academy }) => {
           <div className="flex items-center gap-10 mt-2 md:mt-0">
             <div className="flex items-center gap-2.5">
               <Image
-                width={0}
-                height={0}
+                width={100}
+                height={100}
                 src={
                   academy.userId?.imgUrl ||
                   "/images/instructors/instructor3.svg"

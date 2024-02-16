@@ -27,8 +27,8 @@ const Profile: React.FC = () => {
       <div className="flex flex-col gap-1 sm:gap-2">
         <div className="relative w-fit">
           <Image
-            width={0}
-            height={0}
+            width={100}
+            height={100}
             src={data.image}
             alt="image"
             className="w-20 h-20 sm:w-24 sm:h-24 md:w-16 md:h-16 object-cover rounded-full "

@@ -66,8 +66,8 @@ const LearnNewSkill: React.FC = ({}) => {
         <Image
           src="/images/instructors/instructor3.svg"
           alt=""
-          width={0}
-          height={0}
+          width={100}
+          height={100}
           className="md:h-full object-cover w-full md:w-[40%] rounded-lg mb-5 md:mb-0"
         />
 
@@ -97,10 +97,10 @@ const LearnNewSkill: React.FC = ({}) => {
           </Link>
         </div>
         <Image
-          src="/images/instructors/instructor4.svg"
+          src="/images/instructors/user.png"
           alt=""
-          width={0}
-          height={0}
+          width={100}
+          height={100}
           className="md:h-full object-cover w-full md:w-[40%] rounded-lg"
         />
       </div>

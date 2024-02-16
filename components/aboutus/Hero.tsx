@@ -20,8 +20,8 @@ const Hero: React.FC = () => {
             <Image
               src="/images/courseCard/card1.svg"
               alt=""
-              width={0}
-              height={0}
+              width={100}
+              height={100}
               className="h-full object-cover w-1/2"
             />
             <div className="w-1/2 h-full flex flex-col gap-5">

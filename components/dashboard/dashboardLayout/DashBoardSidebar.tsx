@@ -103,7 +103,7 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ isOpen }) => {
             </div>
           ))}
         <button
-          className="flex gap-2 items-center text-[#4F547B] py-2 pl-4 pr-5 font-medium"
+          className="flex gap-2 items-center text-[#4F547B] py-2 pl-4 pr-5 font-medium text-xl md:text-base"
           onClick={handleLogout}
         >
           <PowerSVG /> Logout

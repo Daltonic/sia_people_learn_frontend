@@ -45,17 +45,15 @@ const Courses: React.FC<ComponentProps> = ({ data, index }) => {
   };
   return (
     <div
-      className="w-full sm:w-[47%] md:w-[48%] bg-white rounded-lg border-[#EDEDED] border p-2 pb-0 shadow-[#EDEDED] shadow-md"
-      style={{ height: "fit-content" }}
+      className="w-full sm:w-[47%] md:w-[48%] h-40 bg-white rounded-lg border-[#EDEDED] border p-2 shadow-[#EDEDED] shadow-md"
     >
       <div className="md:flex gap-4 w-full">
-        <div className="md:w-1/3 py-2">
+        <div className="md:w-28 h-36">
           <Link className="linkCustom" href={`/coursedetail/${data._id}`}>
             <Image
-              width={0}
-              height={0}
-              style={{ height: "100%", width: "100%" }}
-              className="rounded-lg object-cover"
+              width={100}
+              height={100}
+              className="rounded-lg object-cover w-full h-full"
               src={data.imageUrl || "/images/heroImage.svg"}
               alt="image"
             />
@@ -69,7 +67,7 @@ const Courses: React.FC<ComponentProps> = ({ data, index }) => {
               src={
                 data.userId?.imgUrl
                   ? data.userId.imgUrl
-                  : "/images/instructor4.svg"
+                  : "/images/user.png"
               }
               alt="image"
               className="object-cover rounded-full"
@@ -84,8 +82,8 @@ const Courses: React.FC<ComponentProps> = ({ data, index }) => {
             <div className="flex items-center">
               <div className="mr-2 md:mr-1">
                 <Image
-                  width={0}
-                  height={0}
+                  width={100}
+                  height={100}
                   src="/images/home/coursesCards/icons/1.svg"
                   alt="icon"
                   className="w-5 h-5  md:w-3 md:h-3"
@@ -100,8 +98,8 @@ const Courses: React.FC<ComponentProps> = ({ data, index }) => {
             <div className="flex items-center">
               <div className="mr-2 md:mr-1">
                 <Image
-                  width={0}
-                  height={0}
+                  width={100}
+                  height={100}
                   src="/images/home/coursesCards/icons/2.svg"
                   alt="icon"
                   className="w-5 h-5 md:w-3 md:h-3"
@@ -115,8 +113,8 @@ const Courses: React.FC<ComponentProps> = ({ data, index }) => {
             <div className="flex items-start">
               <div className="mr-2 md:mr-1">
                 <Image
-                  width={0}
-                  height={0}
+                  width={100}
+                  height={100}
                   src="/images/home/coursesCards/icons/3.svg"
                   alt="icon"
                   className="w-5 h-5  md:w-3 md:h-3"

@@ -15,8 +15,8 @@ const InstructorCard: React.FC<InstructorProps> = ({ user, index }) => {
         <div className="relative">
           <div className="w-full h-72">
             <Image
-              width={0}
-              height={0}
+              width={100}
+              height={100}
               src={user.imgUrl!}
               alt="image"
               className="w-full h-full object-cover rounded-lg"

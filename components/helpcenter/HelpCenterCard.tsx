@@ -12,8 +12,8 @@ const HelpCenterCard: React.FC<HelpItem> = (item) => {
   return (
     <div className="bg-[#F7F8FB] rounded-lg w-[22rem] p-10">
       <Image
-        width={0}
-        height={0}
+        width={100}
+        height={100}
         src={item.image}
         alt="icon"
         className="w-14 mb-4"
