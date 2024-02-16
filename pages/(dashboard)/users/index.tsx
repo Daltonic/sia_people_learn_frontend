@@ -23,7 +23,7 @@ export const getServerSideProps = async (
 
     return {
       props: {
-        usersData: JSON.parse(JSON.stringify(users)),
+        usersData: JSON.parse(JSON.stringify(users)) as IUsers,
       },
     };
   } catch (e: any) {
