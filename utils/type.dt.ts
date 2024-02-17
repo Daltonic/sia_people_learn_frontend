@@ -335,7 +335,8 @@ export interface FetchUsersParams {
   pageSize?: number;
   searchQuery?: string;
   filter?: "newest" | "oldest";
-  userType?: "admin" | "instructor" | "user";
+  userType?: "admin" | "instructor" | "user" | null;
+  requestStatus?: "pending" | "approved" | "rejected" | null;
 }
 
 export interface UpgradeUserBody {

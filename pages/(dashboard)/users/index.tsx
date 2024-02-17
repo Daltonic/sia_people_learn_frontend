@@ -7,7 +7,7 @@ import { GetServerSidePropsContext } from "next";
 const Users: React.FC<{ usersData: IUsers }> = ({ usersData }) => {
   return (
     <DashboardLayout>
-      <MyUsers usersObj={usersData} />
+      <MyUsers initialUserObj={usersData} />
     </DashboardLayout>
   );
 };
