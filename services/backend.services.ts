@@ -762,7 +762,11 @@ const fetchUsers = async (query: FetchUsersParams, token?: string) => {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
-    params: { ...query },
+    params: {
+      ...query,
+      userType: query.userType || null,
+      request: query.requestStatus || null,
+    },
   };
 
   try {

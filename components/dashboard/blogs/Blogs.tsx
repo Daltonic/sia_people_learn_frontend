@@ -15,7 +15,7 @@ const sortOptions = [
 ];
 
 const booleanOptions = [
-  { name: "Status", value: "Status" },
+  { name: "Status", value: "All" },
   { name: "All", value: "All" },
   { name: "True", value: "true" },
   { name: "False", value: "false" },
@@ -38,7 +38,7 @@ const Blogs: React.FC<Props> = ({ postsData }) => {
       }
     }
   }, [dispatch, setUserData, userData]);
-  
+
   const firstRender = useRef(true);
 
   const [postsObj, setPostsObj] = useState<IPosts>(postsData);
