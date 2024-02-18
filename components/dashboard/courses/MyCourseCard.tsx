@@ -21,8 +21,6 @@ const MyCourseCard: React.FC<ComponentProps> = ({ product, index }) => {
   }, [product.productId.rating]);
 
 
-  const dropdownOptions = ['Option 1', 'Option 2', 'Option 3'];
-
   return (
     <div
       className="bg-white rounded-lg w-full sm:w-[48%] md:w-48 h-60 p-2 border-[#EDEDED] border shadow-[#EDEDED] shadow-xl"
@@ -38,13 +36,12 @@ const MyCourseCard: React.FC<ComponentProps> = ({ product, index }) => {
               alt="image"
             />
           </div>
-          <div className="text-[#6A7A99] bg-white p-1 text-xl rounded-md absolute top-3 right-3 cursor-pointer">
+          <div className="absolute top-3 right-3">
             <Dropdown > 
-              <button className="bg-sky-500 p-1 rounded-md text-white mb-1 w-full">Edit</button>
-              <button className="bg-green-500 p-1 rounded-md text-white mb-1 w-full"> Update</button>
-              <button className="bg-red-500 p-1 rounded-md text-white mb-1 w-full"> Delete</button>
+              <button className="bg-sky-500 p-1 rounded-md text-white w-full">Edit</button>
+              <button className="bg-green-500 p-1 rounded-md text-white w-full"> Update</button>
+              <button className="bg-red-500 p-1 rounded-md text-white w-full"> Delete</button>
             </Dropdown>
-            
           </div>
         </div>
 

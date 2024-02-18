@@ -193,6 +193,7 @@ export interface IUserSubscription {
     description: string;
     rating: number;
     imageUrl?: string;
+    email:string;
     userId: {
       _id: string;
       firstName: string;
