@@ -5,6 +5,7 @@ import {
   FetchUserSubscriptionsParams,
   FetchUsersParams,
   UpgradeUserBody,
+  UpgradeUserRequestBody,
 } from "@/utils/type.dt";
 import axios from "axios";
 
@@ -765,7 +766,7 @@ const fetchUsers = async (query: FetchUsersParams, token?: string) => {
     params: {
       ...query,
       userType: query.userType || null,
-      request: query.requestStatus || null,
+      requestStatus: query.requestStatus || null,
     },
   };
 
@@ -828,6 +829,30 @@ const fetchUserSubscriptions = async (
   }
 };
 
+const upgradeUserRequest = async (
+  body: UpgradeUserRequestBody,
+  token: string
+) => {
+  const url = `${BASE_URI}/api/v1/users/requestUpgrade`;
+  const config = {
+    method: "POST",
+    url,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    data: body,
+  };
+
+  try {
+    const response = await axios.request(config);
+    return Promise.resolve(response.status);
+  } catch (error: any) {
+    reportError(error);
+    return Promise.reject(error);
+  }
+};
+
 export {
   createPost,
   updatePost,
@@ -862,4 +887,5 @@ export {
   upgradeUser,
   fetchUserSubscriptions,
   fetchUserPosts,
+  upgradeUserRequest,
 };
