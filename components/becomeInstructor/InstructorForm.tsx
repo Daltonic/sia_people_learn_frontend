@@ -7,7 +7,9 @@ import TextAreaField from "../reusableComponents/TextAreaField";
 import { useRouter } from "next/navigation";
 import { useSelector, useDispatch } from "react-redux";
 import { userActions } from "@/store/userSlice";
-import { RootState } from "@/utils/type.dt";
+import { RootState, UpgradeUserRequestBody } from "@/utils/type.dt";
+import { toast } from "react-toastify";
+import { upgradeUserRequest } from "@/services/backend.services";
 
 const Instructorform: React.FC = () => {
   const dispatch = useDispatch();
@@ -52,41 +54,39 @@ const Instructorform: React.FC = () => {
     const { specialization, linkedIn, tutorialsLinks, teachingFocus } =
       instructorDetails;
     const instructorInput = {
-      upgradeUserTo: "instructor",
+      upgradeUserTo: "instructor" as UpgradeUserRequestBody["upgradeUserTo"],
       specialty: specialization,
       linkedInProfile: linkedIn,
       tutorialTitle: teachingFocus,
       samplesLink: tutorialsLinks,
     };
+    const token = sessionStorage.getItem("accessToken") as string;
 
     try {
-      const requestDetails = {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
-        },
-        body: JSON.stringify(instructorInput),
-      };
-
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/users/requestUpgrade`,
-        requestDetails
+      await toast.promise(
+        new Promise<void>(async (resolve, reject) => {
+          const status = await upgradeUserRequest(instructorInput, token);
+          if (status === 200 || status === 201) {
+            router.push("/(dashboard)/myCourses");
+            setInstructorDetails({
+              specialization: "",
+              tutorialsLinks: "",
+              linkedIn: "",
+              teachingFocus: "",
+            });
+            setSubmitting(true);
+            resolve();
+          } else {
+            setSubmitting(false);
+            reject();
+          }
+        }),
+        {
+          pending: "Submitting...",
+          success: "Request submitted in successfully 👌",
+          error: "Encountered error 🤯",
+        }
       );
-
-      if (response.status === 400) {
-        alert("Something went wrong");
-      }
-
-      const { msg } = await response.json();
-      alert(msg);
-      router.push("/(dashboard)/dashboard");
-      setInstructorDetails({
-        specialization: "",
-        tutorialsLinks: "",
-        linkedIn: "",
-        teachingFocus: "",
-      });
     } catch (e: any) {
       console.log(e.message);
       alert(e.message);

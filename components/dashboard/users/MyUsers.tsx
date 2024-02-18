@@ -19,9 +19,8 @@ const sortOptions = [
 const requestOptions = [
   { name: "Request status", value: "All" },
   { name: "All", value: "All" },
-  { name: "Pending", value: "pending" },
-  { name: "Approved", value: "approved" },
-  { name: "Rejected", value: "rejected" },
+  { name: "Yes", value: "true" },
+  { name: "No", value: "false" },
 ];
 
 const userOptions = [
@@ -180,12 +179,12 @@ const MyUsers: React.FC<Props> = ({ initialUserObj }) => {
             currFilter={userType}
             setCurrFilter={setUserType}
           />
-          {/* <LocalFilters
+          <LocalFilters
             label="Filter"
             options={requestOptions}
             currFilter={requestStatus}
             setCurrFilter={setRequestStatus}
-          /> */}
+          />
           <LocalFilters
             label="Order By"
             options={sortOptions}

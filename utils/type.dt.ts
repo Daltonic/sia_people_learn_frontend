@@ -1,50 +1,3 @@
-// export interface CourseStruct {
-//   id: number;
-//   imageSrc: string;
-//   authorImageSrc: string;
-//   title: string;
-//   rating: number;
-//   ratingCount: number;
-//   lessonCount: number;
-//   duration: number;
-//   level: string;
-//   originalPrice: number;
-//   discountedPrice: number;
-//   paid: boolean;
-//   category: string;
-//   state: string;
-//   languange: string;
-//   authorName: string;
-//   viewStatus: string;
-//   difficulty: string;
-//   quantity: number;
-//   desc?: string;
-//   description: string;
-//   overview: string;
-//   reviews: string[];
-//   price: number;
-//   name?: string;
-// }
-
-// export interface BlogStruct {
-//   id: number;
-//   imageSrc: string;
-//   category: string;
-//   title: string;
-//   date: string;
-//   desc: string;
-// }
-
-// export interface ReviewStruct {
-//   id: number;
-//   avatarSrc: string;
-//   name: string;
-//   date: string;
-//   rating: number;
-//   title: string;
-//   comment: string;
-// }
-
 export interface IAcademy {
   _id: string;
   name: string;
@@ -336,7 +289,7 @@ export interface FetchUsersParams {
   searchQuery?: string;
   filter?: "newest" | "oldest";
   userType?: "admin" | "instructor" | "user" | null;
-  requestStatus?: "pending" | "approved" | "rejected" | null;
+  requestStatus?: "true" | "false" | null;
 }
 
 export interface UpgradeUserBody {
@@ -344,6 +297,14 @@ export interface UpgradeUserBody {
   upgradeUserTo: "instructor" | "admin";
   requestId: string;
   status: "approved" | "rejected";
+}
+
+export interface UpgradeUserRequestBody {
+  upgradeUserTo: "instructor" | "admin";
+  specialty: string;
+  linkedInProfile: string;
+  tutorialTitle: string;
+  samplesLink: string;
 }
 
 export interface FetchSubscriptionsParams {
