@@ -853,6 +853,27 @@ const upgradeUserRequest = async (
   }
 };
 
+const stripeSubscription = async (productId: string, token: string) => {
+  const url = `${BASE_URI}/api/v1/processors/stripe/subscribe`;
+  const config = {
+    method: "POST",
+    url,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    data: { productId, paymentType: "Stripe" },
+  };
+
+  try {
+    const response = await axios.request(config);
+    return Promise.resolve(response.data);
+  } catch (error: any) {
+    reportError(error);
+    return Promise.reject(error);
+  }
+};
+
 export {
   createPost,
   updatePost,
@@ -888,4 +909,5 @@ export {
   fetchUserSubscriptions,
   fetchUserPosts,
   upgradeUserRequest,
+  stripeSubscription,
 };

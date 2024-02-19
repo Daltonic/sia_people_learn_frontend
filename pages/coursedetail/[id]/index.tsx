@@ -108,7 +108,6 @@ export const getServerSideProps = async (
 
   try {
     const course = (await fetchCourse(id as string, token)) as ICourse;
-    console.log(course);
 
     const courses = (await fetchCourses({})) as ICourses;
     const alternateCourses = courses.courses.filter(

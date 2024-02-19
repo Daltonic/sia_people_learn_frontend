@@ -13,6 +13,7 @@ const sortOptions = [
 ];
 
 const filterOptions = [
+  { name: "All", value: "All" },
   { name: "Beginner", value: "Beginner" },
   { name: "Intermediate", value: "Intermediate" },
   { name: "Advanced", value: "Advanced" },
@@ -62,20 +63,23 @@ export const getServerSideProps = async (
       searchQuery: searchQuery as string,
       page: Number(page),
       filter: filter as FetchProductsParams["filter"],
-      difficulty: difficulty as FetchProductsParams["difficulty"],
+      difficulty:
+        difficulty === "All"
+          ? null
+          : (difficulty as FetchProductsParams["difficulty"]),
       type: "Course",
     });
 
     return {
       props: {
-        coursesObj: JSON.parse(JSON.stringify(courses)),
+        coursesObj: JSON.parse(JSON.stringify(courses)) as ICourses,
       },
     };
   } catch (e: any) {
     console.log(e.message);
     return {
       props: {
-        coursesObje: {},
+        coursesObj: {} as ICourses,
       },
     };
   }
