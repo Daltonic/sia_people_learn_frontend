@@ -14,6 +14,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { cartActions } from "@/store/cartSlice";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
+import { toast } from "react-toastify";
+import { stripeSubscription } from "@/services/backend.services";
 
 interface ComponentProps {
   academy: IAcademy;
@@ -75,76 +77,68 @@ const AcademyDetails: React.FC<ComponentProps> = ({ academy }) => {
     }
   };
 
-  const handleSubscribe = () => {
+  const handleSubscribe = async () => {
     if (!userData) {
       sessionStorage.setItem("prevPath", pathname);
       router.push("/login");
     }
-    const subscribe = async () => {
-      const requestDetails = {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
-        },
-      };
 
-      try {
-        const subscriptionBody = {
-          productId: academy._id,
-          paymentType: "Stripe",
-        };
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/processors/stripe/subscribe`,
-          { ...requestDetails, body: JSON.stringify(subscriptionBody) }
-        );
-
-        if (response.status === 400) {
-          const message = await response.text();
-          alert(message);
-        } else {
-          const result = await response.json();
-          router.push(result.url);
+    try {
+      const token = sessionStorage.getItem("accessToken") as string;
+      await toast.promise(
+        new Promise<void>((resolve, reject) => {
+          stripeSubscription(academy._id, token)
+            .then((result) => {
+              router.push(result.url);
+              resolve(result);
+            })
+            .catch((error) => {
+              reject(error);
+            });
+        }),
+        {
+          pending: "Subscribing...",
+          success: "Subscribed successfully 👌",
+          error: "Encountered error 🤯",
         }
-      } catch (e: any) {
-        console.log(e.message);
-      }
-    };
-    subscribe();
+      );
+    } catch (e: any) {
+      console.log(e.message);
+    }
   };
 
-  useEffect(() => {
-    const fetchAcademies = async () => {
-      const requestDetails = {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
-        },
-      };
+  // useEffect(() => {
+  //   const fetchAcademies = async () => {
+  //     const requestDetails = {
+  //       method: "GET",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
+  //       },
+  //     };
 
-      try {
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/subscriptions/user?productType=Academy&pageSize=1000`,
-          requestDetails
-        );
+  //     try {
+  //       const response = await fetch(
+  //         `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/subscriptions/user?productType=Academy&pageSize=1000`,
+  //         requestDetails
+  //       );
 
-        if (response.status === 400) {
-          alert("Something went wrong");
-        } else {
-          const { subscriptions } =
-            (await response.json()) as IUserSubscriptions;
-          const isAcademyFound = subscriptions.find(
-            (sub) => sub.productId._id === academy._id
-          );
-          setIsSubscribed(isAcademyFound ? true : false);
-        }
-      } catch (e: any) {
-        console.log(e.message);
-      }
-    };
-    fetchAcademies();
-  }, [academy._id]);
+  //       if (response.status === 400) {
+  //         alert("Something went wrong");
+  //       } else {
+  //         const { subscriptions } =
+  //           (await response.json()) as IUserSubscriptions;
+  //         const isAcademyFound = subscriptions.find(
+  //           (sub) => sub.productId._id === academy._id
+  //         );
+  //         setIsSubscribed(isAcademyFound ? true : false);
+  //       }
+  //     } catch (e: any) {
+  //       console.log(e.message);
+  //     }
+  //   };
+  //   fetchAcademies();
+  // }, [academy._id]);
 
   return (
     <div className="bg-white w-full md:w-[25%] md:right-10 md:top-0 md:absolute md:border border-[#EDEDED] p-2 space-y-2 mt-10 rounded-md z-10">

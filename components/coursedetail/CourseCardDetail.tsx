@@ -3,12 +3,6 @@ import React, { useEffect, useState } from "react";
 import { ICourse, IUserSubscriptions, RootState } from "@/utils/type.dt";
 import Image from "next/image";
 import Button from "../reusableComponents/Button";
-import {
-  FaFacebookF,
-  FaInstagram,
-  FaLinkedinIn,
-  FaTwitter,
-} from "react-icons/fa";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import { cartActions } from "@/store/cartSlice";
@@ -62,38 +56,38 @@ const CourseCardDetail: React.FC<ComponentProps> = ({ course }) => {
     }
   };
 
-  useEffect(() => {
-    const fetchCourses = async () => {
-      const requestDetails = {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
-        },
-      };
+  // useEffect(() => {
+  //   const fetchCourses = async () => {
+  //     const requestDetails = {
+  //       method: "GET",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
+  //       },
+  //     };
 
-      try {
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/subscriptions/user?productType=Course&pageSize=1000`,
-          requestDetails
-        );
+  //     try {
+  //       const response = await fetch(
+  //         `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/subscriptions/user?productType=Course&pageSize=1000`,
+  //         requestDetails
+  //       );
 
-        if (response.status === 400) {
-          alert("Something went wrong");
-        } else {
-          const { subscriptions } =
-            (await response.json()) as IUserSubscriptions;
-          const isAcademyFound = subscriptions.find(
-            (sub) => sub.productId._id === course._id
-          );
-          setIsSubscribed(isAcademyFound ? true : false);
-        }
-      } catch (e: any) {
-        console.log(e.message);
-      }
-    };
-    fetchCourses();
-  }, [course._id]);
+  //       if (response.status === 400) {
+  //         alert("Something went wrong");
+  //       } else {
+  //         const { subscriptions } =
+  //           (await response.json()) as IUserSubscriptions;
+  //         const isAcademyFound = subscriptions.find(
+  //           (sub) => sub.productId._id === course._id
+  //         );
+  //         setIsSubscribed(isAcademyFound ? true : false);
+  //       }
+  //     } catch (e: any) {
+  //       console.log(e.message);
+  //     }
+  //   };
+  //   fetchCourses();
+  // }, [course._id]);
 
   return (
     <div className="bg-white w-full md:w-[25%] md:right-10 md:top-0 md:absolute md:border border-[#EDEDED] p-2 space-y-2 mt-10 md:mt-0 rounded-md z-10">
