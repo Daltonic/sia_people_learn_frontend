@@ -17,7 +17,7 @@ const Footer: React.FC = () => {
                 <Image
                   width={35}
                   height={35}
-                  src="/images/logoImg.svg"
+                  src="/images/general/logoImg.svg"
                   alt="logo"
                 />
               </Link>

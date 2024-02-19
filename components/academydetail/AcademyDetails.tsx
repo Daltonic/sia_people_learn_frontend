@@ -149,7 +149,7 @@ const AcademyDetails: React.FC<ComponentProps> = ({ academy }) => {
             height={250}
             style={{ height: "30%", width: "100%" }}
             className="rounded-md w-full"
-            src={academy.imageUrl || "/images/shape.svg"}
+            src={academy.imageUrl || "/images/general/shape.svg"}
             alt="image"
           />
         </div>

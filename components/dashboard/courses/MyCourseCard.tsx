@@ -32,7 +32,7 @@ const MyCourseCard: React.FC<ComponentProps> = ({ product, index }) => {
               width={500}
               height={400}
               className="rounded-lg object-cover h-full w-full"
-              src={product.productId.imageUrl || "/images/cardimg.svg"}
+              src={product.productId.imageUrl || "/images/general/cardimg.svg"}
               alt="image"
             />
           </div>

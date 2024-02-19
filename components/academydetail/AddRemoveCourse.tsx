@@ -140,7 +140,7 @@ const AddRemoveCourse: React.FC<Props> = ({ courses, academy }) => {
               <Badge
                 key={course._id}
                 inputText={course.name}
-                imageUrl="/images/right-arrow.png"
+                imageUrl="/images/general/right-arrow.png"
                 handleIconClick={() => handleRemove(course._id, course.name)}
               />
             ))}
@@ -159,7 +159,7 @@ const AddRemoveCourse: React.FC<Props> = ({ courses, academy }) => {
               <Badge
                 key={course._id}
                 inputText={course.name}
-                imageUrl="/images/left-arrow.png"
+                imageUrl="/images/general/left-arrow.png"
                 handleIconClick={() => handleAdd(course._id, course.name)}
                 imagePosition="left"
               />

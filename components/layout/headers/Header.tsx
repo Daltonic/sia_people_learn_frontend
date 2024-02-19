@@ -101,7 +101,7 @@ const Header: React.FC = () => {
               <Image
                 width={35}
                 height={35}
-                src="/images/logoImg.svg"
+                src="/images/general/logoImg.svg"
                 alt="logo"
                 className="object-cover w-8 h-8 rounded-full"
               />

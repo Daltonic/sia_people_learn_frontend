@@ -3,7 +3,7 @@ import Link from "next/link";
 import React from "react";
 
 const Hero: React.FC = () => {
-  const backgroundImageUrl = "/images/heroTwo.jpg";
+  const backgroundImageUrl = "/images/general/heroTwo.jpg";
 
   const divStyle = {
     backgroundImage: `url(${backgroundImageUrl})`,
@@ -13,7 +13,7 @@ const Hero: React.FC = () => {
     <section
       style={divStyle}
       className="max-h-[48vh] md:max-h-[100vh] md:mx-10 lg:mx-20 bg-cover md:rounded-2xl overflow-hidden"
-      data-bg="images/heroImage.svg"
+      data-bg="images/general/heroImage.svg"
     >
       <div className="bg-purple-900/20">
       <div className="ml-5 sm:ml-10 py-10 md:py-20 pr-5 md:pr-0 sm:w-4/5 md:w-[35%]">

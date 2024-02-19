@@ -34,7 +34,7 @@ const MyCourseCard: React.FC<ComponentProps> = ({ data, type }) => {
               width={100}
               height={100}
               className="rounded-lg object-cover h-full w-full"
-              src={data.imageUrl || "/images/cardimg.svg"}
+              src={data.imageUrl || "/images/general/cardimg.svg"}
               alt="image"
             />
           </div>

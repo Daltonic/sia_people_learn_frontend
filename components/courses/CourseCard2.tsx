@@ -74,7 +74,7 @@ const CourseCard: React.FC<Props> = ({ course }) => {
               width={500}
               height={500}
               className="rounded-md object-cover w-full h-full"
-              src={course.imageUrl || "/images/cardimg.svg"}
+              src={course.imageUrl || "/images/general/cardimg.svg"}
               alt="image"
             />
           </Link>
