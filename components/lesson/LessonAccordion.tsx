@@ -28,7 +28,7 @@ const LessonAccordion: React.FC<Props> = ({ course }) => {
                     <Image
                       height={100}
                       width={100}
-                      src={lesson.imageUrl || "/images/cardimg.svg"}
+                      src={lesson.imageUrl || "/images/general/cardimg.svg"}
                       alt="Course Image"
                       className="w-14 h-10 object-cover rounded-md"
                     />

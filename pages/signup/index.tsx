@@ -8,7 +8,7 @@ import { ChangeEvent, SyntheticEvent, useState } from "react";
 import { toast } from "react-toastify";
 import { createAccount } from "@/services/backend.services";
 
-const LoginPage: NextPage = () => {
+const SignPage: NextPage = () => {
   const [signupDetails, setSignupDetails] = useState({
     firstname: "",
     lastname: "",
@@ -179,4 +179,4 @@ const LoginPage: NextPage = () => {
   );
 };
 
-export default LoginPage;
+export default SignPage

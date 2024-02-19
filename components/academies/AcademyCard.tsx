@@ -29,7 +29,7 @@ const AcademyCard: React.FC<ComponentProps> = ({ data }) => {
               width={100}
               height={100}
               className="rounded-lg h-full w-full object-cover hover:opacity-70"
-              src={data.imageUrl || "/images/cardimg.svg"}
+              src={data.imageUrl || "/images/general/cardimg.svg"}
               alt="image"
             />
           </div>

@@ -54,7 +54,7 @@ const Courses: React.FC<ComponentProps> = ({ data, index }) => {
               width={100}
               height={100}
               className="rounded-lg object-cover w-full h-full"
-              src={data.imageUrl || "/images/heroImage.svg"}
+              src={data.imageUrl || "/images/general/heroImage.svg"}
               alt="image"
             />
           </Link>
@@ -67,7 +67,7 @@ const Courses: React.FC<ComponentProps> = ({ data, index }) => {
               src={
                 data.userId?.imgUrl
                   ? data.userId.imgUrl
-                  : "/images/user.png"
+                  : "/images/general/user.png"
               }
               alt="image"
               className="object-cover rounded-full"

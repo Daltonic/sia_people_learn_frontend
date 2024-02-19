@@ -13,7 +13,7 @@ const NotFound: React.FC = () => {
           <Image
             width={530}
             height={480}
-            src="/images/notfound.svg"
+            src="/images/general/notfound.svg"
             alt="image"
           />
         </div>

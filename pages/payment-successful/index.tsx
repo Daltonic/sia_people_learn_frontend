@@ -33,7 +33,7 @@ const Page: NextPage = () => {
         <div className="md:w-5/6 h-72 p-5 sm:p-10 sm:my-14 md:my-16 shadow shadow-slate-400  bg-[url('/images/instructors/instructorbg.svg')] bg-cover bg-center rounded-md flex flex-col items-center sm:items-start text-center">
           <Image
             className="w-16 h-16 object-cover mb-5"
-            src="/images/sucess.svg"
+            src="/images/general/sucess.svg"
             width={10}
             height={20}
             alt=""

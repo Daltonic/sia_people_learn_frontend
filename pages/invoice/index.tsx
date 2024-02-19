@@ -31,7 +31,7 @@ const Page: NextPage = () => {
                   <Image
                     width={35}
                     height={35}
-                    src="/images/logoImg.svg"
+                    src="/images/general/logoImg.svg"
                     alt="logo"
                   />
                   <p className="text-[#321463] text-md font-medium">

@@ -78,7 +78,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog, i }) => {
             <Image
               width={100}
               height={100}
-              src={blog.imageUrl || "/images/cardimg.svg"}
+              src={blog.imageUrl || "/images/general/cardimg.svg"}
               alt="image"
               className="rounded-lg w-full h-full object-cover"
             />

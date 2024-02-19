@@ -19,7 +19,7 @@ const Page: NextPage<{ courseData: ICourse; reviews: IReviews }> = ({
             <Image
               height={200}
               width={200}
-              src={courseData.imageUrl || "/images/cardimg.svg"}
+              src={courseData.imageUrl || "/images/general/cardimg.svg"}
               alt="Course Image"
               className="w-full md:h-[70vh] object-cover rounded-lg"
             />

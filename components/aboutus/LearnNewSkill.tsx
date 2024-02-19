@@ -97,7 +97,7 @@ const LearnNewSkill: React.FC = ({}) => {
           </Link>
         </div>
         <Image
-          src="/images/instructors/user.png"
+          src="/images/instructors/general/user.png"
           alt=""
           width={100}
           height={100}

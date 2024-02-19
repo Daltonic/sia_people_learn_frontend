@@ -14,7 +14,7 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({ children }) => {
         <div className="bg-[#321463] h-[30vh] overflow-y-hidden md:h-full w-full md:w-1/3 py-5 px-10 flex flex-col">
           <Link href="/">
             <div className="hidden md:flex items-center gap-2 cursor-pointer">
-              <Image width={35} height={35} src="/images/logoImg.svg" alt="logo" />
+              <Image width={35} height={35} src="/images/general/logoImg.svg" alt="logo" />
               <p className="text-white text-md">Dapp Mentors</p>
             </div>
           </Link>

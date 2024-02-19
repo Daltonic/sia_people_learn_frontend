@@ -262,7 +262,7 @@ const AcademyForm: React.FC<AcademyProps> = ({ academy }) => {
                 <Badge
                   key={index}
                   inputText={requirement}
-                  imageUrl="/images/cancel.png"
+                  imageUrl="/images/general/cancel.png"
                   handleIconClick={() =>
                     handleRemoveItem('requirements', requirement)
                   }
@@ -284,7 +284,7 @@ const AcademyForm: React.FC<AcademyProps> = ({ academy }) => {
                 <Badge
                   key={index}
                   inputText={tag}
-                  imageUrl="/images/cancel.png"
+                  imageUrl="/images/general/cancel.png"
                   handleIconClick={() => handleRemoveItem('tags', tag)}
                 />
               ))}
@@ -305,7 +305,7 @@ const AcademyForm: React.FC<AcademyProps> = ({ academy }) => {
               <Badge
                 key={index}
                 inputText={highlight}
-                imageUrl="/images/cancel.png"
+                imageUrl="/images/general/cancel.png"
                 handleIconClick={() =>
                   handleRemoveItem('highlights', highlight)
                 }

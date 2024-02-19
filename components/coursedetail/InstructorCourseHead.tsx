@@ -233,7 +233,7 @@ const CourseHead: React.FC<ComponentProps> = ({ course }) => {
         <Image
           height={100}
           width={100}
-          src={course.imageUrl || "/images/cardimg.svg"}
+          src={course.imageUrl || "/images/general/cardimg.svg"}
           alt="Course Image"
           className="w-full h-full object-cover rounded-lg"
         />

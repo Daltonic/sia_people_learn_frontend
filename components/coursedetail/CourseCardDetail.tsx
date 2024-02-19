@@ -98,7 +98,7 @@ const CourseCardDetail: React.FC<ComponentProps> = ({ course }) => {
             height={250}
             style={{ height: "30%", width: "100%" }}
             className="rounded-md w-full"
-            src={course.imageUrl || "/images/cardimg.svg"}
+            src={course.imageUrl || "/images/general/cardimg.svg"}
             alt="image"
           />
         </div>
