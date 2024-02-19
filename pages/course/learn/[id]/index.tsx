@@ -32,11 +32,15 @@ const Page: NextPage<{ courseData: ICourse; reviews: IReviews }> = ({
           {courseData.name}
         </div>
         <div className="my-4">
-          <h1 className="text-xl md:text-lg text-[#321463] font-medium">Overview</h1>
+          <h1 className="text-xl md:text-lg text-[#321463] font-medium">
+            Overview
+          </h1>
           <p className=" text-[#4F547B]">{courseData.overview}</p>
         </div>
         <div>
-          <h1 className="text-xl md:text-lg text-[#321463] font-medium">Description</h1>
+          <h1 className="text-xl md:text-lg text-[#321463] font-medium">
+            Description
+          </h1>
           <p className=" text-[#4F547B]">{courseData.description}</p>
         </div>
         <ReviewSection reviewsData={reviews} />
@@ -63,7 +67,7 @@ export const getServerSideProps = async (
       },
       token
     );
-    console.log(course);
+
     return {
       props: {
         courseData: JSON.parse(JSON.stringify(course)),
@@ -74,8 +78,8 @@ export const getServerSideProps = async (
     console.log(e.message);
     return {
       props: {
-        courseData: {},
-        reviewsData: {},
+        courseData: {} as ICourse,
+        reviewsData: {} as IReviews,
       },
     };
   }
