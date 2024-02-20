@@ -7,7 +7,7 @@ import {
   UpgradeUserBody,
   UpgradeUserRequestBody,
 } from "@/utils/type.dt";
-import axios from "axios";
+import axios, { AxiosProgressEvent, AxiosRequestConfig } from "axios";
 
 const BASE_URI = process.env.NEXT_PUBLIC_BACKEND_URI;
 
@@ -874,6 +874,35 @@ const stripeSubscription = async (productId: string, token: string) => {
   }
 };
 
+const uploadFile = async (
+  file: File,
+  onProgress: (progressEvent: AxiosProgressEvent) => void
+): Promise<any> => {
+  const url = `https://file.dappmentors.duckdns.org/upload`
+  // const url = `http://localhost:8000/upload`
+  const formData = new FormData()
+  formData.append('file', file)
+
+  const config: AxiosRequestConfig<FormData> = {
+    method: 'POST',
+    url,
+    headers: {
+      'Content-Type': 'multipart/form-data',
+      Authorization: `Bearer ${sessionStorage.getItem('accessToken')}`,
+    },
+    data: formData,
+    onUploadProgress: onProgress, // Add this line to handle progress events
+  }
+
+  try {
+    const response = await axios.request(config)
+    return Promise.resolve(response.data)
+  } catch (error) {
+    reportError(error)
+    return Promise.reject(error)
+  }
+}
+
 export {
   createPost,
   updatePost,
@@ -910,4 +939,5 @@ export {
   fetchUserPosts,
   upgradeUserRequest,
   stripeSubscription,
+  uploadFile
 };
