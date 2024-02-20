@@ -6,9 +6,10 @@ import Link from "next/link";
 
 interface Props {
   course: ICourse;
+  lessonId?: string;
 }
 
-const LessonAccordion: React.FC<Props> = ({ course }) => {
+const LessonAccordion: React.FC<Props> = ({ course, lessonId }) => {
   return (
     <div className="border rounded-md p-2 space-y-2">
       <div className="mb-2">Course Lessons</div>
@@ -17,8 +18,13 @@ const LessonAccordion: React.FC<Props> = ({ course }) => {
           {course.lessons.map((lesson) => (
             <Link
               key={lesson._id}
-              href={`/course/learn/lesson/${lesson._id}`}
-              className="flex item-center gap-3 text-[#4F547B] md:text-sm bg-slate-50 py-1 cursor-pointer"
+              href={{
+                pathname: `/course/learn/lesson/${lesson._id}`,
+                query: { courseId: course._id },
+              }}
+              className={`flex item-center gap-3 text-[#4F547B] md:text-sm  p-1 rounded-sm cursor-pointer ${
+                lesson._id === lessonId ? "bg-slate-200" : "bg-slate-50"
+              }`}
             >
               <div>
                 <Image
