@@ -714,6 +714,7 @@ const fetchReviews = async (query: FetchReviewsParams, token?: string) => {
 
 const fetchLesson = async (lessonId: string, token?: string) => {
   const url = `${BASE_URI}/api/v1/lessons/${lessonId}`;
+  console.log(url);
 
   const config = {
     method: "GET",

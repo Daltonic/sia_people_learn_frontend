@@ -32,6 +32,7 @@ const AcademyForm: React.FC<AcademyProps> = ({ academy }) => {
   const dispatch = useDispatch();
   const { setUserData } = userActions;
   const { userData } = useSelector((states: RootState) => states.userStates);
+  const [imageUrl, setImageUrl] = useState<string | null>(academy.imageUrl);
 
   useEffect(() => {
     if (!userData) {
@@ -152,6 +153,7 @@ const AcademyForm: React.FC<AcademyProps> = ({ academy }) => {
       ...prev,
       imageUrl,
     }));
+    setImageUrl(imageUrl);
   };
 
   const handleSubmit = async (e: SyntheticEvent) => {
@@ -209,7 +211,7 @@ const AcademyForm: React.FC<AcademyProps> = ({ academy }) => {
           </Button>
         )}
 
-        {productDetails.imageUrl && (
+        {imageUrl && (
           <div className="relative">
             <div className="flex justify-start items-center space-x-2 absolute top-2 left-2">
               <Button
@@ -274,7 +276,6 @@ const AcademyForm: React.FC<AcademyProps> = ({ academy }) => {
             required={false}
             inputType="url"
             value={productDetails.imageUrl}
-            handleChange={handleChange}
           />
         </div>
         <div className="md:flex gap-8">

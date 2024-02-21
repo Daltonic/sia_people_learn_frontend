@@ -9,8 +9,8 @@ const Page: NextPage<{ courseData: ICourse }> = ({ courseData }) => {
   return (
     <DashboardLayout>
       <EditCourseHeader
-        headerHead="Edit Your Academy"
-        headerBody="Start modifying your Academy"
+        headerHead="Edit Your Course"
+        headerBody="Start modifying your Course"
       />
       <CourseForm course={courseData} />
     </DashboardLayout>
