@@ -77,7 +77,7 @@ const CourseHead: React.FC<ComponentProps> = ({ course }) => {
           </div>
         </div>
         <div className="flex items-center gap-2.5 mt-2 md:mt-0">
-          {course.userId.imgUrl ? (
+          {course.userId?.imgUrl ? (
             <Image
               width={10}
               height={10}
@@ -87,12 +87,12 @@ const CourseHead: React.FC<ComponentProps> = ({ course }) => {
             />
           ) : (
             <div className="rounded-full w-8 h-8 text-white px-4 bg-[#C5165D] text-sm flex items-center justify-center">
-              {course.userId.firstName[0]}
-              {course.userId.lastName[0]}
+              {course.userId?.firstName[0]}
+              {course.userId?.lastName[0]}
             </div>
           )}
           <p className="md:text-sm text-[#4F547B]">
-            {course.userId.firstName} {course.userId.lastName}
+            {course.userId?.firstName} {course.userId?.lastName}
           </p>
         </div>
       </div>

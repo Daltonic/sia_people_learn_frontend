@@ -9,6 +9,9 @@ import React, { useState, ChangeEvent, SyntheticEvent, useEffect } from "react";
 import { toast } from "react-toastify";
 import { createLesson, updateLesson } from "@/services/backend.services";
 
+import { uploaderActions } from "@/store/uploaderSlice";
+import FileUploader from "@/components/reusableComponents/FileUploader";
+
 interface LessonProps {
   lesson?: ILesson;
   courseId: string;
@@ -29,7 +32,7 @@ const LessonForm: React.FC<LessonProps> = ({ lesson, courseId, type }) => {
       }
     }
   }, [dispatch, setUserData, userData]);
-  const [lessonDetails, setlessonDetails] = useState({
+  const [lessonDetails, setLessonDetails] = useState({
     title: lesson?.title || "",
     description: lesson?.description || "",
     overview: lesson?.overview || "",
@@ -41,13 +44,48 @@ const LessonForm: React.FC<LessonProps> = ({ lesson, courseId, type }) => {
   });
 
   const [submitting, setSubmitting] = useState<boolean>(false);
+  const [fileType, setFileType] = useState<"image" | "video" | "pdf">("image");
+  const [acceptType, setAcceptType] = useState<string>(
+    "image/png,image/jpeg,image/jpg"
+  );
+  const { setUploaderModal } = uploaderActions;
+
+  const handleFiletypeChange = (type: "image" | "video" | "pdf") => {
+    setFileType(type);
+    if (type === "image") {
+      setAcceptType("image/png,image/jpeg,image/jpg");
+    } else if (type === "video") {
+      setAcceptType("video/*");
+    } else {
+      setAcceptType("application/pdf");
+    }
+  };
+
+  const handleFileMount = (fileUrl: string) => {
+    if (fileType === "image") {
+      setLessonDetails((prev) => ({
+        ...prev,
+        imageUrl: fileUrl,
+      }));
+    } else if (fileType === "video") {
+      setLessonDetails((prev) => ({
+        ...prev,
+        videoUrl: fileUrl,
+      }));
+    } else {
+      setLessonDetails((prev) => ({
+        ...prev,
+        downloadableUrl: fileUrl,
+      }));
+    }
+  };
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.currentTarget;
 
-    setlessonDetails((prev) => ({
+    setLessonDetails((prev) => ({
       ...prev,
       [name]: value,
     }));
@@ -124,6 +162,45 @@ const LessonForm: React.FC<LessonProps> = ({ lesson, courseId, type }) => {
       <h1 className="p-5 text-[#321463] font-medium border-b border-[#EDEDED] text-xl md:text-base">
         Lesson Details
       </h1>
+      <div className="p-5 border-b border-[#EDEDED]">
+        <div className="w-full flex justify-between items-center ">
+          <Button
+            onClick={() => [
+              dispatch(setUploaderModal("scale-100")),
+              handleFiletypeChange("image"),
+            ]}
+            className="text-slate-600 border border-[color:var(--border-2,#E1DDDD)]"
+          >
+            {lessonDetails.imageUrl
+              ? "Replace lesson image"
+              : "Add lesson image"}
+          </Button>
+
+          <Button
+            onClick={() => [
+              dispatch(setUploaderModal("scale-100")),
+              handleFiletypeChange("video"),
+            ]}
+            className="text-slate-600 border border-[color:var(--border-2,#E1DDDD)]"
+          >
+            {lessonDetails.videoUrl
+              ? "Replace lesson video"
+              : "Add lesson video"}
+          </Button>
+
+          <Button
+            onClick={() => [
+              dispatch(setUploaderModal("scale-100")),
+              handleFiletypeChange("pdf"),
+            ]}
+            className="text-slate-600 border border-[color:var(--border-2,#E1DDDD)]"
+          >
+            {lessonDetails.downloadableUrl
+              ? "Replace downloadable file"
+              : "Add downloadable file"}
+          </Button>
+        </div>
+      </div>
       <form className="p-5" onSubmit={handleSubmit}>
         <InputField
           label="Title"
@@ -167,7 +244,7 @@ const LessonForm: React.FC<LessonProps> = ({ lesson, courseId, type }) => {
             required={false}
             inputType="url"
             value={lessonDetails.imageUrl}
-            handleChange={handleChange}
+            // handleChange={handleChange}
           />
         </div>
         <div className="md:flex gap-8">
@@ -178,7 +255,7 @@ const LessonForm: React.FC<LessonProps> = ({ lesson, courseId, type }) => {
             required={false}
             inputType="url"
             value={lessonDetails.videoUrl}
-            handleChange={handleChange}
+            // handleChange={handleChange}
           />
           <InputField
             label="Downloadable Url"
@@ -187,7 +264,7 @@ const LessonForm: React.FC<LessonProps> = ({ lesson, courseId, type }) => {
             required={false}
             inputType="url"
             value={lessonDetails.downloadableUrl}
-            handleChange={handleChange}
+            // handleChange={handleChange}
           />
           <InputField
             label="Order Number"
@@ -209,6 +286,10 @@ const LessonForm: React.FC<LessonProps> = ({ lesson, courseId, type }) => {
             : "Edit"}
         </Button>
       </form>
+      <FileUploader
+        onUploadSuccess={(response) => handleFileMount(response.url)}
+        accept={acceptType}
+      />
     </div>
   );
 };

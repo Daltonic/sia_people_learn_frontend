@@ -129,12 +129,7 @@ const Tabs: React.FC<ComponentProps> = ({ course, type, data }) => {
           {activeTab === 4 && (
             <div>
               {course.lessons.map((lesson) => (
-                <Link
-                  key={lesson._id}
-                  href={{
-                    pathname: `/course/lesson/${lesson._id}`,
-                  }}
-                >
+                <Link key={lesson._id} href={`/course/lesson/${lesson._id}`}>
                   <div
                     key={lesson._id}
                     className="flex gap-2 items-center mb-2"

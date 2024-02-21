@@ -41,14 +41,14 @@ export const getServerSideProps = async (
 
     return {
       props: {
-        lessonData: JSON.parse(JSON.stringify(lesson)),
+        lessonData: JSON.parse(JSON.stringify(lesson)) as ILesson,
       },
     };
   } catch (e: any) {
     console.log(e.message);
     return {
       props: {
-        lessonData: {},
+        lessonData: {} as ILesson,
       },
     };
   }

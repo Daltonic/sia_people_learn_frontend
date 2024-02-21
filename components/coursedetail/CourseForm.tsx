@@ -14,7 +14,6 @@ import React, {
 } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { userActions } from "@/store/userSlice";
-import FilePicker from "../reusableComponents/FilePicker";
 import WYSIWYG from "../reusableComponents/WYSIWYG";
 import { toast } from "react-toastify";
 import { updateCourse } from "@/services/backend.services";
@@ -34,6 +33,7 @@ const CourseForm: React.FC<CourseProps> = ({ course }) => {
   const { setUserData } = userActions;
   const { userData } = useSelector((states: RootState) => states.userStates);
   const { setUploaderModal } = uploaderActions;
+  const [imageUrl, setImageUrl] = useState<string | null>(course.imageUrl);
 
   useEffect(() => {
     if (!userData) {
@@ -154,6 +154,7 @@ const CourseForm: React.FC<CourseProps> = ({ course }) => {
       ...prev,
       imageUrl,
     }));
+    setImageUrl(imageUrl);
   };
 
   const handleSubmit = async (e: SyntheticEvent) => {
@@ -218,7 +219,7 @@ const CourseForm: React.FC<CourseProps> = ({ course }) => {
           </Button>
         )}
 
-        {productDetails.imageUrl && (
+        {imageUrl && (
           <div className="relative">
             <div className="flex justify-start items-center space-x-2 absolute top-2 left-2">
               <Button
@@ -283,8 +284,6 @@ const CourseForm: React.FC<CourseProps> = ({ course }) => {
             required={false}
             inputType="url"
             value={productDetails.imageUrl}
-
-            // handleChange={handleChange}
           />
         </div>
         <div className="md:flex gap-8">
