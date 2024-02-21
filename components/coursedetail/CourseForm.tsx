@@ -18,6 +18,10 @@ import FilePicker from "../reusableComponents/FilePicker";
 import WYSIWYG from "../reusableComponents/WYSIWYG";
 import { toast } from "react-toastify";
 import { updateCourse } from "@/services/backend.services";
+import { FaArrowsRotate, FaTrashCan } from "react-icons/fa6";
+import Image from "next/image";
+import { uploaderActions } from "@/store/uploaderSlice";
+import FileUploader from "../reusableComponents/FileUploader";
 
 interface CourseProps {
   course: ICourse;
@@ -29,7 +33,7 @@ const CourseForm: React.FC<CourseProps> = ({ course }) => {
   const dispatch = useDispatch();
   const { setUserData } = userActions;
   const { userData } = useSelector((states: RootState) => states.userStates);
-  const [imageUrl, setImageUrl] = useState<string>("");
+  const { setUploaderModal } = uploaderActions;
 
   useEffect(() => {
     if (!userData) {
@@ -145,6 +149,13 @@ const CourseForm: React.FC<CourseProps> = ({ course }) => {
     }));
   };
 
+  const handleImageMount = (imageUrl: string) => {
+    setProductDetails((prev) => ({
+      ...prev,
+      imageUrl,
+    }));
+  };
+
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
 
@@ -197,6 +208,45 @@ const CourseForm: React.FC<CourseProps> = ({ course }) => {
       <h1 className="p-5 text-[#321463] font-medium border-b border-[#EDEDED] text-xl md:text-base">
         Product Details
       </h1>
+      <div className="p-5 border-b border-[#EDEDED]">
+        {!productDetails.imageUrl && (
+          <Button
+            onClick={() => dispatch(setUploaderModal("scale-100"))}
+            className="text-slate-600 border border-[color:var(--border-2,#E1DDDD)]"
+          >
+            Add Image
+          </Button>
+        )}
+
+        {productDetails.imageUrl && (
+          <div className="relative">
+            <div className="flex justify-start items-center space-x-2 absolute top-2 left-2">
+              <Button
+                onClick={() => dispatch(setUploaderModal("scale-100"))}
+                className="bg-black bg-opacity-25 text-white"
+              >
+                <FaArrowsRotate size={20} />
+              </Button>
+
+              <Button
+                onClick={() =>
+                  setProductDetails((prev) => ({ ...prev, imageUrl: "" }))
+                }
+                className="bg-black bg-opacity-25 text-white"
+              >
+                <FaTrashCan size={20} />
+              </Button>
+            </div>
+            <Image
+              src={productDetails.imageUrl}
+              alt={productDetails.title || "Product"}
+              width={500}
+              height={100}
+              className="h-72 w-full object-cover"
+            />
+          </div>
+        )}
+      </div>
       <form className="p-5" onSubmit={handleSubmit}>
         <InputField
           label="Title"
@@ -217,12 +267,6 @@ const CourseForm: React.FC<CourseProps> = ({ course }) => {
           />
         </div>
         <div className="md:flex gap-8">
-          <FilePicker
-            type="Image"
-            label="Image Url"
-            fileName={imageUrl}
-            setFileName={setImageUrl}
-          />
           <InputField
             label="Price"
             name="price"
@@ -231,6 +275,16 @@ const CourseForm: React.FC<CourseProps> = ({ course }) => {
             inputType="number"
             value={productDetails.price}
             handleChange={handleChange}
+          />
+          <InputField
+            label="ImageURL"
+            name="imageUrl"
+            placeholder="Enter Product ImageURL"
+            required={false}
+            inputType="url"
+            value={productDetails.imageUrl}
+
+            // handleChange={handleChange}
           />
         </div>
         <div className="md:flex gap-8">
@@ -338,6 +392,10 @@ const CourseForm: React.FC<CourseProps> = ({ course }) => {
           {submitting ? "Editting" : "Edit"}
         </Button>
       </form>
+      <FileUploader
+        onUploadSuccess={(response) => handleImageMount(response.url)}
+        accept="image/png,image/jpeg,image/jpg"
+      />
     </div>
   );
 };

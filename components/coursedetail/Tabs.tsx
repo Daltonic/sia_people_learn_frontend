@@ -73,20 +73,19 @@ const Tabs: React.FC<ComponentProps> = ({ course, type, data }) => {
           {activeTab === 1 && (
             <div>
               <h4 className="text-xl md:text-lg text-[#321463] font-medium mb-3">
-              Description
+                Description
               </h4>
-              <p
+              <div
+                dangerouslySetInnerHTML={{ __html: course.description }}
                 className={
-                  showMore ? "text-[#4F547B]" : "line-clamp-3 text-[#4F547B]" 
+                  showMore ? "text-[#4F547B]" : "line-clamp-3 text-[#4F547B]"
                 }
-              >
-                {course.description}
-              </p>
+              />
               <button
                 onClick={() => setShowMore(!showMore)}
                 className="mt-2  text-[#C5165D] "
               >
-                View More
+                {showMore ? "View Less" : "View More"}
               </button>
             </div>
           )}
@@ -95,19 +94,16 @@ const Tabs: React.FC<ComponentProps> = ({ course, type, data }) => {
               <h4 className="text-xl md:text-lg text-[#321463] font-medium mb-3">
                 What you will learn
               </h4>
-                <div className="space-y-2">
-                  {course.requirements.map((requirement, index) => (
-                    <div
-                      key={index}
-                      className="flex items-center text-[#4F547B]"
-                    >
-                      <div className="flex justify-center items-center border border-gray-300 rounded-full h-5 w-5 mr-3 p-1 ">
-                        <FaCheck className="text-[10px]" />
-                      </div>
-                      <span key={index}>{requirement}</span>
+              <div className="space-y-2">
+                {course.requirements.map((requirement, index) => (
+                  <div key={index} className="flex items-center text-[#4F547B]">
+                    <div className="flex justify-center items-center border border-gray-300 rounded-full h-5 w-5 mr-3 p-1 ">
+                      <FaCheck className="text-[10px]" />
                     </div>
-                  ))}
-                </div>
+                    <span key={index}>{requirement}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           )}
           {activeTab === 3 && (
@@ -122,7 +118,9 @@ const Tabs: React.FC<ComponentProps> = ({ course, type, data }) => {
                       <FaCircle className="text-[10px] text-[#4F547B]" />
                     </div>
 
-                    <span  className="text-[#4F547B]" key={index}>{requirement}</span>
+                    <span className="text-[#4F547B]" key={index}>
+                      {requirement}
+                    </span>
                   </div>
                 ))}
               </ul>

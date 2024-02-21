@@ -104,13 +104,15 @@ const AcademyHead: React.FC<ComponentProps> = ({ academy }) => {
               </button>
             </Link>
 
-            <button
-              onClick={handleSubmit}
-              className="text-white flex gap-2 items-center text-xs font-medium bg-pink-400 p-2 rounded-md"
-            >
-              Submit
-              <FaRegCheckCircle />
-            </button>
+            {!academy.approved && (
+              <button
+                onClick={handleSubmit}
+                className="text-white flex gap-2 items-center text-xs font-medium bg-pink-400 p-2 rounded-md"
+              >
+                Submit
+                <FaRegCheckCircle />
+              </button>
+            )}
             <button
               onClick={handleDelete}
               className="text-white flex gap-2 items-center text-xs font-medium bg-red-500 p-2 rounded-md"

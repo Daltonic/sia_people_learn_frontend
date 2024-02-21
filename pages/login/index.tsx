@@ -93,7 +93,7 @@ const LoginPage: NextPage = () => {
           resolve(user);
         } else {
           setSubmitting(false);
-          reject();
+          reject("An error occurred");
         }
       }),
       {
