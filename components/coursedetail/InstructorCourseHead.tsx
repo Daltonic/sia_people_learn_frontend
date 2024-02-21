@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 import { MdOutlineRateReview } from "react-icons/md";
 import { toast } from "react-toastify";
 import { deleteCourse, submitCourse } from "@/services/backend.services";
+import { convertStringToDate } from "@/utils";
 
 interface ComponentProps {
   course: ICourse;
@@ -107,14 +108,16 @@ const CourseHead: React.FC<ComponentProps> = ({ course }) => {
                 <FiPlusCircle />
               </button>
             </Link>
+            {!course.approved && (
+              <button
+                onClick={handleSubmit}
+                className="text-white flex gap-2 items-center text-xs font-medium bg-pink-400 p-2 rounded-md"
+              >
+                Submit
+                <FaRegCheckCircle />
+              </button>
+            )}
 
-            <button
-              onClick={handleSubmit}
-              className="text-white flex gap-2 items-center text-xs font-medium bg-pink-400 p-2 rounded-md"
-            >
-              Submit
-              <FaRegCheckCircle />
-            </button>
             <button
               onClick={handleDelete}
               className="text-white flex gap-2 items-center text-xs font-medium bg-red-500 p-2 rounded-md"
@@ -201,11 +204,11 @@ const CourseHead: React.FC<ComponentProps> = ({ course }) => {
           </div>
           <div className="flex gap-5  items-center">
             <p className="md:text-sm text-[#4F547B]">
-              Created At {course.createdAt}
+              Created on {convertStringToDate(course.createdAt)}
             </p>
 
             <p className="md:text-sm text-[#4F547B]">
-              Updated At {course.updatedAt}
+              Updated on {convertStringToDate(course.updatedAt)}
             </p>
           </div>
           <div className="flex items-center gap-10 mt-2 md:mt-0">
