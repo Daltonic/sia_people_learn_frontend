@@ -11,7 +11,12 @@ const Page: NextPage = () => {
           shadow shadow-slate-400  bg-[url('/images/instructors/instructorbg.svg')]
           bg-cover bg-center rounded-md flex flex-col items-center sm:items-start text-center"
         >
-          <video src="http://localhost:8000/download/video/1708596030238__AQgH.mp4"></video>
+          <video
+            src="https://file.dappmentors.duckdns.org/download/video/1708596030238__AQgH.mp4"
+            controls
+            width="500"
+            height="200"
+          ></video>
         </div>
       </div>
     </Layout>
