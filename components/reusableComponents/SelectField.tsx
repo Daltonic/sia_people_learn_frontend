@@ -1,18 +1,18 @@
-import React, { ChangeEvent } from "react";
+import React, { ChangeEvent } from 'react'
 
 interface Option {
-  label: string;
-  value: string | number;
+  label: string
+  value: string | number
 }
 
 interface SelectFieldProps {
-  label: string;
-  options: Option[];
-  value: string | number;
-  name?: string;
-  handleChange?: (e: ChangeEvent<HTMLSelectElement>) => void;
-  onChange?: (input: string | number) => void;
-  defaultValue?: string;
+  label: string
+  options: Option[]
+  value: string | number
+  name?: string
+  handleChange?: (e: ChangeEvent<HTMLSelectElement>) => void
+  onChange?: (input: string | number) => void
+  defaultValue?: string
 }
 
 const SelectField: React.FC<SelectFieldProps> = ({
@@ -33,13 +33,13 @@ const SelectField: React.FC<SelectFieldProps> = ({
       onChange={handleChange}
       defaultValue={defaultValue}
     >
-      {options.map((option) => (
-        <option key={option.value} value={option.value}>
+      {options.map((option, i) => (
+        <option key={i} value={option.value}>
           {option.label}
         </option>
       ))}
     </select>
   </div>
-);
+)
 
-export default SelectField;
+export default SelectField
