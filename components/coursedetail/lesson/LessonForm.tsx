@@ -11,6 +11,9 @@ import { createLesson, updateLesson } from '@/services/backend.services'
 
 import { uploaderActions } from '@/store/uploaderSlice'
 import FileUploader from '@/components/reusableComponents/FileUploader'
+import { FaArrowsRotate, FaTrashCan } from 'react-icons/fa6'
+import { MdCancel, MdOutlineFileCopy } from 'react-icons/md'
+import { extractFileNameFromUrl, truncateFileName } from '@/utils/helper'
 
 interface LessonProps {
   lesson?: ILesson
@@ -44,30 +47,11 @@ const LessonForm: React.FC<LessonProps> = ({ lesson, courseId, type }) => {
   })
 
   const [submitting, setSubmitting] = useState<boolean>(false)
-  const [fileType, setFileType] = useState<'image' | 'video' | 'pdf'>('image')
-  const [acceptType, setAcceptType] = useState<string>(
-    'image/png,image/jpeg,image/jpg'
-  )
+  const [acceptType, setAcceptType] = useState<string>('')
   const { setUploaderModal } = uploaderActions
 
-  const handleFiletypeChange = (type: 'image' | 'video' | 'pdf') => {
-    setFileType(type)
-    if (type === 'image') {
-      setAcceptType('image/png,image/jpeg,image/jpg')
-    } else if (type === 'video') {
-      setAcceptType('video/*')
-    } else {
-      setAcceptType('application/pdf')
-    }
-  }
-
   const handleFileMount = (fileUrl: string) => {
-    if (fileType === 'image') {
-      setLessonDetails((prev) => ({
-        ...prev,
-        imageUrl: fileUrl,
-      }))
-    } else if (fileType === 'video') {
+    if (acceptType.includes('video')) {
       setLessonDetails((prev) => ({
         ...prev,
         videoUrl: fileUrl,
@@ -157,23 +141,53 @@ const LessonForm: React.FC<LessonProps> = ({ lesson, courseId, type }) => {
     }
   }
 
+  const handleFileAttachment = (type: string) => {
+    setAcceptType(type)
+    dispatch(setUploaderModal('scale-100'))
+  }
+
   return (
     <div className="bg-white rounded-lg ">
       <div className="p-5 border-b border-[#EDEDED]">
-        <div className="w-full flex justify-between items-center ">
+        {!lessonDetails.videoUrl && (
           <Button
-            onClick={() => [
-              dispatch(setUploaderModal('scale-100')),
-              handleFiletypeChange('video'),
-            ]}
+            onClick={() => handleFileAttachment('video/mp4')}
             className="text-slate-600 border border-[color:var(--border-2,#E1DDDD)]"
           >
-            {lessonDetails.videoUrl
-              ? 'Replace lesson video'
-              : 'Add lesson video'}
+            Add Video
           </Button>
-        </div>
+        )}
+
+        {lessonDetails.videoUrl && (
+          <div className="relative">
+            <div className="flex justify-start items-center space-x-2 absolute top-2 left-2">
+              <Button
+                onClick={() => handleFileAttachment('video/mp4')}
+                className="bg-black bg-opacity-25 text-white"
+              >
+                <FaArrowsRotate size={20} />
+              </Button>
+
+              <Button
+                onClick={() =>
+                  setLessonDetails((prev) => ({ ...prev, videoUrl: '' }))
+                }
+                className="bg-black bg-opacity-25 text-white"
+              >
+                <FaTrashCan size={20} />
+              </Button>
+            </div>
+            <video
+              src={lessonDetails.videoUrl}
+              width={500}
+              height={100}
+              className="h-72 w-full object-cover"
+              controls
+            />
+          </div>
+        )}
       </div>
+
       <form className="p-5" onSubmit={handleSubmit}>
         <InputField
           label="Title"
@@ -214,26 +228,44 @@ const LessonForm: React.FC<LessonProps> = ({ lesson, courseId, type }) => {
           />
         </div>
         <div className="md:flex gap-8">
-          <Button
-            onClick={() => [
-              dispatch(setUploaderModal('scale-100')),
-              handleFiletypeChange('pdf'),
-            ]}
-            className="text-slate-600 border border-[color:var(--border-2,#E1DDDD)]"
-          >
-            {lessonDetails.downloadableUrl
-              ? 'Replace downloadable file'
-              : 'Add downloadable file'}
-          </Button>
+          {!lessonDetails.downloadableUrl && (
+            <Button
+              onClick={() => handleFileAttachment('application/pdf')}
+              className="text-slate-600 border border-[color:var(--border-2,#E1DDDD)]"
+            >
+              Add Downloadable
+            </Button>
+          )}
+
+          {lessonDetails.downloadableUrl && (
+            <div className="flex gap-2 items-center text-pink-600">
+              <MdOutlineFileCopy size={20} />
+
+              <div className="flex-1 flex justify-start items-center space-x-2">
+                <p>{extractFileNameFromUrl(lessonDetails.downloadableUrl)}</p>
+              </div>
+
+              <Button
+                onClick={() =>
+                  setLessonDetails((prev) => ({
+                    ...prev,
+                    downloadableUrl: '',
+                  }))
+                }
+              >
+                <MdCancel className="text-gray-600" />
+              </Button>
+            </div>
+          )}
         </div>
         <Button variant="pink" className="mt-14" disabled={submitting}>
           {submitting
             ? type === 'create'
               ? 'Creating'
-              : 'Editting'
+              : 'Updating'
             : type === 'create'
             ? 'Create'
-            : 'Edit'}
+            : 'Update'}
         </Button>
       </form>
       <FileUploader
