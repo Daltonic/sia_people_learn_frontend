@@ -1,170 +1,184 @@
-import Badge from "@/components/reusableComponents/Badge";
-import Button from "@/components/reusableComponents/Button";
-import InputField from "@/components/reusableComponents/InputField";
-import SelectField from "@/components/reusableComponents/SelectField";
-import TextAreaField from "@/components/reusableComponents/TextAreaField";
-import { useRouter } from "next/navigation";
+import Badge from '@/components/reusableComponents/Badge'
+import Button from '@/components/reusableComponents/Button'
+import InputField from '@/components/reusableComponents/InputField'
+import SelectField from '@/components/reusableComponents/SelectField'
+import TextAreaField from '@/components/reusableComponents/TextAreaField'
+import { useRouter } from 'next/navigation'
 import React, {
   useState,
   KeyboardEvent,
   ChangeEvent,
   SyntheticEvent,
   useEffect,
-} from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { userActions } from "@/store/userSlice";
-import { RootState } from "@/utils/type.dt";
-import WYSIWYG from "@/components/reusableComponents/WYSIWYG";
-import { toast } from "react-toastify";
-import { createAcademy, createCourse } from "@/services/backend.services";
-import FileUploader from "@/components/reusableComponents/FileUploader";
-import Image from "next/image";
-import { uploaderActions } from "@/store/uploaderSlice";
-import { FaArrowsRotate, FaTrashCan } from "react-icons/fa6";
+} from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { userActions } from '@/store/userSlice'
+import { ICourse, RootState } from '@/utils/type.dt'
+import WYSIWYG from '@/components/reusableComponents/WYSIWYG'
+import { toast } from 'react-toastify'
+import {
+  createAcademy,
+  createCourse,
+  updateAcademy,
+  updateCourse,
+} from '@/services/backend.services'
+import FileUploader from '@/components/reusableComponents/FileUploader'
+import Image from 'next/image'
+import { uploaderActions } from '@/store/uploaderSlice'
+import { FaArrowsRotate, FaTrashCan } from 'react-icons/fa6'
 
-const CourseForm: React.FC = () => {
-  const [editorContent, setEditorContent] = useState<string>("");
-  const router = useRouter();
-  const dispatch = useDispatch();
-  const { setUserData } = userActions;
-  const { setUploaderModal } = uploaderActions;
-  const { userData } = useSelector((states: RootState) => states.userStates);
+const CourseForm: React.FC<{ course?: ICourse }> = ({ course }) => {
+  const [editorContent, setEditorContent] = useState<string>('')
+  const router = useRouter()
+  const dispatch = useDispatch()
+  const { setUserData } = userActions
+  const { setUploaderModal } = uploaderActions
+  const { userData } = useSelector((states: RootState) => states.userStates)
 
   useEffect(() => {
     if (!userData) {
-      const sessionUser = JSON.parse(sessionStorage.getItem("user")!);
+      const sessionUser = JSON.parse(sessionStorage.getItem('user')!)
       if (sessionUser) {
-        dispatch(setUserData(sessionUser));
+        dispatch(setUserData(sessionUser))
       }
     }
-  }, [dispatch, setUserData, userData]);
+
+    if (course) setProductDetails(course as any)
+  }, [dispatch, setUserData, userData, course])
 
   const [productDetails, setProductDetails] = useState({
-    title: "",
-    description: "",
-    overview: "",
+    title: '',
+    description: '',
+    overview: '',
     price: 0,
-    imageUrl: "",
-    difficulty: "Beginner" as "Beginner" | "Intermediate" | "Advanced",
-    productType: "Course" as "Academy" | "Course" | "Book",
+    imageUrl: '',
+    difficulty: 'Beginner' as 'Beginner' | 'Intermediate' | 'Advanced',
+    productType: 'Course' as 'Academy' | 'Course' | 'Book',
     tags: [] as string[],
     requirements: [] as string[],
     highlights: [] as string[],
-  });
+  })
 
-  const [submitting, setSubmitting] = useState<boolean>(false);
+  const [submitting, setSubmitting] = useState<boolean>(false)
 
   const handleInputKeyDown = (
     e: KeyboardEvent<HTMLInputElement>,
-    field: "tags" | "requirements" | "highlights"
+    field: 'tags' | 'requirements' | 'highlights'
   ) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
+    if (e.key === 'Enter') {
+      e.preventDefault()
 
-      const input = e.target as HTMLInputElement;
-      const value = input.value.trim();
+      const input = e.target as HTMLInputElement
+      const value = input.value.trim()
 
-      if (value !== "") {
+      if (value !== '') {
         switch (field) {
-          case "highlights":
+          case 'highlights':
             if (!productDetails.highlights.includes(value)) {
               setProductDetails((prev) => ({
                 ...prev,
                 highlights: [...prev.highlights, value],
-              }));
-              input.value = "";
+              }))
+              input.value = ''
             } else {
-              input.value = "";
+              input.value = ''
             }
-            break;
-          case "requirements":
+            break
+          case 'requirements':
             if (!productDetails.requirements.includes(value)) {
               setProductDetails((prev) => ({
                 ...prev,
                 requirements: [...prev.requirements, value],
-              }));
-              input.value = "";
+              }))
+              input.value = ''
             } else {
-              input.value = "";
+              input.value = ''
             }
-            break;
+            break
 
-          case "tags":
+          case 'tags':
             if (!productDetails.tags.includes(value)) {
               setProductDetails((prev) => ({
                 ...prev,
                 tags: [...prev.tags, value],
-              }));
-              input.value = "";
+              }))
+              input.value = ''
             } else {
-              input.value = "";
+              input.value = ''
             }
-            break;
+            break
         }
       }
     }
-  };
+  }
 
   const handleRemoveItem = (
-    field: "highlights" | "requirements" | "tags",
+    field: 'highlights' | 'requirements' | 'tags',
     value: string
   ) => {
     switch (field) {
-      case "highlights":
+      case 'highlights':
         const newHighlights = productDetails.highlights.filter(
           (highlight: string) => highlight !== value
-        );
-        setProductDetails((prev) => ({ ...prev, highlights: newHighlights }));
-        break;
-      case "requirements":
+        )
+        setProductDetails((prev) => ({ ...prev, highlights: newHighlights }))
+        break
+      case 'requirements':
         const newRequirements = productDetails.requirements.filter(
           (requirement: string) => requirement !== value
-        );
+        )
         setProductDetails((prev) => ({
           ...prev,
           requirements: newRequirements,
-        }));
-        break;
-      case "tags":
+        }))
+        break
+      case 'tags':
         const newTags = productDetails.tags.filter(
           (tag: string) => tag !== value
-        );
-        setProductDetails((prev) => ({ ...prev, tags: newTags }));
-        break;
+        )
+        setProductDetails((prev) => ({ ...prev, tags: newTags }))
+        break
     }
-  };
+  }
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
-    const { name, value } = e.currentTarget;
+    const { name, value } = e.currentTarget
 
     setProductDetails((prev) => ({
       ...prev,
       [name]: value,
-    }));
-  };
+    }))
+  }
 
   const handleImageMount = (imageUrl: string) => {
     setProductDetails((prev) => ({
       ...prev,
       imageUrl,
-    }));
-  };
+    }))
+  }
 
   const handleSubmit = async (e: SyntheticEvent) => {
-    e.preventDefault();
+    e.preventDefault()
 
-    if (userData?.userType !== "instructor") {
-      throw new Error("Only instructors can create products");
+    if (userData?.userType !== 'instructor') {
+      throw new Error('Only instructors can create products')
     }
 
-    setSubmitting(true);
+    setSubmitting(true)
+    if (!course) {
+      createProduct()
+    } else {
+      updateProduct()
+    }
+  }
 
-    if (productDetails.productType === "Academy") {
+  const createProduct = async () => {
+    if (productDetails.productType === 'Academy') {
       await toast.promise(
         new Promise<void>(async (resolve, reject) => {
-          const status = await createAcademy({
+          await createAcademy({
             name: productDetails.title,
             description: editorContent,
             overview: productDetails.overview,
@@ -174,28 +188,28 @@ const CourseForm: React.FC = () => {
             requirements: productDetails.requirements,
             tags: productDetails.tags,
             highlights: productDetails.highlights,
-          });
-
-          if (status === 201) {
-            router.push("/(dashboard)/myProducts");
-            setSubmitting(false);
-            resetForm();
-            resolve();
-          } else {
-            setSubmitting(false);
-            reject();
-          }
+          })
+            .then((res) => {
+              router.push('/(dashboard)/myProducts')
+              setSubmitting(false)
+              resetForm()
+              resolve()
+            })
+            .catch((error) => {
+              setSubmitting(false)
+              reject(error)
+            })
         }),
         {
-          pending: "Saving your Academy...",
-          success: "Academy saved successfully 👌",
-          error: "Encountered error 🤯",
+          pending: 'Saving your Academy...',
+          success: 'Academy saved successfully 👌',
+          error: 'Encountered error 🤯',
         }
-      );
+      )
     } else {
       await toast.promise(
         new Promise<void>(async (resolve, reject) => {
-          const status = await createCourse({
+          await createCourse({
             name: productDetails.title,
             description: editorContent,
             overview: productDetails.overview,
@@ -205,49 +219,120 @@ const CourseForm: React.FC = () => {
             requirements: productDetails.requirements,
             tags: productDetails.tags,
             highlights: productDetails.highlights,
-            type: productDetails.productType as "Book" | "Course",
-          });
-
-          if (status === 201) {
-            router.push("/(dashboard)/myProducts");
-            setSubmitting(false);
-            resetForm();
-            resolve();
-          } else {
-            setSubmitting(false);
-            reject();
-          }
+            type: productDetails.productType as 'Book' | 'Course',
+          })
+            .then((res) => {
+              router.push('/(dashboard)/myProducts')
+              setSubmitting(false)
+              resetForm()
+              resolve()
+            })
+            .catch((error) => {
+              setSubmitting(false)
+              reject(error)
+            })
         }),
         {
-          pending: `Saving your ${productDetails.productType}...`,
-          success: `${productDetails.productType} saved successfully 👌`,
-          error: "Encountered error 🤯",
+          pending: `Saving your product...`,
+          success: `Product saved successfully 👌`,
+          error: 'Encountered error 🤯',
         }
-      );
+      )
     }
-  };
+  }
+
+  const updateProduct = async () => {
+    if (productDetails.productType === 'Academy') {
+      await toast.promise(
+        new Promise<void>(async (resolve, reject) => {
+          await updateAcademy(
+            {
+              name: productDetails.title,
+              description: editorContent,
+              overview: productDetails.overview,
+              imageUrl: productDetails.imageUrl,
+              price: Number(productDetails.price),
+              difficulty: productDetails.difficulty,
+              requirements: productDetails.requirements,
+              tags: productDetails.tags,
+              highlights: productDetails.highlights,
+            },
+            course?._id!
+          )
+            .then((res) => {
+              router.push('/(dashboard)/myProducts')
+              setSubmitting(false)
+              resolve()
+            })
+            .catch((error) => {
+              setSubmitting(false)
+              reject(error)
+            })
+        }),
+        {
+          pending: 'Saving your Academy...',
+          success: 'Academy saved successfully 👌',
+          error: 'Encountered error 🤯',
+        }
+      )
+    } else {
+      await toast.promise(
+        new Promise<void>(async (resolve, reject) => {
+          await updateCourse(
+            {
+              name: productDetails.title,
+              description: editorContent,
+              overview: productDetails.overview,
+              imageUrl: productDetails.imageUrl,
+              price: Number(productDetails.price),
+              difficulty: productDetails.difficulty,
+              requirements: productDetails.requirements,
+              tags: productDetails.tags,
+              highlights: productDetails.highlights,
+              type: productDetails.productType as 'Book' | 'Course',
+            },
+            course?._id!
+          )
+            .then((res) => {
+              router.push('/(dashboard)/myProducts')
+              setSubmitting(false)
+              resolve()
+            })
+            .catch((error) => {
+              setSubmitting(false)
+              reject(error)
+            })
+        }),
+        {
+          pending: `Saving your product...`,
+          success: `Product saved successfully 👌`,
+          error: 'Encountered error 🤯',
+        }
+      )
+    }
+  }
 
   const resetForm = () => {
     setProductDetails({
-      title: "",
-      description: "",
-      overview: "",
+      title: '',
+      description: '',
+      overview: '',
       price: 0,
-      imageUrl: "",
-      difficulty: "Beginner",
-      productType: "Course",
+      imageUrl: '',
+      difficulty: 'Beginner',
+      productType: 'Course',
       tags: [] as string[],
       requirements: [] as string[],
       highlights: [] as string[],
-    });
-  };
+    })
+  }
 
   return (
     <div className="bg-white rounded-lg ">
       <div className="p-5 border-b border-[#EDEDED]">
         {!productDetails.imageUrl && (
           <Button
-            onClick={() => dispatch(setUploaderModal("scale-100"))}
+            onClick={() => dispatch(setUploaderModal('scale-100'))}
             className="text-slate-600 border border-[color:var(--border-2,#E1DDDD)]"
           >
             Add Image
@@ -258,7 +343,7 @@ const CourseForm: React.FC = () => {
           <div className="relative">
             <div className="flex justify-start items-center space-x-2 absolute top-2 left-2">
               <Button
-                onClick={() => dispatch(setUploaderModal("scale-100"))}
+                onClick={() => dispatch(setUploaderModal('scale-100'))}
                 className="bg-black bg-opacity-25 text-white"
               >
                 <FaArrowsRotate size={20} />
@@ -266,7 +351,7 @@ const CourseForm: React.FC = () => {
 
               <Button
                 onClick={() =>
-                  setProductDetails((prev) => ({ ...prev, imageUrl: "" }))
+                  setProductDetails((prev) => ({ ...prev, imageUrl: '' }))
                 }
                 className="bg-black bg-opacity-25 text-white"
               >
@@ -275,10 +360,10 @@ const CourseForm: React.FC = () => {
             </div>
             <Image
               src={productDetails.imageUrl}
-              alt={productDetails.title || "Product"}
+              alt={productDetails.title || 'Product'}
               width={500}
               height={100}
-              className="h-72 w-full object-cover"
+              className="h-72 object-cover"
             />
           </div>
         )}
@@ -313,25 +398,15 @@ const CourseForm: React.FC = () => {
             value={productDetails.price}
             handleChange={handleChange}
           />
-          <InputField
-            label="ImageURL"
-            name="imageUrl"
-            placeholder="Enter Product ImageURL"
-            required={false}
-            inputType="url"
-            value={productDetails.imageUrl}
-
-            // handleChange={handleChange}
-          />
         </div>
         <div className="md:flex gap-8">
           <SelectField
             label="Difficulty"
             name="difficulty"
             options={[
-              { label: "Beginner", value: "Beginner" },
-              { label: "Intermediate", value: "Intermediate" },
-              { label: "Advance", value: "Advanced" },
+              { label: 'Beginner', value: 'Beginner' },
+              { label: 'Intermediate', value: 'Intermediate' },
+              { label: 'Advance', value: 'Advanced' },
             ]}
             value={productDetails.difficulty}
             handleChange={handleChange}
@@ -341,10 +416,10 @@ const CourseForm: React.FC = () => {
             label=" Product Type"
             name="productType"
             options={[
-              { label: "Select", value: "option1" },
-              { label: "Course", value: "Course" },
-              { label: "Academy", value: "Academy" },
-              { label: "Book", value: "Book" },
+              { label: 'Select', value: '' },
+              { label: 'Course', value: 'Course' },
+              { label: 'Academy', value: 'Academy' },
+              { label: 'Book', value: 'Book' },
             ]}
             value={productDetails.productType}
             handleChange={handleChange}
@@ -358,16 +433,16 @@ const CourseForm: React.FC = () => {
               placeholder="Enter Product Requirements"
               required={false}
               inputType="text"
-              handleKeyDown={(e) => handleInputKeyDown(e, "requirements")}
+              handleKeyDown={(e) => handleInputKeyDown(e, 'requirements')}
             />
-            <div className="flex flex-wrap w-full gap-2">
+            <div className="flex flex-wrap gap-2">
               {productDetails.requirements.map((requirement, index) => (
                 <Badge
                   key={index}
                   inputText={requirement}
                   imageUrl="/images/general/cancel.png"
                   handleIconClick={() =>
-                    handleRemoveItem("requirements", requirement)
+                    handleRemoveItem('requirements', requirement)
                   }
                 />
               ))}
@@ -380,15 +455,15 @@ const CourseForm: React.FC = () => {
               placeholder="Enter Tags"
               required={false}
               inputType="text"
-              handleKeyDown={(e) => handleInputKeyDown(e, "tags")}
+              handleKeyDown={(e) => handleInputKeyDown(e, 'tags')}
             />
-            <div className="flex flex-wrap w-full gap-2">
+            <div className="flex flex-wrap gap-2">
               {productDetails.tags.map((tag, index) => (
                 <Badge
                   key={index}
                   inputText={tag}
                   imageUrl="/images/general/cancel.png"
-                  handleIconClick={() => handleRemoveItem("tags", tag)}
+                  handleIconClick={() => handleRemoveItem('tags', tag)}
                 />
               ))}
             </div>
@@ -401,31 +476,37 @@ const CourseForm: React.FC = () => {
             placeholder="Enter Product Highlights"
             required={false}
             inputType="text"
-            handleKeyDown={(e) => handleInputKeyDown(e, "highlights")}
+            handleKeyDown={(e) => handleInputKeyDown(e, 'highlights')}
           />
-          <div className="flex flex-col gap-2 w-full">
+          <div className="flex flex-col gap-2">
             {productDetails.highlights.map((highlight, index) => (
               <Badge
                 key={index}
                 inputText={highlight}
                 imageUrl="/images/general/cancel.png"
                 handleIconClick={() =>
-                  handleRemoveItem("highlights", highlight)
+                  handleRemoveItem('highlights', highlight)
                 }
               />
             ))}
           </div>
         </div>
 
-        <div className="flex flex-col w-full my-3 relative">
+        <div className="flex flex-col my-3 relative">
           <WYSIWYG
             value={productDetails.description}
             handleChange={(content) => setEditorContent(content)}
           />
         </div>
-        <Button variant="pink" className="mt-14" disabled={submitting}>
-          {submitting ? "Creating" : "Create"}
-        </Button>
+        {!course ? (
+          <Button variant="pink" className="mt-14" disabled={submitting}>
+            {submitting ? 'Creating' : 'Create'}
+          </Button>
+        ) : (
+          <Button variant="pink" className="mt-14" disabled={submitting}>
+            {submitting ? 'Updating' : 'Update'}
+          </Button>
+        )}
       </form>
 
       <FileUploader
@@ -433,7 +514,7 @@ const CourseForm: React.FC = () => {
         accept="image/png,image/jpeg,image/jpg"
       />
     </div>
-  );
-};
+  )
+}
 
-export default CourseForm;
+export default CourseForm
