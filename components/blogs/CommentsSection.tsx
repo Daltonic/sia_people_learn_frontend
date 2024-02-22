@@ -1,4 +1,3 @@
-import { IPost } from "@/utils/type.dt";
 import React from "react";
 
 interface Props {
@@ -22,7 +21,10 @@ const CommentsSection: React.FC<Props> = ({ comments }) => {
         {comments.map((comment) => (
           <div key={comment._id}>
             <p className="text-[#321463] font-medium">{comment.overview}</p>
-            <p className="text-[#4F547B]">{comment.description}</p>
+            <div
+              dangerouslySetInnerHTML={{ __html: comment.description }}
+              className="mt-2 md:mt-5 text-[#4F547B]"
+            />
           </div>
         ))}
       </div>
