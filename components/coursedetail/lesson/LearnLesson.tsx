@@ -1,3 +1,5 @@
+"use client";
+
 import LessonAccordion from "@/components/lesson/LessonAccordion";
 import { ICourse, ILesson } from "@/utils/type.dt";
 import ReactPlayer from "react-player";
@@ -9,8 +11,9 @@ interface Props {
 
 const LearnLesson: React.FC<Props> = ({ lesson, course }) => {
   //todo: Function to calculate video width and height based on screen side
+  console.log(lesson);
   return (
-    <div className="flex md-flex-col w-full">
+    <div className="flex md-flex-col w-full" suppressHydrationWarning>
       <div className="flex flex-col  w-3/4">
         <h1 className="text-[36px]">{lesson.title}</h1>
         <div className="w-full flex justify-center items-center rounded-lg">

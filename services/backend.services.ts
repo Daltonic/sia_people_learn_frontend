@@ -55,6 +55,27 @@ const updatePost = async (data: any, id: string): Promise<any> => {
   }
 };
 
+const deletePost = async (postId: string, token: string): Promise<any> => {
+  const url = `${BASE_URI}/api/v1/posts/delete/${postId}`;
+
+  try {
+    const config = {
+      method: "DELETE",
+      url,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    const response = await axios.request(config);
+    return Promise.resolve(response.status);
+  } catch (error) {
+    reportError(error);
+    return Promise.reject(error);
+  }
+};
+
 const updateAcademy = async (data: any, id: string): Promise<any> => {
   try {
     const url = `${BASE_URI}/api/v1/academies/update/${id}`;
@@ -714,7 +735,6 @@ const fetchReviews = async (query: FetchReviewsParams, token?: string) => {
 
 const fetchLesson = async (lessonId: string, token?: string) => {
   const url = `${BASE_URI}/api/v1/lessons/${lessonId}`;
-  console.log(url);
 
   const config = {
     method: "GET",
@@ -942,4 +962,5 @@ export {
   upgradeUserRequest,
   stripeSubscription,
   uploadFile,
+  deletePost,
 };

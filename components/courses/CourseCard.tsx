@@ -22,10 +22,8 @@ const CourseCard: React.FC<ComponentProps> = ({ data, index }) => {
   }, [data.rating]);
 
   return (
-    <div
-      className=" bg-white rounded-lg w-full sm:w-80 md:w-56 h-fit border-[#EDEDED] border p-2 shadow-[#EDEDED] shadow-md"
-    >
-      <div className="">
+    <div className=" bg-white rounded-lg w-full sm:w-80 md:w-56 h-fit border-[#EDEDED] border p-2 shadow-[#EDEDED] shadow-md">
+      <>
         <Link className="linkCustom" href={`/coursedetail/${data._id}`}>
           <div className="rounded-lg h-40 md:h-32 overflow-hidden hover:bg-black transition duration-500 ease-in-out">
             <Image
@@ -51,7 +49,9 @@ const CourseCard: React.FC<ComponentProps> = ({ data, index }) => {
               </div>
               <p className="text-[#4F547B]">({data.reviews?.length || 0})</p>
             </div>
-            <button className="p-1 text-xs bg-[#6440FB12] text-[#1A064F] rounded-md">Add to Cart</button>
+            <button className="p-1 text-xs bg-[#6440FB12] text-[#1A064F] rounded-md">
+              Add to Cart
+            </button>
           </div>
           <Link className="linkCustom" href={`/coursedetail/${data._id}`}>
             <div className=" md:text-sm font-medium text-[#321463] mt-2 mb-6">
@@ -123,7 +123,7 @@ const CourseCard: React.FC<ComponentProps> = ({ data, index }) => {
             </div>
           </div>
         </div>
-      </div>
+      </>
     </div>
   );
 };

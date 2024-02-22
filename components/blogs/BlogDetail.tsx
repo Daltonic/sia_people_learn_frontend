@@ -4,6 +4,8 @@ import { convertStringToDate } from "@/utils";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import { deletePost } from "@/services/backend.services";
 
 interface ComponentProps {
   post: IPost;
@@ -13,37 +15,25 @@ const BlogDetail: React.FC<ComponentProps> = ({ post }) => {
   const { userData } = useSelector((states: RootState) => states.userStates);
   const router = useRouter();
 
-  const handleDelete = () => {
-    const deletePost = async () => {
-      const requestDetails = {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
-        },
-      };
+  const handleDelete = async () => {
+    const token = sessionStorage.getItem("accessToken") as string;
 
-      try {
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/posts/delete/${post._id}`,
-          requestDetails
-        );
-
-        if (response.status === 400) {
-          const message = await response.text();
-          alert(message);
+    await toast.promise(
+      new Promise<void>(async (resolve, reject) => {
+        const status = await deletePost(post._id, token);
+        if (status === 200) {
+          resolve(status);
+          router.push("/blogs");
         } else {
-          const message = await response.text();
-          alert(message);
+          reject();
         }
-
-        router.push("/blogs");
-      } catch (e: any) {
-        alert(e.message);
+      }),
+      {
+        pending: `Deleting Blog Post...`,
+        success: `Blog post deleted successfully 👌`,
+        error: "Encountered error 🤯",
       }
-    };
-
-    deletePost();
+    );
   };
   return (
     <>
