@@ -13,7 +13,7 @@ import { uploaderActions } from '@/store/uploaderSlice'
 import FileUploader from '@/components/reusableComponents/FileUploader'
 import { FaArrowsRotate, FaTrashCan } from 'react-icons/fa6'
 import { MdCancel, MdOutlineFileCopy } from 'react-icons/md'
-import { extractFileNameFromUrl, truncateFileName } from '@/utils/helper'
+import { extractFileNameFromUrl } from '@/utils/helper'
 
 interface LessonProps {
   lesson?: ILesson
@@ -38,9 +38,7 @@ const LessonForm: React.FC<LessonProps> = ({ lesson, courseId, type }) => {
   const [lessonDetails, setLessonDetails] = useState({
     title: lesson?.title || '',
     description: lesson?.description || '',
-    overview: lesson?.overview || '',
     duration: lesson?.duration || 100,
-    imageUrl: lesson?.imageUrl || '',
     videoUrl: lesson?.videoUrl || '',
     downloadableUrl: lesson?.downloadableUrl || '',
     order: lesson?.order || 0,
@@ -81,25 +79,24 @@ const LessonForm: React.FC<LessonProps> = ({ lesson, courseId, type }) => {
     if (type === 'create') {
       await toast.promise(
         new Promise<void>(async (resolve, reject) => {
-          const status = await createLesson({
+          await createLesson({
             title: lessonDetails.title,
             description: lessonDetails.description,
-            overview: lessonDetails.overview,
             duration: Number(lessonDetails.duration),
-            imageUrl: lessonDetails?.imageUrl,
             videoUrl: lessonDetails.videoUrl,
             downloadableUrl: lessonDetails.downloadableUrl,
             order: Number(lessonDetails.order),
             courseId: courseId,
           })
-          if (status === 201) {
-            setSubmitting(false)
-            router.push(`/course/${courseId}`)
-            resolve()
-          } else {
-            setSubmitting(false)
-            reject()
-          }
+            .then((res) => {
+              setSubmitting(false)
+              router.push(`/course/${courseId}`)
+              resolve(res)
+            })
+            .catch((error) => {
+              setSubmitting(false)
+              reject(error)
+            })
         }),
         {
           pending: 'Saving ...',
@@ -110,27 +107,26 @@ const LessonForm: React.FC<LessonProps> = ({ lesson, courseId, type }) => {
     } else {
       await toast.promise(
         new Promise<void>(async (resolve, reject) => {
-          const status = await updateLesson(
+          await updateLesson(
             {
               title: lessonDetails.title,
               description: lessonDetails.description,
-              overview: lessonDetails.overview,
               duration: Number(lessonDetails.duration),
-              imageUrl: lessonDetails?.imageUrl,
               videoUrl: lessonDetails.videoUrl,
               downloadableUrl: lessonDetails.downloadableUrl,
               order: Number(lessonDetails.order),
             },
             lesson?._id!
           )
-          if (status === 200) {
-            setSubmitting(false)
-            router.push(`/course/${courseId}`)
-            resolve()
-          } else {
-            setSubmitting(false)
-            reject()
-          }
+            .then((res) => {
+              setSubmitting(false)
+              router.push(`/course/${courseId}`)
+              resolve(res)
+            })
+            .catch((error) => {
+              setSubmitting(false)
+              reject(error)
+            })
         }),
         {
           pending: 'Updating ...',
@@ -230,6 +226,7 @@ const LessonForm: React.FC<LessonProps> = ({ lesson, courseId, type }) => {
         <div className="md:flex gap-8">
           {!lessonDetails.downloadableUrl && (
             <Button
+              type="button"
               onClick={() => handleFileAttachment('application/pdf')}
               className="text-slate-600 border border-[color:var(--border-2,#E1DDDD)]"
             >
@@ -246,6 +243,7 @@ const LessonForm: React.FC<LessonProps> = ({ lesson, courseId, type }) => {
               </div>
 
               <Button
+                type="button"
                 onClick={() =>
                   setLessonDetails((prev) => ({
                     ...prev,
