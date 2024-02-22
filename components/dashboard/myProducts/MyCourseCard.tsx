@@ -33,9 +33,21 @@ const MyCourseCard: React.FC<ComponentProps> = ({ data, type }) => {
 
           <div className="absolute top-3 right-3">
             <Dropdown>
-              <button className="p-1">Edit</button>
-              <button className="p-1"> Update</button>
-              <button className="p-1"> Delete</button>
+              <Link href={`/course/edit/${String(data._id)}`} className="p-1 hover:bg-gray-100 w-full text-left">
+                Edit
+              </Link>
+              <Link
+                href={{
+                  pathname: `/course/lesson/create`,
+                  query: {
+                    courseId: data._id,
+                  },
+                }}
+                className="p-1 hover:bg-gray-100 w-full text-left"
+              >
+                Add Lessons
+              </Link>
+              <button className="p-1 hover:bg-gray-100 w-full text-left">Delete</button>
             </Dropdown>
           </div>
         </div>
