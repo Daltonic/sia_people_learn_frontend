@@ -1,12 +1,12 @@
-"use client";
+'use client'
 
-import { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
+import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react'
 
 interface Props {
-  label: string;
-  options: { name: string; value: string }[];
-  currFilter: string;
-  setCurrFilter: Dispatch<SetStateAction<string>>;
+  label: string
+  options: { name: string; value: string }[]
+  currFilter: string
+  setCurrFilter: Dispatch<SetStateAction<string>>
 }
 
 const LocalFilters: React.FC<Props> = ({
@@ -15,13 +15,13 @@ const LocalFilters: React.FC<Props> = ({
   currFilter,
   setCurrFilter,
 }) => {
-  const [currVal, setCurrVal] = useState<string>(options[0].value);
+  const [currVal, setCurrVal] = useState<string>(options[0].value)
 
   const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    const { value } = e.currentTarget;
-    setCurrVal(value);
-    setCurrFilter(value);
-  };
+    const { value } = e.currentTarget
+    setCurrVal(value)
+    setCurrFilter(value)
+  }
   return (
     <div className="flex gap-2 items-center text-sm">
       <label className="text-violet-950 font-medium">{label}</label>
@@ -30,16 +30,15 @@ const LocalFilters: React.FC<Props> = ({
         value={currVal}
         name="filter"
         onChange={handleChange}
-        defaultValue={options[0].value}
       >
-        {options.map((option) => (
-          <option key={option.value} value={option.value}>
+        {options.map((option, i) => (
+          <option key={i} value={option.value}>
             {option.name}
           </option>
         ))}
       </select>
     </div>
-  );
-};
+  )
+}
 
-export default LocalFilters;
+export default LocalFilters

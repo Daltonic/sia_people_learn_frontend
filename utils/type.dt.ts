@@ -92,7 +92,7 @@ export interface ICourses {
 export interface ILesson {
   _id: string
   title: string
-  overview: string
+  overview?: string | null
   description: string
   duration: number
   imageUrl?: string | null

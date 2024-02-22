@@ -1,6 +1,7 @@
 import Button from '@/components/reusableComponents/Button'
 import { uploadFile } from '@/services/backend.services'
 import { uploaderActions } from '@/store/uploaderSlice'
+import { formatFileSize, truncateFileName } from '@/utils/helper'
 import { RootState } from '@/utils/type.dt'
 import { AxiosProgressEvent } from 'axios'
 import { useRef, useState } from 'react'
@@ -74,30 +75,6 @@ const FileUploader: React.FC<FileUploaderProps> = ({
         handleUpload(file)
       }
     }
-  }
-
-  const truncateFileName = (
-    fileName: string,
-    maxLength: number = 20
-  ): string => {
-    const extension = fileName.split('.').pop() || ''
-    const nameWithoutExtension = fileName.slice(0, -extension.length)
-    const truncatedName = nameWithoutExtension.slice(0, maxLength)
-    return truncatedName.length < nameWithoutExtension.length
-      ? `${truncatedName}...${extension}`
-      : fileName
-  }
-
-  const formatFileSize = (size: number): string => {
-    const units = ['Bytes', 'KB', 'MB', 'GB']
-    let unitIndex = 0
-
-    while (size >= 1024 && unitIndex < units.length - 1) {
-      size /= 1024
-      unitIndex++
-    }
-
-    return `${size.toFixed(2)} ${units[unitIndex]}`
   }
 
   const handleUpload = async (file: File) => {

@@ -49,13 +49,6 @@ const EditCourseForm: React.FC = () => {
             required
             inputType="number"
           />
-          <InputField
-            label="ImageURL"
-            name="imageURL"
-            placeholder="Enter your ImageURL"
-            required
-            inputType="text"
-          />
         </div>
 
         <div className="md:flex gap-8">
