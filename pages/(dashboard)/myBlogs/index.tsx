@@ -33,8 +33,6 @@ export const getServerSideProps = async (
       token
     );
 
-    console.log(publishedPosts);
-
     return {
       props: {
         publishedPostsData: JSON.parse(
