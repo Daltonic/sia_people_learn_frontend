@@ -22,7 +22,6 @@ const SelectField: React.FC<SelectFieldProps> = ({
   handleChange,
   name,
   onChange,
-  defaultValue,
 }) => (
   <div className="flex flex-col w-full my-4">
     <label className="text-violet-950 font-medium">{label}</label>
@@ -31,7 +30,6 @@ const SelectField: React.FC<SelectFieldProps> = ({
       value={value}
       name={name}
       onChange={handleChange}
-      defaultValue={defaultValue}
     >
       {options.map((option, i) => (
         <option key={i} value={option.value}>
