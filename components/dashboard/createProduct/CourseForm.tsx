@@ -12,7 +12,7 @@ import React, {
   useEffect,
 } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { userActions } from '@/store/userSlice'
+import { userActions } from '@/store/slices/userSlice'
 import { ICourse, RootState } from '@/utils/type.dt'
 import WYSIWYG from '@/components/reusableComponents/WYSIWYG'
 import { toast } from 'react-toastify'
@@ -24,7 +24,7 @@ import {
 } from '@/services/backend.services'
 import FileUploader from '@/components/reusableComponents/FileUploader'
 import Image from 'next/image'
-import { uploaderActions } from '@/store/uploaderSlice'
+import { uploaderActions } from '@/store/slices/uploaderSlice'
 import { FaArrowsRotate, FaTrashCan } from 'react-icons/fa6'
 
 const CourseForm: React.FC<{ course?: ICourse }> = ({ course }) => {

@@ -8,7 +8,7 @@ import Tabs from "@/components/academydetail/Tabs";
 import { IAcademy } from "@/utils/type.dt";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/utils/type.dt";
-import { userActions } from "@/store/userSlice";
+import { userActions } from "@/store/slices/userSlice";
 import { fetchAcademy } from "@/services/backend.services";
 
 const Page: NextPage<{ academyData: IAcademy }> = ({ academyData }) => {

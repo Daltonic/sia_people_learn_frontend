@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import BookmarkCard from "./BookmarkCard";
 import { coursesData } from "@/data/courses";
 import { useSelector, useDispatch } from "react-redux";
-import { userActions } from "@/store/userSlice";
+import { userActions } from "@/store/slices/userSlice";
 import DashboardHeading from "../dashboardLayout/DashboardHeading";
 import { RootState } from "@/utils/type.dt";
 

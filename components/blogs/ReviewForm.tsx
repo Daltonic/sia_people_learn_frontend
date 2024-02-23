@@ -4,7 +4,7 @@ import { IoIosStar } from "react-icons/io";
 import Button from "@/components/reusableComponents/Button";
 import InputField from "@/components/reusableComponents/InputField";
 import { useDispatch, useSelector } from "react-redux";
-import { userActions } from "@/store/userSlice";
+import { userActions } from "@/store/slices/userSlice";
 import { RootState } from "@/utils/type.dt";
 
 interface Props {

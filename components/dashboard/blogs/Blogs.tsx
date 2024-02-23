@@ -3,7 +3,7 @@ import { FetchPostsParams, IPosts, RootState } from "@/utils/type.dt";
 import { useEffect, useRef, useState } from "react";
 import DashboardHeading from "../dashboardLayout/DashboardHeading";
 import { useSelector, useDispatch } from "react-redux";
-import { userActions } from "@/store/userSlice";
+import { userActions } from "@/store/slices/userSlice";
 import { CiSearch } from "react-icons/ci";
 import LocalFilters from "@/components/reusableComponents/LocalFilter";
 import LocalPagination from "@/components/reusableComponents/LocalPagination";

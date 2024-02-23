@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { cartStates as CartStates } from './states/cartStates'
-import { cartActions as CartActions } from './actions/cartActions'
+import { cartStates as CartStates } from '../states/cartStates'
+import { cartActions as CartActions } from '../actions/cartActions'
 
 export const cartSlice = createSlice({
   name: 'cart',

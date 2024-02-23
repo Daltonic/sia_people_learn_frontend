@@ -11,7 +11,7 @@ import { useRouter } from "next/navigation";
 import { IUser } from "@/utils/type.dt";
 import { useRouter as Router } from "next/router";
 import { useDispatch } from "react-redux";
-import { userActions } from "@/store/userSlice";
+import { userActions } from "@/store/slices/userSlice";
 import Cookies from "universal-cookie";
 import { toast } from "react-toastify";
 import { login } from "@/services/backend.services";

@@ -1,76 +1,22 @@
-"use client";
-import React, { useEffect } from "react";
-import { IoIosStar } from "react-icons/io";
-import Image from "next/image";
-import { ICourse } from "@/utils/type.dt";
-import { FiEdit2, FiPlusCircle } from "react-icons/fi";
-import { FaRegCheckCircle, FaTimes } from "react-icons/fa";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { MdOutlineRateReview } from "react-icons/md";
-import { toast } from "react-toastify";
-import { deleteCourse, submitCourse } from "@/services/backend.services";
-import { convertStringToDate } from "@/utils";
+'use client'
+import React, { useEffect } from 'react'
+import { IoIosStar } from 'react-icons/io'
+import Image from 'next/image'
+import { ICourse } from '@/utils/type.dt'
+import { MdOutlineRateReview } from 'react-icons/md'
+import { convertStringToDate } from '@/utils'
 
 interface ComponentProps {
-  course: ICourse;
+  course: ICourse
 }
 
 const CourseHead: React.FC<ComponentProps> = ({ course }) => {
-  const router = useRouter();
-  const [rating, setRating] = React.useState<string[]>([]);
+  const [rating, setRating] = React.useState<string[]>([])
 
   useEffect(() => {
-    const newRating = Array(5).fill("star");
-    setRating(newRating);
-  }, [course]);
-
-  const handleSubmit = async () => {
-    await toast.promise(
-      new Promise<void>(async (resolve, reject) => {
-        const status = await submitCourse(
-          {
-            submitted: true,
-          },
-          course._id
-        );
-
-        if (status === 200) {
-          router.push("/(dashboard)/myProducts");
-
-          resolve();
-        } else {
-          reject();
-        }
-      }),
-      {
-        pending: `Submitting...`,
-        success: `Course submitted successfully 👌`,
-        error: "Encountered error 🤯",
-      }
-    );
-  };
-
-  const handleDelete = async () => {
-    await toast.promise(
-      new Promise<void>(async (resolve, reject) => {
-        const status = await deleteCourse(course._id);
-
-        if (status === 200) {
-          router.push("/(dashboard)/myProducts");
-
-          resolve();
-        } else {
-          reject();
-        }
-      }),
-      {
-        pending: `Deleting...`,
-        success: `Course deleted successfully 👌`,
-        error: "Encountered error 🤯",
-      }
-    );
-  };
+    const newRating = Array(5).fill('star')
+    setRating(newRating)
+  }, [course])
 
   return (
     <div className="md:flex justify-between w-full">
@@ -86,45 +32,6 @@ const CourseHead: React.FC<ComponentProps> = ({ course }) => {
                   {tag.name}
                 </h1>
               ))}
-          </div>
-          <div className="flex items-center justify-between gap-5 max-md:justify-center">
-            <Link href={`/course/edit/${String(course._id)}`}>
-              <button className="text-white flex gap-2 items-center text-xs font-medium bg-sky-400 p-2 rounded-md">
-                Edit
-                <FiEdit2 />
-              </button>
-            </Link>
-
-            <Link
-              href={{
-                pathname: `/course/lesson/create`,
-                query: {
-                  courseId: course._id,
-                },
-              }}
-            >
-              <button className="text-white flex gap-2 items-center text-xs font-medium bg-green-400 p-2 rounded-md">
-                Add Lesson
-                <FiPlusCircle />
-              </button>
-            </Link>
-            {!course.approved && (
-              <button
-                onClick={handleSubmit}
-                className="text-white flex gap-2 items-center text-xs font-medium bg-pink-400 p-2 rounded-md"
-              >
-                Submit
-                <FaRegCheckCircle />
-              </button>
-            )}
-
-            <button
-              onClick={handleDelete}
-              className="text-white flex gap-2 items-center text-xs font-medium bg-red-500 p-2 rounded-md"
-            >
-              Delete
-              <FaTimes />
-            </button>
           </div>
         </div>
         <div className="flex flex-col gap-2.5 mt-3 w-full">
@@ -152,7 +59,7 @@ const CourseHead: React.FC<ComponentProps> = ({ course }) => {
             <Image
               height={200}
               width={200}
-              src={course.imageUrl || "/images/courseCard/card3.svg"}
+              src={course.imageUrl || '/images/courseCard/card3.svg'}
               alt=""
               className="w-full h-full rounded-lg"
             />
@@ -217,7 +124,7 @@ const CourseHead: React.FC<ComponentProps> = ({ course }) => {
                 width={100}
                 height={100}
                 src={
-                  course.userId?.imgUrl || "/images/instructors/instructor3.svg"
+                  course.userId?.imgUrl || '/images/instructors/instructor3.svg'
                 }
                 alt="authorImg"
                 className="object-cover rounded-full w-10 h-10"
@@ -236,13 +143,13 @@ const CourseHead: React.FC<ComponentProps> = ({ course }) => {
         <Image
           height={100}
           width={100}
-          src={course.imageUrl || "/images/general/cardimg.svg"}
+          src={course.imageUrl || '/images/general/cardimg.svg'}
           alt="Course Image"
           className="w-full h-full object-cover rounded-lg"
         />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default CourseHead;
+export default CourseHead

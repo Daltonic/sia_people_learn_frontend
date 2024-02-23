@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import ReviewSection from "./ReviewSection";
 import SearchAndFilterBar from "@/components/reusableComponents/SearchAndFilterBar";
 import { useSelector, useDispatch } from "react-redux";
-import { userActions } from "@/store/userSlice";
+import { userActions } from "@/store/slices/userSlice";
 import DashboardHeading from "../dashboardLayout/DashboardHeading";
 import { IReviews, RootState } from "@/utils/type.dt";
 import EmptyComponent from "@/components/reusableComponents/EmptyComponent";

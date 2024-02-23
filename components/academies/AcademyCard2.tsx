@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { IoIosStar } from "react-icons/io";
 import { usePathname, useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
-import { cartActions } from "@/store/cartSlice";
+import { cartActions } from "@/store/slices/cartSlice";
 import Button from "../reusableComponents/Button";
 import { toast } from "react-toastify";
 import { stripeSubscription } from "@/services/backend.services";

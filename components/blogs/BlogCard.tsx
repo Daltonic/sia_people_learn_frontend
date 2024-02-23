@@ -6,7 +6,7 @@ import Link from "next/link";
 import { IPost, RootState } from "@/utils/type.dt";
 import { convertStringToDate } from "@/utils";
 import { useSelector, useDispatch } from "react-redux";
-import { userActions } from "@/store/userSlice";
+import { userActions } from "@/store/slices/userSlice";
 
 interface BlogCardProps {
   blog: IPost;

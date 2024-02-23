@@ -1,6 +1,6 @@
 import Button from '@/components/reusableComponents/Button'
 import { uploadFile } from '@/services/backend.services'
-import { uploaderActions } from '@/store/uploaderSlice'
+import { uploaderActions } from '@/store/slices/uploaderSlice'
 import { formatFileSize, truncateFileName } from '@/utils/helper'
 import { RootState } from '@/utils/type.dt'
 import { AxiosProgressEvent } from 'axios'
