@@ -374,9 +374,9 @@ const CourseForm: React.FC<{ course?: ICourse }> = ({ course }) => {
       </div>
       <form className="p-5" onSubmit={handleSubmit}>
         <InputField
-          label="Title"
-          name="title"
-          placeholder="Enter your product title"
+          label="Name"
+          name="name"
+          placeholder="Enter your product name"
           required
           inputType="text"
           value={productDetails.name}
