@@ -2,13 +2,14 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { IoIosStar } from "react-icons/io";
+import { IWishlist } from "@/utils/type.dt";
 
 interface ComponentProps {
-  data: any;
-  index?: number;
+  data: IWishlist;
+  type: "Course" | "Academy";
 }
 
-const BookmarkCard: React.FC<ComponentProps> = ({ data, index }) => {
+const BookmarkCard: React.FC<ComponentProps> = ({ data, type }) => {
   return (
     <div
       className="w-full sm:w-[47%] bg-white rounded-lg border-[#EDEDED] border p-2 pb-0 shadow-[#EDEDED] shadow-md"
@@ -19,46 +20,54 @@ const BookmarkCard: React.FC<ComponentProps> = ({ data, index }) => {
           <Image
             width={100}
             height={100}
-            style={{ height: "100%", width: "100%" }}
-            className="rounded-lg object-cover"
-            src={data.imageSrc}
+            className="rounded-lg object-cover h-full w-full"
+            src={data.productId?.imageUrl || "/images/general/cardimg.svg"}
             alt="image"
           />
         </div>
 
         <div className="my-2 p-2 space-y-3 flex-1">
           <div className="flex justify-between ">
-          <div className="flex items-center md:md:text-xs gap-4">
-            <div className="flex items-center gap-1">
-              <p className="text-[#E59819]">{data.rating}</p>
-              <div className="flex items-center">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <div key={i} className="text-[#E59819]">
-                    <IoIosStar />
-                  </div>
-                ))}
+            <div className="flex items-center md:md:text-xs gap-4">
+              <div className="flex items-center gap-1">
+                <p className="text-[#E59819]">{data.productId?.rating || 5}</p>
+                <div className="flex items-center">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <div key={i} className="text-[#E59819]">
+                      <IoIosStar />
+                    </div>
+                  ))}
+                </div>
               </div>
+              <p className="text-[#4F547B]">
+                ({data.productId?.reviews?.length || 0})
+              </p>
             </div>
-            <p className="text-[#4F547B]">({data.ratingCount})</p>
-          </div>
-          <div className="bg-white p-3 rounded-full shadow-md absolute right-0 top-0">
-          <Image
+            <div className="bg-white p-3 rounded-full shadow-md absolute right-0 top-0">
+              <Image
                 width={100}
                 height={100}
                 src="/images/dashBoard/dashBoardMain/bookmark.svg"
                 alt="image"
                 className="object-cover rounded-full w-4 h-4 "
               />
-          </div>
+            </div>
           </div>
 
           <div className="md:text-sm font-medium text-[#321463] mt-2">
-            <Link className="linkCustom" href={`/coursedetail/${data.id}`}>
-              {data.title}
+            <Link
+              className="linkCustom"
+              href={
+                type === "Academy"
+                  ? `/academies/${data.productId._id!}`
+                  : `/courses/${data.productId._id!}`
+              }
+            >
+              {data.productId.name}
             </Link>
           </div>
           <div className="flex justify-between items-center my-2 border-b border-[#EDEDED] pb-1">
-            <div className="flex items-center">
+            {/* <div className="flex items-center">
               <div className="mr-2 md:mr-1">
                 <Image
                   width={100}
@@ -69,7 +78,7 @@ const BookmarkCard: React.FC<ComponentProps> = ({ data, index }) => {
                 />
               </div>
               <p className="md:text-xs">{data.lessonCount} lesson</p>
-            </div>
+            </div> */}
 
             <div className="flex items-center">
               <div className="mr-2 md:mr-1">
@@ -81,9 +90,9 @@ const BookmarkCard: React.FC<ComponentProps> = ({ data, index }) => {
                   className="w-5 h-5 md:w-3 md:h-3"
                 />
               </div>
-              <div className="md:text-xs ">{`${Math.floor(
+              {/* <div className="md:text-xs ">{`${Math.floor(
                 data.duration / 60
-              )}h ${Math.floor(data.duration % 60)}m`}</div>
+              )}h ${Math.floor(data.duration % 60)}m`}</div> */}
             </div>
 
             <div className="flex items-start">
@@ -96,38 +105,38 @@ const BookmarkCard: React.FC<ComponentProps> = ({ data, index }) => {
                   className="w-5 h-5  md:w-3 md:h-3"
                 />
               </div>
-              <div className="md:text-xs">{data.level}</div>
+              <div className="md:text-xs">{data.productId.difficulty}</div>
             </div>
           </div>
 
           <div className="flex justify-between items-center bottom-0 mb-0">
             <div className="flex items-center gap-2">
-              <Image
-                width={100}
-                height={100}
-                src={data.authorImageSrc}
-                alt="image"
-                className="object-cover rounded-full w-8 h-8"
-              />
-              <p className="md:text-xs text-[#4F547B]">{data.authorName}</p>
+              {data.userId.imgUrl ? (
+                <Image
+                  width={10}
+                  height={10}
+                  src={data.userId.imgUrl}
+                  alt="image"
+                  className="object-cover rounded-full w-8 h-8"
+                />
+              ) : (
+                <div className="rounded-full w-8 h-8 text-white px-4 bg-[#C5165D] text-sm flex items-center justify-center">
+                  {data.userId.firstName[0]}
+                  {data.userId.lastName[0]}
+                </div>
+              )}
+              <p className="md:text-xs text-[#4F547B]">
+                {data.userId.firstName} {data.userId.lastName}
+              </p>
             </div>
 
-            <div className="">
-              {data.paid ? (
-                <div className="flex items-center gap-1 font-medium">
-                  <p className="md:text-xs text-[#4F547B] line-through">
-                    ${data.originalPrice}
-                  </p>
-                  <p className="text-lg md:text-sm text-[#321463]">
+            <div className="flex items-center gap-1 font-medium">
+              <p className="md:text-xs text-[#4F547B] line-through">
+                ${data.productId.price}
+              </p>
+              {/* <p className="text-lg md:text-sm text-[#321463]">
                     ${data.discountedPrice}
-                  </p>
-                </div>
-              ) : (
-                <>
-                  <div></div>
-                  <div>Free</div>
-                </>
-              )}
+                  </p> */}
             </div>
           </div>
         </div>
