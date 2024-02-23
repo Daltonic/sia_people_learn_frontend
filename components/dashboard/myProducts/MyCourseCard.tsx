@@ -52,7 +52,7 @@ const MyCourseCard: React.FC<ComponentProps> = ({ data, type }) => {
 
   return (
     <div
-      className="bg-white rounded-lg w-full sm:w-80 md:w-48 h-52
+      className="bg-white rounded-lg w-full sm:w-80 md:w-48 h-54
     border-[#EDEDED] border-1 p-2 shadow-[#EDEDED] shadow"
     >
       <div className="">
@@ -65,7 +65,7 @@ const MyCourseCard: React.FC<ComponentProps> = ({ data, type }) => {
             alt="image"
           />
 
-          <div className="absolute top-3 right-3">
+          <div className="absolute top-1 right-2">
             <Dropdown>
               <Link
                 href={`/course/edit/${String(data._id)}`}
@@ -126,7 +126,7 @@ const MyCourseCard: React.FC<ComponentProps> = ({ data, type }) => {
                 : `/course/${data._id}`
             }
           >
-            <div className="md:text-sm font-medium text-[#321463] mt-2">
+            <div className="md:text-sm font-medium text-[#321463] mt-2 line-clamp-2">
               {data.name}
             </div>
           </Link>

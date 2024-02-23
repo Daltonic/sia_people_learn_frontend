@@ -45,10 +45,10 @@ const Courses: React.FC<ComponentProps> = ({ data, index }) => {
   };
   return (
     <div
-      className="w-full sm:w-[47%] md:w-[48%] h-40 bg-white rounded-lg border-[#EDEDED] border p-2 shadow-[#EDEDED] shadow-md"
+      className="w-full sm:w-[47%] md:w-[48%] h-44 bg-white rounded-lg border-[#EDEDED] border p-2 shadow-[#EDEDED] shadow-md"
     >
-      <div className="md:flex gap-4 w-full">
-        <div className="md:w-28 h-36">
+      <div className="md:flex items-center gap-4 w-full h-full">
+        <div className="md:w-28 h-full">
           <Link className="linkCustom" href={`/coursedetail/${data._id}`}>
             <Image
               width={100}
@@ -59,7 +59,7 @@ const Courses: React.FC<ComponentProps> = ({ data, index }) => {
             />
           </Link>
         </div>
-        <div className="flex-1 py-3">
+        <div className="flex-1">
           <div className="flex items-center gap-2">
             <Image
               width={16}
@@ -75,7 +75,7 @@ const Courses: React.FC<ComponentProps> = ({ data, index }) => {
             <p className="md:text-xs text-[#4F547B]">{`${data.userId?.firstName} ${data.userId?.lastName}`}</p>
           </div>
 
-          <div className="md:text-sm font-medium text-[#321463] mt-2">
+          <div className="md:text-sm font-medium text-[#321463] line-clamp-2 mt-2">
             {data.name}
           </div>
           <div className="flex justify-between items-center my-2 border-b border-[#EDEDED] pb-1">
