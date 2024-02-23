@@ -1,157 +1,157 @@
-'use client'
-import React, { useEffect, useRef, useState } from 'react'
-import MyCourseCard from './MyCourseCard'
-import { useSelector, useDispatch } from 'react-redux'
-import { userActions } from '@/store/slices/userSlice'
+"use client";
+import React, { useEffect, useRef, useState } from "react";
+import MyCourseCard from "./MyCourseCard";
+import { useSelector, useDispatch } from "react-redux";
+import { userActions } from "@/store/slices/userSlice";
 import {
   FetchProductsParams,
   IAcademies,
   ICourses,
   RootState,
-} from '@/utils/type.dt'
-import EmptyComponent from '@/components/reusableComponents/EmptyComponent'
-import { CiSearch } from 'react-icons/ci'
-import LocalPagination from '@/components/reusableComponents/LocalPagination'
-import LocalFilters from '@/components/reusableComponents/LocalFilter'
-import { fetchAcademies, fetchCourses } from '@/services/backend.services'
+} from "@/utils/type.dt";
+import EmptyComponent from "@/components/reusableComponents/EmptyComponent";
+import { CiSearch } from "react-icons/ci";
+import LocalPagination from "@/components/reusableComponents/LocalPagination";
+import LocalFilters from "@/components/reusableComponents/LocalFilter";
+import { fetchAcademies, fetchCourses } from "@/services/backend.services";
 
 interface Props {
-  academiesData: IAcademies
-  coursesData: ICourses
-  booksData: ICourses
+  academiesData: IAcademies;
+  coursesData: ICourses;
+  booksData: ICourses;
 }
 
 const sortOptions = [
-  { name: 'Newest', value: 'newest' },
-  { name: 'Oldest', value: 'oldest' },
-]
+  { name: "Newest", value: "newest" },
+  { name: "Oldest", value: "oldest" },
+];
 
 const filterOptions = [
-  { name: 'Difficulty', value: 'Difficulty' },
-  { name: 'All', value: 'All' },
-  { name: 'Beginner', value: 'Beginner' },
-  { name: 'Intermediate', value: 'Intermediate' },
-  { name: 'Advanced', value: 'Advanced' },
-]
+  { name: "Difficulty", value: "Difficulty" },
+  { name: "All", value: "All" },
+  { name: "Beginner", value: "Beginner" },
+  { name: "Intermediate", value: "Intermediate" },
+  { name: "Advanced", value: "Advanced" },
+];
 
 const Tabs: React.FC<Props> = ({ academiesData, coursesData, booksData }) => {
-  const dispatch = useDispatch()
-  const { setUserData } = userActions
-  const { userData } = useSelector((states: RootState) => states.userStates)
+  const dispatch = useDispatch();
+  const { setUserData } = userActions;
+  const { userData } = useSelector((states: RootState) => states.userStates);
 
   useEffect(() => {
     if (!userData) {
-      const sessionUser = JSON.parse(sessionStorage.getItem('user')!)
+      const sessionUser = JSON.parse(sessionStorage.getItem("user")!);
       if (sessionUser) {
-        dispatch(setUserData(sessionUser))
+        dispatch(setUserData(sessionUser));
       }
     }
-  }, [dispatch, setUserData, userData])
+  }, [dispatch, setUserData, userData]);
 
-  const firstRender = useRef(true)
+  const firstRender = useRef(true);
 
-  const [currentPage, setCurrentPage] = useState(1)
-  const [search, setSearch] = useState<string>('')
-  const [difficulty, setDifficulty] = useState<string>('')
-  const [sort, setSort] = useState<string>('newest')
+  const [currentPage, setCurrentPage] = useState(1);
+  const [search, setSearch] = useState<string>("");
+  const [difficulty, setDifficulty] = useState<string>("");
+  const [sort, setSort] = useState<string>("newest");
 
-  const [academiesObj, setAcademiesObj] = useState<IAcademies>(academiesData)
-  const [coursesObj, setCoursesObj] = useState<ICourses>(coursesData)
-  const [booksObj, setBooksObj] = useState<ICourses>(booksData)
+  const [academiesObj, setAcademiesObj] = useState<IAcademies>(academiesData);
+  const [coursesObj, setCoursesObj] = useState<ICourses>(coursesData);
+  const [booksObj, setBooksObj] = useState<ICourses>(booksData);
 
-  const [activeTab, setActiveTab] = useState<number>(1)
-  const [pageNumbers, setPageNumbers] = useState(coursesObj.numOfPages)
-  const [type, setType] = useState<'Course' | 'Book' | 'Academy'>('Course')
+  const [activeTab, setActiveTab] = useState<number>(1);
+  const [pageNumbers, setPageNumbers] = useState(coursesObj.numOfPages);
+  const [type, setType] = useState<"Course" | "Book" | "Academy">("Course");
   const [searchPlaceholder, setSearchPlaceholder] = useState<string>(
-    'Search Courses Here...'
-  )
+    "Search Courses Here..."
+  );
 
   const handleTabClick = (tabNumber: number) => {
-    setActiveTab(tabNumber)
+    setActiveTab(tabNumber);
     if (tabNumber === 1) {
-      setType('Course')
-      setSearchPlaceholder('Search Courses Here...')
-      setPageNumbers(coursesObj.numOfPages)
-      setCurrentPage(1)
+      setType("Course");
+      setSearchPlaceholder("Search Courses Here...");
+      setPageNumbers(coursesObj.numOfPages);
+      setCurrentPage(1);
     }
     if (tabNumber === 2) {
-      setType('Book')
-      setSearchPlaceholder('Search Books Here...')
-      setPageNumbers(booksObj.numOfPages)
-      setCurrentPage(1)
+      setType("Book");
+      setSearchPlaceholder("Search Books Here...");
+      setPageNumbers(booksObj.numOfPages);
+      setCurrentPage(1);
     }
     if (tabNumber === 3) {
-      setType('Academy')
-      setSearchPlaceholder('Search Academies Here...')
-      setPageNumbers(academiesObj.numOfPages)
-      setCurrentPage(1)
+      setType("Academy");
+      setSearchPlaceholder("Search Academies Here...");
+      setPageNumbers(academiesObj.numOfPages);
+      setCurrentPage(1);
     }
-  }
+  };
 
   const updateSearch = async () => {
     try {
       if (activeTab === 1 || activeTab === 2) {
         const result = await fetchCourses(
           {
-            instructor: 'true',
-            type: type as FetchProductsParams['type'],
+            instructor: "true",
+            type: type as FetchProductsParams["type"],
             searchQuery: search,
-            filter: sort as FetchProductsParams['filter'],
+            filter: sort as FetchProductsParams["filter"],
             page: Number(currentPage) || 1,
             difficulty:
-              difficulty === 'All'
+              difficulty === "All"
                 ? null
-                : (difficulty as FetchProductsParams['difficulty']),
+                : (difficulty as FetchProductsParams["difficulty"]),
           },
-          sessionStorage.getItem('accessToken') as string
-        )
+          sessionStorage.getItem("accessToken") as string
+        );
         if (activeTab === 1) {
-          setCoursesObj(result)
+          setCoursesObj(result);
         } else {
-          setBooksObj(result)
+          setBooksObj(result);
         }
       } else {
         const result = await fetchAcademies(
           {
-            instructor: 'true',
+            instructor: "true",
             searchQuery: search,
-            filter: sort as FetchProductsParams['filter'],
+            filter: sort as FetchProductsParams["filter"],
             page: Number(currentPage) || 1,
             difficulty:
-              difficulty === 'All'
+              difficulty === "All"
                 ? null
-                : (difficulty as FetchProductsParams['difficulty']),
+                : (difficulty as FetchProductsParams["difficulty"]),
           },
-          sessionStorage.getItem('accessToken') as string
-        )
+          sessionStorage.getItem("accessToken") as string
+        );
 
-        setAcademiesObj(result)
+        setAcademiesObj(result);
       }
     } catch (e: any) {
-      console.log(e)
+      console.log(e);
     }
-  }
+  };
 
   useEffect(() => {
     if (firstRender.current) {
-      firstRender.current = false
-      return
+      firstRender.current = false;
+      return;
     }
     if (search) {
       const delaydebounceFn = setTimeout(() => {
-        updateSearch()
-      }, 300)
+        updateSearch();
+      }, 300);
 
-      return () => clearTimeout(delaydebounceFn)
+      return () => clearTimeout(delaydebounceFn);
     } else {
-      updateSearch()
+      updateSearch();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [search, currentPage, sort, difficulty])
+  }, [search, currentPage, sort, difficulty]);
 
   return (
     <div className="bg-white p-5 rounded-xl">
-      <div className="">
+      <>
         <div className="md:flex items-center md:justify-between space-y-2 md:space-y-0 mb-4">
           <div className="flex gap-5 items-center border border-[#E1DDDD] text-[#4F547B] rounded-md p-3 md:p-2 w-full md:w-96">
             <CiSearch className="text-[#4F547B] text-xl" />
@@ -181,8 +181,8 @@ const Tabs: React.FC<Props> = ({ academiesData, coursesData, booksData }) => {
             onClick={() => handleTabClick(1)}
             className={`py-2 border-b-4 transition-colors duration-300 text-[#4F547B] font-medium ${
               activeTab === 1
-                ? 'border-[#C5165D] text-[#C5165D]'
-                : 'border-transparent hover:border-gray-200'
+                ? "border-[#C5165D] text-[#C5165D]"
+                : "border-transparent hover:border-gray-200"
             }`}
             type="button"
           >
@@ -192,8 +192,8 @@ const Tabs: React.FC<Props> = ({ academiesData, coursesData, booksData }) => {
             onClick={() => handleTabClick(2)}
             className={`py-2 border-b-4 transition-colors duration-300 text-[#4F547B] font-medium ${
               activeTab === 2
-                ? 'border-[#C5165D] text-[#C5165D]'
-                : 'border-transparent hover:border-gray-200'
+                ? "border-[#C5165D] text-[#C5165D]"
+                : "border-transparent hover:border-gray-200"
             }`}
             type="button"
           >
@@ -203,8 +203,8 @@ const Tabs: React.FC<Props> = ({ academiesData, coursesData, booksData }) => {
             onClick={() => handleTabClick(3)}
             className={`py-2 border-b-4 transition-colors duration-300 text-[#4F547B] font-medium ${
               activeTab === 3
-                ? 'border-[#C5165D] text-[#C5165D]'
-                : 'border-transparent hover:border-gray-200'
+                ? "border-[#C5165D] text-[#C5165D]"
+                : "border-transparent hover:border-gray-200"
             }`}
             type="button"
           >
@@ -259,7 +259,7 @@ const Tabs: React.FC<Props> = ({ academiesData, coursesData, booksData }) => {
             </div>
           )}
         </div>
-      </div>
+      </>
       {pageNumbers > 1 && (
         <LocalPagination
           totalPages={pageNumbers}
@@ -270,6 +270,6 @@ const Tabs: React.FC<Props> = ({ academiesData, coursesData, booksData }) => {
 
       {/* <DeleteModal  /> */}
     </div>
-  )
-}
-export default Tabs
+  );
+};
+export default Tabs;

@@ -1,12 +1,16 @@
 import React, { useEffect } from "react";
-import BookmarkCard from "./BookmarkCard";
-import { coursesData } from "@/data/courses";
 import { useSelector, useDispatch } from "react-redux";
 import { userActions } from "@/store/slices/userSlice";
 import DashboardHeading from "../dashboardLayout/DashboardHeading";
-import { RootState } from "@/utils/type.dt";
+import { IWishlist, RootState } from "@/utils/type.dt";
+import Tabs from "./Tabs";
 
-const Bookmarks: React.FC = () => {
+interface Props {
+  academiesData: IWishlist[];
+  coursesData: IWishlist[];
+}
+
+const Bookmarks: React.FC<Props> = ({ academiesData, coursesData }) => {
   const dispatch = useDispatch();
   const { setUserData } = userActions;
   const { userData } = useSelector((states: RootState) => states.userStates);
@@ -23,18 +27,9 @@ const Bookmarks: React.FC = () => {
     <div>
       <DashboardHeading
         title="Bookmarks"
-        description=" Save your favorite courses for quick access later."
+        description=" Save your favorite courses and academies for quick access later."
       />
-      <div className="bg-white rounded-lg">
-        <h1 className="p-5 text-[#321463] font-medium border-b border-[#EDEDED] text-xl md:text-base">
-          Bookmarked
-        </h1>
-        <div className="flex p-5 gap-8 md:gap-5 border w-full flex-wrap">
-          {coursesData.map((elm, i: number) => (
-            <BookmarkCard data={elm} index={i} key={i} />
-          ))}
-        </div>
-      </div>
+      <Tabs academiesData={academiesData} coursesData={coursesData} />
     </div>
   );
 };
