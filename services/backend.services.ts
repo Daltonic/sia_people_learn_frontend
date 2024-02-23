@@ -926,6 +926,7 @@ const createWishlist = async (
   token: string
 ): Promise<any> => {
   const url = `${BASE_URI}/api/v1/wishlists/create`;
+  console.log(data);
 
   try {
     const config = {
@@ -939,7 +940,7 @@ const createWishlist = async (
     };
 
     const response = await axios.request(config);
-    return Promise.resolve(response.data);
+    return Promise.resolve(response.status);
   } catch (error) {
     reportError(error);
     return Promise.reject(error);
