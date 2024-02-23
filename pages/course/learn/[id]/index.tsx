@@ -13,9 +13,9 @@ const Page: NextPage<{ courseData: ICourse; reviews: IReviews }> = ({
 }) => {
   return (
     <Layout>
-      <div className="w-full p-5 md:p-10">
-        <div className="md:flex justify-between items-start w-full gap-5 mb-4">
-          <div className="w-full md:w-[70%]">
+      <div className="w-full p-5 md:p-10 md:flex justify-between items-start gap-5">
+        <div className="mb-4 w-full md:w-[70%]">
+          <div className="w-full">
             <Image
               height={200}
               width={200}
@@ -24,11 +24,7 @@ const Page: NextPage<{ courseData: ICourse; reviews: IReviews }> = ({
               className="w-full md:h-[70vh] object-cover rounded-lg"
             />
           </div>
-          <div className="md:w-[30%] mt-4 md:mt-0">
-            <LessonAccordion course={courseData} />
-          </div>
-        </div>
-        <div className="text-[#321463] text-2xl md:text-3xl font-medium capitalize md:mt-4">
+        <div className="text-[#321463] text-2xl font-medium capitalize md:mt-4">
           {courseData.name}
         </div>
         <div className="my-4">
@@ -45,6 +41,10 @@ const Page: NextPage<{ courseData: ICourse; reviews: IReviews }> = ({
         </div>
         <ReviewSection reviewsData={reviews} />
         <ReviewForm productId={courseData._id} productType="Course" />
+        </div>
+        <div className="md:w-[30%] mt-4 md:mt-0">
+            <LessonAccordion course={courseData} />
+          </div>
       </div>
     </Layout>
   );

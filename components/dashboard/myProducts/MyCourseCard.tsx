@@ -18,11 +18,11 @@ const MyCourseCard: React.FC<ComponentProps> = ({ data, type }) => {
     const newRating = Array(5).fill('star')
     setRating(newRating)
   }, [data.rating])
-
+  
   return (
     <div className="bg-white rounded-lg w-full sm:w-80 md:w-48 h-52 border-[#EDEDED] border-1 p-2 shadow-[#EDEDED] shadow">
       <div className="">
-        <div className="h-20 relative">
+        <div className="h-28 relative">
           <Image
             width={100}
             height={100}

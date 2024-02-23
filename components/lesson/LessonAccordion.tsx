@@ -11,8 +11,8 @@ interface Props {
 
 const LessonAccordion: React.FC<Props> = ({ course, lessonId }) => {
   return (
-    <div className="border rounded-md p-2 space-y-2">
-      <div className="mb-2">Course Lessons</div>
+    <div className="border rounded-md p-2 space-y-2 h-screen overflow-y-scroll">
+      <div className="mb-2 text-[#321463] text-lg font-medium ">Course Lessons</div>
       {course.lessons.length > 0 ? (
         <div className="flex flex-col gap-4">
           {course.lessons.map((lesson) => (
@@ -43,7 +43,7 @@ const LessonAccordion: React.FC<Props> = ({ course, lessonId }) => {
           ))}
         </div>
       ) : (
-        <EmptyComponent title="No lessons available for this course" />
+        <EmptyComponent title="No lessons available for this course" buttonText="Go Back" />
       )}
     </div>
   );
