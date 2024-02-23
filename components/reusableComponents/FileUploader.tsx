@@ -1,6 +1,6 @@
 import Button from '@/components/reusableComponents/Button'
 import { uploadFile } from '@/services/backend.services'
-import { uploaderActions } from '@/store/uploaderSlice'
+import { uploaderActions } from '@/store/slices/uploaderSlice'
 import { formatFileSize, truncateFileName } from '@/utils/helper'
 import { RootState } from '@/utils/type.dt'
 import { AxiosProgressEvent } from 'axios'
@@ -111,19 +111,19 @@ const FileUploader: React.FC<FileUploaderProps> = ({
       className={`fixed top-0 left-0 w-screen h-screen flex flex-col items-center justify-center
       bg-black bg-opacity-50 transform z-[3000] transition-transform duration-300 ${uploaderModal}`}
     >
-      <div className="flex flex-row justify-end items-center relative">
-        <button
-          type="button"
-          onClick={resetUpload}
-          className="bg-white p-2 rounded-full border-0 bg-transparent
-            focus:outline-none absolute -top-14 shadow-md"
-        >
-          <TfiClose size={20} className="text-black" />
-        </button>
-      </div>
-
       <div className="bg-white shadow-lg shadow-slate-900 rounded-xl w-11/12 md:w-3/5 h-7/12 p-6">
-        <div className="text-center mb-14 p-5 md:px-16">
+        <div className="flex flex-row justify-end items-center relative">
+          <button
+            type="button"
+            onClick={resetUpload}
+            className="bg-white p-1.5 rounded-full border-0 bg-transparent
+            focus:outline-none absolute shadow-md"
+          >
+            <TfiClose size={16} className="text-black" />
+          </button>
+        </div>
+
+        <div className="text-center p-5 md:px-16">
           <h1 className="text-violet-950 text-center text-3xl md:text-4xl font-bold">
             UPLOAD FILES
           </h1>

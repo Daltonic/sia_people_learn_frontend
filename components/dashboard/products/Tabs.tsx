@@ -4,7 +4,7 @@ import Courses from "./Courses";
 import Academy from "./Academy";
 import Books from "./Books";
 import { useSelector, useDispatch } from "react-redux";
-import { userActions } from "@/store/userSlice";
+import { userActions } from "@/store/slices/userSlice";
 import {
   FetchProductsParams,
   IAcademies,

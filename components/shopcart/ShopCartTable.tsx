@@ -1,6 +1,6 @@
 "use client";
 
-import { cartActions } from "@/store/cartSlice";
+import { cartActions } from "@/store/slices/cartSlice";
 import {
   ICourse,
   IUserSubscription,

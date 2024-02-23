@@ -5,7 +5,7 @@ import CommentsSection from "./CommentsSection";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import BlogForm from "./BlogForm";
-import { userActions } from "@/store/userSlice";
+import { userActions } from "@/store/slices/userSlice";
 
 interface Props {
   post: IPost;

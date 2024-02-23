@@ -7,14 +7,14 @@ import { useRouter } from "next/navigation";
 import React, { useState, ChangeEvent, SyntheticEvent, useEffect } from "react";
 import { categories } from "@/data/blogs";
 import { useSelector, useDispatch } from "react-redux";
-import { userActions } from "@/store/userSlice";
+import { userActions } from "@/store/slices/userSlice";
 import WYSIWYG from "../reusableComponents/WYSIWYG";
 import { toast } from "react-toastify";
 import { createPost, updatePost } from "@/services/backend.services";
 import FileUploader from "../reusableComponents/FileUploader";
 import { FaArrowsRotate, FaTrashCan } from "react-icons/fa6";
 import Image from "next/image";
-import { uploaderActions } from "@/store/uploaderSlice";
+import { uploaderActions } from "@/store/slices/uploaderSlice";
 
 interface PostProps {
   post?: IPost;

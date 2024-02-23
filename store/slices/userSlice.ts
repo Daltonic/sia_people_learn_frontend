@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { userStates as UserStates } from './states/userStates'
-import { userActions as UserActions } from './actions/userActions'
+import { userStates as UserStates } from '../states/userStates'
+import { userActions as UserActions } from '../actions/userActions'
 
 export const userSlice = createSlice({
   name: 'user',
