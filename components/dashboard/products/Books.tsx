@@ -43,10 +43,10 @@ const Books: React.FC<ComponentProps> = ({ data }) => {
 
   return (
     <div
-      className="w-full sm:w-[47%] md:w-[48%] h-40 bg-white rounded-lg border-[#EDEDED] border p-2 shadow-[#EDEDED] shadow-md"
+      className="w-full sm:w-[47%] md:w-[48%] h-44 bg-white rounded-lg border-[#EDEDED] border p-2 shadow-[#EDEDED] shadow-md"
     >
-      <div className="md:flex gap-4 w-full border">
-        <div className="md:w-28 h-36">
+      <div className="md:flex items-start gap-4 w-full h-full">
+        <div className="md:w-28 h-full">
           <Link className="linkCustom" href={`/coursedetail/${data._id}`}>
             <Image
               width={100}

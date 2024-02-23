@@ -111,16 +111,16 @@ const FileUploader: React.FC<FileUploaderProps> = ({
       className={`fixed top-0 left-0 w-screen h-screen flex flex-col items-center justify-center
       bg-black bg-opacity-50 transform z-[3000] transition-transform duration-300 ${uploaderModal}`}
     >
-      <div className="bg-white shadow-lg shadow-slate-900 rounded-xl relative w-11/12 md:w-3/5 h-[90vh] p-6">
+      <div className="bg-white shadow-lg shadow-slate-900 rounded-xl relative w-11/12 md:w-3/5 p-6">
           <button
             type="button"
             onClick={resetUpload}
             className="p-2 rounded-full
-            focus:outline-none right-10 absolute "
+            focus:outline-none right-5 md:right-10 absolute border border-slate-600 "
           >
-            <TfiClose size={16} className="text-red-500 font-bold" />
+            <TfiClose size={16} className="text-slate-600 font-bold" />
           </button>
-        <div className="text-center">
+        <div className="text-center mt-8 md:mt-4">
           <h1 className="text-violet-950 text-center text-2xl font-bold">
             UPLOAD FILES
           </h1>
@@ -128,7 +128,7 @@ const FileUploader: React.FC<FileUploaderProps> = ({
             Lets take care of your file for you.
           </p>
 
-          <div className="w-3/5 mx-auto">
+          <div className="md:w-3/5 mx-auto">
             <div
               onDragOver={handleDragOver}
               onDragLeave={handleDragLeave}

@@ -212,7 +212,7 @@ const AcademyForm: React.FC<AcademyProps> = ({ academy }) => {
         )}
 
         {imageUrl && (
-          <div className="relative">
+          <div className="relative w-full">
             <div className="flex justify-start items-center space-x-2 absolute top-2 left-2">
               <Button
                 onClick={() => dispatch(setUploaderModal("scale-100"))}
