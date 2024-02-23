@@ -11,7 +11,7 @@ import {
 } from "react-icons/fa";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
-import { cartActions } from "@/store/cartSlice";
+import { cartActions } from "@/store/slices/cartSlice";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 import { toast } from "react-toastify";

@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { uploaderStates as UploaderStates } from './states/uploaderStates'
-import { uploaderActions as UploaderActions } from './actions/uploaderActions'
+import { uploaderStates as UploaderStates } from '../states/uploaderStates'
+import { uploaderActions as UploaderActions } from '../actions/uploaderActions'
 
 export const uploaderSlice = createSlice({
   name: 'uploader',

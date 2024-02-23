@@ -2,7 +2,7 @@ import Layout from "@/components/layout/Layout";
 import { GetServerSidePropsContext, NextPage } from "next";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { userActions } from "@/store/userSlice";
+import { userActions } from "@/store/slices/userSlice";
 import { RootState } from "@/utils/type.dt";
 import { IAcademy, ICourse } from "@/utils/type.dt";
 import AddRemoveCourse from "@/components/academydetail/AddRemoveCourse";

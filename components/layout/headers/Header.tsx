@@ -8,7 +8,7 @@ import Navbar from "@/components/layout/headers/Navbar";
 import { FiShoppingCart } from "react-icons/fi";
 import Button from "@/components/reusableComponents/Button";
 import { useSelector, useDispatch } from "react-redux";
-import { userActions } from "@/store/userSlice";
+import { userActions } from "@/store/slices/userSlice";
 import Modal from "@/components/reusableComponents/Modal";
 import PowerSVG from "@/components/dashboard/dashboardSVGs/PowerSVG";
 import { useRouter } from "next/navigation";

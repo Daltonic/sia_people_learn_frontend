@@ -6,7 +6,7 @@ import Button from "../reusableComponents/Button";
 import TextAreaField from "../reusableComponents/TextAreaField";
 import { useRouter } from "next/navigation";
 import { useSelector, useDispatch } from "react-redux";
-import { userActions } from "@/store/userSlice";
+import { userActions } from "@/store/slices/userSlice";
 import { RootState, UpgradeUserRequestBody } from "@/utils/type.dt";
 import { toast } from "react-toastify";
 import { upgradeUserRequest } from "@/services/backend.services";

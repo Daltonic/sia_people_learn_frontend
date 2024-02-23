@@ -11,7 +11,7 @@ import React, { useEffect } from "react";
 import Notifications from "@/components/dashboard/dashboard/Notifications";
 import DashboardLayout from "@/components/dashboard/dashboardLayout/DashboardLayout";
 import { useSelector, useDispatch } from "react-redux";
-import { userActions } from "@/store/userSlice";
+import { userActions } from "@/store/slices/userSlice";
 import { useRouter } from "next/navigation";
 import { RootState } from "@/utils/type.dt";
 

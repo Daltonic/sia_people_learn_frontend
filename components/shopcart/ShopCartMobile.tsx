@@ -1,6 +1,6 @@
 "use client";
 
-import { cartActions } from "@/store/cartSlice";
+import { cartActions } from "@/store/slices/cartSlice";
 import { RootState } from "@/utils/type.dt";
 import Image from "next/image";
 import { LiaTimesSolid } from "react-icons/lia";

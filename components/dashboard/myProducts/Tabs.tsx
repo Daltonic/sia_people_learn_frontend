@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import MyCourseCard from './MyCourseCard'
 import { useSelector, useDispatch } from 'react-redux'
-import { userActions } from '@/store/userSlice'
+import { userActions } from '@/store/slices/userSlice'
 import {
   FetchProductsParams,
   IAcademies,
@@ -267,6 +267,8 @@ const Tabs: React.FC<Props> = ({ academiesData, coursesData, booksData }) => {
           setActivePage={setCurrentPage}
         />
       )}
+
+      {/* <DeleteModal  /> */}
     </div>
   )
 }

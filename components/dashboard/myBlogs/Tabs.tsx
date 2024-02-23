@@ -4,7 +4,7 @@ import { FetchPostsParams, IPosts, RootState } from "@/utils/type.dt";
 import BlogCard from "@/components/blogs/BlogCard";
 import EmptyComponent from "@/components/reusableComponents/EmptyComponent";
 import { useSelector, useDispatch } from "react-redux";
-import { userActions } from "@/store/userSlice";
+import { userActions } from "@/store/slices/userSlice";
 import { CiSearch } from "react-icons/ci";
 import LocalFilters from "@/components/reusableComponents/LocalFilter";
 import LocalPagination from "@/components/reusableComponents/LocalPagination";

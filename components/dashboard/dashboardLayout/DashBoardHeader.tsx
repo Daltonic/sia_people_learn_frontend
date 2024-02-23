@@ -12,7 +12,7 @@ import PowerSVG from "../dashboardSVGs/PowerSVG";
 import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/utils/type.dt";
-import { userActions } from "@/store/userSlice";
+import { userActions } from "@/store/slices/userSlice";
 import Cookies from "universal-cookie";
 import { toast } from "react-toastify";
 import { logout } from "@/services/backend.services";

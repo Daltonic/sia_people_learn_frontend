@@ -8,7 +8,7 @@ import Link from 'next/link'
 import InputField from '@/components/reusableComponents/InputField'
 import { useRouter } from 'next/navigation'
 import { useDispatch, useSelector } from 'react-redux'
-import { userActions } from '@/store/userSlice'
+import { userActions } from '@/store/slices/userSlice'
 import { toast } from 'react-toastify'
 import { deleteLesson } from '@/services/backend.services'
 

@@ -1,6 +1,6 @@
 "use client";
 import Layout from "@/components/layout/Layout";
-import { cartActions } from "@/store/cartSlice";
+import { cartActions } from "@/store/slices/cartSlice";
 import { NextPage } from "next";
 import Image from "next/image";
 import { useEffect } from "react";

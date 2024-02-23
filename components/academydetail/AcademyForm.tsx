@@ -13,14 +13,14 @@ import React, {
   useEffect,
 } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { userActions } from "@/store/userSlice";
+import { userActions } from "@/store/slices/userSlice";
 import { toast } from "react-toastify";
 import WYSIWYG from "../reusableComponents/WYSIWYG";
 import { updateAcademy } from "@/services/backend.services";
 import FileUploader from "../reusableComponents/FileUploader";
 import { FaArrowsRotate, FaTrashCan } from "react-icons/fa6";
 import Image from "next/image";
-import { uploaderActions } from "@/store/uploaderSlice";
+import { uploaderActions } from "@/store/slices/uploaderSlice";
 
 interface AcademyProps {
   academy: IAcademy;

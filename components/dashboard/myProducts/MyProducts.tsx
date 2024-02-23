@@ -1,12 +1,13 @@
-import React from "react";
-import Tabs from "./Tabs";
-import DashboardHeading from "../dashboardLayout/DashboardHeading";
-import { IAcademies, ICourses } from "@/utils/type.dt";
+import React from 'react'
+import Tabs from './Tabs'
+import DashboardHeading from '../dashboardLayout/DashboardHeading'
+import { IAcademies, ICourses } from '@/utils/type.dt'
+import DeleteModal from '@/components/reusableComponents/DeleteModal'
 
 interface Props {
-  academiesData: IAcademies;
-  coursesData: ICourses;
-  booksData: ICourses;
+  academiesData: IAcademies
+  coursesData: ICourses
+  booksData: ICourses
 }
 
 const MyProducts: React.FC<Props> = ({
@@ -25,8 +26,9 @@ const MyProducts: React.FC<Props> = ({
         coursesData={coursesData}
         booksData={booksData}
       />
+      <DeleteModal />
     </div>
-  );
-};
+  )
+}
 
-export default MyProducts;
+export default MyProducts

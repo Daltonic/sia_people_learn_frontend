@@ -6,8 +6,8 @@ import "aos/dist/aos.css";
 import AOS from "aos";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/utils/type.dt";
-import { userActions } from "@/store/userSlice";
-import { cartActions } from "@/store/cartSlice";
+import { userActions } from "@/store/slices/userSlice";
+import { cartActions } from "@/store/slices/cartSlice";
 
 interface LayoutProps {
   children: ReactNode;

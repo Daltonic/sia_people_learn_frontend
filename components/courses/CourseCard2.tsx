@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { IoIosStar } from "react-icons/io";
 import { FaBookmark } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { cartActions } from "@/store/cartSlice";
+import { cartActions } from "@/store/slices/cartSlice";
 import { usePathname, useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { createWishlist } from "@/services/backend.services";

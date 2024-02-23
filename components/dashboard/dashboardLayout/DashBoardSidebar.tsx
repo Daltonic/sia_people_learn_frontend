@@ -9,7 +9,7 @@ import { useRouter } from "next/router";
 import { useRouter as useNavigationRouter } from "next/navigation";
 import PowerSVG from "../dashboardSVGs/PowerSVG";
 import { useSelector, useDispatch } from "react-redux";
-import { userActions } from "@/store/userSlice";
+import { userActions } from "@/store/slices/userSlice";
 import { RootState } from "@/utils/type.dt";
 import Cookies from "universal-cookie";
 import { toast } from "react-toastify";

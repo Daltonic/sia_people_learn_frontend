@@ -1,7 +1,7 @@
 "use client";
 
 import { useSelector, useDispatch } from "react-redux";
-import { userActions } from "@/store/userSlice";
+import { userActions } from "@/store/slices/userSlice";
 import React, { useEffect, useRef, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { FetchUsersParams, IUsers, RootState } from "@/utils/type.dt";

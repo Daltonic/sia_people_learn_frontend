@@ -5,7 +5,7 @@ import Image from "next/image";
 import Button from "../reusableComponents/Button";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
-import { cartActions } from "@/store/cartSlice";
+import { cartActions } from "@/store/slices/cartSlice";
 import SocialMediaIcons from "../reusableComponents/SocialMediaIcons";
 
 interface ComponentProps {

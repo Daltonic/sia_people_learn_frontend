@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import EditCourse from "../academies/EditCourse";
 import Link from "next/link";
 import { useSelector, useDispatch } from "react-redux";
-import { userActions } from "@/store/userSlice";
+import { userActions } from "@/store/slices/userSlice";
 import { toast } from "react-toastify";
 import { addCourseToAcademy } from "@/services/backend.services";
 
