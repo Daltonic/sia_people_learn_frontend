@@ -47,6 +47,7 @@
     "react-toastify": "^10.0.4",
     "recharts": "^2.10.3",
     "sass": "^1.63.4",
+    "sharp": "^0.33.2",
     "svg": "^0.1.0",
     "swiper": "^8.0.0",
     "tsparticles": "^2.11.0",

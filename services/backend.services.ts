@@ -169,17 +169,7 @@ const createAccount = async (data: {
   }
 };
 
-const createAcademy = async (data: {
-  name: string;
-  description: string;
-  overview: string;
-  imageUrl: string;
-  price: number;
-  difficulty: "Beginner" | "Intermediate" | "Advanced";
-  requirements: string[];
-  tags: string[];
-  highlights: string[];
-}): Promise<any> => {
+const createAcademy = async (data: any): Promise<any> => {
   const url = `${BASE_URI}/api/v1/academies/create`;
   const config = {
     method: "POST",
