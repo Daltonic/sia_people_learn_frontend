@@ -43,15 +43,16 @@ const CourseForm: React.FC<{ course?: ICourse }> = ({ course }) => {
       }
     }
 
-    if (course) setProductDetails(course as any)
+    if (course) setProductDetails({ ...course, productType: course.type } as any)
   }, [dispatch, setUserData, userData, course])
 
   const [productDetails, setProductDetails] = useState({
-    title: '',
+    name: '',
     description: '',
     overview: '',
     price: 0,
     imageUrl: '',
+    validity: 0,
     difficulty: 'Beginner' as 'Beginner' | 'Intermediate' | 'Advanced',
     productType: 'Course' as 'Academy' | 'Course' | 'Book',
     tags: [] as string[],
@@ -179,11 +180,12 @@ const CourseForm: React.FC<{ course?: ICourse }> = ({ course }) => {
       await toast.promise(
         new Promise<void>(async (resolve, reject) => {
           await createAcademy({
-            name: productDetails.title,
+            name: productDetails.name,
             description: editorContent,
             overview: productDetails.overview,
             imageUrl: productDetails.imageUrl,
             price: Number(productDetails.price),
+            validity: Number(productDetails.validity),
             difficulty: productDetails.difficulty,
             requirements: productDetails.requirements,
             tags: productDetails.tags,
@@ -193,7 +195,7 @@ const CourseForm: React.FC<{ course?: ICourse }> = ({ course }) => {
               router.push('/(dashboard)/myProducts')
               setSubmitting(false)
               resetForm()
-              resolve()
+              resolve(res)
             })
             .catch((error) => {
               setSubmitting(false)
@@ -210,7 +212,7 @@ const CourseForm: React.FC<{ course?: ICourse }> = ({ course }) => {
       await toast.promise(
         new Promise<void>(async (resolve, reject) => {
           await createCourse({
-            name: productDetails.title,
+            name: productDetails.name,
             description: editorContent,
             overview: productDetails.overview,
             imageUrl: productDetails.imageUrl,
@@ -225,7 +227,7 @@ const CourseForm: React.FC<{ course?: ICourse }> = ({ course }) => {
               router.push('/(dashboard)/myProducts')
               setSubmitting(false)
               resetForm()
-              resolve()
+              resolve(res)
             })
             .catch((error) => {
               setSubmitting(false)
@@ -247,11 +249,12 @@ const CourseForm: React.FC<{ course?: ICourse }> = ({ course }) => {
         new Promise<void>(async (resolve, reject) => {
           await updateAcademy(
             {
-              name: productDetails.title,
+              name: productDetails.name,
               description: editorContent,
               overview: productDetails.overview,
               imageUrl: productDetails.imageUrl,
               price: Number(productDetails.price),
+              validity: Number(productDetails.validity),
               difficulty: productDetails.difficulty,
               requirements: productDetails.requirements,
               tags: productDetails.tags,
@@ -262,7 +265,7 @@ const CourseForm: React.FC<{ course?: ICourse }> = ({ course }) => {
             .then((res) => {
               router.push('/(dashboard)/myProducts')
               setSubmitting(false)
-              resolve()
+              resolve(res)
             })
             .catch((error) => {
               setSubmitting(false)
@@ -280,7 +283,7 @@ const CourseForm: React.FC<{ course?: ICourse }> = ({ course }) => {
         new Promise<void>(async (resolve, reject) => {
           await updateCourse(
             {
-              name: productDetails.title,
+              name: productDetails.name,
               description: editorContent,
               overview: productDetails.overview,
               imageUrl: productDetails.imageUrl,
@@ -296,7 +299,7 @@ const CourseForm: React.FC<{ course?: ICourse }> = ({ course }) => {
             .then((res) => {
               router.push('/(dashboard)/myProducts')
               setSubmitting(false)
-              resolve()
+              resolve(res)
             })
             .catch((error) => {
               setSubmitting(false)
@@ -314,11 +317,12 @@ const CourseForm: React.FC<{ course?: ICourse }> = ({ course }) => {
 
   const resetForm = () => {
     setProductDetails({
-      title: '',
+      name: '',
       description: '',
       overview: '',
       price: 0,
       imageUrl: '',
+      validity: 0,
       difficulty: 'Beginner',
       productType: 'Course',
       tags: [] as string[],
@@ -360,7 +364,7 @@ const CourseForm: React.FC<{ course?: ICourse }> = ({ course }) => {
             </div>
             <Image
               src={productDetails.imageUrl}
-              alt={productDetails.title || 'Product'}
+              alt={productDetails.name || 'Product'}
               width={500}
               height={100}
               className="h-72 w-full object-cover"
@@ -375,7 +379,7 @@ const CourseForm: React.FC<{ course?: ICourse }> = ({ course }) => {
           placeholder="Enter your product title"
           required
           inputType="text"
-          value={productDetails.title}
+          value={productDetails.name}
           handleChange={handleChange}
         />
         <div className="md:flex gap-8">
@@ -388,17 +392,6 @@ const CourseForm: React.FC<{ course?: ICourse }> = ({ course }) => {
           />
         </div>
 
-        <div className="md:flex gap-8">
-          <InputField
-            label="Price"
-            name="price"
-            placeholder="Course Price"
-            required
-            inputType="number"
-            value={productDetails.price}
-            handleChange={handleChange}
-          />
-        </div>
         <div className="md:flex gap-8">
           <SelectField
             label="Difficulty"
@@ -413,10 +406,9 @@ const CourseForm: React.FC<{ course?: ICourse }> = ({ course }) => {
           />
 
           <SelectField
-            label=" Product Type"
+            label="Product Type"
             name="productType"
             options={[
-              { label: 'Select', value: '' },
               { label: 'Course', value: 'Course' },
               { label: 'Academy', value: 'Academy' },
               { label: 'Book', value: 'Book' },
@@ -425,6 +417,34 @@ const CourseForm: React.FC<{ course?: ICourse }> = ({ course }) => {
             handleChange={handleChange}
           />
         </div>
+
+        <div className="md:flex gap-8">
+          <InputField
+            label="Price"
+            name="price"
+            placeholder="Course Price"
+            required
+            inputType="number"
+            value={productDetails.price}
+            handleChange={handleChange}
+          />
+          {productDetails.productType === 'Academy' && (
+            <SelectField
+              label="Validity"
+              name="validity"
+              options={[
+                { label: 'One-Off', value: 0 },
+                { label: 'Monthly', value: 1 },
+                { label: 'Quarterly', value: 3 },
+                { label: 'Bi-Annually', value: 6 },
+                { label: 'Annually', value: 12 },
+              ]}
+              value={productDetails.validity}
+              handleChange={handleChange}
+            />
+          )}
+        </div>
+
         <div className="md:flex gap-8">
           <div className="flex flex-col gap-2 w-1/2">
             <InputField
