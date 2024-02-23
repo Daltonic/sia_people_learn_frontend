@@ -38,8 +38,6 @@ const ShopCartTable: React.FC = () => {
     IUserSubscription[]
   >([]);
 
-  console.log(cartCourseItems);
-
   const cartItems: Product[] = [];
 
   // useEffect(() => {

@@ -1,4 +1,4 @@
-import { ICourse, RootState } from "@/utils/type.dt";
+import { ICourse, IWishlist, RootState } from "@/utils/type.dt";
 import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -6,18 +6,45 @@ import { IoIosStar } from "react-icons/io";
 import { FaBookmark } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { cartActions } from "@/store/cartSlice";
+import { usePathname, useRouter } from "next/navigation";
+import { toast } from "react-toastify";
+import { createWishlist } from "@/services/backend.services";
 
 interface Props {
   course: ICourse;
+  bookMarkedCourses: IWishlist[];
 }
 
-const CourseCard: React.FC<Props> = ({ course }) => {
+const CourseCard: React.FC<Props> = ({ course, bookMarkedCourses }) => {
   const [rating, setRating] = useState<string[]>([]);
 
   useEffect(() => {
     const newRating = Array(5).fill("star");
     setRating(newRating);
   }, [course]);
+  const { userData } = useSelector((states: RootState) => states.userStates);
+
+  const isBookmarkable = () => {
+    const courseSaved = bookMarkedCourses.find(
+      (wishlist) => wishlist.productId._id === course._id
+    );
+    const sub = userData?.subscribedCourses.find((id) => id === course._id);
+    if (sub !== undefined || courseSaved !== undefined) {
+      return false;
+    } else {
+      return true;
+    }
+  };
+
+  const [canBookmark, setCanBookmark] = useState<boolean>(isBookmarkable());
+
+  const router = useRouter();
+  const pathname = usePathname();
+
+  useEffect(() => {
+    setCanBookmark(isBookmarkable());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [course._id, userData, bookMarkedCourses]);
 
   const { cartCourseItems, cartAmount } = useSelector(
     (states: RootState) => states.cartStates
@@ -37,6 +64,36 @@ const CourseCard: React.FC<Props> = ({ course }) => {
     );
     setButtonText(currentCourse ? "Remove from Cart" : "Add to Cart");
   }, [cartCourseItems, course._id]);
+
+  const handleAddToWishlist = async () => {
+    if (!userData) {
+      sessionStorage.setItem("prevPath", pathname);
+      router.push("/login");
+      return;
+    }
+    const token = sessionStorage.getItem("accessToken") as string;
+
+    await toast.promise(
+      new Promise<void>((resolve, reject) => {
+        createWishlist(
+          { productType: "Course", productId: course._id },
+          token
+        ).then((status) => {
+          if (status === 201) {
+            setCanBookmark(false);
+            resolve(status);
+          } else {
+            reject();
+          }
+        });
+      }),
+      {
+        pending: "Adding to Wishlist",
+        success: "Successfully saved 👌",
+        error: "Encountered error 🤯",
+      }
+    );
+  };
 
   const handleAddToCart = () => {
     const cartCourse = cartCourseItems.find((item) => item._id === course._id);
@@ -181,9 +238,14 @@ const CourseCard: React.FC<Props> = ({ course }) => {
           >
             {buttonText}
           </button>
-          <div className="w-12 h-12 flex justify-center items-center rounded-full bg-[#F9F9F9]">
-            <FaBookmark />
-          </div>
+          {canBookmark && (
+            <div
+              className="w-12 h-12 flex justify-center items-center rounded-full bg-[#F9F9F9]"
+              onClick={handleAddToWishlist}
+            >
+              <FaBookmark />
+            </div>
+          )}
         </div>
       </div>
     </div>
