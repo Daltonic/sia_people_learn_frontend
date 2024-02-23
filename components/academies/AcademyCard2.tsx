@@ -15,6 +15,7 @@ import {
   createWishlist,
   stripeSubscription,
 } from "@/services/backend.services";
+import { FaRegBookmark } from "react-icons/fa";
 
 interface Props {
   academy: IAcademy;
@@ -313,10 +314,10 @@ const AcademyCard: React.FC<Props> = ({ academy, bookmarkedAcademies }) => {
           </div>
           {canBookmark && (
             <div
-              className="w-12 h-12 flex justify-center items-center rounded-full bg-[#F9F9F9] cursor-pointer"
+              className="w-12 h-12 flex justify-center items-center rounded-full bg-[#F9F9F9] cursor-pointer text-[#4F547B]"
               onClick={handleAddToWishlist}
             >
-              <FiHeart />
+              <FaRegBookmark />
             </div>
           )}
         </div>

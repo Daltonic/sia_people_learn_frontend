@@ -57,7 +57,7 @@ export const getServerSideProps = async () => {
     const books = await fetchBooks({ type: "Book" });
 
     const posts = await fetchPosts({});
-
+   
     return {
       props: {
         academiesData: JSON.parse(JSON.stringify(academies)),
