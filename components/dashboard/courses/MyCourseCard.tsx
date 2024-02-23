@@ -26,8 +26,11 @@ const MyCourseCard: React.FC<ComponentProps> = ({ product, index }) => {
       className="bg-white rounded-lg w-full sm:w-[48%] md:w-48 h-60 p-2 border-[#EDEDED] border shadow-[#EDEDED] shadow-xl"
     >
       <div className="">
-        <div className="relative">
-          <div className="h-28">
+        <div className="h-28">
+          <Link
+            className="linkCustom"
+            href={`/course/learn/${product.productId._id}`}
+          >
             <Image
               width={500}
               height={400}
@@ -35,14 +38,7 @@ const MyCourseCard: React.FC<ComponentProps> = ({ product, index }) => {
               src={product.productId.imageUrl || "/images/general/cardimg.svg"}
               alt="image"
             />
-          </div>
-          <div className="absolute top-3 right-3">
-            <Dropdown > 
-              <button className="bg-sky-500 p-1 rounded-md text-white w-full">Edit</button>
-              <button className="bg-green-500 p-1 rounded-md text-white w-full"> Update</button>
-              <button className="bg-red-500 p-1 rounded-md text-white w-full"> Delete</button>
-            </Dropdown>
-          </div>
+          </Link>
         </div>
 
 

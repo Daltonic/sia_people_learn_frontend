@@ -3,12 +3,12 @@ import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { IoIosStar } from "react-icons/io";
-import { FaBookmark } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { cartActions } from "@/store/slices/cartSlice";
 import { usePathname, useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { createWishlist } from "@/services/backend.services";
+import { FiHeart } from "react-icons/fi";
 
 interface Props {
   course: ICourse;
@@ -240,10 +240,10 @@ const CourseCard: React.FC<Props> = ({ course, bookMarkedCourses }) => {
           </button>
           {canBookmark && (
             <div
-              className="w-12 h-12 flex justify-center items-center rounded-full bg-[#F9F9F9]"
+              className="w-12 h-12 flex justify-center items-center rounded-full bg-[#F9F9F9] cursor-pointer"
               onClick={handleAddToWishlist}
             >
-              <FaBookmark />
+              <FiHeart />
             </div>
           )}
         </div>

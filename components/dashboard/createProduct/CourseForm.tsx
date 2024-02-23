@@ -8,7 +8,7 @@ import React, {
   useState,
   KeyboardEvent,
   ChangeEvent,
-  SyntheticEvent,
+  SyntheticEvent,  
   useEffect,
 } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
@@ -344,7 +344,7 @@ const CourseForm: React.FC<{ course?: ICourse }> = ({ course }) => {
         )}
 
         {productDetails.imageUrl && (
-          <div className="relative">
+          <div className="relative w-full">
             <div className="flex justify-start items-center space-x-2 absolute top-2 left-2">
               <Button
                 onClick={() => dispatch(setUploaderModal('scale-100'))}
@@ -367,7 +367,7 @@ const CourseForm: React.FC<{ course?: ICourse }> = ({ course }) => {
               alt={productDetails.name || 'Product'}
               width={500}
               height={100}
-              className="h-72 object-cover"
+              className="h-72 w-full object-cover"
             />
           </div>
         )}

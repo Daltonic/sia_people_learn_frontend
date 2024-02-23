@@ -37,15 +37,6 @@ const Filterlayer: React.FC<Props> = ({
       </div>
       <SearchInput placeholder={searchPlaceholder} route={route} />
       <div className="flex items-center gap-2 md:gap-4">
-        {/* <p className="text-violet-950 text-sm font-medium">Sort by:</p> */}
-        {/* <button className="bg-stone-50 flex justify-between gap-5 px-2 md:px-5 py-3 rounded-lg w-fit">
-          <p className="text-slate-600 text-sm">Most Popular</p>
-          <RiArrowDropDownLine className="" />
-        </button> */}
-        {/* <div className="bg-sky-100 text-pink-700 flex items-stretch gap-2.5 px-3 md:px-5 py-3 rounded-lg self-start max-md:px-5 w-fit">
-          <IoFilterSharp />
-          <p className=" text-sm self-center">Filter</p>
-        </div> */}
         {filterLabel && filterOptions && (
           <Filters
             options={filterOptions!}

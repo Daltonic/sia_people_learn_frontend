@@ -148,8 +148,7 @@ const LoginPage: NextPage = () => {
             </div>
             <Button
               variant="pink"
-              className=""
-              style={{ width: "100%", marginTop: "14px", padding: "16px" }}
+              className="w-full mt-5"
             >
               {submitting ? "Logging in" : "Login"}
             </Button>
