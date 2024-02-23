@@ -111,23 +111,20 @@ const FileUploader: React.FC<FileUploaderProps> = ({
       className={`fixed top-0 left-0 w-screen h-screen flex flex-col items-center justify-center
       bg-black bg-opacity-50 transform z-[3000] transition-transform duration-300 ${uploaderModal}`}
     >
-      <div className="bg-white shadow-lg shadow-slate-900 rounded-xl w-11/12 md:w-3/5 h-7/12 p-6">
-        <div className="flex flex-row justify-end items-center relative">
+      <div className="bg-white shadow-lg shadow-slate-900 rounded-xl relative w-11/12 md:w-3/5 h-[90vh] p-6">
           <button
             type="button"
             onClick={resetUpload}
-            className="bg-white p-1.5 rounded-full border-0 bg-transparent
-            focus:outline-none absolute shadow-md"
+            className="p-2 rounded-full
+            focus:outline-none right-10 absolute "
           >
-            <TfiClose size={16} className="text-black" />
+            <TfiClose size={16} className="text-red-500 font-bold" />
           </button>
-        </div>
-
-        <div className="text-center p-5 md:px-16">
-          <h1 className="text-violet-950 text-center text-3xl md:text-4xl font-bold">
+        <div className="text-center">
+          <h1 className="text-violet-950 text-center text-2xl font-bold">
             UPLOAD FILES
           </h1>
-          <p className="text-slate-600 text-center text-md mt-3 capitalize w-full">
+          <p className="text-slate-600 text-center text-md mt-1 capitalize">
             Lets take care of your file for you.
           </p>
 
@@ -136,11 +133,11 @@ const FileUploader: React.FC<FileUploaderProps> = ({
               onDragOver={handleDragOver}
               onDragLeave={handleDragLeave}
               onDrop={handleDrop}
-              className="flex flex-col items-center justify-center border-dashed border-2 border-[#EDEDED] w-full mx-auto gap-5 p-10 mt-5 rounded-lg"
+              className="flex flex-col items-center justify-center border-dashed border-2 border-[#EDEDED] w-full mx-auto gap-5 p-8 mt-5 rounded-lg"
             >
               <FaCloudUploadAlt size={50} className="w-28 text-gray-400" />
 
-              <p className=" text-lg text-gray-600 text-center">
+              <p className="text-md text-gray-600 text-center">
                 Drag and drop your files <br /> OR
               </p>
 
@@ -165,14 +162,14 @@ const FileUploader: React.FC<FileUploaderProps> = ({
 
             {fileData && (
               <div className="space-y-2">
-                <h4 className="text-violet-950 text-lg font-medium text-start my-5">
+                <h4 className="text-violet-950 text-lg font-medium text-start my-3">
                   Uploaded File
                 </h4>
 
-                <div className="flex gap-2 items-center">
+                <div className="flex gap-2 items-center text-gray-600">
                   <MdOutlineFileCopy size={20} />
 
-                  <div className="flex-1 flex justify-start items-center space-x-2 text-gray-600">
+                  <div className="flex-1 text-start">
                     <p>{truncateFileName(fileData.name)}</p>
                     <p className="text-sm">({formatFileSize(fileData.size)})</p>
                   </div>

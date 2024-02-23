@@ -56,7 +56,7 @@ const MyCourseCard: React.FC<ComponentProps> = ({ data, type }) => {
     border-[#EDEDED] border-1 p-2 shadow-[#EDEDED] shadow"
     >
       <div className="">
-        <div className="h-20 relative">
+        <div className="h-28 relative">
           <Image
             width={100}
             height={100}

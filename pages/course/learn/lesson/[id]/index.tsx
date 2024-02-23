@@ -10,7 +10,7 @@ const Page: NextPage<{ lessonData: ILesson; courseData: ICourse }> = ({
 }) => {
   return (
     <Layout>
-      <div className="md:px-14 md:py-10 p-5 sm:px-10 md:relative overflow-x-hidden">
+      <div className="md:px-14 md:py-10 p-5 sm:p-10 overflow-x-hidden">
         <LearnLesson lesson={lessonData} course={courseData} />
       </div>
     </Layout>

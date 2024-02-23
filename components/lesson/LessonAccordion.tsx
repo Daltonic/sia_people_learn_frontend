@@ -11,8 +11,8 @@ interface Props {
 
 const LessonAccordion: React.FC<Props> = ({ course, lessonId }) => {
   return (
-    <div className="border rounded-md p-2 space-y-2">
-      <div className="mb-2">Course Lessons</div>
+    <div className="border rounded-md p-2 space-y-2 h-screen overflow-y-scroll">
+      <div className="mb-2 text-[#321463] text-lg font-medium ">Course Lessons</div>
       {course.lessons.length > 0 ? (
         <div className="flex flex-col gap-4">
           {course.lessons.map((lesson) => (
@@ -22,7 +22,7 @@ const LessonAccordion: React.FC<Props> = ({ course, lessonId }) => {
                 pathname: `/course/learn/lesson/${lesson._id}`,
                 query: { courseId: course._id },
               }}
-              className={`flex item-center gap-3 text-[#4F547B] md:text-sm  p-1 rounded-sm cursor-pointer ${
+              className={`flex item-center gap-3 text-[#4F547B] md:text-sm p-2 rounded-sm cursor-pointer ${
                 lesson._id === lessonId ? "bg-slate-200" : "bg-slate-50"
               }`}
             >
@@ -37,13 +37,13 @@ const LessonAccordion: React.FC<Props> = ({ course, lessonId }) => {
               </div>
               <div>
                 <h3 className="font-medium">{lesson.title}</h3>
-                <p className="underline">Duration: {lesson.duration}</p>
+                <p className="">Duration: {lesson.duration}</p>
               </div>
             </Link>
           ))}
         </div>
       ) : (
-        <EmptyComponent title="No lessons available for this course" />
+        <EmptyComponent title="No lessons available for this course" buttonText="Go Back" />
       )}
     </div>
   );
