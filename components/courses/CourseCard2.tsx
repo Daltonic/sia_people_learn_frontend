@@ -9,6 +9,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { createWishlist } from "@/services/backend.services";
 import { FiHeart } from "react-icons/fi";
+import { FaBookmark, FaRegBookmark } from "react-icons/fa";
 
 interface Props {
   course: ICourse;
@@ -243,7 +244,14 @@ const CourseCard: React.FC<Props> = ({ course, bookMarkedCourses }) => {
               className="w-12 h-12 flex justify-center items-center rounded-full bg-[#F9F9F9] cursor-pointer"
               onClick={handleAddToWishlist}
             >
-              <FiHeart />
+              <FaRegBookmark />
+            </div>
+          )}
+          {!canBookmark && (
+            <div
+              className="w-12 h-12 flex justify-center items-center rounded-full bg-[#F9F9F9] cursor-pointer"
+            >
+              <FaBookmark />
             </div>
           )}
         </div>
