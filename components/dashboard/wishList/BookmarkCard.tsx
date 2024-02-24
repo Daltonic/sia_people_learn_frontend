@@ -111,22 +111,23 @@ const BookmarkCard: React.FC<ComponentProps> = ({ data, type }) => {
 
           <div className="flex justify-between items-center bottom-0 mb-0">
             <div className="flex items-center gap-2">
-              {data.userId.imgUrl ? (
+              {data.productId.userId.imgUrl ? (
                 <Image
                   width={10}
                   height={10}
-                  src={data.userId.imgUrl}
+                  src={data.productId.userId.imgUrl}
                   alt="image"
                   className="object-cover rounded-full w-8 h-8"
                 />
               ) : (
                 <div className="rounded-full w-8 h-8 text-white px-4 bg-[#C5165D] text-sm flex items-center justify-center">
-                  {data.userId.firstName[0]}
-                  {data.userId.lastName[0]}
+                  {data.productId.userId.firstName[0]}
+                  {data.productId.userId.lastName[0]}
                 </div>
               )}
               <p className="md:text-xs text-[#4F547B]">
-                {data.userId.firstName} {data.userId.lastName}
+                {data.productId.userId.firstName}{" "}
+                {data.productId.userId.lastName}
               </p>
             </div>
 

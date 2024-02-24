@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { IAcademy, IUserSubscriptions, RootState } from "@/utils/type.dt";
+import { IAcademy, IWishlist, RootState } from "@/utils/type.dt";
 import Image from "next/image";
 import Button from "../reusableComponents/Button";
 import {
@@ -15,11 +15,15 @@ import { cartActions } from "@/store/slices/cartSlice";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 import { toast } from "react-toastify";
-import { stripeSubscription } from "@/services/backend.services";
+import {
+  createWishlist,
+  deleteWishlist,
+  fetchWishlists,
+  stripeSubscription,
+} from "@/services/backend.services";
 
 interface ComponentProps {
   academy: IAcademy;
-  index?: number;
 }
 
 const AcademyDetails: React.FC<ComponentProps> = ({ academy }) => {
@@ -31,7 +35,9 @@ const AcademyDetails: React.FC<ComponentProps> = ({ academy }) => {
   );
   const { setCartAcademyItems, setCartAmount } = cartActions;
   const dispatch = useDispatch();
-  const [isSubscribed, setIsSubscribed] = useState<boolean>(false);
+  const [purchased, setPurchased] = useState<boolean>(false);
+  const [canBookmarked, setCanBookmarked] = useState<boolean>(true);
+  const [bookmarked, setBookmarked] = useState<IWishlist | null>(null);
   const [buttonText, setButtonText] = useState<string>(() => {
     const currentAcademy = cartAcademyItems.find(
       (item) => item._id === academy._id
@@ -45,6 +51,48 @@ const AcademyDetails: React.FC<ComponentProps> = ({ academy }) => {
     );
     setButtonText(currentAcademy ? "Remove from Cart" : "Add to Cart");
   }, [academy._id, cartAcademyItems]);
+
+  // Fetch bookmarked academiess when userData changes
+  useEffect(() => {
+    if (!userData) return;
+    const isSubscribed = userData.subscribedAcademies.includes(academy?._id!);
+    if (isSubscribed) {
+      setPurchased(true);
+      return;
+    }
+    const fetchSavedCourses = async () => {
+      const token = sessionStorage.getItem("accessToken") as string;
+
+      try {
+        const academies = (await fetchWishlists(
+          { productType: "Academy" },
+          token
+        )) as IWishlist[];
+
+        // If bookmarked courses is returned, search through both bookmarked courses and subscribed courses to ensure that neither contains present course
+
+        if (academies) {
+          const wishAcademy = academies.find(
+            (wish) => wish.productId._id === academy._id
+          );
+
+          if (wishAcademy) {
+            setBookmarked(wishAcademy);
+          }
+          if (wishAcademy || isSubscribed) {
+            setCanBookmarked(false);
+          }
+        } else {
+          if (isSubscribed) {
+            setCanBookmarked(false);
+          }
+        }
+      } catch (e: any) {
+        console.log(e.message);
+      }
+    };
+    fetchSavedCourses();
+  }, [academy?._id, userData]);
 
   const handleAddToCart = () => {
     const cartCourse = cartAcademyItems.find(
@@ -107,38 +155,76 @@ const AcademyDetails: React.FC<ComponentProps> = ({ academy }) => {
     }
   };
 
-  // useEffect(() => {
-  //   const fetchAcademies = async () => {
-  //     const requestDetails = {
-  //       method: "GET",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
-  //       },
-  //     };
+  // Create a bookmark
+  const handleAddToWishlist = async () => {
+    const token = sessionStorage.getItem("accessToken") as string;
 
-  //     try {
-  //       const response = await fetch(
-  //         `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/subscriptions/user?productType=Academy&pageSize=1000`,
-  //         requestDetails
-  //       );
+    await toast.promise(
+      new Promise<void>((resolve, reject) => {
+        createWishlist(
+          { productType: "Academy", productId: academy._id },
+          token
+        ).then((wishlist) => {
+          if (wishlist) {
+            setCanBookmarked(false);
+            setBookmarked(wishlist);
+            resolve(wishlist);
+          } else {
+            reject();
+          }
+        });
+      }),
+      {
+        pending: "Adding to Wishlist",
+        success: "Successfully saved 👌",
+        error: "Encountered error 🤯",
+      }
+    );
+  };
 
-  //       if (response.status === 400) {
-  //         alert("Something went wrong");
-  //       } else {
-  //         const { subscriptions } =
-  //           (await response.json()) as IUserSubscriptions;
-  //         const isAcademyFound = subscriptions.find(
-  //           (sub) => sub.productId._id === academy._id
-  //         );
-  //         setIsSubscribed(isAcademyFound ? true : false);
-  //       }
-  //     } catch (e: any) {
-  //       console.log(e.message);
-  //     }
-  //   };
-  //   fetchAcademies();
-  // }, [academy._id]);
+  // Remove from Bookmarks
+  const handleRemoveFromWishlist = async (isSubscribed: boolean) => {
+    if (!bookmarked) return; // Return if the course had not been bookmarked
+
+    const token = sessionStorage.getItem("accessToken") as string;
+
+    await toast.promise(
+      new Promise<void>((resolve, reject) => {
+        deleteWishlist(bookmarked._id, token).then((status) => {
+          if (status === 200) {
+            // Now that the bookmark has been deleted,  reset the bookmark to true if the user is not currently subscribed to the course
+            if (!isSubscribed) {
+              setCanBookmarked(true);
+            }
+            setBookmarked(null);
+            resolve(status);
+          } else {
+            reject();
+          }
+        });
+      }),
+      {
+        pending: "Removing from Wishlist",
+        success: "Successfully saved 👌",
+        error: "Encountered error 🤯",
+      }
+    );
+  };
+
+  const handleBookmarkAction = () => {
+    if (!userData) {
+      sessionStorage.setItem("prevPath", pathname);
+      router.push("/login");
+      return;
+    }
+    const isSubscribed = userData!.subscribedAcademies.includes(academy?._id!);
+    if (isSubscribed) return;
+    if (canBookmarked) {
+      handleAddToWishlist();
+    } else {
+      handleRemoveFromWishlist(isSubscribed);
+    }
+  };
 
   return (
     <div className="bg-white w-full md:w-[25%] md:right-10 md:top-0 md:absolute md:border border-[#EDEDED] p-2 space-y-2 mt-10 rounded-md z-10">
@@ -172,40 +258,38 @@ const AcademyDetails: React.FC<ComponentProps> = ({ academy }) => {
         </div>
 
         <div className="block ">
-          {isSubscribed ? (
-            <Button className="w-full mb-3 bg-[#C5165D] text-white" disabled>
-              {academy.validity === 0
-                ? "Already Purchased"
-                : "Already Subscribed"}
+          {academy.validity === 0 ? (
+            <Button
+              variant="pink"
+              className="w-full mb-3"
+              onClick={handleAddToCart}
+            >
+              {buttonText}
             </Button>
           ) : (
-            <>
-              {academy.validity === 0 ? (
-                <Button
-                  variant="pink"
-                  className="w-full mb-3"
-                  onClick={handleAddToCart}
-                >
-                  {buttonText}
-                </Button>
-              ) : (
-                <Button
-                  variant="pink"
-                  className="w-full mb-3"
-                  onClick={handleSubscribe}
-                >
-                  Subscribe
-                </Button>
-              )}
+            <Button
+              variant="pink"
+              className="w-full mb-3"
+              onClick={handleSubscribe}
+            >
+              Subscribe
+            </Button>
+          )}
 
-              {academy.validity === 0 && (
-                <Link href="/shopcart">
-                  <Button variant="pinkoutline" className="w-full">
-                    Proceed to Cart
-                  </Button>
-                </Link>
-              )}
-            </>
+          <Button
+            variant="pinkoutline"
+            className="w-full mb-3"
+            onClick={handleBookmarkAction}
+          >
+            {canBookmarked ? `Bookmark Academy` : "Remove bookmark"}
+          </Button>
+
+          {academy.validity === 0 && (
+            <Link href="/shopcart">
+              <Button variant="pinkoutline" className="w-full">
+                Proceed to Cart
+              </Button>
+            </Link>
           )}
         </div>
         <p className="text-[#4F547B] text-sm text-center">

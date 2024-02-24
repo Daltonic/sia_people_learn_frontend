@@ -351,13 +351,13 @@ export interface IWishlist {
     imageUrl?: string;
     rating?: number;
     reviews?: any[];
-  };
-  userId: {
-    firstName: string;
-    lastName: string;
-    username: string;
-    _id: string;
-    imgUrl?: string;
+    userId: {
+      firstName: string;
+      lastName: string;
+      username: string;
+      _id: string;
+      imgUrl?: string;
+    };
   };
   createdAt: string;
 }
