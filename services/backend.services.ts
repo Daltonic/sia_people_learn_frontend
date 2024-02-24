@@ -930,7 +930,7 @@ const createWishlist = async (
     };
 
     const response = await axios.request(config);
-    return Promise.resolve(response.status);
+    return Promise.resolve(response.data);
   } catch (error) {
     reportError(error);
     return Promise.reject(error);
@@ -962,7 +962,7 @@ const deleteWishlist = async (
 };
 
 const fetchWishlists = async (
-  query: { productType?: "Course" | "Academy" },
+  query: { productType: "Course" | "Academy" },
   token: string
 ): Promise<any> => {
   const url = `${BASE_URI}/api/v1/wishlists`;

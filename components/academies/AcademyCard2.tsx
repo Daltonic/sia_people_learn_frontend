@@ -1,7 +1,6 @@
 "use client";
 
 import { IAcademy, IWishlist, RootState } from "@/utils/type.dt";
-import { FiHeart } from "react-icons/fi";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -19,10 +18,9 @@ import { FaRegBookmark } from "react-icons/fa";
 
 interface Props {
   academy: IAcademy;
-  bookmarkedAcademies: IWishlist[];
 }
 
-const AcademyCard: React.FC<Props> = ({ academy, bookmarkedAcademies }) => {
+const AcademyCard: React.FC<Props> = ({ academy }) => {
   const [rating, setRating] = useState<string[]>([]);
 
   useEffect(() => {
@@ -31,26 +29,6 @@ const AcademyCard: React.FC<Props> = ({ academy, bookmarkedAcademies }) => {
   }, [academy]);
 
   const { userData } = useSelector((states: RootState) => states.userStates);
-
-  const isBookmarkable = () => {
-    const savedAcademy = bookmarkedAcademies.find(
-      (wishlist) => wishlist.productId._id === academy._id
-    );
-    const sub = userData?.subscribedAcademies.find((id) => id === academy._id);
-    if (sub !== undefined || savedAcademy !== undefined) {
-      return false;
-    } else {
-      return true;
-    }
-  };
-
-  useEffect(() => {
-    setCanBookmark(isBookmarkable());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [academy._id, userData, bookmarkedAcademies]);
-
-  const [canBookmark, setCanBookmark] = useState<boolean>(isBookmarkable());
-
   const router = useRouter();
   const pathname = usePathname();
 
@@ -134,36 +112,6 @@ const AcademyCard: React.FC<Props> = ({ academy, bookmarkedAcademies }) => {
     } catch (e: any) {
       console.log(e.message);
     }
-  };
-
-  const handleAddToWishlist = async () => {
-    if (!userData) {
-      sessionStorage.setItem("prevPath", pathname);
-      router.push("/login");
-      return;
-    }
-    const token = sessionStorage.getItem("accessToken") as string;
-
-    await toast.promise(
-      new Promise<void>((resolve, reject) => {
-        createWishlist(
-          { productType: "Academy", productId: academy._id },
-          token
-        ).then((status) => {
-          if (status === 201) {
-            setCanBookmark(false);
-            resolve(status);
-          } else {
-            reject();
-          }
-        });
-      }),
-      {
-        pending: "Adding to Wishlist",
-        success: "Successfully saved 👌",
-        error: "Encountered error 🤯",
-      }
-    );
   };
 
   return (
@@ -312,14 +260,6 @@ const AcademyCard: React.FC<Props> = ({ academy, bookmarkedAcademies }) => {
               </>
             )}
           </div>
-          {canBookmark && (
-            <div
-              className="w-12 h-12 flex justify-center items-center rounded-full bg-[#F9F9F9] cursor-pointer text-[#4F547B]"
-              onClick={handleAddToWishlist}
-            >
-              <FaRegBookmark />
-            </div>
-          )}
         </div>
       </div>
     </div>
