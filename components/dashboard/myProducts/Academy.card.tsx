@@ -3,54 +3,72 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { IoIosStar, IoMdMore } from "react-icons/io";
+import { IoIosStar } from "react-icons/io";
 import Dropdown from "@/components/reusableComponents/Dropdown";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
-import { submitCourse } from "@/services/backend.services";
+import { deleteAcademy, submitAcademy } from "@/services/backend.services";
 import { useDispatch } from "react-redux";
 import { genericActions } from "@/store/slices/genericSlice";
-import { ICourse } from "@/utils/type.dt";
+import { IAcademy } from "@/utils/type.dt";
 
 interface ComponentProps {
-  data: ICourse;
-  type: "Book" | "Course";
+  data: IAcademy;
 }
 
-const MyCourseCard: React.FC<ComponentProps> = ({ data, type }) => {
+const AcademyCard: React.FC<ComponentProps> = ({ data }) => {
   const [rating, setRating] = useState<string[]>([]);
   const router = useRouter();
   const dispatch = useDispatch();
   const { setDeleteModal, setData } = genericActions;
-
-  const [course, setCourse] = useState<ICourse>(data);
+  const [academy, setAcademy] = useState<IAcademy>(data);
 
   useEffect(() => {
     const newRating = Array(5).fill("star");
     setRating(newRating);
-  }, [course.rating]);
+  }, [academy.rating]);
 
   const handleSubmit = async () => {
     await toast.promise(
       new Promise<void>(async (resolve, reject) => {
-        await submitCourse({ submitted: true }, course._id)
+        await submitAcademy(academy._id)
           .then((res: any) => {
-            setCourse(res);
+            setAcademy(res);
             resolve(res);
           })
           .catch((error: any) => reject(error));
       }),
       {
         pending: `Submitting...`,
-        success: `Course submitted successfully 👌`,
+        success: `Academy submitted successfully 👌`,
         error: "Encountered error 🤯",
       }
     );
   };
 
   const onDelete = () => {
-    dispatch(setData({ ...course, type }));
+    dispatch(setData({ ...academy }));
     dispatch(setDeleteModal("scale-100"));
+  };
+
+  const handleDelete = async () => {
+    await toast.promise(
+      new Promise<void>(async (resolve, reject) => {
+        const status = await deleteAcademy(academy._id);
+
+        if (status === 200) {
+          router.push("/(dashboard)/myProducts");
+          resolve();
+        } else {
+          reject();
+        }
+      }),
+      {
+        pending: `Deleting...`,
+        success: `Academy deleted successfully 👌`,
+        error: "Encountered error 🤯",
+      }
+    );
   };
 
   return (
@@ -64,30 +82,28 @@ const MyCourseCard: React.FC<ComponentProps> = ({ data, type }) => {
             width={100}
             height={100}
             className="rounded-lg object-cover h-full w-full"
-            src={course.imageUrl || "/images/general/cardimg.svg"}
+            src={academy.imageUrl || "/images/general/cardimg.svg"}
             alt="image"
           />
 
           <div className="absolute top-1 right-2">
             <Dropdown>
               <Link
-                href={`/course/edit/${String(course._id)}`}
+                href={`/academy/edit/${String(academy._id)}`}
                 className="p-1 hover:bg-gray-100 w-full text-left"
               >
                 Edit
               </Link>
               <Link
                 href={{
-                  pathname: `/course/lesson/create`,
-                  query: {
-                    courseId: course._id,
-                  },
+                  pathname: `/academy/courses`,
+                  query: { academyId: academy._id },
                 }}
                 className="p-1 hover:bg-gray-100 w-full text-left"
               >
-                Add Lessons
+                Add Courses
               </Link>
-              {!course.submitted && (
+              {!academy.submitted && (
                 <button
                   onClick={handleSubmit}
                   className="p-1 hover:bg-gray-100 w-full text-left"
@@ -107,10 +123,10 @@ const MyCourseCard: React.FC<ComponentProps> = ({ data, type }) => {
         </div>
         <div className="my-2 p-2 space-y-2">
           <div className="flex items-center justify-between md:md:text-xs gap-4">
-            <p className="text-[#4F547B]">{course.userId.firstName}</p>
+            <p className="text-[#4F547B]">{academy.userId.firstName}</p>
 
             <div className="flex items-center gap-1">
-              <p className="text-[#E59819]">{course.rating}</p>
+              <p className="text-[#E59819]">{academy.rating}</p>
               <div className="flex items-center">
                 {rating.map((itm, i: number) => (
                   <div key={i} className="text-[#E59819]">
@@ -121,9 +137,9 @@ const MyCourseCard: React.FC<ComponentProps> = ({ data, type }) => {
             </div>
           </div>
 
-          <Link className="linkCustom" href={`/course/${course._id}`}>
+          <Link className="linkCustom" href={`/academy/${academy._id}`}>
             <div className="md:text-sm font-medium text-[#321463] mt-2 line-clamp-2">
-              {course.name}
+              {academy.name}
             </div>
           </Link>
         </div>
@@ -132,4 +148,4 @@ const MyCourseCard: React.FC<ComponentProps> = ({ data, type }) => {
   );
 };
 
-export default MyCourseCard;
+export default AcademyCard;

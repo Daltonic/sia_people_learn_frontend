@@ -6,6 +6,7 @@ import { userActions } from "@/store/slices/userSlice";
 import {
   FetchProductsParams,
   IAcademies,
+  IAcademy,
   ICourses,
   RootState,
 } from "@/utils/type.dt";
@@ -14,6 +15,7 @@ import { CiSearch } from "react-icons/ci";
 import LocalPagination from "@/components/reusableComponents/LocalPagination";
 import LocalFilters from "@/components/reusableComponents/LocalFilter";
 import { fetchAcademies, fetchCourses } from "@/services/backend.services";
+import AcademyCard from "./Academy.card";
 
 interface Props {
   academiesData: IAcademies;
@@ -219,7 +221,7 @@ const Tabs: React.FC<Props> = ({ academiesData, coursesData, booksData }) => {
               coursesObj.courses &&
               coursesObj.courses.length > 0 ? (
                 coursesObj.courses.map((elm, i: number) => (
-                  <MyCourseCard data={elm} key={i} type={type} />
+                  <MyCourseCard data={elm} key={i} type="Course" />
                 ))
               ) : (
                 <EmptyComponent
@@ -234,7 +236,7 @@ const Tabs: React.FC<Props> = ({ academiesData, coursesData, booksData }) => {
             <div className="flex justify-between gap-5 w-full flex-wrap">
               {booksObj.courses && booksObj.courses.length > 0 ? (
                 booksObj.courses.map((elm, i: number) => (
-                  <MyCourseCard data={elm} key={i} type={type} />
+                  <MyCourseCard data={elm} key={i} type="Book" />
                 ))
               ) : (
                 <EmptyComponent
@@ -248,7 +250,7 @@ const Tabs: React.FC<Props> = ({ academiesData, coursesData, booksData }) => {
             <div className="flex justify-between gap-5 w-full flex-wrap">
               {academiesObj.academies && academiesObj.academies.length > 0 ? (
                 academiesObj.academies.map((elm, i: number) => (
-                  <MyCourseCard data={elm} key={i} type={type} />
+                  <AcademyCard data={elm as IAcademy} key={elm._id} />
                 ))
               ) : (
                 <EmptyComponent

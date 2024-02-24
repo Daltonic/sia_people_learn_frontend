@@ -12,7 +12,7 @@ const Page: NextPage<{ academyData: IAcademy }> = ({ academyData }) => {
         headerHead="Edit Your Academy"
         headerBody="Start modifying your Academy"
       />
-      <AcademyForm academy={academyData} />
+      <AcademyForm academy={academyData} type="update" />
     </DashboardLayout>
   );
 };

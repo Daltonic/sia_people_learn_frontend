@@ -5,8 +5,11 @@ import DashboardLayout from "@/components/dashboard/dashboardLayout/DashboardLay
 const CreateCourse: React.FC = () => {
   return (
     <DashboardLayout>
-      <DashboardHeading title="Create Product" description=" Start building your products." />
-      <CourseForm />
+      <DashboardHeading
+        title="Create Product"
+        description=" Start building your products."
+      />
+      <CourseForm type="create" />
     </DashboardLayout>
   );
 };
