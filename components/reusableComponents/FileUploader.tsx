@@ -120,7 +120,7 @@ const FileUploader: React.FC<FileUploaderProps> = ({
           >
             <TfiClose size={16} className="text-slate-600 font-bold" />
           </button>
-        <div className="text-center mt-8 md:mt-4">
+        <div className="text-center mt-8 md:mt-4 mb-6">
           <h1 className="text-violet-950 text-center text-2xl font-bold">
             UPLOAD FILES
           </h1>
