@@ -6,8 +6,8 @@ const CreateCourse: React.FC = () => {
   return (
     <DashboardLayout>
       <DashboardHeading
-        title="Create Product"
-        description=" Start building your products."
+        title="Create Course"
+        description="Add a new Course to your Catalogue"
       />
       <CourseForm type="create" />
     </DashboardLayout>

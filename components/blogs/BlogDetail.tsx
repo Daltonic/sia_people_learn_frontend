@@ -15,26 +15,6 @@ const BlogDetail: React.FC<ComponentProps> = ({ post }) => {
   const { userData } = useSelector((states: RootState) => states.userStates);
   const router = useRouter();
 
-  const handleDelete = async () => {
-    const token = sessionStorage.getItem("accessToken") as string;
-
-    await toast.promise(
-      new Promise<void>(async (resolve, reject) => {
-        const status = await deletePost(post._id, token);
-        if (status === 200) {
-          resolve(status);
-          router.push("/blogs");
-        } else {
-          reject();
-        }
-      }),
-      {
-        pending: `Deleting Blog Post...`,
-        success: `Blog post deleted successfully 👌`,
-        error: "Encountered error 🤯",
-      }
-    );
-  };
   return (
     <>
       <section className="my-5 md:my-10">
@@ -56,23 +36,6 @@ const BlogDetail: React.FC<ComponentProps> = ({ post }) => {
           </div>
         </div>
       </section>
-
-      {userData?._id === post.userId._id && (
-        <div className="flex justify-between items-center gap-2">
-          <Link
-            href={`/blogs/edit/${post._id}`}
-            className="rounded-lg px-4 py-2 w-fit bg-slate-200"
-          >
-            Edit Post
-          </Link>
-          <div
-            className="rounded-lg px-4 py-2 w-fit bg-red-300 cursor-pointer"
-            onClick={handleDelete}
-          >
-            Delete Post
-          </div>
-        </div>
-      )}
 
       <section className="w-full mt-4">
         <div

@@ -12,7 +12,7 @@ interface ComponentProps {
   index?: number;
 }
 
-const MyCourseCard: React.FC<ComponentProps> = ({ product, index }) => {
+const MyCourseCard: React.FC<ComponentProps> = ({ product }) => {
   const [rating, setRating] = useState<string[]>([]);
 
   useEffect(() => {
@@ -20,11 +20,8 @@ const MyCourseCard: React.FC<ComponentProps> = ({ product, index }) => {
     setRating(newRating);
   }, [product.productId.rating]);
 
-
   return (
-    <div
-      className="bg-white rounded-lg w-full sm:w-[48%] md:w-48 h-60 p-2 border-[#EDEDED] border shadow-[#EDEDED] shadow-xl"
-    >
+    <div className="bg-white rounded-lg w-full sm:w-[48%] md:w-48 h-60 p-2 border-[#EDEDED] border shadow-[#EDEDED] shadow-xl">
       <div className="">
         <div className="h-28">
           <Link
@@ -41,7 +38,6 @@ const MyCourseCard: React.FC<ComponentProps> = ({ product, index }) => {
           </Link>
         </div>
 
-
         <div className="pt-2 space-y-2">
           <div className="flex items-center justify-between md:md:text-xs gap-4">
             <p className="text-[#4F547B]">
@@ -50,7 +46,7 @@ const MyCourseCard: React.FC<ComponentProps> = ({ product, index }) => {
             </p>
 
             <div className="flex items-center gap-1">
-              <p className="text-[#E59819]">{product.productId.rating} 4.5</p>
+              <p className="text-[#E59819]">{product.productId.rating}</p>
               <div className="flex items-center">
                 {rating.map((itm, i: number) => (
                   <div key={i} className="text-[#E59819]">
@@ -64,8 +60,10 @@ const MyCourseCard: React.FC<ComponentProps> = ({ product, index }) => {
             className="linkCustom"
             href={`/course/learn/${product.productId._id}`}
           >
-            <p className="line-clamp-2 md:text-sm font-medium text-[#321463] mt-2"> {product.productId.name}</p>
-
+            <p className="line-clamp-2 md:text-sm font-medium text-[#321463] mt-2">
+              {" "}
+              {product.productId.name}
+            </p>
           </Link>
         </div>
       </div>

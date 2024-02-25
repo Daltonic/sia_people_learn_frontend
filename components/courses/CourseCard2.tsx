@@ -161,10 +161,16 @@ const CourseCard: React.FC<Props> = ({ course }) => {
         </div>
       </div>
       <div className="flex md:flex-col md:pl-5 my-auto items-center justify-between md:justify-normal md:items-end md:border-l md:border-[#EDEDED]">
-        <div className="flex md:flex-col items-center gap-2 md:items-end">
-          <p className="text-sm text-[#4F547B] line-through">${course.price}</p>
-          <p className="text-2xl  text-[#321463]">${course.price}</p>
-        </div>
+        {course.price === 0 ? (
+          <p className="text-2xl  text-[#321463]">Free</p>
+        ) : (
+          <div className="flex md:flex-col items-center gap-2 md:items-end">
+            <p className="text-sm text-[#4F547B] line-through">
+              ${course.price}
+            </p>
+            <p className="text-2xl  text-[#321463]">${course.price}</p>
+          </div>
+        )}
 
         <div className="flex items-center justify-between gap-5 mt-3 text-pink-700">
           <button

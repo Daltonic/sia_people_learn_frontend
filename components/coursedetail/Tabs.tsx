@@ -138,8 +138,8 @@ const Tabs: React.FC<ComponentProps> = ({ course, type, data }) => {
                       <Image
                         height={100}
                         width={100}
-                        src={"/images/courseCard/card4.svg" || course.imageUrl}
-                        alt=""
+                        src={course.imageUrl || "/images/courseCard/card4.svg"}
+                        alt="course image"
                         className="w-20 h-12 overflow-hidden object-cover rounded-md"
                       />
                     </div>
