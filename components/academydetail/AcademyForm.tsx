@@ -1,182 +1,182 @@
-import Badge from "@/components/reusableComponents/Badge";
-import Button from "@/components/reusableComponents/Button";
-import InputField from "@/components/reusableComponents/InputField";
-import SelectField from "@/components/reusableComponents/SelectField";
-import TextAreaField from "@/components/reusableComponents/TextAreaField";
-import { IAcademy, RootState } from "@/utils/type.dt";
-import { useRouter } from "next/navigation";
+import Badge from '@/components/reusableComponents/Badge'
+import Button from '@/components/reusableComponents/Button'
+import InputField from '@/components/reusableComponents/InputField'
+import SelectField from '@/components/reusableComponents/SelectField'
+import TextAreaField from '@/components/reusableComponents/TextAreaField'
+import { IAcademy, RootState } from '@/utils/type.dt'
+import { useRouter } from 'next/navigation'
 import React, {
   useState,
   KeyboardEvent,
   ChangeEvent,
   SyntheticEvent,
   useEffect,
-} from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { userActions } from "@/store/slices/userSlice";
-import { toast } from "react-toastify";
-import WYSIWYG from "../reusableComponents/WYSIWYG";
-import { createAcademy, updateAcademy } from "@/services/backend.services";
-import FileUploader from "../reusableComponents/FileUploader";
-import { FaArrowsRotate, FaTrashCan } from "react-icons/fa6";
-import Image from "next/image";
-import { uploaderActions } from "@/store/slices/uploaderSlice";
+} from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { userActions } from '@/store/slices/userSlice'
+import { toast } from 'react-toastify'
+import WYSIWYG from '../reusableComponents/WYSIWYG'
+import { createAcademy, updateAcademy } from '@/services/backend.services'
+import FileUploader from '../reusableComponents/FileUploader'
+import { FaArrowsRotate, FaTrashCan } from 'react-icons/fa6'
+import Image from 'next/image'
+import { uploaderActions } from '@/store/slices/uploaderSlice'
 
 interface AcademyProps {
-  academy?: IAcademy;
-  type: "create" | "update";
+  academy?: IAcademy
+  type: 'create' | 'update'
 }
 
 const AcademyForm: React.FC<AcademyProps> = ({ academy, type }) => {
-  const [editorContent, setEditorContent] = useState<string>("");
-  const router = useRouter();
-  const dispatch = useDispatch();
-  const { setUserData } = userActions;
-  const { userData } = useSelector((states: RootState) => states.userStates);
+  const [editorContent, setEditorContent] = useState<string>('')
+  const router = useRouter()
+  const dispatch = useDispatch()
+  const { setUserData } = userActions
+  const { userData } = useSelector((states: RootState) => states.userStates)
   const [imageUrl, setImageUrl] = useState<string | null>(
     academy?.imageUrl || null
-  );
+  )
 
   useEffect(() => {
     if (!userData) {
-      const sessionUser = JSON.parse(sessionStorage.getItem("user")!);
+      const sessionUser = JSON.parse(sessionStorage.getItem('user')!)
       if (sessionUser) {
-        dispatch(setUserData(sessionUser));
+        dispatch(setUserData(sessionUser))
       }
     }
-  }, [dispatch, setUserData, userData]);
+  }, [dispatch, setUserData, userData])
   const [academyDetails, setAcademyDetails] = useState({
-    title: academy?.name || "",
-    description: academy?.description || "",
-    overview: academy?.overview || "",
+    title: academy?.name || '',
+    description: academy?.description || '',
+    overview: academy?.overview || '',
     price: academy?.price || 0,
     validity: academy?.validity || 0,
-    imageUrl: academy?.imageUrl || "",
+    imageUrl: academy?.imageUrl || '',
     difficulty:
       academy?.difficulty ||
-      ("Beginner" as "Beginner" | "Intermediate" | "Advanced"),
+      ('Beginner' as 'Beginner' | 'Intermediate' | 'Advanced'),
     tags: academy?.tags ? academy.tags.map((tag) => tag.name) : [],
     requirements: academy?.requirements ? academy.requirements : [],
     highlights: academy?.highlights ? academy.highlights : [],
-  });
-  const { setUploaderModal } = uploaderActions;
+  })
+  const { setUploaderModal } = uploaderActions
 
-  const [submitting, setSubmitting] = useState<boolean>(false);
+  const [submitting, setSubmitting] = useState<boolean>(false)
 
   const handleInputKeyDown = (
     e: KeyboardEvent<HTMLInputElement>,
-    field: "tags" | "requirements" | "highlights"
+    field: 'tags' | 'requirements' | 'highlights'
   ) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
+    if (e.key === 'Enter') {
+      e.preventDefault()
 
-      const input = e.target as HTMLInputElement;
-      const value = input.value.trim();
+      const input = e.target as HTMLInputElement
+      const value = input.value.trim()
 
-      if (value !== "") {
+      if (value !== '') {
         switch (field) {
-          case "highlights":
+          case 'highlights':
             if (!academyDetails.highlights.includes(value)) {
               setAcademyDetails((prev) => ({
                 ...prev,
                 highlights: [...prev.highlights, value],
-              }));
-              input.value = "";
+              }))
+              input.value = ''
             } else {
-              input.value = "";
+              input.value = ''
             }
-            break;
-          case "requirements":
+            break
+          case 'requirements':
             if (!academyDetails.requirements.includes(value)) {
               setAcademyDetails((prev) => ({
                 ...prev,
                 requirements: [...prev.requirements, value],
-              }));
-              input.value = "";
+              }))
+              input.value = ''
             } else {
-              input.value = "";
+              input.value = ''
             }
-            break;
+            break
 
-          case "tags":
+          case 'tags':
             if (!academyDetails.tags.includes(value)) {
               setAcademyDetails((prev) => ({
                 ...prev,
                 tags: [...prev.tags, value],
-              }));
-              input.value = "";
+              }))
+              input.value = ''
             } else {
-              input.value = "";
+              input.value = ''
             }
-            break;
+            break
         }
       }
     }
-  };
+  }
 
   const handleRemoveItem = (
-    field: "highlights" | "requirements" | "tags",
+    field: 'highlights' | 'requirements' | 'tags',
     value: string
   ) => {
     switch (field) {
-      case "highlights":
+      case 'highlights':
         const newHighlights = academyDetails.highlights.filter(
           (highlight: string) => highlight !== value
-        );
-        setAcademyDetails((prev) => ({ ...prev, highlights: newHighlights }));
-        break;
-      case "requirements":
+        )
+        setAcademyDetails((prev) => ({ ...prev, highlights: newHighlights }))
+        break
+      case 'requirements':
         const newRequirements = academyDetails.requirements.filter(
           (requirement: string) => requirement !== value
-        );
+        )
         setAcademyDetails((prev) => ({
           ...prev,
           requirements: newRequirements,
-        }));
-        break;
-      case "tags":
+        }))
+        break
+      case 'tags':
         const newTags = academyDetails.tags.filter(
           (tag: string) => tag !== value
-        );
-        setAcademyDetails((prev) => ({ ...prev, tags: newTags }));
-        break;
+        )
+        setAcademyDetails((prev) => ({ ...prev, tags: newTags }))
+        break
     }
-  };
+  }
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
-    const { name, value } = e.currentTarget;
+    const { name, value } = e.currentTarget
 
     setAcademyDetails((prev) => ({
       ...prev,
       [name]: value,
-    }));
-  };
+    }))
+  }
 
   const handleImageMount = (imageUrl: string) => {
     setAcademyDetails((prev) => ({
       ...prev,
       imageUrl,
-    }));
-    setImageUrl(imageUrl);
-  };
+    }))
+    setImageUrl(imageUrl)
+  }
 
   const handleSubmit = async (e: SyntheticEvent) => {
-    e.preventDefault();
+    e.preventDefault()
 
     if (
-      userData?.userType !== "instructor" &&
+      userData?.userType !== 'instructor' &&
       String(userData?._id) === String(academy?.userId._id)
     ) {
-      return toast.warn(`Only instructors can create products`);
+      return toast.warn(`Only instructors can create products`)
     }
 
     if (academyDetails.price === 0) {
-      return toast.warn(`Academy price cannot be 0`);
+      return toast.warn(`Academy price cannot be 0`)
     }
 
-    setSubmitting(true);
+    setSubmitting(true)
 
     const academyInput = {
       ...academyDetails,
@@ -184,50 +184,50 @@ const AcademyForm: React.FC<AcademyProps> = ({ academy, type }) => {
       description: editorContent,
       price: Number(academyDetails.price),
       validity: Number(academyDetails.validity),
-    };
+    }
 
-    if (type === "create") {
+    if (type === 'create') {
       await toast.promise(
         new Promise<void>((resolve, reject) => {
           createAcademy(academyInput)
             .then((result) => {
-              router.push("/(dashboard)/myProducts");
-              setSubmitting(false);
-              resolve(result);
+              router.push('/(dashboard)/myProducts')
+              setSubmitting(false)
+              resolve(result)
             })
             .catch((error) => {
-              setSubmitting(false);
-              reject(error);
-            });
+              setSubmitting(false)
+              reject(error)
+            })
         }),
         {
-          pending: "Creating Academy...",
-          success: "Successfully created 👌",
-          error: "Encountered error 🤯",
+          pending: 'Creating Academy...',
+          success: 'Successfully created 👌',
+          error: 'Encountered error 🤯',
         }
-      );
+      )
     } else {
       await toast.promise(
         new Promise<void>((resolve, reject) => {
           updateAcademy(academyInput, String(academy?._id!))
             .then((result) => {
-              router.push("/(dashboard)/myProducts");
-              setSubmitting(false);
-              resolve(result);
+              router.push('/(dashboard)/myProducts')
+              setSubmitting(false)
+              resolve(result)
             })
             .catch((error) => {
-              setSubmitting(false);
-              reject(error);
-            });
+              setSubmitting(false)
+              reject(error)
+            })
         }),
         {
-          pending: "Updating Academy...",
-          success: "Successfully updated 👌",
-          error: "Encountered error 🤯",
+          pending: 'Updating Academy...',
+          success: 'Successfully updated 👌',
+          error: 'Encountered error 🤯',
         }
-      );
+      )
     }
-  };
+  }
 
   return (
     <div className="bg-white rounded-lg ">
@@ -237,7 +237,7 @@ const AcademyForm: React.FC<AcademyProps> = ({ academy, type }) => {
       <div className="p-5 border-b border-[#EDEDED]">
         {!academyDetails.imageUrl && (
           <Button
-            onClick={() => dispatch(setUploaderModal("scale-100"))}
+            onClick={() => dispatch(setUploaderModal('scale-100'))}
             className="text-slate-600 border border-[color:var(--border-2,#E1DDDD)]"
           >
             Add Image
@@ -248,7 +248,7 @@ const AcademyForm: React.FC<AcademyProps> = ({ academy, type }) => {
           <div className="relative w-full">
             <div className="flex justify-start items-center space-x-2 absolute top-2 left-2">
               <Button
-                onClick={() => dispatch(setUploaderModal("scale-100"))}
+                onClick={() => dispatch(setUploaderModal('scale-100'))}
                 className="bg-black bg-opacity-25 text-white"
               >
                 <FaArrowsRotate size={20} />
@@ -256,7 +256,7 @@ const AcademyForm: React.FC<AcademyProps> = ({ academy, type }) => {
 
               <Button
                 onClick={() =>
-                  setAcademyDetails((prev) => ({ ...prev, imageUrl: "" }))
+                  setAcademyDetails((prev) => ({ ...prev, imageUrl: '' }))
                 }
                 className="bg-black bg-opacity-25 text-white"
               >
@@ -265,7 +265,7 @@ const AcademyForm: React.FC<AcademyProps> = ({ academy, type }) => {
             </div>
             <Image
               src={academyDetails.imageUrl}
-              alt={academyDetails.title || "Product"}
+              alt={academyDetails.title || 'Product'}
               width={500}
               height={100}
               className="h-72 w-full object-cover"
@@ -303,33 +303,30 @@ const AcademyForm: React.FC<AcademyProps> = ({ academy, type }) => {
             value={academyDetails.price}
             handleChange={handleChange}
           />
-          <InputField
-            label="ImageURL"
-            name="imageUrl"
-            placeholder="Enter Product ImageURL"
-            required={false}
-            inputType="url"
-            value={academyDetails.imageUrl}
-          />
         </div>
         <div className="md:flex gap-8">
           <SelectField
             label="Difficulty"
             name="difficulty"
             options={[
-              { label: "Beginner", value: "Beginner" },
-              { label: "Intermediate", value: "Intermediate" },
-              { label: "Advance", value: "Advanced" },
+              { label: 'Beginner', value: 'Beginner' },
+              { label: 'Intermediate', value: 'Intermediate' },
+              { label: 'Advance', value: 'Advanced' },
             ]}
             value={academyDetails.difficulty}
             handleChange={handleChange}
           />
-          <InputField
+
+          <SelectField
             label="Validity"
             name="validity"
-            placeholder="Academy validity"
-            required
-            inputType="number"
+            options={[
+              { label: 'One-Off', value: 0 },
+              { label: 'Monthly', value: 1 },
+              { label: 'Quarterly', value: 3 },
+              { label: 'Bi-Anually', value: 6 },
+              { label: 'Annually', value: 12 },
+            ]}
             value={academyDetails.validity}
             handleChange={handleChange}
           />
@@ -343,7 +340,7 @@ const AcademyForm: React.FC<AcademyProps> = ({ academy, type }) => {
               placeholder="Enter Product Requirements"
               required={false}
               inputType="text"
-              handleKeyDown={(e) => handleInputKeyDown(e, "requirements")}
+              handleKeyDown={(e) => handleInputKeyDown(e, 'requirements')}
             />
             <div className="flex flex-wrap w-full gap-2">
               {academyDetails.requirements.map((requirement, index) => (
@@ -352,7 +349,7 @@ const AcademyForm: React.FC<AcademyProps> = ({ academy, type }) => {
                   inputText={requirement}
                   imageUrl="/images/general/cancel.png"
                   handleIconClick={() =>
-                    handleRemoveItem("requirements", requirement)
+                    handleRemoveItem('requirements', requirement)
                   }
                 />
               ))}
@@ -365,7 +362,7 @@ const AcademyForm: React.FC<AcademyProps> = ({ academy, type }) => {
               placeholder="Enter Tags"
               required={false}
               inputType="text"
-              handleKeyDown={(e) => handleInputKeyDown(e, "tags")}
+              handleKeyDown={(e) => handleInputKeyDown(e, 'tags')}
             />
             <div className="flex flex-wrap w-full gap-2">
               {academyDetails.tags.map((tag, index) => (
@@ -373,7 +370,7 @@ const AcademyForm: React.FC<AcademyProps> = ({ academy, type }) => {
                   key={index}
                   inputText={tag}
                   imageUrl="/images/general/cancel.png"
-                  handleIconClick={() => handleRemoveItem("tags", tag)}
+                  handleIconClick={() => handleRemoveItem('tags', tag)}
                 />
               ))}
             </div>
@@ -386,7 +383,7 @@ const AcademyForm: React.FC<AcademyProps> = ({ academy, type }) => {
             placeholder="Enter Product Highlights"
             required={false}
             inputType="text"
-            handleKeyDown={(e) => handleInputKeyDown(e, "highlights")}
+            handleKeyDown={(e) => handleInputKeyDown(e, 'highlights')}
           />
           <div className="flex flex-col gap-2 w-full">
             {academyDetails.highlights.map((highlight, index) => (
@@ -395,7 +392,7 @@ const AcademyForm: React.FC<AcademyProps> = ({ academy, type }) => {
                 inputText={highlight}
                 imageUrl="/images/general/cancel.png"
                 handleIconClick={() =>
-                  handleRemoveItem("highlights", highlight)
+                  handleRemoveItem('highlights', highlight)
                 }
               />
             ))}
@@ -409,13 +406,13 @@ const AcademyForm: React.FC<AcademyProps> = ({ academy, type }) => {
           />
         </div>
 
-        {type === "create" ? (
+        {type === 'create' ? (
           <Button variant="pink" className="mt-14" disabled={submitting}>
-            {submitting ? "Creating" : "Create"}
+            {submitting ? 'Creating' : 'Create'}
           </Button>
         ) : (
           <Button variant="pink" className="mt-14" disabled={submitting}>
-            {submitting ? "Updating" : "Update"}
+            {submitting ? 'Updating' : 'Update'}
           </Button>
         )}
       </form>
@@ -424,7 +421,7 @@ const AcademyForm: React.FC<AcademyProps> = ({ academy, type }) => {
         accept="image/png,image/jpeg,image/jpg"
       />
     </div>
-  );
-};
+  )
+}
 
-export default AcademyForm;
+export default AcademyForm
