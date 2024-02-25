@@ -337,7 +337,7 @@ const submitCourse = async (
 
   try {
     const response = await axios.request(config);
-    return Promise.resolve(response.status);
+    return Promise.resolve(response.data);
   } catch (error) {
     reportError(error);
     return Promise.reject(error);
@@ -506,7 +506,7 @@ const submitAcademy = async (academyId: string): Promise<any> => {
 
   try {
     const response = await axios.request(config);
-    return Promise.resolve(response.status);
+    return Promise.resolve(response.data);
   } catch (error) {
     reportError(error);
     return Promise.reject(error);
