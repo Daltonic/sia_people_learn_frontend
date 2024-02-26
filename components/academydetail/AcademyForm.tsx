@@ -231,9 +231,6 @@ const AcademyForm: React.FC<AcademyProps> = ({ academy, type }) => {
 
   return (
     <div className="bg-white rounded-lg ">
-      <h1 className="p-5 text-[#321463] font-medium border-b border-[#EDEDED] text-xl md:text-base">
-        Academy Details
-      </h1>
       <div className="p-5 border-b border-[#EDEDED]">
         {!academyDetails.imageUrl && (
           <Button

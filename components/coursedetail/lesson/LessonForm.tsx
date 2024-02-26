@@ -38,7 +38,7 @@ const LessonForm: React.FC<LessonProps> = ({ lesson, courseId, type }) => {
   const [lessonDetails, setLessonDetails] = useState({
     title: lesson?.title || '',
     description: lesson?.description || '',
-    duration: lesson?.duration || 100,
+    duration: lesson?.duration || 0,
     videoUrl: lesson?.videoUrl || '',
     downloadableUrl: lesson?.downloadableUrl || '',
     order: lesson?.order || 0,
@@ -89,8 +89,7 @@ const LessonForm: React.FC<LessonProps> = ({ lesson, courseId, type }) => {
             courseId: courseId,
           })
             .then((res) => {
-              setSubmitting(false)
-              router.push(`/course/${courseId}`)
+              resetForm()
               resolve(res)
             })
             .catch((error) => {
@@ -120,7 +119,7 @@ const LessonForm: React.FC<LessonProps> = ({ lesson, courseId, type }) => {
           )
             .then((res) => {
               setSubmitting(false)
-              router.push(`/course/${courseId}`)
+              router.push(`/course/learn/${courseId}`)
               resolve(res)
             })
             .catch((error) => {
@@ -135,6 +134,18 @@ const LessonForm: React.FC<LessonProps> = ({ lesson, courseId, type }) => {
         }
       )
     }
+  }
+
+  const resetForm = () => {
+    setLessonDetails({
+      title: '',
+      description: '',
+      duration: 0,
+      videoUrl: '',
+      downloadableUrl: '',
+      order: 0,
+    })
+    setSubmitting(false)
   }
 
   const handleFileAttachment = (type: string) => {

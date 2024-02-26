@@ -1,11 +1,11 @@
-import Layout from "@/components/layout/Layout";
-import { GetServerSidePropsContext, NextPage } from "next";
-import Image from "next/image";
-import { ICourse, IReviews } from "@/utils/type.dt";
-import ReviewSection from "@/components/blogs/ReviewSection";
-import ReviewForm from "@/components/blogs/ReviewForm";
-import LessonAccordion from "@/components/lesson/LessonAccordion";
-import { fetchCourse, fetchReviews } from "@/services/backend.services";
+import Layout from '@/components/layout/Layout'
+import { GetServerSidePropsContext, NextPage } from 'next'
+import Image from 'next/image'
+import { ICourse, IReviews } from '@/utils/type.dt'
+import ReviewSection from '@/components/blogs/ReviewSection'
+import ReviewForm from '@/components/blogs/ReviewForm'
+import LessonAccordion from '@/components/lesson/LessonAccordion'
+import { fetchCourse, fetchReviews } from '@/services/backend.services'
 
 const Page: NextPage<{ courseData: ICourse; reviews: IReviews }> = ({
   courseData,
@@ -19,68 +19,71 @@ const Page: NextPage<{ courseData: ICourse; reviews: IReviews }> = ({
             <Image
               height={200}
               width={200}
-              src={courseData.imageUrl || "/images/general/cardimg.svg"}
+              src={courseData.imageUrl || '/images/general/cardimg.svg'}
               alt="Course Image"
               className="w-full md:h-[70vh] object-cover rounded-lg"
             />
           </div>
-        <div className="text-[#321463] text-2xl font-medium capitalize md:mt-4">
-          {courseData.name}
-        </div>
-        <div className="my-4">
-          <h1 className="text-xl md:text-lg text-[#321463] font-medium">
-            Overview
-          </h1>
-          <p className=" text-[#4F547B]">{courseData.overview}</p>
-        </div>
-        <div>
-          <h1 className="text-xl md:text-lg text-[#321463] font-medium">
-            Description
-          </h1>
-          <p className=" text-[#4F547B]">{courseData.description}</p>
-        </div>
-        <ReviewSection reviewsData={reviews} />
-        <ReviewForm productId={courseData._id} productType="Course" />
+          <div className="text-[#321463] text-2xl font-medium capitalize md:mt-4">
+            {courseData.name}
+          </div>
+          <div className="my-4">
+            <h1 className="text-xl md:text-lg text-[#321463] font-medium">
+              Overview
+            </h1>
+            <p className=" text-[#4F547B]">{courseData.overview}</p>
+          </div>
+          <div>
+            <h1 className="text-xl md:text-lg text-[#321463] font-medium">
+              Description
+            </h1>
+            <div
+              dangerouslySetInnerHTML={{ __html: courseData.description }}
+              className="mt-2 md:mt-5 text-[#4F547B]"
+            />
+          </div>
+          <ReviewSection reviewsData={reviews} />
+          <ReviewForm productId={courseData._id} productType="Course" />
         </div>
         <div className="md:w-[30%] mt-4 md:mt-0">
-            <LessonAccordion course={courseData} />
-          </div>
+          <LessonAccordion course={courseData} />
+        </div>
       </div>
     </Layout>
-  );
-};
+  )
+}
 
-export default Page;
+export default Page
 
 export const getServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
-  const { id } = context.query;
-  const token = context.req.cookies.accessToken;
+  const { id } = context.query
+  const token = context.req.cookies.accessToken
 
   try {
-    const course = await fetchCourse(id as string, token);
+    const course = await fetchCourse(id as string, token)
     const reviews = await fetchReviews(
       {
         productId: id as string,
-        productType: "Course",
+        productType: 'Course',
       },
       token
-    );
+    )
 
     return {
       props: {
         courseData: JSON.parse(JSON.stringify(course)),
         reviewsData: JSON.parse(JSON.stringify(reviews)),
       },
-    };
+    }
   } catch (e: any) {
-    console.log(e.message);
+    console.log(e.message)
     return {
       props: {
         courseData: {} as ICourse,
         reviewsData: {} as IReviews,
       },
-    };
+    }
   }
-};
+}

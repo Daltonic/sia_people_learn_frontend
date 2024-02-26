@@ -5,7 +5,6 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { IoIosStar, IoMdMore } from "react-icons/io";
 import { IUserSubscription } from "@/utils/type.dt";
-import Dropdown from "@/components/reusableComponents/Dropdown";
 
 interface ComponentProps {
   product: IUserSubscription;
@@ -14,6 +13,7 @@ interface ComponentProps {
 
 const MyCourseCard: React.FC<ComponentProps> = ({ product }) => {
   const [rating, setRating] = useState<string[]>([]);
+  
 
   useEffect(() => {
     const newRating = Array(5).fill("star");
