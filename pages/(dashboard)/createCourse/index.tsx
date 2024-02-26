@@ -1,4 +1,4 @@
-import CourseForm from "@/components/dashboard/createProduct/CourseForm";
+import CourseForm from "@/components/dashboard/courses/CourseForm";
 import DashboardHeading from "@/components/dashboard/dashboardLayout/DashboardHeading";
 import DashboardLayout from "@/components/dashboard/dashboardLayout/DashboardLayout";
 
