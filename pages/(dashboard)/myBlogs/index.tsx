@@ -26,10 +26,13 @@ export const getServerSideProps = async (
   const token = context.req.cookies.accessToken;
 
   try {
-    const publishedPosts = await fetchUserPosts({ published: "true" }, token);
+    const publishedPosts = await fetchUserPosts(
+      { published: "true", parentsOnly: "true" },
+      token
+    );
 
     const unpublishedPosts = await fetchUserPosts(
-      { published: "false" },
+      { published: "false", parentsOnly: "true" },
       token
     );
 
