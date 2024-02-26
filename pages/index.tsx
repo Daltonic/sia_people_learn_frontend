@@ -28,7 +28,6 @@ const Page: NextPage<{
   booksData: ICourses;
   postsData: IPosts;
 }> = ({ academiesData, coursesData, booksData, postsData }) => {
-  
   return (
     <Layout>
       <main className="overflow-x-hidden">
@@ -57,8 +56,8 @@ export const getServerSideProps = async () => {
 
     const books = await fetchBooks({ type: "Book" });
 
-    const posts = await fetchPosts({});
-   
+    const posts = await fetchPosts({ parentsOnly: "true" });
+
     return {
       props: {
         academiesData: JSON.parse(JSON.stringify(academies)),
