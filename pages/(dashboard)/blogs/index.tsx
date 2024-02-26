@@ -7,7 +7,7 @@ import { FetchPostsParams, IPosts } from "@/utils/type.dt";
 const Page: React.FC<{ postsObj: IPosts }> = ({ postsObj }) => {
   return (
     <DashboardLayout>
-      <Blogs postsData={postsObj} />
+      <Blogs postsData={postsObj} options={true} />
     </DashboardLayout>
   );
 };

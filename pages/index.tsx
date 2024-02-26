@@ -28,6 +28,7 @@ const Page: NextPage<{
   booksData: ICourses;
   postsData: IPosts;
 }> = ({ academiesData, coursesData, booksData, postsData }) => {
+  
   return (
     <Layout>
       <main className="overflow-x-hidden">
