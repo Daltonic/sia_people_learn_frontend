@@ -46,7 +46,7 @@ const AddRemoveCourse: React.FC<Props> = ({ courses, academy }) => {
         if (result) {
           resolve();
           setUpdatedAcademy(result);
-          setAcademyCourses((prev) => [...prev, { _id: courseId, name }]);
+          setAcademyCourses((prev) => [...prev, { _id: courseId, name } as ICourse]);
           const newCoursesToAdd = coursesToAdd.filter(
             (course) => course._id !== courseId
           );

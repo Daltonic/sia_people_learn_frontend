@@ -13,9 +13,10 @@ import { deletePost, publishPost } from '@/services/backend.services'
 interface BlogCardProps {
   blog: IPost
   i: number
+  option?: boolean
 }
 
-const BlogCard: React.FC<BlogCardProps> = ({ blog, i }) => {
+const BlogCard: React.FC<BlogCardProps> = ({ blog, i, option }) => {
   const { userData } = useSelector((states: RootState) => states.userStates)
 
   const handlePublish = async () => {
@@ -59,30 +60,32 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog, i }) => {
       data-aos-duration={(i + 1) * 500}
     >
       <div className="w-full relative">
-        <div className="absolute top-1 right-2">
-          <Dropdown>
-            <Link
-              href={`/blogs/edit/${String(blog._id)}`}
-              className="p-1 hover:bg-gray-100 w-full text-left"
-            >
-              Edit
-            </Link>
-            {userData?.userType === 'admin' && !blog.published && (
-              <button
-                onClick={handlePublish}
+        {option && (
+          <div className="absolute top-1 right-2">
+            <Dropdown>
+              <Link
+                href={`/blogs/edit/${String(blog._id)}`}
                 className="p-1 hover:bg-gray-100 w-full text-left"
               >
-                Publish
+                Edit
+              </Link>
+              {userData?.userType === 'admin' && !blog.published && (
+                <button
+                  onClick={handlePublish}
+                  className="p-1 hover:bg-gray-100 w-full text-left"
+                >
+                  Publish
+                </button>
+              )}
+              <button
+                onClick={handleDelete}
+                className="p-1 hover:bg-red-500 hover:text-white w-full text-left"
+              >
+                Delete
               </button>
-            )}
-            <button
-              onClick={handleDelete}
-              className="p-1 hover:bg-red-500 hover:text-white w-full text-left"
-            >
-              Delete
-            </button>
-          </Dropdown>
-        </div>
+            </Dropdown>
+          </div>
+        )}
 
         <Link className="linkCustom" href={`/blogs/${blog._id}`}>
           <div className="h-48">

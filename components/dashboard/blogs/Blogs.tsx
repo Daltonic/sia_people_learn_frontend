@@ -23,9 +23,11 @@ const booleanOptions = [
 
 interface Props {
   postsData: IPosts;
+  options?: boolean
 }
 
 const Blogs: React.FC<Props> = ({ postsData }) => {
+  
   const dispatch = useDispatch();
   const { setUserData } = userActions;
   const { userData } = useSelector((states: RootState) => states.userStates);
