@@ -8,6 +8,7 @@ const Page: NextPage<{ lessonData: ILesson; courseData: ICourse }> = ({
   lessonData,
   courseData,
 }) => {
+  if (!lessonData) return;
   return (
     <Layout>
       <div className="md:px-14 md:py-10 p-5 sm:p-10 overflow-x-hidden">
@@ -26,7 +27,12 @@ export const getServerSideProps = async (
   const token = context.req.cookies.accessToken;
 
   try {
-    const lesson = await fetchLesson(id as string, token);
+    const lesson = await fetchLesson(
+      id as string,
+      courseId as string,
+      token as string
+    );
+
     const course = await fetchCourse(courseId as string, token);
 
     return {
@@ -39,7 +45,7 @@ export const getServerSideProps = async (
     console.log(e.message);
     return {
       props: {
-        lessonData: {} as ILesson,
+        lessonData: null,
         courseData: {} as ICourse,
       },
     };

@@ -1,4 +1,5 @@
 import { ChangeEvent } from "react";
+import { FaS } from "react-icons/fa6";
 
 interface TextAreaProps {
   label: string;
@@ -9,6 +10,7 @@ interface TextAreaProps {
   name?: string;
   value?: string;
   placeholder?: string;
+  required?: boolean;
   handleChange?: (e: ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
@@ -22,6 +24,7 @@ const TextAreaField: React.FC<TextAreaProps> = ({
   value,
   placeholder,
   handleChange,
+  required = false,
 }) => (
   <div className="flex flex-col w-full my-4">
     <label htmlFor={id} className="text-violet-950 font-medium">
@@ -35,6 +38,7 @@ const TextAreaField: React.FC<TextAreaProps> = ({
       rows={rows}
       cols={cols}
       placeholder={placeholder || ""}
+      required={required}
       className={`text-slate-600 border border-[color:var(--border-2,#E1DDDD)] w-full justify-center mt-3 p-3 md:pl-6 py-3 rounded-lg items-start mb-2 focus:outline-none ${className}`}
     ></textarea>
   </div>

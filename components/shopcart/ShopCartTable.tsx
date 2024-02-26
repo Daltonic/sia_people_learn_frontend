@@ -13,6 +13,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import EmptyComponent from "../reusableComponents/EmptyComponent";
+import { toast } from "react-toastify";
+import { stripeCheckout } from "@/services/backend.services";
 
 interface Product {
   imageUrl: string | null;
@@ -34,62 +36,8 @@ const ShopCartTable: React.FC = () => {
   );
 
   const { userData } = useSelector((states: RootState) => states.userStates);
-  const [subscibedCourses, setSubscribedCourses] = useState<
-    IUserSubscription[]
-  >([]);
 
   const cartItems: Product[] = [];
-
-  // useEffect(() => {
-  //   const fetchCourses = async () => {
-  //     const requestDetails = {
-  //       method: "GET",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
-  //       },
-  //     };
-
-  //     try {
-  //       const response = await fetch(
-  //         `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/subscriptions/user?productType=Course&pageSize=1000`,
-  //         requestDetails
-  //       );
-
-  //       if (response.status === 400) {
-  //         alert("Something went wrong");
-  //       } else {
-  //         const { subscriptions } =
-  //           (await response.json()) as IUserSubscriptions;
-
-  //         const updatedCourses: ICourse[] = [];
-
-  //         for (let item of cartCourseItems) {
-  //           const courseFound = subscriptions.find(
-  //             (course) => course.productId._id === item._id
-  //           );
-  //           if (!courseFound) {
-  //             updatedCourses.push(item);
-  //             cartItems.push({
-  //               imageUrl: item?.imageUrl,
-  //               name: item.name,
-  //               type: "Course",
-  //               price: item.price,
-  //               discountedPrice: item.price,
-  //               _id: item._id,
-  //             });
-  //           }
-  //         }
-
-  //         dispatch(setCartCourseItems(updatedCourses));
-  //       }
-  //     } catch (e: any) {
-  //       console.log(e.message);
-  //     }
-  //   };
-  //   fetchCourses();
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [userData]);
 
   cartAcademyItems.forEach((item) =>
     cartItems.push({
@@ -140,52 +88,49 @@ const ShopCartTable: React.FC = () => {
     }
   };
 
-  const handleCheckout = () => {
+  const handleCheckout = async () => {
     if (!userData) {
       sessionStorage.setItem("prevPath", pathname);
       router.push("/login");
     }
-    const checkout = async () => {
-      const requestDetails = {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
-        },
-      };
 
-      try {
-        const products: {
-          productId: string;
-          productType: "Course" | "Academy";
-        }[] = [];
-        for (let item of cartItems) {
-          products.push({
-            productId: item._id,
-            productType: item.type === "Academy" ? "Academy" : "Course",
-          });
+    const products: {
+      productId: string;
+      productType: "Course" | "Academy";
+    }[] = [];
+    for (let item of cartItems) {
+      products.push({
+        productId: item._id,
+        productType: item.type === "Academy" ? "Academy" : "Course",
+      });
+    }
+
+    const token = sessionStorage.getItem("accessToken") as string;
+
+    try {
+      await toast.promise(
+        new Promise<void>(async (resolve, reject) => {
+          await stripeCheckout(products, token)
+            .then((result) => {
+              if (!result.url) {
+                router.push("/payment-successful");
+              }
+              router.push(result.url);
+              resolve(result);
+            })
+            .catch((error) => {
+              reject(error);
+            });
+        }),
+        {
+          pending: `Processing...`,
+          success: `Payment successful 👌`,
+          error: "Encountered error 🤯",
         }
-        const subscriptionBody = {
-          products,
-          paymentType: "Stripe",
-        };
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/processors/stripe/checkout`,
-          { ...requestDetails, body: JSON.stringify(subscriptionBody) }
-        );
-        if (response.status === 400) {
-          const message = await response.text();
-          alert(message);
-        } else {
-          const result = await response.json();
-          console.log(result);
-          router.push(result.url);
-        }
-      } catch (e: any) {
-        console.log(e.message);
-      }
-    };
-    checkout();
+      );
+    } catch (e: any) {
+      console.log(e.message);
+    }
   };
 
   return (

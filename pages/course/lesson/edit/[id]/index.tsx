@@ -34,10 +34,10 @@ export const getServerSideProps = async (
 ) => {
   const { id } = context.query;
 
-  const token = context.req.cookies.accessToken;
+  const token = context.req.cookies.accessToken as string;
 
   try {
-    const lesson = await fetchLesson(id as string, token);
+    const lesson = await fetchLesson(id as string, "", token);
 
     return {
       props: {

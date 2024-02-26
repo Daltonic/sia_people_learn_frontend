@@ -719,7 +719,11 @@ const fetchReviews = async (query: FetchReviewsParams, token?: string) => {
   }
 };
 
-const fetchLesson = async (lessonId: string, token?: string) => {
+const fetchLesson = async (
+  lessonId: string,
+  courseId: string,
+  token: string
+) => {
   const url = `${BASE_URI}/api/v1/lessons/${lessonId}`;
 
   const config = {
@@ -729,12 +733,13 @@ const fetchLesson = async (lessonId: string, token?: string) => {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
+    params: { courseId },
   };
 
   try {
     const response = await axios.request(config);
     return Promise.resolve(response.data);
-  } catch (error) {
+  } catch (error: any) {
     reportError(error);
     return Promise.reject(error);
   }
@@ -871,6 +876,30 @@ const stripeSubscription = async (productId: string, token: string) => {
       Authorization: `Bearer ${token}`,
     },
     data: { productId, paymentType: "Stripe" },
+  };
+
+  try {
+    const response = await axios.request(config);
+    return Promise.resolve(response.data);
+  } catch (error: any) {
+    reportError(error);
+    return Promise.reject(error);
+  }
+};
+
+const stripeCheckout = async (
+  products: { productId: string; productType: "Course" | "Academy" }[],
+  token: string
+) => {
+  const url = `${BASE_URI}/api/v1/processors/stripe/checkout`;
+  const config = {
+    method: "POST",
+    url,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    data: { products, paymentType: "Stripe" },
   };
 
   try {
@@ -1027,4 +1056,5 @@ export {
   createWishlist,
   deleteWishlist,
   fetchWishlists,
+  stripeCheckout,
 };

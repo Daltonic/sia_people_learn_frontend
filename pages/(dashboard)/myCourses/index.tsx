@@ -26,10 +26,10 @@ export const getServerSideProps = async (
   const token = context.req.cookies.accessToken;
 
   try {
-    const subscribedCourses = await fetchUserSubscriptions(
+    const subscribedCourses = (await fetchUserSubscriptions(
       { productType: "Course" },
       token as string
-    );
+    )) as IUserSubscriptions;
 
     const subscribedAcademies = await fetchUserSubscriptions(
       { productType: "Academy" },

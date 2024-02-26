@@ -165,7 +165,8 @@ const CourseForm: React.FC<{ course?: ICourse; type: "create" | "update" }> = ({
     }
 
     if (productDetails.price === 0) {
-      return toast.warn(`Product price cannot be 0`);
+      toast.info("This is a free course");
+      // return toast.warn(`Product price cannot be 0`);
     }
 
     setSubmitting(true);

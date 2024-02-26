@@ -14,17 +14,17 @@ interface Props {
 const CommentsSection: React.FC<Props> = ({ comments }) => {
   return (
     <div className="pt-6">
+      <hr />
       <h1 className="text-[#321463] font-semibold text-lg md:text-base">
         Comments
       </h1>
       <div className="pt-4 flex flex-col gap-4">
         {comments.map((comment) => (
-          <div key={comment._id}>
+          <div
+            key={comment._id}
+            className="border-solid border-2 border-slate-50 p-4 rounded-lg"
+          >
             <p className="text-[#321463] font-medium">{comment.overview}</p>
-            <div
-              dangerouslySetInnerHTML={{ __html: comment.description }}
-              className="mt-2 md:mt-5 text-[#4F547B]"
-            />
           </div>
         ))}
       </div>

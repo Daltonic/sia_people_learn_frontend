@@ -12,8 +12,10 @@ interface Props {
 const LessonAccordion: React.FC<Props> = ({ course, lessonId }) => {
   return (
     <div className="border rounded-md p-2 space-y-2 h-screen overflow-y-scroll">
-      <div className="mb-2 text-[#321463] text-lg font-medium ">Course Lessons</div>
-      {course.lessons.length > 0 ? (
+      <div className="mb-2 text-[#321463] text-lg font-medium ">
+        Course Lessons
+      </div>
+      {course.lessons && course.lessons.length > 0 ? (
         <div className="flex flex-col gap-4">
           {course.lessons.map((lesson) => (
             <Link
@@ -30,20 +32,23 @@ const LessonAccordion: React.FC<Props> = ({ course, lessonId }) => {
                 <Image
                   height={100}
                   width={100}
-                  src={lesson.imageUrl || "/images/general/cardimg.svg"}
+                  src={course.imageUrl || "/images/general/cardimg.svg"}
                   alt="Course Image"
                   className="w-14 h-10 object-cover rounded-md"
                 />
               </div>
               <div>
                 <h3 className="font-medium">{lesson.title}</h3>
-                <p className="">Duration: {lesson.duration}</p>
+                <p className="">Duration: {lesson.duration} mins</p>
               </div>
             </Link>
           ))}
         </div>
       ) : (
-        <EmptyComponent title="No lessons available for this course" buttonText="Go Back" />
+        <EmptyComponent
+          title="No lessons available for this course"
+          buttonText="Go Back"
+        />
       )}
     </div>
   );
