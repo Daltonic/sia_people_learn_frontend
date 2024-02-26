@@ -1,56 +1,56 @@
-"use client";
+'use client'
 
-import React, { useState } from "react";
-import Image from "next/image";
-import Link from "next/link";
-import { IPost, RootState } from "@/utils/type.dt";
-import { convertStringToDate } from "@/utils";
-import { useSelector, useDispatch } from "react-redux";
-import { userActions } from "@/store/slices/userSlice";
+import React, { useState } from 'react'
+import Image from 'next/image'
+import Link from 'next/link'
+import { IPost, RootState } from '@/utils/type.dt'
+import { convertStringToDate } from '@/utils'
+import { useSelector } from 'react-redux'
+import Dropdown from '../reusableComponents/Dropdown'
+import { toast } from 'react-toastify'
+import { deletePost, publishPost } from '@/services/backend.services'
 
 interface BlogCardProps {
-  blog: IPost;
-  i: number;
+  blog: IPost
+  i: number
 }
 
 const BlogCard: React.FC<BlogCardProps> = ({ blog, i }) => {
-  const { userData } = useSelector((states: RootState) => states.userStates);
-  const [showButton, setShowButton] = useState<boolean>(
-    userData?.userType === "admin" && !blog.published
-  );
-  const [showHoverText, setShowHoverText] = useState<boolean>(false);
-  const handlePublish = () => {
-    const publishPost = async () => {
-      const requestDetails = {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
-        },
-      };
+  const { userData } = useSelector((states: RootState) => states.userStates)
 
-      try {
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/posts/publish/${blog._id}`,
-          requestDetails
-        );
-
-        if (response.status === 400) {
-          const message = await response.text();
-          alert(message);
-        } else {
-          const message = await response.text();
-          alert(message);
-          setShowButton(false);
-          setShowHoverText(false);
-        }
-      } catch (e: any) {
-        console.log(e.message);
+  const handlePublish = async () => {
+    await toast.promise(
+      new Promise<void>(async (resolve, reject) => {
+        await publishPost(blog)
+          .then((res: any) => {
+            resolve(res)
+          })
+          .catch((error: any) => reject(error))
+      }),
+      {
+        pending: `Publishing...`,
+        success: `Blog published successfully 👌`,
+        error: 'Encountered error 🤯',
       }
-    };
+    )
+  }
 
-    publishPost();
-  };
+  const handleDelete = async () => {
+    await toast.promise(
+      new Promise<void>(async (resolve, reject) => {
+        await deletePost(blog._id)
+          .then((res: any) => {
+            resolve(res)
+          })
+          .catch((error: any) => reject(error))
+      }),
+      {
+        pending: `Deleting...`,
+        success: `Blog deleted successfully 👌`,
+        error: 'Encountered error 🤯',
+      }
+    )
+  }
 
   return (
     <div
@@ -59,32 +59,42 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog, i }) => {
       data-aos-duration={(i + 1) * 500}
     >
       <div className="w-full relative">
-        {showButton && (
-          <div
-            className="absolute bg-slate-200 h-5 w-5 rounded-full top-0.5 left-0.5 cursor-pointer"
-            onMouseEnter={() => setShowHoverText(true)}
-            onMouseLeave={() => setShowHoverText(false)}
-            onClick={handlePublish}
-          />
-        )}
+        <div className="absolute top-1 right-2">
+          <Dropdown>
+            <Link
+              href={`/blogs/edit/${String(blog._id)}`}
+              className="p-1 hover:bg-gray-100 w-full text-left"
+            >
+              Edit
+            </Link>
+            {userData?.userType === 'admin' && !blog.published && (
+              <button
+                onClick={handlePublish}
+                className="p-1 hover:bg-gray-100 w-full text-left"
+              >
+                Publish
+              </button>
+            )}
+            <button
+              onClick={handleDelete}
+              className="p-1 hover:bg-red-500 hover:text-white w-full text-left"
+            >
+              Delete
+            </button>
+          </Dropdown>
+        </div>
 
-        {showHoverText && (
-          <p className="absolute bg-slate-200 text-gray-700 px-1 py-0.5 rounded-sm top-6 left-1.5 text-sm">
-            Publish
-          </p>
-        )}
         <Link className="linkCustom" href={`/blogs/${blog._id}`}>
           <div className="h-48">
             <Image
               width={100}
               height={100}
-              src={blog.imageUrl || "/images/general/cardimg.svg"}
+              src={blog.imageUrl || '/images/general/cardimg.svg'}
               alt="image"
               className="rounded-lg w-full h-full object-cover"
             />
           </div>
         </Link>
-
       </div>
       <div className="mt-3 pr-2">
         <h1 className="text-[#C5165D] text-sm uppercase font-medium">
@@ -101,7 +111,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog, i }) => {
         </p>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default BlogCard;
+export default BlogCard
