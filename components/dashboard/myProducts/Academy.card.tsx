@@ -47,28 +47,8 @@ const AcademyCard: React.FC<ComponentProps> = ({ data }) => {
   };
 
   const onDelete = () => {
-    dispatch(setData({ ...academy }));
+    dispatch(setData({ ...academy, type: 'academy' }));
     dispatch(setDeleteModal("scale-100"));
-  };
-
-  const handleDelete = async () => {
-    await toast.promise(
-      new Promise<void>(async (resolve, reject) => {
-        const status = await deleteAcademy(academy._id);
-
-        if (status === 200) {
-          router.push("/(dashboard)/myProducts");
-          resolve();
-        } else {
-          reject();
-        }
-      }),
-      {
-        pending: `Deleting...`,
-        success: `Academy deleted successfully 👌`,
-        error: "Encountered error 🤯",
-      }
-    );
   };
 
   return (
