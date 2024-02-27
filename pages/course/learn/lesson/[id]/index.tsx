@@ -27,11 +27,7 @@ export const getServerSideProps = async (
   const token = context.req.cookies.accessToken;
 
   try {
-    const lesson = await fetchLesson(
-      id as string,
-      courseId as string,
-      token as string
-    );
+    const lesson = await fetchLesson(id as string, token as string);
 
     const course = await fetchCourse(courseId as string, token);
 

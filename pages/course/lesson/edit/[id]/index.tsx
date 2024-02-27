@@ -37,7 +37,7 @@ export const getServerSideProps = async (
   const token = context.req.cookies.accessToken as string;
 
   try {
-    const lesson = await fetchLesson(id as string, "", token);
+    const lesson = await fetchLesson(id as string, token);
 
     return {
       props: {
