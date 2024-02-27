@@ -19,7 +19,6 @@ interface ComponentProps {
 
 const MyCourseCard: React.FC<ComponentProps> = ({ data, type }) => {
   const [rating, setRating] = useState<string[]>([])
-  const router = useRouter()
   const dispatch = useDispatch()
   const { setDeleteModal, setData } = genericActions
 
@@ -49,7 +48,7 @@ const MyCourseCard: React.FC<ComponentProps> = ({ data, type }) => {
   }
 
   const onDelete = () => {
-    dispatch(setData({ ...course, type }))
+    dispatch(setData({ ...course, type: 'course' }))
     dispatch(setDeleteModal('scale-100'))
   }
 

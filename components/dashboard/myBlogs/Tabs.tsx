@@ -194,7 +194,7 @@ const Tabs: React.FC<Props> = ({
             <div className="flex p-5 gap-8 border w-full flex-wrap">
               {unpublishedPosts.posts.length > 0 ? (
                 unpublishedPosts.posts.map((post, index) => (
-                  <BlogCard blog={post} key={post._id} i={index} />
+                  <BlogCard blog={post} key={post._id} i={index} option />
                 ))
               ) : (
                 <>

@@ -1,5 +1,6 @@
 import DashboardLayout from "@/components/dashboard/dashboardLayout/DashboardLayout";
 import MyProducts from "@/components/dashboard/myProducts/MyProducts";
+import DeleteModal from "@/components/reusableComponents/DeleteModal";
 import {
   fetchAcademies,
   fetchBooks,
@@ -20,6 +21,7 @@ const Products: React.FC<{
         coursesData={coursesData}
         booksData={booksData}
       />
+      <DeleteModal />
     </DashboardLayout>
   );
 };

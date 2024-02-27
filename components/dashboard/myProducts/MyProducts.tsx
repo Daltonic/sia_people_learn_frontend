@@ -2,7 +2,6 @@ import React from 'react'
 import Tabs from './Tabs'
 import DashboardHeading from '../dashboardLayout/DashboardHeading'
 import { IAcademies, ICourses } from '@/utils/type.dt'
-import DeleteModal from '@/components/reusableComponents/DeleteModal'
 
 interface Props {
   academiesData: IAcademies
@@ -26,7 +25,6 @@ const MyProducts: React.FC<Props> = ({
         coursesData={coursesData}
         booksData={booksData}
       />
-      <DeleteModal />
     </div>
   )
 }

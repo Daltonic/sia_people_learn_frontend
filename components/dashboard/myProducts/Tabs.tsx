@@ -269,8 +269,6 @@ const Tabs: React.FC<Props> = ({ academiesData, coursesData, booksData }) => {
           setActivePage={setCurrentPage}
         />
       )}
-
-      {/* <DeleteModal  /> */}
     </div>
   );
 };

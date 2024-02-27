@@ -1,5 +1,6 @@
 import DashboardLayout from "@/components/dashboard/dashboardLayout/DashboardLayout";
 import Blogs from "@/components/dashboard/myBlogs/Blogs";
+import DeleteModal from "@/components/reusableComponents/DeleteModal";
 import { fetchUserPosts } from "@/services/backend.services";
 import { IPosts } from "@/utils/type.dt";
 import { GetServerSidePropsContext } from "next";
@@ -14,6 +15,7 @@ const Page: React.FC<{
         publishedPostsData={publishedPostsData}
         unpublishedPostsData={unpublishedPostsData}
       />
+      <DeleteModal />
     </DashboardLayout>
   );
 };

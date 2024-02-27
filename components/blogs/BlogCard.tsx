@@ -5,10 +5,11 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { IPost, RootState } from '@/utils/type.dt'
 import { convertStringToDate } from '@/utils'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import Dropdown from '../reusableComponents/Dropdown'
 import { toast } from 'react-toastify'
 import { deletePost, publishPost } from '@/services/backend.services'
+import { genericActions } from '@/store/slices/genericSlice'
 
 interface BlogCardProps {
   blog: IPost
@@ -18,6 +19,8 @@ interface BlogCardProps {
 
 const BlogCard: React.FC<BlogCardProps> = ({ blog, i, option }) => {
   const { userData } = useSelector((states: RootState) => states.userStates)
+  const dispatch = useDispatch()
+  const { setDeleteModal, setData } = genericActions
 
   const handlePublish = async () => {
     await toast.promise(
@@ -36,21 +39,9 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog, i, option }) => {
     )
   }
 
-  const handleDelete = async () => {
-    await toast.promise(
-      new Promise<void>(async (resolve, reject) => {
-        await deletePost(blog._id)
-          .then((res: any) => {
-            resolve(res)
-          })
-          .catch((error: any) => reject(error))
-      }),
-      {
-        pending: `Deleting...`,
-        success: `Blog deleted successfully 👌`,
-        error: 'Encountered error 🤯',
-      }
-    )
+  const onDelete = () => {
+    dispatch(setData({ ...blog, name: blog.title, type: 'blog' }))
+    dispatch(setDeleteModal('scale-100'))
   }
 
   return (
@@ -78,7 +69,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog, i, option }) => {
                 </button>
               )}
               <button
-                onClick={handleDelete}
+                onClick={onDelete}
                 className="p-1 hover:bg-red-500 hover:text-white w-full text-left"
               >
                 Delete
