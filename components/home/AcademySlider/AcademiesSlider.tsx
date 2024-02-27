@@ -6,8 +6,6 @@ import { Navigation, Pagination, Autoplay } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Link from "next/link";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
-import Button from "@/components/reusableComponents/Button";
-import { GoArrowUpRight } from "react-icons/go";
 import { IAcademies } from "@/utils/type.dt";
 import AcademyCard from "../../academies/AcademyCard";
 import AllButton from "@/components/reusableComponents/AllButton";
@@ -34,11 +32,9 @@ const CoursesSlider: React.FC<{ academyObj: IAcademies }> = ({
             </p>
           </div>
 
-            <Link
-              href="/academies"
-            >
-              <AllButton> All Academies</AllButton>
-            </Link>
+          <Link href="/academies">
+            <AllButton> All Academies</AllButton>
+          </Link>
         </div>
 
         <div className="mt-14">

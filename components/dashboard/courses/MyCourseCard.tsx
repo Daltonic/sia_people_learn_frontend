@@ -1,10 +1,8 @@
-"use client";
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { IoIosStar, IoMdMore } from "react-icons/io";
 import { IUserSubscription } from "@/utils/type.dt";
+import { ViewRating } from "@/components/reusableComponents/Rating";
 
 interface ComponentProps {
   product: IUserSubscription;
@@ -12,14 +10,6 @@ interface ComponentProps {
 }
 
 const MyCourseCard: React.FC<ComponentProps> = ({ product }) => {
-  const [rating, setRating] = useState<string[]>([]);
-  
-
-  useEffect(() => {
-    const newRating = Array(5).fill("star");
-    setRating(newRating);
-  }, [product.productId.rating]);
-
   return (
     <div className="bg-white rounded-lg w-full sm:w-[48%] md:w-48 h-60 p-2 border-[#EDEDED] border shadow-[#EDEDED] shadow-xl">
       <div className="">
@@ -45,15 +35,8 @@ const MyCourseCard: React.FC<ComponentProps> = ({ product }) => {
               {product.productId.userId.lastName}
             </p>
 
-            <div className="flex items-center gap-1">
-              <p className="text-[#E59819]">{product.productId.rating}</p>
-              <div className="flex items-center">
-                {rating.map((itm, i: number) => (
-                  <div key={i} className="text-[#E59819]">
-                    <IoIosStar />
-                  </div>
-                ))}
-              </div>
+            <div className="flex items-center justify-start gap-[1px]">
+              <ViewRating value={product.productId.rating || 4} />
             </div>
           </div>
           <Link

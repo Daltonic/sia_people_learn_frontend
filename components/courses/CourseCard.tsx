@@ -1,25 +1,16 @@
-'use client'
-import React from 'react'
-import Image from 'next/image'
-import Link from 'next/link'
-import { useState, useEffect } from 'react'
-import { IoIosStar } from 'react-icons/io'
-import { ICourse } from '@/utils/type.dt'
-import { LiaFileVideoSolid } from 'react-icons/lia'
+import React from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { ICourse } from "@/utils/type.dt";
+import { LiaFileVideoSolid } from "react-icons/lia";
+import { ViewRating } from "../reusableComponents/Rating";
 
 interface ComponentProps {
-  data: ICourse
-  index?: number
+  data: ICourse;
+  index?: number;
 }
 
 const CourseCard: React.FC<ComponentProps> = ({ data, index }) => {
-  const [rating, setRating] = useState<string[]>([])
-
-  useEffect(() => {
-    const newRating = Array(5).fill('star')
-    setRating(newRating)
-  }, [data.rating])
-
   return (
     <div className=" bg-white rounded-lg w-full sm:w-80 md:w-56 h-fit border-[#EDEDED] border p-2 shadow-[#EDEDED] shadow-md">
       <>
@@ -29,7 +20,7 @@ const CourseCard: React.FC<ComponentProps> = ({ data, index }) => {
               width={100}
               height={100}
               className="rounded-lg h-full w-full object-cover hover:opacity-70 transition duration-500 ease-in-out"
-              src={data.imageUrl || '/images/general/cardimg.svg'}
+              src={data.imageUrl || "/images/general/cardimg.svg"}
               alt="image"
             />
           </div>
@@ -37,16 +28,11 @@ const CourseCard: React.FC<ComponentProps> = ({ data, index }) => {
 
         <div className="p-2">
           <div className="flex items-center justify-between md:text-xs gap-4">
-            <div className="flex items-center gap-1">
-              <p className="text-[#E59819]">{data.rating} 4.5</p>
-              <div className="flex items-center">
-                {rating.map((itm, i: number) => (
-                  <div key={i} className="text-[#E59819]">
-                    <IoIosStar />
-                  </div>
-                ))}
-              </div>
-              <p className="text-[#4F547B]">({data.reviews?.length || 0})</p>
+            <div className="flex items-center justify-start gap-[1px]">
+              <ViewRating value={data.rating || 4} />
+              <p className="text-[#4F547B] pb-[1px]">
+                ({data.reviewsCount || 0})
+              </p>
             </div>
             <div
               className="flex justify-end items-center space-x-1
@@ -100,7 +86,7 @@ const CourseCard: React.FC<ComponentProps> = ({ data, index }) => {
                 <Image
                   width={10}
                   height={10}
-                  src={data.userId.imgUrl || '/images/courseCard/card1.svg'}
+                  src={data.userId.imgUrl || "/images/courseCard/card1.svg"}
                   alt="image"
                   className="object-cover rounded-full w-8 h-8"
                 />
@@ -128,7 +114,7 @@ const CourseCard: React.FC<ComponentProps> = ({ data, index }) => {
         </div>
       </>
     </div>
-  )
-}
+  );
+};
 
-export default CourseCard
+export default CourseCard;

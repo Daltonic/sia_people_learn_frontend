@@ -3,12 +3,14 @@ import Image from "next/image";
 import { IoIosStar } from "react-icons/io";
 import { IReviews } from "@/utils/type.dt";
 import { getTimestamp } from "@/utils";
+import { ViewRating } from "../reusableComponents/Rating";
 
 interface Props {
   reviewsData?: IReviews;
 }
 
 const ReviewSection: React.FC<Props> = ({ reviewsData }) => {
+  console.log(reviewsData);
   return (
     <div className="pt-6">
       <h1 className="text-[#321463] font-semibold text-lg md:text-base">
@@ -46,14 +48,8 @@ const ReviewSection: React.FC<Props> = ({ reviewsData }) => {
                     {getTimestamp(review.createdAt)}
                   </p>
                 </div>
-                <div className="text-[#E59819] flex gap-2">
-                  {[...Array(5)].map((_, index) => (
-                    <IoIosStar key={review.starRating} />
-                  ))}
-                </div>
-                {/* <h1 className="text-[#321463] font-medium">
-                  The best LMS Design
-                </h1> */}
+                <ViewRating size="small" value={review.starRating} />
+
                 <p className="text-[#4F547B]">{review.comment}</p>
                 <div className="md:flex gap-5">
                   <p className="text-[#C5165D] text-sm md:text-md">
