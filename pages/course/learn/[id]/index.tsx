@@ -1,16 +1,37 @@
 import Layout from '@/components/layout/Layout'
 import { GetServerSidePropsContext, NextPage } from 'next'
 import Image from 'next/image'
-import { ICourse, IReviews } from '@/utils/type.dt'
+import { ICourse, ILesson, IReviews } from '@/utils/type.dt'
 import ReviewSection from '@/components/blogs/ReviewSection'
 import ReviewForm from '@/components/blogs/ReviewForm'
 import LessonAccordion from '@/components/lesson/LessonAccordion'
 import { fetchCourse, fetchReviews } from '@/services/backend.services'
+import { useState } from 'react'
+import Button from '@/components/reusableComponents/Button'
+import { SlRefresh } from 'react-icons/sl'
 
 const Page: NextPage<{ courseData: ICourse; reviews: IReviews }> = ({
   courseData,
   reviews,
 }) => {
+  const [lessons, setLessons] = useState<ILesson[]>(courseData.lessons)
+  const [lessonsOrder, setLessonsOrder] = useState<string[]>([])
+
+  const onReorder = (sourceIndex: number, destinationIndex: number) => {
+    // TODO: Check if user is the course instructor
+    const newLessons = [...courseData.lessons]
+    const [removed] = newLessons.splice(sourceIndex, 1)
+    newLessons.splice(destinationIndex, 0, removed)
+    setLessons(newLessons)
+    setLessonsOrder(newLessons.map((lesson) => lesson._id))
+  }
+
+  const handleReorder = () => {
+    // TODO: Send an API call using the lessonsOrder
+    // TODO: Clear lessonsOrder
+    // The lessonsOrder contains the lessons IDs in the new order they should appear
+  }
+
   return (
     <Layout>
       <div className="w-full p-5 md:p-10 md:flex justify-between items-start gap-5">
@@ -24,29 +45,45 @@ const Page: NextPage<{ courseData: ICourse; reviews: IReviews }> = ({
               className="w-full md:h-[70vh] object-cover rounded-lg"
             />
           </div>
-          <div className="text-[#321463] text-2xl font-medium capitalize md:mt-4">
-            {courseData.name}
+
+          <div className="flex justify-between md:mt-4">
+            <span className="text-[#321463] text-2xl font-medium capitalize">
+              {courseData.name}
+            </span>
+
+            {lessonsOrder.length > 0 && (
+              <Button
+                className="flex justify-start items-center space-x-2"
+                variant="pink"
+              >
+                <span>Reorder</span>
+                <SlRefresh />
+              </Button>
+            )}
           </div>
+
           <div className="my-4">
             <h1 className="text-xl md:text-lg text-[#321463] font-medium">
               Overview
             </h1>
             <p className=" text-[#4F547B]">{courseData.overview}</p>
           </div>
-          <div>
-            <h1 className="text-xl md:text-lg text-[#321463] font-medium">
-              Description
-            </h1>
-            <div
-              dangerouslySetInnerHTML={{ __html: courseData.description }}
-              className="mt-2 md:mt-5 text-[#4F547B]"
-            />
-          </div>
+
+          <div
+            dangerouslySetInnerHTML={{ __html: courseData.description }}
+            className="mt-2 md:mt-5 text-[#4F547B]"
+          />
+
           <ReviewSection reviewsData={reviews} />
           <ReviewForm productId={courseData._id} productType="Course" />
         </div>
+
         <div className="md:w-[30%] mt-4 md:mt-0">
-          <LessonAccordion course={courseData} />
+          <LessonAccordion
+            course={courseData}
+            lessons={lessons}
+            onReorder={onReorder}
+          />
         </div>
       </div>
     </Layout>
