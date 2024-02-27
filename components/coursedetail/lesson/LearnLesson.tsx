@@ -67,7 +67,12 @@ const LearnLesson: React.FC<Props> = ({ lesson, course }) => {
       </div>
 
       <div className="flex flex-col w-full md:w-[30%] h-full">
-        <LessonAccordion course={course} lessonId={lesson._id} />
+        <LessonAccordion
+          course={course}
+          lessons={course.lessons}
+          lessonId={lesson._id}
+          onReorder={() => console.log('Order not permitted')}
+        />
       </div>
     </div>
   )
