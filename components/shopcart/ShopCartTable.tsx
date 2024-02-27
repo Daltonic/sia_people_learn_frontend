@@ -112,13 +112,17 @@ const ShopCartTable: React.FC = () => {
         new Promise<void>(async (resolve, reject) => {
           await stripeCheckout(products, token)
             .then((result) => {
-              if (!result.url) {
+              console.log(result);
+              if (result.url) {
+                router.push(result.url);
+              } else {
                 router.push("/payment-successful");
               }
-              router.push(result.url);
+
               resolve(result);
             })
             .catch((error) => {
+              console.log(error);
               reject(error);
             });
         }),
