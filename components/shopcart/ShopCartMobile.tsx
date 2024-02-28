@@ -143,7 +143,7 @@ const ShopCartMobile: React.FC = () => {
         {cartItems.length > 0 && (
           <div className="">
             {cartItems.map((item, index) => (
-              <div className="">
+              <div className="" key={index}>
                 <div className="flex justify-start items-center gap-5">
                   <Image
                     className="w-20 h-12 rounded-md"
