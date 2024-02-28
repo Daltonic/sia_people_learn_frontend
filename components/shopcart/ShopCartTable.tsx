@@ -15,6 +15,8 @@ import { useEffect, useState } from "react";
 import EmptyComponent from "../reusableComponents/EmptyComponent";
 import { toast } from "react-toastify";
 import { stripeCheckout } from "@/services/backend.services";
+import { FaTimes } from "react-icons/fa";
+import Button from "../reusableComponents/Button";
 
 interface Product {
   imageUrl: string | null;
@@ -156,10 +158,9 @@ const ShopCartTable: React.FC = () => {
             <thead className="bg-[#F5F7FE] text-[#C5165D] font-medium h-20 rounded-md">
               <tr>
                 <th className="text-start pl-10">Product</th>
-                <th className="px-10 w-1/8 text-start">Type</th>
-                <th className="px-10 w-1/8 text-start">Price</th>
-                <th className="px-10 w-1/8 text-start">Subtotal</th>
-                <th className="px-10 w-1/8 text-start">Remove</th>
+                <th className="px-10 w-1/6 text-start">Type</th>
+                <th className="px-10 w-1/6 text-start">Price</th>
+                <th className="px-10 w-1/6 text-center pr-10">Remove</th>
               </tr>
             </thead>
             <tbody>
@@ -167,7 +168,7 @@ const ShopCartTable: React.FC = () => {
                 <tr key={i} className="border-b border-[#EDEDED]">
                   <td className="flex items-center gap-5 pl-10 py-2 w-fit px-5">
                     <Image
-                      className="w-20 rounded-md"
+                      className="w-20 h-14 rounded-md"
                       alt=""
                       width={100}
                       height={100}
@@ -177,23 +178,20 @@ const ShopCartTable: React.FC = () => {
                       {item.name}
                     </span>
                   </td>
-                  <td className="w-1/8 px-10 text-start text-[#4F547B]">
+                  <td className="w-1/6 px-10 text-start text-[#4F547B]">
                     {item.type}
                   </td>
-                  <td className="w-1/8 px-10 text-start text-[#4F547B]">
+                  <td className="w-1/6 px-10 text-start text-[#4F547B]">
                     ${item.price}
                   </td>
-                  <td className="w-1/8 px-10 text-start text-[#321463] font-medium">
-                    ${item.price}
-                  </td>
-                  <td className="w-1/8 px-16 text-base text-[#1A3454]">
+                  <td className="w-1/6 px-16 text-base text-[#1A3454]">
                     <div
                       onClick={() =>
                         handleRemoveFromCart(item._id, item.type, item.price)
                       }
-                      className="cursor-pointer w-fit flex items-center justify-center bg-slate-400 rounded-full"
+                      className="cursor-pointer flex justify-center"
                     >
-                      <LiaTimesSolid className="w-full" />
+                      <FaTimes className="w-full" />
                     </div>
                   </td>
                 </tr>
@@ -201,22 +199,18 @@ const ShopCartTable: React.FC = () => {
             </tbody>
           </table>
           <div className="flex flex-col items-center md:items-end w-full md:w-5/6 mt-16 px-5 md:px-0">
-            <div className="borderborder-[#EDEDED] bg-slate-50 p-5 rounded-lg w-full md:w-1/3">
-              <div className="flex justify-between border-b border-[#EDEDED] py-2">
-                <h1 className="text-[#321463] font-medium">Subtotal</h1>
-                <p className="text-[#4F547B]">${cartAmount}</p>
-              </div>
-              <div className=" flex justify-between  py-2">
+            <div className="border border-[#EDEDED] bg-slate-50 p-5 rounded-lg w-full md:w-1/3">
+              <div className=" flex justify-between  border-b border-[#EDEDED] py-2">
                 <h1 className="text-[#321463] font-medium">Total </h1>
                 <p className="text-[#4F547B]"> ${cartAmount}</p>
               </div>
 
-              <button
-                className="text-white text-center font-medium whitespace-nowrap bg-pink-700 justify-center items-center px-16 py-4 rounded-lg max-md:px-5 mt-6"
+              <Button variant="pink"
+                className="w-full my-4"
                 onClick={handleCheckout}
               >
                 Proceed to checkout
-              </button>
+              </Button>
             </div>
           </div>
         </div>

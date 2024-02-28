@@ -15,6 +15,7 @@ import { CiSearch } from "react-icons/ci";
 import LocalFilters from "@/components/reusableComponents/LocalFilter";
 import { fetchAcademies, fetchCourses } from "@/services/backend.services";
 import LocalPagination from "@/components/reusableComponents/LocalPagination";
+import EmptyComponent from "@/components/reusableComponents/EmptyComponent";
 
 const sortOptions = [
   { name: "Newest", value: "newest" },
@@ -40,7 +41,7 @@ interface Props {
   academiesData: IAcademies;
   coursesData: ICourses;
   booksData: ICourses;
-}  
+}
 
 const Tabs: React.FC<Props> = ({ academiesData, coursesData, booksData }) => {
   const dispatch = useDispatch();
@@ -174,8 +175,8 @@ const Tabs: React.FC<Props> = ({ academiesData, coursesData, booksData }) => {
 
   return (
     <div className="bg-white p-5 rounded-xl">
-      <div className="flex flex-wrap items-center gap-5 md:justify-between mb-4">
-        <div className="flex gap-5 items-center border border-[#E1DDDD] text-[#4F547B] rounded-md p-3 md:p-2 w-full md:w-96">
+      <div className="mb-4">
+        <div className="flex gap-5 items-center border border-[#E1DDDD] text-[#4F547B] rounded-md p-3 md:p-2 w-full md:w-80">
           <CiSearch className="text-[#4F547B] text-xl" />
           <input
             type="text"
@@ -185,33 +186,36 @@ const Tabs: React.FC<Props> = ({ academiesData, coursesData, booksData }) => {
             onChange={(e) => setSearch(e.target.value)}
           />
         </div>
-        <LocalFilters
-          label="Filter"
-          options={filterOptions}
-          currFilter={difficulty}
-          setCurrFilter={setDifficulty}
-        />
-        <LocalFilters
-          label="Deleted"
-          options={booleanOptions}
-          currFilter={deleted}
-          setCurrFilter={setDeleted}
-        />
-      </div>
-      <div className="flex gap-5 ">
-        <LocalFilters
-          label="Filter"
-          options={booleanOptions}
-          currFilter={approved}
-          setCurrFilter={setApproved}
-        />
-        <LocalFilters
-          label="Order By"
-          options={sortOptions}
-          currFilter={sort}
-          setCurrFilter={setSort}
-        />
+        <div className="flex border items-center justify-end gap-5">
 
+          <LocalFilters
+            label="Filter"
+            options={filterOptions}
+            currFilter={difficulty}
+            setCurrFilter={setDifficulty}
+          />
+          <LocalFilters
+            label="Deleted"
+            options={booleanOptions}
+            currFilter={deleted}
+            setCurrFilter={setDeleted}
+          />
+        </div>
+        <div className="flex gap-5 ">
+          <LocalFilters
+            label="Filter"
+            options={booleanOptions}
+            currFilter={approved}
+            setCurrFilter={setApproved}
+          />
+          <LocalFilters
+            label="Order By"
+            options={sortOptions}
+            currFilter={sort}
+            setCurrFilter={setSort}
+          />
+
+        </div>
       </div>
       <div className="flex space-x-5 border-b mt-5">
         <button
@@ -249,29 +253,50 @@ const Tabs: React.FC<Props> = ({ academiesData, coursesData, booksData }) => {
       <div className="py-4 text-[#4F547B]">
         {activeTab === 1 && (
           <div className="flex p-5 gap-8 w-full flex-wrap">
-            {coursesObj.courses &&
-              coursesObj.courses.length > 0 &&
+            {coursesObj.courses.length > 0 ? (
               coursesObj.courses.map((elm, i: number) => (
                 <Courses data={elm} index={i} key={i} />
-              ))}
+              ))
+            ) : (
+              <>
+                <EmptyComponent
+                  title="No Courses Available"
+                  buttonText="Create One Now"
+                />
+              </>
+            )}
           </div>
         )}
         {activeTab === 2 && (
           <div className="flex p-5 gap-5 w-full flex-wrap">
-            {booksObj.courses &&
-              booksObj.courses.length > 0 &&
+            {booksObj.courses.length > 0 ? (
               booksObj.courses.map((elm, i: number) => (
                 <Books data={elm} index={i} key={i} />
-              ))}
+              ))
+            ) : (
+              <>
+                <EmptyComponent
+                  title="No Books Available"
+                  buttonText="Create One Now"
+                />
+              </>
+            )}
           </div>
         )}
         {activeTab === 3 && (
           <div className="flex p-5 gap-8 w-full flex-wrap">
-            {academiesObj.academies &&
-              academiesObj.academies.length > 0 &&
+            {academiesObj.academies.length > 0 ? (
               academiesObj.academies.map((elm, i: number) => (
                 <Academy data={elm} index={i} key={i} />
-              ))}
+              ))
+            ) : (
+              <>
+                <EmptyComponent
+                  title="No Academies Available"
+                  buttonText="Create One Now"
+                />
+              </>
+            )}
           </div>
         )}
       </div>

@@ -95,7 +95,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog, i, option }) => {
           {blog.category}
         </h1>
         <Link className="linkCustom" href={`/blogs/${blog._id}`}>
-          <h4 className="text-[#321463] font-medium md:text-sm">
+          <h4 className="text-[#321463] font-medium md:text-sm line-clamp-2">
             {blog.title}
           </h4>
         </Link>
