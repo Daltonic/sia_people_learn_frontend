@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import Layout from "@/components/layout/Layout";
 import { GetServerSidePropsContext, NextPage } from "next";
@@ -22,10 +20,10 @@ export default Page;
 export const getServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
-  const { id } = context.query;
+  const { title } = context.query;
 
   try {
-    const post = await fetchPost(id as string);
+    const post = await fetchPost(title as string);
     return {
       props: {
         postData: post,

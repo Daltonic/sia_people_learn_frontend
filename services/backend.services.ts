@@ -438,8 +438,8 @@ const removeCourseFromAcademy = async (academyId: string, courseId: string) => {
   }
 };
 
-const fetchAcademy = async (academyId: string, token?: string) => {
-  const url = `${BASE_URI}/academies/${academyId}`;
+const fetchAcademy = async (name: string, token?: string) => {
+  const url = `${BASE_URI}/academies/${name}`;
 
   const config = {
     method: "GET",
@@ -677,8 +677,8 @@ const fetchUserPosts = async (query: FetchPostsParams, token?: string) => {
   }
 };
 
-const fetchPost = async (postId: string, token?: string) => {
-  const url = `${BASE_URI}/posts/${postId}`;
+const fetchPost = async (title: string, token?: string) => {
+  const url = `${BASE_URI}/posts/${title}`;
 
   const config = {
     method: "GET",
@@ -698,8 +698,8 @@ const fetchPost = async (postId: string, token?: string) => {
   }
 };
 
-const fetchCourse = async (courseId: string, token?: string) => {
-  const url = `${BASE_URI}/courses/${courseId}`;
+const fetchCourse = async (name: string, token?: string) => {
+  const url = `${BASE_URI}/courses/${name}`;
 
   const config = {
     method: "GET",

@@ -308,7 +308,9 @@ const AcademyDetails: React.FC<ComponentProps> = ({ academy }) => {
               />
               <p className="text-[#321463]">Courses</p>
             </div>
-            <p className="text-[#4F547B]">{academy.courses.length}</p>
+            <p className="text-[#4F547B]">
+              {academy.courses ? academy.courses.length : 0}
+            </p>
           </div>
           <div className="flex justify-between items-center border-b py-2 border-[#EDEDED]">
             <div className="flex gap-2 items-center">

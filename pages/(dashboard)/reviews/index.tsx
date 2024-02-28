@@ -2,11 +2,11 @@ import DashboardLayout from "@/components/dashboard/dashboardLayout/DashboardLay
 import AllReviews from "@/components/dashboard/reviews/AllReviews";
 
 const Reviews: React.FC = () => {
- return (
-   <DashboardLayout>
-    <AllReviews/>
-   </DashboardLayout>
- );
+  return (
+    <DashboardLayout>
+      <AllReviews />
+    </DashboardLayout>
+  );
 };
 
 export default Reviews;

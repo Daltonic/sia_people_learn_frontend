@@ -281,7 +281,7 @@ export interface FetchPostsParams {
 }
 
 export interface FetchReviewsParams {
-  productId?: string;
+  name?: string;
   productType?: "Academy" | "Course";
   approved?: "true" | "false";
   page?: number;

@@ -103,15 +103,15 @@ export default Page;
 export const getServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
-  const { id } = context.query;
+  const { name } = context.query;
   const token = context.req.cookies.accessToken;
 
   try {
-    const course = (await fetchCourse(id as string, token)) as ICourse;
+    const course = (await fetchCourse(name as string, token)) as ICourse;
 
     const courses = (await fetchCourses({})) as ICourses;
     const alternateCourses = courses.courses.filter(
-      (course) => course._id !== id
+      (course) => course.name !== name
     );
 
     return {

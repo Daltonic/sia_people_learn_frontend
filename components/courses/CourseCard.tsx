@@ -1,12 +1,12 @@
-import React from 'react'
-import Image from 'next/image'
-import Link from 'next/link'
-import { ICourse } from '@/utils/type.dt'
-import { ViewRating } from '../reusableComponents/Rating'
+import React from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { ICourse } from "@/utils/type.dt";
+import { ViewRating } from "../reusableComponents/Rating";
 
 interface ComponentProps {
-  data: ICourse
-  index?: number
+  data: ICourse;
+  index?: number;
 }
 
 const CourseCard: React.FC<ComponentProps> = ({ data, index }) => {
@@ -19,7 +19,7 @@ const CourseCard: React.FC<ComponentProps> = ({ data, index }) => {
               width={100}
               height={100}
               className="rounded-lg h-full w-full object-cover hover:opacity-70 transition duration-500 ease-in-out"
-              src={data.imageUrl || '/images/general/cardimg.svg'}
+              src={data.imageUrl || "/images/general/cardimg.svg"}
               alt="image"
             />
           </div>
@@ -28,7 +28,7 @@ const CourseCard: React.FC<ComponentProps> = ({ data, index }) => {
         <div className="p-2">
           <div className="flex items-center justify-between md:text-xs gap-4">
             <div className="flex items-center justify-start gap-[1px]">
-              <ViewRating value={data.rating || 4} />
+              <ViewRating value={data.rating || 0} />
               <p className="text-[#4F547B] pb-[1px]">
                 ({data.reviewsCount || 0})
               </p>
@@ -81,7 +81,7 @@ const CourseCard: React.FC<ComponentProps> = ({ data, index }) => {
                 <Image
                   width={10}
                   height={10}
-                  src={data.userId.imgUrl || '/images/courseCard/card1.svg'}
+                  src={data.userId.imgUrl || "/images/courseCard/card1.svg"}
                   alt="image"
                   className="object-cover rounded-full w-8 h-8"
                 />
@@ -109,7 +109,7 @@ const CourseCard: React.FC<ComponentProps> = ({ data, index }) => {
         </div>
       </>
     </div>
-  )
-}
+  );
+};
 
-export default CourseCard
+export default CourseCard;

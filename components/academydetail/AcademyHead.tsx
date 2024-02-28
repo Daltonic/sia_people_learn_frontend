@@ -72,16 +72,17 @@ const AcademyHead: React.FC<ComponentProps> = ({ academy }) => {
     <div className="flex flex-col items-start w-full md:w-[57%]">
       <div className="flex flex-col md:flex-row gap-4 md:gap-0 items-start md:items-center justify-between w-full">
         <div className="flex items-center justify-between gap-5 max-md:justify-center">
-          {academy.tags.map((tag) => (
-            <h1
-              className="text-slate-500 text-xs font-medium bg-slate-100 p-2 rounded-md"
-              key={tag._id}
-            >
-              {tag.name}
-            </h1>
-          ))}
+          {academy.tags &&
+            academy.tags.map((tag) => (
+              <h1
+                className="text-slate-500 text-xs font-medium bg-slate-100 p-2 rounded-md"
+                key={tag._id}
+              >
+                {tag.name}
+              </h1>
+            ))}
         </div>
-        {userData?._id === academy.userId._id && (
+        {/* {userData?._id === academy.userId._id && (
           <div className="flex items-center justify-between gap-5 max-md:justify-center">
             <Link href={`/academy/edit/${String(academy._id)}`}>
               <button className="text-white flex gap-2 items-center text-xs font-medium bg-sky-400 p-2 rounded-md">
@@ -121,7 +122,7 @@ const AcademyHead: React.FC<ComponentProps> = ({ academy }) => {
               <FaTimes />
             </button>
           </div>
-        )}
+        )} */}
       </div>
       <div className="flex flex-col gap-2.5 mt-3 w-full ">
         <div className="flex items-center gap-2">

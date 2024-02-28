@@ -103,14 +103,14 @@ export default Page;
 export const getServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
-  const { id } = context.query;
+  const { name } = context.query;
 
   try {
-    const academy = (await fetchAcademy(id as string)) as IAcademy;
+    const academy = (await fetchAcademy(name as string)) as IAcademy;
 
     const academies = (await fetchAcademies({})) as IAcademies;
     const alternateAcademies = academies.academies.filter(
-      (academy) => academy._id !== id
+      (academy) => academy.name !== name
     );
 
     return {

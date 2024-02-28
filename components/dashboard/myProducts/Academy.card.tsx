@@ -47,7 +47,7 @@ const AcademyCard: React.FC<ComponentProps> = ({ data }) => {
   };
 
   const onDelete = () => {
-    dispatch(setData({ ...academy, type: 'academy' }));
+    dispatch(setData({ ...academy, type: "academy" }));
     dispatch(setDeleteModal("scale-100"));
   };
 
@@ -69,7 +69,7 @@ const AcademyCard: React.FC<ComponentProps> = ({ data }) => {
           <div className="absolute top-1 right-2">
             <Dropdown>
               <Link
-                href={`/academy/edit/${String(academy._id)}`}
+                href={`/academy/edit/${String(academy.name)}`}
                 className="p-1 hover:bg-gray-100 w-full text-left"
               >
                 Edit
@@ -77,7 +77,7 @@ const AcademyCard: React.FC<ComponentProps> = ({ data }) => {
               <Link
                 href={{
                   pathname: `/academy/courses`,
-                  query: { academyId: academy._id },
+                  query: { name: academy.name },
                 }}
                 className="p-1 hover:bg-gray-100 w-full text-left"
               >
@@ -117,7 +117,7 @@ const AcademyCard: React.FC<ComponentProps> = ({ data }) => {
             </div>
           </div>
 
-          <Link className="linkCustom" href={`/academy/${academy._id}`}>
+          <Link className="linkCustom" href={`/academy/${academy.name}`}>
             <div className="md:text-sm font-medium text-[#321463] mt-2 line-clamp-2">
               {academy.name}
             </div>

@@ -1,24 +1,24 @@
-import React from 'react'
-import Image from 'next/image'
-import Link from 'next/link'
-import { IAcademy } from '@/utils/type.dt'
-import { ViewRating } from '../reusableComponents/Rating'
+import React from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { IAcademy } from "@/utils/type.dt";
+import { ViewRating } from "../reusableComponents/Rating";
 
 interface ComponentProps {
-  data: IAcademy
+  data: IAcademy;
 }
 
 const AcademyCard: React.FC<ComponentProps> = ({ data }) => {
   return (
     <div className=" bg-white rounded-lg w-full sm:w-80 md:w-56 h-fit border-[#EDEDED] border p-2 shadow-[#EDEDED] shadow-md ">
       <div className="">
-        <Link className="linkCustom" href={`/academies/${data._id}`}>
+        <Link className="linkCustom" href={`/academies/${data.name}`}>
           <div className="rounded-lg h-40 md:h-32 overflow-hidden hover:bg-black">
             <Image
               width={100}
               height={100}
               className="rounded-lg h-full w-full object-cover hover:opacity-70"
-              src={data.imageUrl || '/images/general/cardimg.svg'}
+              src={data.imageUrl || "/images/general/cardimg.svg"}
               alt="image"
             />
           </div>
@@ -26,9 +26,9 @@ const AcademyCard: React.FC<ComponentProps> = ({ data }) => {
 
         <div className="p-2">
           <div className="flex items-center justify-between md:text-xs gap-4">
-            <div className="flex justify-start gap-[1px]">
-              <ViewRating value={data.rating || 4} />
-              <p className="text-[#4F547B] text-sm">
+            <div className="flex items-center justify-start gap-[1px]">
+              <ViewRating value={data.rating || 0} />
+              <p className="text-[#4F547B] pb-[1px]">
                 ({data.reviewsCount || 0})
               </p>
             </div>
@@ -38,7 +38,7 @@ const AcademyCard: React.FC<ComponentProps> = ({ data }) => {
           </div>
 
           <div className=" md:text-sm font-medium text-[#321463] mt-2 mb-6">
-            <Link className="linkCustom" href={`/academies/${data._id}`}>
+            <Link className="linkCustom" href={`/academies/${data.name}`}>
               <div className="line-clamp-1 hover:overflow-visible">
                 {data.name}
               </div>
@@ -81,7 +81,7 @@ const AcademyCard: React.FC<ComponentProps> = ({ data }) => {
                 <Image
                   width={10}
                   height={10}
-                  src={data.userId.imgUrl || '/images/courseCard/card1.svg'}
+                  src={data.userId.imgUrl || "/images/courseCard/card1.svg"}
                   alt="image"
                   className="object-cover rounded-full w-8 h-8"
                 />
@@ -108,7 +108,7 @@ const AcademyCard: React.FC<ComponentProps> = ({ data }) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default AcademyCard
+export default AcademyCard;
