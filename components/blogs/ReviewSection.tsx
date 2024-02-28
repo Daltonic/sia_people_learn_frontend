@@ -49,23 +49,6 @@ const ReviewSection: React.FC<Props> = ({ reviewsData }) => {
                 <ViewRating size="small" value={review.starRating} />
 
                 <p className="text-[#4F547B]">{review.comment}</p>
-                <div className="md:flex gap-5">
-                  <p className="text-[#C5165D] text-sm md:text-md">
-                    Was this review helpful?
-                  </p>
-                  <div className="flex items-center gap-5 mt-2 md:mt-0 font-medium">
-                    <div>
-                      <button className="bg-[#C5165D] p-1 px-4 rounded-md text-white">
-                        Yes
-                      </button>
-                    </div>
-                    <div>
-                      <button className="bg-[#E5F0FD] p-1 px-4 rounded-md text-[#C5165D]">
-                        No
-                      </button>
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
           ))}
