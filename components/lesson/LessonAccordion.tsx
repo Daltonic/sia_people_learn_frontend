@@ -41,7 +41,7 @@ const LessonAccordion: React.FC<Props> = ({
             <div
               {...provided.droppableProps}
               ref={provided.innerRef}
-              className="border rounded-md p-2 space-y-2 md:h-[70vh] overflow-y-scroll"
+              className="border rounded-md p-2 space-y-2 md:h-[55vh] overflow-y-scroll"
             >
               <div className="mb-2 text-[#321463] text-lg font-medium ">
                 Course Lessons
