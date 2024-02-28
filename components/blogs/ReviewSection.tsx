@@ -1,6 +1,5 @@
 import React from "react";
 import Image from "next/image";
-import { IoIosStar } from "react-icons/io";
 import { IReviews } from "@/utils/type.dt";
 import { getTimestamp } from "@/utils";
 import { ViewRating } from "../reusableComponents/Rating";
@@ -10,7 +9,6 @@ interface Props {
 }
 
 const ReviewSection: React.FC<Props> = ({ reviewsData }) => {
-  console.log(reviewsData);
   return (
     <div className="pt-6">
       <h1 className="text-[#321463] font-semibold text-lg md:text-base">

@@ -139,7 +139,12 @@ const Tabs: React.FC<Props> = ({ academiesSubObj, coursesSubObj }) => {
               {coursesSubs.subscriptions &&
               coursesSubs.subscriptions.length > 0 ? (
                 coursesSubs.subscriptions.map((sub, i: number) => (
-                  <MyCourseCard product={sub} index={i} key={sub._id} />
+                  <MyCourseCard
+                    product={sub}
+                    index={i}
+                    key={sub._id}
+                    productType={sub.productType}
+                  />
                 ))
               ) : (
                 <EmptyComponent
@@ -153,7 +158,12 @@ const Tabs: React.FC<Props> = ({ academiesSubObj, coursesSubObj }) => {
               {academiesSubs.subscriptions &&
               academiesSubs.subscriptions.length > 0 ? (
                 academiesSubs.subscriptions.map((sub, i: number) => (
-                  <MyCourseCard product={sub} index={i} key={sub._id} />
+                  <MyCourseCard
+                    product={sub}
+                    index={i}
+                    key={sub._id}
+                    productType={sub.productType}
+                  />
                 ))
               ) : (
                 <EmptyComponent
