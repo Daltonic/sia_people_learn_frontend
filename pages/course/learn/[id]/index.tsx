@@ -1,36 +1,36 @@
-import Layout from '@/components/layout/Layout'
-import { GetServerSidePropsContext, NextPage } from 'next'
-import Image from 'next/image'
-import { ICourse, ILesson, IReviews } from '@/utils/type.dt'
-import ReviewSection from '@/components/blogs/ReviewSection'
-import ReviewForm from '@/components/blogs/ReviewForm'
-import LessonAccordion from '@/components/lesson/LessonAccordion'
-import { fetchCourse, fetchReviews } from '@/services/backend.services'
-import { useState } from 'react'
-import Button from '@/components/reusableComponents/Button'
-import { SlRefresh } from 'react-icons/sl'
+import Layout from "@/components/layout/Layout";
+import { GetServerSidePropsContext, NextPage } from "next";
+import Image from "next/image";
+import { ICourse, ILesson, IReviews } from "@/utils/type.dt";
+import ReviewSection from "@/components/blogs/ReviewSection";
+import ReviewForm from "@/components/blogs/ReviewForm";
+import LessonAccordion from "@/components/lesson/LessonAccordion";
+import { fetchCourse, fetchReviews } from "@/services/backend.services";
+import { useState } from "react";
+import Button from "@/components/reusableComponents/Button";
+import { SlRefresh } from "react-icons/sl";
 
-const Page: NextPage<{ courseData: ICourse; reviews: IReviews }> = ({
+const Page: NextPage<{ courseData: ICourse; reviewsData: IReviews }> = ({
   courseData,
-  reviews,
+  reviewsData,
 }) => {
-  const [lessons, setLessons] = useState<ILesson[]>(courseData.lessons)
-  const [lessonsOrder, setLessonsOrder] = useState<string[]>([])
+  const [lessons, setLessons] = useState<ILesson[]>(courseData.lessons);
+  const [lessonsOrder, setLessonsOrder] = useState<string[]>([]);
 
   const onReorder = (sourceIndex: number, destinationIndex: number) => {
     // TODO: Check if user is the course instructor
-    const newLessons = [...courseData.lessons]
-    const [removed] = newLessons.splice(sourceIndex, 1)
-    newLessons.splice(destinationIndex, 0, removed)
-    setLessons(newLessons)
-    setLessonsOrder(newLessons.map((lesson) => lesson._id))
-  }
+    const newLessons = [...courseData.lessons];
+    const [removed] = newLessons.splice(sourceIndex, 1);
+    newLessons.splice(destinationIndex, 0, removed);
+    setLessons(newLessons);
+    setLessonsOrder(newLessons.map((lesson) => lesson._id));
+  };
 
   const handleReorder = () => {
     // TODO: Send an API call using the lessonsOrder
     // TODO: Clear lessonsOrder
     // The lessonsOrder contains the lessons IDs in the new order they should appear
-  }
+  };
 
   return (
     <Layout>
@@ -40,7 +40,7 @@ const Page: NextPage<{ courseData: ICourse; reviews: IReviews }> = ({
             <Image
               height={200}
               width={200}
-              src={courseData.imageUrl || '/images/general/cardimg.svg'}
+              src={courseData.imageUrl || "/images/general/cardimg.svg"}
               alt="Course Image"
               className="w-full md:h-[70vh] object-cover rounded-lg"
             />
@@ -74,8 +74,8 @@ const Page: NextPage<{ courseData: ICourse; reviews: IReviews }> = ({
             className="mt-2 md:mt-5 text-[#4F547B]"
           />
 
-          <ReviewSection reviewsData={reviews} />
           <ReviewForm productId={courseData._id} productType="Course" />
+          <ReviewSection reviewsData={reviewsData} />
         </div>
 
         <div className="md:w-[30%] mt-4 md:mt-0">
@@ -87,40 +87,40 @@ const Page: NextPage<{ courseData: ICourse; reviews: IReviews }> = ({
         </div>
       </div>
     </Layout>
-  )
-}
+  );
+};
 
-export default Page
+export default Page;
 
 export const getServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
-  const { id } = context.query
-  const token = context.req.cookies.accessToken
+  const { id } = context.query;
+  const token = context.req.cookies.accessToken;
 
   try {
-    const course = await fetchCourse(id as string, token)
+    const course = await fetchCourse(id as string, token);
     const reviews = await fetchReviews(
       {
         productId: id as string,
-        productType: 'Course',
+        productType: "Course",
       },
       token
-    )
+    );
 
     return {
       props: {
         courseData: JSON.parse(JSON.stringify(course)),
         reviewsData: JSON.parse(JSON.stringify(reviews)),
       },
-    }
+    };
   } catch (e: any) {
-    console.log(e.message)
+    console.log(e.message);
     return {
       props: {
         courseData: {} as ICourse,
         reviewsData: {} as IReviews,
       },
-    }
+    };
   }
-}
+};

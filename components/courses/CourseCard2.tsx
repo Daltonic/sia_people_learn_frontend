@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { IoIosStar } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
 import { cartActions } from "@/store/slices/cartSlice";
+import { ViewRating } from "../reusableComponents/Rating";
 
 interface Props {
   course: ICourse;
@@ -73,19 +74,13 @@ const CourseCard: React.FC<Props> = ({ course }) => {
 
           <div className="md:ml-3 flex flex-col items-stretch md:w-[70%] mt-3 md:mt-0">
             <div className="flex flex-col gap-1.5 my-auto md:px-5 items-start">
-              <div className="flex items-center text-sm gap-3">
-                <div className="flex items-center gap-1">
-                  <p className="text-[#E59819]">{course.rating}</p>
-                  <div className="flex items-center">
-                    {rating.map((itm, i: number) => (
-                      <div key={i} className="text-[#E59819]">
-                        <IoIosStar className="text-sm text-[#E59819] mx-0.5" />
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                <div className="text-[#4F547B]">({course.reviewsCount})</div>
+              <div className="flex justify-start gap-[1px]">
+                <ViewRating value={course.rating || 4} />
+                <p className="text-[#4F547B] text-sm">
+                  ({course.reviewsCount || 0})
+                </p>
               </div>
+
               <Link
                 key={course._id}
                 href={`/coursedetail/${course._id}`}

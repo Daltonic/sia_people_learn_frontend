@@ -1,4 +1,5 @@
 import {
+  CreateReviewBody,
   FetchPostsParams,
   FetchProductsParams,
   FetchReviewsParams,
@@ -1032,6 +1033,31 @@ const fetchWishlists = async (
   }
 };
 
+const createReview = async (
+  data: CreateReviewBody,
+  token: string
+): Promise<any> => {
+  const url = `${BASE_URI}/reviews/create`;
+
+  try {
+    const config = {
+      method: "POST",
+      url,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      data,
+    };
+
+    const response = await axios.request(config);
+    return Promise.resolve(response.data);
+  } catch (error) {
+    reportError(error);
+    return Promise.reject(error);
+  }
+};
+
 export {
   createPost,
   updatePost,
@@ -1075,4 +1101,5 @@ export {
   fetchWishlists,
   stripeCheckout,
   publishPost,
+  createReview,
 };
