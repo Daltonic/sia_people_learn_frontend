@@ -388,6 +388,28 @@ const deleteCourse = async (courseId: string): Promise<any> => {
   }
 };
 
+const orderCourseLessons = async (courseId: string, data: any): Promise<any> => {
+  const url = `${BASE_URI}/courses/orderLessons/${courseId}`;
+
+  const config = {
+    method: "PUT",
+    url,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
+    },
+    data
+  };
+
+  try {
+    const response = await axios.request(config);
+    return Promise.resolve(response.status);
+  } catch (error) {
+    reportError(error);
+    return Promise.reject(error);
+  }
+};
+
 const addCourseToAcademy = async (academyId: string, courseId: string) => {
   const url = `${BASE_URI}/academies/addCourse`;
 
@@ -1102,4 +1124,5 @@ export {
   stripeCheckout,
   publishPost,
   createReview,
+  orderCourseLessons
 };

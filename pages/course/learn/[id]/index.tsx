@@ -5,11 +5,16 @@ import { ICourse, ILesson, IReviews, RootState } from '@/utils/type.dt'
 import ReviewSection from '@/components/blogs/ReviewSection'
 import ReviewForm from '@/components/blogs/ReviewForm'
 import LessonAccordion from '@/components/lesson/LessonAccordion'
-import { fetchCourse, fetchReviews } from '@/services/backend.services'
+import {
+  fetchCourse,
+  fetchReviews,
+  orderCourseLessons,
+} from '@/services/backend.services'
 import { useState } from 'react'
 import Button from '@/components/reusableComponents/Button'
 import { SlRefresh } from 'react-icons/sl'
 import { useSelector } from 'react-redux'
+import { toast } from 'react-toastify'
 
 const Page: NextPage<{ courseData: ICourse; reviewsData: IReviews }> = ({
   courseData,
@@ -27,10 +32,24 @@ const Page: NextPage<{ courseData: ICourse; reviewsData: IReviews }> = ({
     setLessonsOrder(newLessons.map((lesson) => lesson._id))
   }
 
-  const handleReorder = () => {
-    // TODO: Send an API call using the lessonsOrder
-    // TODO: Clear lessonsOrder
-    // The lessonsOrder contains the lessons IDs in the new order they should appear
+  const handleReorder = async () => {
+    await toast.promise(
+      new Promise<void>((resolve, reject) => {
+        orderCourseLessons(courseData._id, { lessonsIds: lessonsOrder })
+          .then((result) => {
+            setLessonsOrder([])
+            resolve(result)
+          })
+          .catch((error) => {
+            reject(error)
+          })
+      }),
+      {
+        pending: 'Reordering...',
+        success: 'Reordered successfully 👌',
+        error: 'Encountered error 🤯',
+      }
+    )
   }
 
   return (
@@ -43,7 +62,7 @@ const Page: NextPage<{ courseData: ICourse; reviewsData: IReviews }> = ({
               width={200}
               src={courseData.imageUrl || '/images/general/cardimg.svg'}
               alt="Course Image"
-              className="w-full md:h-[70vh] object-cover rounded-lg"
+              className="w-full md:h-[55vh] object-cover rounded-lg"
             />
           </div>
 
@@ -56,6 +75,7 @@ const Page: NextPage<{ courseData: ICourse; reviewsData: IReviews }> = ({
               <Button
                 className="flex justify-start items-center space-x-2"
                 variant="pink"
+                onClick={handleReorder}
               >
                 <span>Reorder</span>
                 <SlRefresh />
