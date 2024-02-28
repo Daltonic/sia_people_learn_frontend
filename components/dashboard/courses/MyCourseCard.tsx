@@ -6,17 +6,22 @@ import { ViewRating } from "@/components/reusableComponents/Rating";
 
 interface ComponentProps {
   product: IUserSubscription;
+  productType: "Course" | "Academy";
   index?: number;
 }
 
-const MyCourseCard: React.FC<ComponentProps> = ({ product }) => {
+const MyCourseCard: React.FC<ComponentProps> = ({ product, productType }) => {
   return (
     <div className="bg-white rounded-lg w-full sm:w-[48%] md:w-48 h-60 p-2 border-[#EDEDED] border shadow-[#EDEDED] shadow-xl">
       <div className="">
         <div className="h-28">
           <Link
             className="linkCustom"
-            href={`/course/learn/${product.productId._id}`}
+            href={
+              productType === "Course"
+                ? `/course/learn/${product.productId._id}`
+                : `/academy/learn/${product.productId._id}`
+            }
           >
             <Image
               width={500}
