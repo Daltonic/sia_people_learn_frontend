@@ -1,12 +1,28 @@
-"use client";
+import { useEffect, useState } from 'react';
+import dynamic from 'next/dynamic';
 import Layout from "@/components/layout/Layout";
 import { NextPage } from "next";
-import ShopCartTable from "@/components/shopcart/ShopCartTable";
-import ShopCartMobile from "@/components/shopcart/ShopCartMobile";
+
+const ShopCartTable = dynamic(() => import('@/components/shopcart/ShopCartTable'));
+const ShopCartMobile = dynamic(() => import('@/components/shopcart/ShopCartMobile'));
 
 const Page: NextPage = () => {
-  const isDesktopOrLaptop =
-    typeof window !== "undefined" ? window.innerWidth > 680 : false;
+  const [isDesktopOrLaptop, setIsDesktopOrLaptop] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsDesktopOrLaptop(window.innerWidth > 768);
+    };
+
+    handleResize();
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   return (
     <Layout>
       <div className="flex flex-col items-center overflow-hidden">

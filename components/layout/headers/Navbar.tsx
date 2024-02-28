@@ -21,7 +21,7 @@ const Navbar: React.FC = () => {
           <HiMiniBars3BottomRight size={24} />
         </button>
         {menuOpen && (
-          <div className="fixed inset-0 bg-black bg-opacity-70 transform transition-transform duration-200 ease-in-out translate-x-0 w-full">
+          <div className="fixed inset-0 bg-black bg-opacity-70 transform transition-transform duration-200 ease-in-out translate-x-0 w-full z-50">
             <button
               onClick={closeMenu}
               className="absolute top-4 right-4 text-black p-2 bg-white rounded-full"
