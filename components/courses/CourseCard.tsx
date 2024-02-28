@@ -1,13 +1,12 @@
-import React from "react";
-import Image from "next/image";
-import Link from "next/link";
-import { ICourse } from "@/utils/type.dt";
-import { LiaFileVideoSolid } from "react-icons/lia";
-import { ViewRating } from "../reusableComponents/Rating";
+import React from 'react'
+import Image from 'next/image'
+import Link from 'next/link'
+import { ICourse } from '@/utils/type.dt'
+import { ViewRating } from '../reusableComponents/Rating'
 
 interface ComponentProps {
-  data: ICourse;
-  index?: number;
+  data: ICourse
+  index?: number
 }
 
 const CourseCard: React.FC<ComponentProps> = ({ data, index }) => {
@@ -20,7 +19,7 @@ const CourseCard: React.FC<ComponentProps> = ({ data, index }) => {
               width={100}
               height={100}
               className="rounded-lg h-full w-full object-cover hover:opacity-70 transition duration-500 ease-in-out"
-              src={data.imageUrl || "/images/general/cardimg.svg"}
+              src={data.imageUrl || '/images/general/cardimg.svg'}
               alt="image"
             />
           </div>
@@ -34,13 +33,9 @@ const CourseCard: React.FC<ComponentProps> = ({ data, index }) => {
                 ({data.reviewsCount || 0})
               </p>
             </div>
-            <div
-              className="flex justify-end items-center space-x-1
-            p-1 text-xs bg-[#6440FB12] text-[#1A064F] rounded-md"
-            >
-              <LiaFileVideoSolid />
-              <span>{data.lessons.length}</span>
-            </div>
+            <p className="text-[10px] bg-[#6440FB12] text-[#1A064F] rounded-md px-1">
+              Lessons ({data.lessons.length})
+            </p>
           </div>
           <Link className="linkCustom" href={`/coursedetail/${data._id}`}>
             <div className=" md:text-sm font-medium text-[#321463] mt-2 mb-6">
@@ -86,7 +81,7 @@ const CourseCard: React.FC<ComponentProps> = ({ data, index }) => {
                 <Image
                   width={10}
                   height={10}
-                  src={data.userId.imgUrl || "/images/courseCard/card1.svg"}
+                  src={data.userId.imgUrl || '/images/courseCard/card1.svg'}
                   alt="image"
                   className="object-cover rounded-full w-8 h-8"
                 />
@@ -114,7 +109,7 @@ const CourseCard: React.FC<ComponentProps> = ({ data, index }) => {
         </div>
       </>
     </div>
-  );
-};
+  )
+}
 
-export default CourseCard;
+export default CourseCard

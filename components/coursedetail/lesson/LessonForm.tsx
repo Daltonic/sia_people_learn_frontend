@@ -238,7 +238,7 @@ const LessonForm: React.FC<LessonProps> = ({ lesson, courseId, type }) => {
           {!lessonDetails.downloadableUrl && (
             <Button
               type="button"
-              onClick={() => handleFileAttachment('application/pdf')}
+              onClick={() => handleFileAttachment('application/pdf, application/zip')}
               className="text-slate-600 border border-[color:var(--border-2,#E1DDDD)]"
             >
               Add Downloadable

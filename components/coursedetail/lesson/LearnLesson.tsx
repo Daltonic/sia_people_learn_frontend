@@ -30,35 +30,40 @@ const LearnLesson: React.FC<Props> = ({ lesson, course }) => {
   }
 
   return (
-    <div className="flex items-start gap-5 w-full">
-      <div className="mx-auto w-full md:w-[70%]">
-        <Plyr
-          source={{
-            type: 'video',
-            sources: [
-              {
-                src:
-                  lesson.videoUrl ||
-                  'https://file.dappmentors.duckdns.org/download/video/1708596030238__AQgH.mp4',
-                provider: 'html5',
-              },
-            ],
-          }}
-        />
-
-        <div className="text-[#321463] md:mt-4">
-          <span className="text-xl font-medium capitalize">{lesson.title}</span>
-          <span> | {lesson.duration} min</span>
+    <div className="w-full p-5 md:p-10 md:flex justify-between items-start gap-5">
+      <div className="mb-4 w-full md:w-[70%]">
+        <div className="w-full">
+          <Plyr
+            source={{
+              type: 'video',
+              sources: [
+                {
+                  src:
+                    lesson?.videoUrl ||
+                    'https://file.dappmentors.duckdns.org/download/video/1708596030238__AQgH.mp4',
+                  provider: 'html5',
+                },
+              ],
+            }}
+            // className="w-full md:h-[70vh] object-cover rounded-lg"
+          />
         </div>
 
-        <p className="text-[#4F547B] my-2">{lesson.overview}</p>
+        <div className="text-[#321463] md:mt-4">
+          <span className="text-xl font-medium capitalize">
+            {lesson?.title}
+          </span>
+          <span> | {lesson?.duration} min</span>
+        </div>
+
+        <p className="text-[#4F547B] my-2">{lesson?.overview}</p>
 
         <div className="flex justify-start items-center space-x-2">
           <Button variant="pink" onClick={handleGoBack}>
             Back to Course
           </Button>
 
-          {lesson.downloadableUrl && (
+          {lesson?.downloadableUrl && (
             <Button variant="pinkoutline" onClick={handleDownload}>
               Download Asset
             </Button>
@@ -66,12 +71,11 @@ const LearnLesson: React.FC<Props> = ({ lesson, course }) => {
         </div>
       </div>
 
-      <div className="flex flex-col w-full md:w-[30%] h-full">
+      <div className="md:w-[30%] mt-4 md:mt-0">
         <LessonAccordion
           course={course}
-          lessons={course.lessons}
+          lessons={course?.lessons}
           lessonId={lesson._id}
-          onReorder={() => console.log('Order not permitted')}
         />
       </div>
     </div>

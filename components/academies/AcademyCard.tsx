@@ -1,12 +1,11 @@
-import React from "react";
-import Image from "next/image";
-import Link from "next/link";
-import { IAcademy } from "@/utils/type.dt";
-import { LiaFileVideoSolid } from "react-icons/lia";
-import { ViewRating } from "../reusableComponents/Rating";
+import React from 'react'
+import Image from 'next/image'
+import Link from 'next/link'
+import { IAcademy } from '@/utils/type.dt'
+import { ViewRating } from '../reusableComponents/Rating'
 
 interface ComponentProps {
-  data: IAcademy;
+  data: IAcademy
 }
 
 const AcademyCard: React.FC<ComponentProps> = ({ data }) => {
@@ -19,7 +18,7 @@ const AcademyCard: React.FC<ComponentProps> = ({ data }) => {
               width={100}
               height={100}
               className="rounded-lg h-full w-full object-cover hover:opacity-70"
-              src={data.imageUrl || "/images/general/cardimg.svg"}
+              src={data.imageUrl || '/images/general/cardimg.svg'}
               alt="image"
             />
           </div>
@@ -33,13 +32,9 @@ const AcademyCard: React.FC<ComponentProps> = ({ data }) => {
                 ({data.reviewsCount || 0})
               </p>
             </div>
-            <div
-              className="flex justify-end items-center space-x-1
-            p-1 text-xs bg-[#6440FB12] text-[#1A064F] rounded-md"
-            >
-              <LiaFileVideoSolid />
-              <span>{data.courses.length}</span>
-            </div>
+            <p className="text-[10px] bg-[#6440FB12] text-[#1A064F] rounded-md px-1">
+              Courses ({data.courses.length})
+            </p>
           </div>
 
           <div className=" md:text-sm font-medium text-[#321463] mt-2 mb-6">
@@ -86,7 +81,7 @@ const AcademyCard: React.FC<ComponentProps> = ({ data }) => {
                 <Image
                   width={10}
                   height={10}
-                  src={data.userId.imgUrl || "/images/courseCard/card1.svg"}
+                  src={data.userId.imgUrl || '/images/courseCard/card1.svg'}
                   alt="image"
                   className="object-cover rounded-full w-8 h-8"
                 />
@@ -113,7 +108,7 @@ const AcademyCard: React.FC<ComponentProps> = ({ data }) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default AcademyCard;
+export default AcademyCard
