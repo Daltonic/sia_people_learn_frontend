@@ -81,7 +81,7 @@ const LessonForm: React.FC<LessonFormProps> = ({
 
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault()
-
+    
     if (type === 'create') {
       await toast.promise(
         new Promise<void>(async (resolve, reject) => {
@@ -181,7 +181,7 @@ const LessonForm: React.FC<LessonFormProps> = ({
 
       {isAccordionOpen && (
         <div>
-          <div className="p-5 border-b border-[#EDEDED]">
+          <div className="p-5 pt-0 border-b border-[#EDEDED]">
             {!lessonDetails.videoUrl && (
               <Button
                 onClick={() => handleFileAttachment('video/mp4')}
