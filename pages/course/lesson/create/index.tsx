@@ -2,9 +2,11 @@ import LessonForm from '@/components/coursedetail/lesson/LessonForm'
 import LessonHeader from '@/components/coursedetail/lesson/LessonHeader'
 import DashboardLayout from '@/components/dashboard/dashboardLayout/DashboardLayout'
 import Button from '@/components/reusableComponents/Button'
+import DeleteModal from '@/components/reusableComponents/DeleteModal'
 import { fetchCourse, orderCourseLessons } from '@/services/backend.services'
 import { ILesson } from '@/utils/type.dt'
 import { GetServerSidePropsContext, NextPage } from 'next'
+import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 import { toast } from 'react-toastify'
@@ -16,6 +18,7 @@ const Page: NextPage<{ courseId: string; lessonsData: ILesson[] }> = ({
   const [lessonsOrder, setLessonsOrder] = useState<string[]>([])
   const [lessons, setLessons] = useState<ILesson[]>(lessonsData)
   const [loaded, setLoaded] = useState<boolean>(false)
+  const router = useRouter()
 
   const onDragEnd = (result: any) => {
     if (!result.destination) return
@@ -95,11 +98,25 @@ const Page: NextPage<{ courseId: string; lessonsData: ILesson[] }> = ({
           </DragDropContext>
         </div>
 
-        {lessonsOrder.length > 0 && (
-          <Button onClick={handleReorder} variant="pink">
-            Reorder
+        <div className="flex justify-start items-center space-x-2">
+          {lessonsOrder.length > 0 && (
+            <Button onClick={handleReorder} variant="pink">
+              Reorder
+            </Button>
+          )}
+
+          <Button
+            onClick={() =>
+              router.push({
+                pathname: `/course/learn/${String(courseId)}`,
+              })
+            }
+            variant="pinkoutline"
+          >
+            Watch
           </Button>
-        )}
+        </div>
+        <DeleteModal />
       </DashboardLayout>
     )
   )

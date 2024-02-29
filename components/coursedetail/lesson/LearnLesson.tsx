@@ -45,7 +45,6 @@ const LearnLesson: React.FC<Props> = ({ lesson, course }) => {
                 },
               ],
             }}
-            // className="w-full md:h-[70vh] object-cover rounded-lg"
           />
         </div>
 
@@ -56,7 +55,7 @@ const LearnLesson: React.FC<Props> = ({ lesson, course }) => {
           <span> | {lesson?.duration} min</span>
         </div>
 
-        <p className="text-[#4F547B] my-2">{lesson?.overview}</p>
+        <p className="text-[#4F547B] my-2">{lesson?.description}</p>
 
         <div className="flex justify-start items-center space-x-2">
           <Button variant="pink" onClick={handleGoBack}>

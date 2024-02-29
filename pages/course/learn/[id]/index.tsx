@@ -1,16 +1,23 @@
 import Layout from '@/components/layout/Layout'
 import { GetServerSidePropsContext, NextPage } from 'next'
 import Image from 'next/image'
-import { ICourse, IReviews } from '@/utils/type.dt'
+import { ICourse, IReviews, RootState } from '@/utils/type.dt'
 import ReviewSection from '@/components/blogs/ReviewSection'
 import ReviewForm from '@/components/blogs/ReviewForm'
 import LessonAccordion from '@/components/lesson/LessonAccordion'
 import { fetchCourse, fetchReviews } from '@/services/backend.services'
+import Button from '@/components/reusableComponents/Button'
+import { MdOutlineModeEditOutline } from 'react-icons/md'
+import { useSelector } from 'react-redux'
+import { useRouter } from 'next/router'
 
 const Page: NextPage<{ courseData: ICourse; reviewsData: IReviews }> = ({
   courseData,
   reviewsData,
 }) => {
+  const { userData } = useSelector((states: RootState) => states.userStates)
+  const router = useRouter()
+
   return (
     <Layout>
       <div className="w-full p-5 md:p-10 md:flex justify-between items-start gap-5">
@@ -25,10 +32,25 @@ const Page: NextPage<{ courseData: ICourse; reviewsData: IReviews }> = ({
             />
           </div>
 
-          <div className="flex justify-between md:mt-4">
+          <div className="flex flex-wrap justify-between md:mt-4">
             <span className="text-[#321463] text-2xl font-medium capitalize">
               {courseData.name}
             </span>
+
+            {courseData.userId._id === userData?._id && (
+              <Button
+                variant="pink"
+                className="flex justify-start items-center space-x-2"
+                onClick={() =>
+                  router.push({
+                    pathname: `/course/edit/${String(courseData._id)}`,
+                  })
+                }
+              >
+                <span>Edit</span>
+                <MdOutlineModeEditOutline />
+              </Button>
+            )}
           </div>
 
           <div className="my-4">
@@ -43,11 +65,15 @@ const Page: NextPage<{ courseData: ICourse; reviewsData: IReviews }> = ({
             className="mt-2 md:mt-5 text-[#4F547B]"
           />
 
+          <div className="sm:hidden flex my-4">
+            <LessonAccordion course={courseData} lessons={courseData.lessons} />
+          </div>
+
           <ReviewForm productId={courseData._id} productType="Course" />
           <ReviewSection reviewsData={reviewsData} />
         </div>
 
-        <div className="md:w-[30%] mt-4 md:mt-0">
+        <div className="hidden sm:flex md:w-[30%] my-4 md:mt-0">
           <LessonAccordion course={courseData} lessons={courseData.lessons} />
         </div>
       </div>
