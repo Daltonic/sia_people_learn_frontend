@@ -1,57 +1,16 @@
 import Layout from '@/components/layout/Layout'
 import { GetServerSidePropsContext, NextPage } from 'next'
 import Image from 'next/image'
-import { ICourse, ILesson, IReviews, RootState } from '@/utils/type.dt'
+import { ICourse, IReviews } from '@/utils/type.dt'
 import ReviewSection from '@/components/blogs/ReviewSection'
 import ReviewForm from '@/components/blogs/ReviewForm'
 import LessonAccordion from '@/components/lesson/LessonAccordion'
-import {
-  fetchCourse,
-  fetchReviews,
-  orderCourseLessons,
-} from '@/services/backend.services'
-import { useState } from 'react'
-import Button from '@/components/reusableComponents/Button'
-import { SlRefresh } from 'react-icons/sl'
-import { useSelector } from 'react-redux'
-import { toast } from 'react-toastify'
+import { fetchCourse, fetchReviews } from '@/services/backend.services'
 
 const Page: NextPage<{ courseData: ICourse; reviewsData: IReviews }> = ({
   courseData,
   reviewsData,
 }) => {
-  const [lessons, setLessons] = useState<ILesson[]>(courseData.lessons)
-  const [lessonsOrder, setLessonsOrder] = useState<string[]>([])
-  const { userData } = useSelector((states: RootState) => states.userStates)
-
-  const onReorder = (sourceIndex: number, destinationIndex: number) => {
-    const newLessons = [...courseData.lessons]
-    const [removed] = newLessons.splice(sourceIndex, 1)
-    newLessons.splice(destinationIndex, 0, removed)
-    setLessons(newLessons)
-    setLessonsOrder(newLessons.map((lesson) => lesson._id))
-  }
-
-  const handleReorder = async () => {
-    await toast.promise(
-      new Promise<void>((resolve, reject) => {
-        orderCourseLessons(courseData._id, { lessonsIds: lessonsOrder })
-          .then((result) => {
-            setLessonsOrder([])
-            resolve(result)
-          })
-          .catch((error) => {
-            reject(error)
-          })
-      }),
-      {
-        pending: 'Reordering...',
-        success: 'Reordered successfully 👌',
-        error: 'Encountered error 🤯',
-      }
-    )
-  }
-
   return (
     <Layout>
       <div className="w-full p-5 md:p-10 md:flex justify-between items-start gap-5">
@@ -70,17 +29,6 @@ const Page: NextPage<{ courseData: ICourse; reviewsData: IReviews }> = ({
             <span className="text-[#321463] text-2xl font-medium capitalize">
               {courseData.name}
             </span>
-
-            {lessonsOrder.length > 0 && (
-              <Button
-                className="flex justify-start items-center space-x-2"
-                variant="pink"
-                onClick={handleReorder}
-              >
-                <span>Reorder</span>
-                <SlRefresh />
-              </Button>
-            )}
           </div>
 
           <div className="my-4">
@@ -100,15 +48,7 @@ const Page: NextPage<{ courseData: ICourse; reviewsData: IReviews }> = ({
         </div>
 
         <div className="md:w-[30%] mt-4 md:mt-0">
-          {courseData.userId._id == userData?._id ? (
-            <LessonAccordion
-              course={courseData}
-              lessons={lessons}
-              onReorder={onReorder}
-            />
-          ) : (
-            <LessonAccordion course={courseData} lessons={lessons} />
-          )}
+          <LessonAccordion course={courseData} lessons={courseData.lessons} />
         </div>
       </div>
     </Layout>
