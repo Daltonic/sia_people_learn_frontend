@@ -83,7 +83,7 @@ const LessonAccordion: React.FC<Props> = ({
                           </div>
                           <div>
                             <h3 className="font-medium">{lesson.title}</h3>
-                            <p className="">Duration: {lesson.duration} mins</p>
+                            <p className="">Duration: {lesson.duration.toFixed(2)} mins</p>
                           </div>
                         </Link>
                       )}
@@ -110,7 +110,7 @@ const LessonAccordion: React.FC<Props> = ({
                       </div>
                       <div>
                         <h3 className="font-medium">{lesson.title}</h3>
-                        <p className="">Duration: {lesson.duration} mins</p>
+                        <p className="">Duration: {lesson.duration.toFixed(2)} mins</p>
                       </div>
                     </Link>
                   )

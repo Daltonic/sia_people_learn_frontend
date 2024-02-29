@@ -27,14 +27,6 @@ const LessonForm: React.FC<LessonProps> = ({ lesson, courseId, type }) => {
   const { setUserData } = userActions
   const { userData } = useSelector((states: RootState) => states.userStates)
 
-  useEffect(() => {
-    if (!userData) {
-      const sessionUser = JSON.parse(sessionStorage.getItem('user')!)
-      if (sessionUser) {
-        dispatch(setUserData(sessionUser))
-      }
-    }
-  }, [dispatch, setUserData, userData])
   const [lessonDetails, setLessonDetails] = useState({
     title: lesson?.title || '',
     description: lesson?.description || '',
@@ -48,16 +40,26 @@ const LessonForm: React.FC<LessonProps> = ({ lesson, courseId, type }) => {
   const [acceptType, setAcceptType] = useState<string>('')
   const { setUploaderModal } = uploaderActions
 
-  const handleFileMount = (fileUrl: string) => {
+  useEffect(() => {
+    if (!userData) {
+      const sessionUser = JSON.parse(sessionStorage.getItem('user')!)
+      if (sessionUser) {
+        dispatch(setUserData(sessionUser))
+      }
+    }
+  }, [dispatch, setUserData, userData])
+
+  const handleFileMount = (fileInfo: any) => {
     if (acceptType.includes('video')) {
       setLessonDetails((prev) => ({
         ...prev,
-        videoUrl: fileUrl,
+        duration: fileInfo.duration / 60, // converting the duration from seconds to minutes
+        videoUrl: fileInfo.url,
       }))
     } else {
       setLessonDetails((prev) => ({
         ...prev,
-        downloadableUrl: fileUrl,
+        downloadableUrl: fileInfo.url,
       }))
     }
   }
@@ -167,7 +169,7 @@ const LessonForm: React.FC<LessonProps> = ({ lesson, courseId, type }) => {
 
         {lessonDetails.videoUrl && (
           <div className="relative">
-            <div className="flex justify-start items-center space-x-2 absolute top-2 left-2">
+            <div className="flex justify-start items-center space-x-2 absolute top-2 left-2 z-40">
               <Button
                 onClick={() => handleFileAttachment('video/mp4')}
                 className="bg-black bg-opacity-25 text-white"
@@ -214,7 +216,7 @@ const LessonForm: React.FC<LessonProps> = ({ lesson, courseId, type }) => {
             handleChange={handleChange}
           />
         </div>
-        <div className="md:flex gap-8">
+        {/* <div className="md:flex gap-8">
           <InputField
             label="Duration (in minutes)"
             name="duration"
@@ -224,21 +226,14 @@ const LessonForm: React.FC<LessonProps> = ({ lesson, courseId, type }) => {
             value={lessonDetails.duration}
             handleChange={handleChange}
           />
-          <InputField
-            label="Order Number"
-            name="order"
-            placeholder="Enter Order"
-            required
-            inputType="number"
-            value={lessonDetails.order}
-            handleChange={handleChange}
-          />
-        </div>
+        </div> */}
         <div className="md:flex gap-8">
           {!lessonDetails.downloadableUrl && (
             <Button
               type="button"
-              onClick={() => handleFileAttachment('application/pdf, application/zip')}
+              onClick={() =>
+                handleFileAttachment('application/pdf, application/zip')
+              }
               className="text-slate-600 border border-[color:var(--border-2,#E1DDDD)]"
             >
               Add Downloadable
@@ -278,7 +273,7 @@ const LessonForm: React.FC<LessonProps> = ({ lesson, courseId, type }) => {
         </Button>
       </form>
       <FileUploader
-        onUploadSuccess={(response) => handleFileMount(response.url)}
+        onUploadSuccess={(response) => handleFileMount(response)}
         accept={acceptType}
       />
     </div>
