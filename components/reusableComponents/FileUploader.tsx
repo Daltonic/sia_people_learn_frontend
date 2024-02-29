@@ -52,7 +52,22 @@ const FileUploader: React.FC<FileUploaderProps> = ({
       if (file && isFileTypeAccepted(file, accept)) {
         setFileData(file)
         console.log('File dropped')
-        handleUpload(file)
+
+        // Create a temporary audio or video element
+        if (file.type.startsWith('video') || file.type.startsWith('audio')) {
+          const mediaElement = document.createElement(
+            file.type.startsWith('video') ? 'video' : 'audio'
+          )
+          mediaElement.onloadedmetadata = () => {
+            const duration = mediaElement.duration
+            URL.revokeObjectURL(mediaElement.src)
+            handleUpload(file, duration)
+          }
+          mediaElement.src = URL.createObjectURL(file)
+        } else {
+          // If not a video or audio, call handleUpload without duration
+          handleUpload(file)
+        }
       } else {
         console.log('File type not accepted')
         // Optionally, you can show a message to the user here
@@ -72,22 +87,37 @@ const FileUploader: React.FC<FileUploaderProps> = ({
       if (file) {
         setFileData(file)
         console.log('File selected')
-        handleUpload(file)
+
+        // Create a temporary audio or video element
+        if (file.type.startsWith('video') || file.type.startsWith('audio')) {
+          const mediaElement = document.createElement(
+            file.type.startsWith('video') ? 'video' : 'audio'
+          )
+          mediaElement.onloadedmetadata = () => {
+            const duration = mediaElement.duration
+            URL.revokeObjectURL(mediaElement.src)
+            handleUpload(file, duration)
+          }
+          mediaElement.src = URL.createObjectURL(file)
+        } else {
+          // If not a video or audio, call handleUpload without duration
+          handleUpload(file)
+        }
       }
     }
   }
 
-  const handleUpload = async (file: File) => {
+  const handleUpload = async (file: File, duration: number = 0) => {
     setUploading(true)
 
     await toast.promise(
       new Promise<void>(async (resolve, reject) => {
         await uploadFile(file, handleUploadProgress)
           .then((response) => {
-            onUploadSuccess(response)
+            onUploadSuccess({ ...response, duration })
             resetUpload()
-            console.log(response)
-            resolve(response)
+            console.log({ ...response, duration })
+            resolve({ ...response, duration })
           })
           .catch((error) => reject(error))
       }),
@@ -112,14 +142,14 @@ const FileUploader: React.FC<FileUploaderProps> = ({
       bg-black bg-opacity-50 transform z-[3000] transition-transform duration-300 ${uploaderModal}`}
     >
       <div className="bg-white shadow-lg shadow-slate-900 rounded-xl relative w-11/12 md:w-3/5 p-6">
-          <button
-            type="button"
-            onClick={resetUpload}
-            className="p-2 rounded-full
+        <button
+          type="button"
+          onClick={resetUpload}
+          className="p-2 rounded-full
             focus:outline-none right-5 md:right-10 absolute border border-slate-600 "
-          >
-            <TfiClose size={16} className="text-slate-600 font-bold" />
-          </button>
+        >
+          <TfiClose size={16} className="text-slate-600 font-bold" />
+        </button>
         <div className="text-center mt-8 md:mt-4 mb-6">
           <h1 className="text-violet-950 text-center text-2xl font-bold">
             UPLOAD FILES
