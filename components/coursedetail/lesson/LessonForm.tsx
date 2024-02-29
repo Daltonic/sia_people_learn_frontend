@@ -12,6 +12,7 @@ import { uploaderActions } from '@/store/slices/uploaderSlice'
 import { toast } from 'react-toastify'
 import { createLesson, updateLesson } from '@/services/backend.services'
 import { ILesson } from '@/utils/type.dt'
+import { genericActions } from '@/store/slices/genericSlice'
 
 interface LessonFormProps {
   lesson?: ILesson
@@ -31,6 +32,7 @@ const LessonForm: React.FC<LessonFormProps> = ({
   const [acceptType, setAcceptType] = useState<string>('')
   const [submitting, setSubmitting] = useState<boolean>(false)
   const [isAccordionOpen, setIsAccordionOpen] = useState(accordionState)
+  const { setDeleteModal, setData } = genericActions
 
   const [lessonDetails, setLessonDetails] = useState({
     title: lesson?.title || '',
@@ -151,16 +153,30 @@ const LessonForm: React.FC<LessonFormProps> = ({
     setSubmitting(false)
   }
 
+  const onDelete = () => {
+    dispatch(setData({ ...lesson, name: lesson?.title, type: 'lesson' }))
+    dispatch(setDeleteModal('scale-100'))
+  }
+
   return (
     <div className="bg-white rounded-lg shadow-md my-4">
       <div className="p-5 flex justify-between items-center">
         <h4>{lessonDetails?.title || 'Add New Lesson'}</h4>
-        <Button
-          onClick={toggleAccordion}
-          className="text-slate-600 border border-transparent"
-        >
-          {isAccordionOpen ? <IoChevronDownSharp /> : <IoChevronUpSharp />}
-        </Button>
+        <div>
+          <Button
+            onClick={onDelete}
+            className="text-slate-600 hover:text-pink-500
+            border border-transparent"
+          >
+            <FaTrashCan />
+          </Button>
+          <Button
+            onClick={toggleAccordion}
+            className="text-slate-600 border border-transparent"
+          >
+            {isAccordionOpen ? <IoChevronDownSharp /> : <IoChevronUpSharp />}
+          </Button>
+        </div>
       </div>
 
       {isAccordionOpen && (

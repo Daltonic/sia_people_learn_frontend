@@ -2,6 +2,7 @@ import LessonForm from '@/components/coursedetail/lesson/LessonForm'
 import LessonHeader from '@/components/coursedetail/lesson/LessonHeader'
 import DashboardLayout from '@/components/dashboard/dashboardLayout/DashboardLayout'
 import Button from '@/components/reusableComponents/Button'
+import DeleteModal from '@/components/reusableComponents/DeleteModal'
 import { fetchCourse, orderCourseLessons } from '@/services/backend.services'
 import { ILesson } from '@/utils/type.dt'
 import { GetServerSidePropsContext, NextPage } from 'next'
@@ -100,6 +101,7 @@ const Page: NextPage<{ courseId: string; lessonsData: ILesson[] }> = ({
             Reorder
           </Button>
         )}
+        <DeleteModal />
       </DashboardLayout>
     )
   )
