@@ -1,22 +1,22 @@
-import React from 'react'
-import Image from 'next/image'
-import { ICourse, ILesson, RootState } from '@/utils/type.dt'
-import EmptyComponent from '../reusableComponents/EmptyComponent'
-import Link from 'next/link'
-import { useSelector } from 'react-redux'
-import { useRouter } from 'next/router'
-import Button from '../reusableComponents/Button'
-import { MdOutlineModeEditOutline } from 'react-icons/md'
+import React from "react";
+import Image from "next/image";
+import { ICourse, ILesson, RootState } from "@/utils/type.dt";
+import EmptyComponent from "../reusableComponents/EmptyComponent";
+import Link from "next/link";
+import { useSelector } from "react-redux";
+import { useRouter } from "next/router";
+import Button from "../reusableComponents/Button";
+import { MdOutlineModeEditOutline } from "react-icons/md";
 
 interface Props {
-  course: ICourse
-  lessons: ILesson[]
-  lessonId?: string
+  course: ICourse;
+  lessons: ILesson[];
+  lessonId?: string;
 }
 
 const LessonAccordion: React.FC<Props> = ({ course, lessons, lessonId }) => {
-  const { userData } = useSelector((states: RootState) => states.userStates)
-  const router = useRouter()
+  const { userData } = useSelector((states: RootState) => states.userStates);
+  const router = useRouter();
 
   return (
     <div className="border rounded-md p-2 space-y-2 md:h-[55vh] overflow-y-scroll w-full">
@@ -29,7 +29,7 @@ const LessonAccordion: React.FC<Props> = ({ course, lessons, lessonId }) => {
               router.push({
                 pathname: `/course/lesson/create`,
                 query: {
-                  courseId: course._id,
+                  course: course.slug,
                 },
               })
             }
@@ -45,17 +45,17 @@ const LessonAccordion: React.FC<Props> = ({ course, lessons, lessonId }) => {
             key={index}
             href={{
               pathname: `/course/learn/lesson/${lesson._id}`,
-              query: { courseId: course._id },
+              query: { course: course.slug },
             }}
             className={`flex item-center gap-3 text-[#4F547B] md:text-sm p-2 rounded-sm cursor-pointer ${
-              lesson._id === lessonId ? 'bg-slate-200' : 'bg-slate-50'
+              lesson._id === lessonId ? "bg-slate-200" : "bg-slate-50"
             }`}
           >
             <div>
               <Image
                 height={100}
                 width={100}
-                src={course.imageUrl || '/images/general/cardimg.svg'}
+                src={course.imageUrl || "/images/general/cardimg.svg"}
                 alt="Course Image"
                 className="w-14 h-10 object-cover rounded-md"
               />
@@ -75,7 +75,7 @@ const LessonAccordion: React.FC<Props> = ({ course, lessons, lessonId }) => {
         />
       )}
     </div>
-  )
-}
+  );
+};
 
-export default LessonAccordion
+export default LessonAccordion;

@@ -45,12 +45,10 @@ const Academy: React.FC<ComponentProps> = ({ data, index }) => {
   };
 
   return (
-    <div
-      className="w-full sm:w-[47%] md:w-[48%] h-44 bg-white rounded-lg border-[#EDEDED] border p-2 shadow-[#EDEDED] shadow-md"
-    >
+    <div className="w-full sm:w-[47%] md:w-[48%] h-44 bg-white rounded-lg border-[#EDEDED] border p-2 shadow-[#EDEDED] shadow-md">
       <div className="md:flex items-center gap-4 w-full h-full">
         <div className="md:w-28 h-full">
-          <Link className="linkCustom" href={`/coursedetail/${data._id}`}>
+          <Link className="linkCustom" href={`/academies/${data.slug}`}>
             <Image
               width={100}
               height={100}

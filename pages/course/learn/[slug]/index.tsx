@@ -1,22 +1,22 @@
-import Layout from '@/components/layout/Layout'
-import { GetServerSidePropsContext, NextPage } from 'next'
-import Image from 'next/image'
-import { ICourse, IReviews, RootState } from '@/utils/type.dt'
-import ReviewSection from '@/components/blogs/ReviewSection'
-import ReviewForm from '@/components/blogs/ReviewForm'
-import LessonAccordion from '@/components/lesson/LessonAccordion'
-import { fetchCourse, fetchReviews } from '@/services/backend.services'
-import Button from '@/components/reusableComponents/Button'
-import { MdOutlineModeEditOutline } from 'react-icons/md'
-import { useSelector } from 'react-redux'
-import { useRouter } from 'next/router'
+import Layout from "@/components/layout/Layout";
+import { GetServerSidePropsContext, NextPage } from "next";
+import Image from "next/image";
+import { ICourse, IReviews, RootState } from "@/utils/type.dt";
+import ReviewSection from "@/components/blogs/ReviewSection";
+import ReviewForm from "@/components/blogs/ReviewForm";
+import LessonAccordion from "@/components/lesson/LessonAccordion";
+import { fetchCourse, fetchReviews } from "@/services/backend.services";
+import Button from "@/components/reusableComponents/Button";
+import { MdOutlineModeEditOutline } from "react-icons/md";
+import { useSelector } from "react-redux";
+import { useRouter } from "next/router";
 
 const Page: NextPage<{ courseData: ICourse; reviewsData: IReviews }> = ({
   courseData,
   reviewsData,
 }) => {
-  const { userData } = useSelector((states: RootState) => states.userStates)
-  const router = useRouter()
+  const { userData } = useSelector((states: RootState) => states.userStates);
+  const router = useRouter();
 
   return (
     <Layout>
@@ -26,7 +26,7 @@ const Page: NextPage<{ courseData: ICourse; reviewsData: IReviews }> = ({
             <Image
               height={200}
               width={200}
-              src={courseData.imageUrl || '/images/general/cardimg.svg'}
+              src={courseData.imageUrl || "/images/general/cardimg.svg"}
               alt="Course Image"
               className="w-full md:h-[55vh] object-cover rounded-lg"
             />
@@ -78,40 +78,40 @@ const Page: NextPage<{ courseData: ICourse; reviewsData: IReviews }> = ({
         </div>
       </div>
     </Layout>
-  )
-}
+  );
+};
 
-export default Page
+export default Page;
 
 export const getServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
-  const { id } = context.query
-  const token = context.req.cookies.accessToken
+  const { slug } = context.query;
+  const token = context.req.cookies.accessToken;
 
   try {
-    const course = await fetchCourse(id as string, token)
+    const course = await fetchCourse(slug as string, token);
     const reviews = await fetchReviews(
       {
-        productId: id as string,
-        productType: 'Course',
+        productSlug: slug as string,
+        productType: "Course",
       },
       token
-    )
+    );
 
     return {
       props: {
         courseData: JSON.parse(JSON.stringify(course)),
         reviewsData: JSON.parse(JSON.stringify(reviews)),
       },
-    }
+    };
   } catch (e: any) {
-    console.log(e.message)
+    console.log(e.message);
     return {
       props: {
         courseData: {} as ICourse,
         reviewsData: {} as IReviews,
       },
-    }
+    };
   }
-}
+};

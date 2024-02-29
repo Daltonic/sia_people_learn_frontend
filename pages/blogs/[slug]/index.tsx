@@ -22,10 +22,10 @@ export default Page;
 export const getServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
-  const { id } = context.query;
+  const { slug } = context.query;
 
   try {
-    const post = await fetchPost(id as string);
+    const post = await fetchPost(slug as string);
     return {
       props: {
         postData: post,

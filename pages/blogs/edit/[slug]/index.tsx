@@ -19,11 +19,11 @@ export default Page;
 export const getServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
-  const { id } = context.query;
+  const { slug } = context.query;
   const token = context.req.cookies.accessToken;
 
   try {
-    const post = await fetchPost(id as string, token);
+    const post = await fetchPost(slug as string, token);
     return {
       props: {
         postData: post,

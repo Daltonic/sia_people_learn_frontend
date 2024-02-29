@@ -1,25 +1,25 @@
-import React from 'react'
-import Image from 'next/image'
-import Link from 'next/link'
-import { ICourse } from '@/utils/type.dt'
-import { ViewRating } from '../reusableComponents/Rating'
+import React from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { ICourse } from "@/utils/type.dt";
+import { ViewRating } from "../reusableComponents/Rating";
 
 interface ComponentProps {
-  data: ICourse
-  index?: number
+  data: ICourse;
+  index?: number;
 }
 
 const CourseCard: React.FC<ComponentProps> = ({ data, index }) => {
   return (
     <div className="bg-white rounded-lg w-full sm:w-80 md:w-56 h-fit border-[#EDEDED] border p-2 shadow-[#EDEDED] shadow-md">
       <>
-        <Link className="linkCustom" href={`/coursedetail/${data._id}`}>
+        <Link className="linkCustom" href={`/coursedetail/${data.slug}`}>
           <div className="rounded-lg h-40 md:h-32 overflow-hidden hover:bg-black transition duration-500 ease-in-out">
             <Image
               width={100}
               height={100}
               className="rounded-lg h-full w-full object-cover hover:opacity-70 transition duration-500 ease-in-out"
-              src={data.imageUrl || '/images/general/cardimg.svg'}
+              src={data.imageUrl || "/images/general/cardimg.svg"}
               alt="image"
             />
           </div>
@@ -37,11 +37,9 @@ const CourseCard: React.FC<ComponentProps> = ({ data, index }) => {
               Lessons ({data.lessons.length})
             </p>
           </div>
-          <Link className="linkCustom" href={`/coursedetail/${data._id}`}>
+          <Link className="linkCustom" href={`/coursedetail/${data.slug}`}>
             <div className="md:text-sm font-medium text-[#321463] mt-2 h-10">
-              <div className="line-clamp-2">
-                {data.name}
-              </div>
+              <div className="line-clamp-2">{data.name}</div>
             </div>
           </Link>
 
@@ -81,7 +79,7 @@ const CourseCard: React.FC<ComponentProps> = ({ data, index }) => {
                 <Image
                   width={10}
                   height={10}
-                  src={data.userId.imgUrl || '/images/courseCard/card1.svg'}
+                  src={data.userId.imgUrl || "/images/courseCard/card1.svg"}
                   alt="image"
                   className="object-cover rounded-full w-8 h-8"
                 />
@@ -109,7 +107,7 @@ const CourseCard: React.FC<ComponentProps> = ({ data, index }) => {
         </div>
       </>
     </div>
-  )
-}
+  );
+};
 
-export default CourseCard
+export default CourseCard;

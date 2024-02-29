@@ -388,7 +388,10 @@ const deleteCourse = async (courseId: string): Promise<any> => {
   }
 };
 
-const orderCourseLessons = async (courseId: string, data: any): Promise<any> => {
+const orderCourseLessons = async (
+  courseId: string,
+  data: any
+): Promise<any> => {
   const url = `${BASE_URI}/courses/orderLessons/${courseId}`;
 
   const config = {
@@ -398,7 +401,7 @@ const orderCourseLessons = async (courseId: string, data: any): Promise<any> => 
       "Content-Type": "application/json",
       Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
     },
-    data
+    data,
   };
 
   try {
@@ -460,8 +463,8 @@ const removeCourseFromAcademy = async (academyId: string, courseId: string) => {
   }
 };
 
-const fetchAcademy = async (academyId: string, token?: string) => {
-  const url = `${BASE_URI}/academies/${academyId}`;
+const fetchAcademy = async (slug: string, token?: string) => {
+  const url = `${BASE_URI}/academies/${slug}`;
 
   const config = {
     method: "GET",
@@ -699,8 +702,8 @@ const fetchUserPosts = async (query: FetchPostsParams, token?: string) => {
   }
 };
 
-const fetchPost = async (postId: string, token?: string) => {
-  const url = `${BASE_URI}/posts/${postId}`;
+const fetchPost = async (slug: string, token?: string) => {
+  const url = `${BASE_URI}/posts/${slug}`;
 
   const config = {
     method: "GET",
@@ -720,8 +723,8 @@ const fetchPost = async (postId: string, token?: string) => {
   }
 };
 
-const fetchCourse = async (courseId: string, token?: string) => {
-  const url = `${BASE_URI}/courses/${courseId}`;
+const fetchCourse = async (slug: string, token?: string) => {
+  const url = `${BASE_URI}/courses/${slug}`;
 
   const config = {
     method: "GET",
@@ -1124,5 +1127,5 @@ export {
   stripeCheckout,
   publishPost,
   createReview,
-  orderCourseLessons
+  orderCourseLessons,
 };

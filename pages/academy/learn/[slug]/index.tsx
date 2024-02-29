@@ -1,11 +1,11 @@
-import Layout from '@/components/layout/Layout'
-import { GetServerSidePropsContext, NextPage } from 'next'
-import Image from 'next/image'
-import { IAcademy, IReviews } from '@/utils/type.dt'
-import ReviewSection from '@/components/blogs/ReviewSection'
-import ReviewForm from '@/components/blogs/ReviewForm'
-import { fetchAcademy, fetchReviews } from '@/services/backend.services'
-import CoursesAccordion from '@/components/courses/CoursesAccordion'
+import Layout from "@/components/layout/Layout";
+import { GetServerSidePropsContext, NextPage } from "next";
+import Image from "next/image";
+import { IAcademy, IReviews } from "@/utils/type.dt";
+import ReviewSection from "@/components/blogs/ReviewSection";
+import ReviewForm from "@/components/blogs/ReviewForm";
+import { fetchAcademy, fetchReviews } from "@/services/backend.services";
+import CoursesAccordion from "@/components/courses/CoursesAccordion";
 
 const Page: NextPage<{ academyData: IAcademy; reviewsData: IReviews }> = ({
   academyData,
@@ -19,7 +19,7 @@ const Page: NextPage<{ academyData: IAcademy; reviewsData: IReviews }> = ({
             <Image
               height={200}
               width={200}
-              src={academyData.imageUrl || '/images/general/cardimg.svg'}
+              src={academyData.imageUrl || "/images/general/cardimg.svg"}
               alt="Course Image"
               className="w-full md:h-[70vh] object-cover rounded-lg"
             />
@@ -62,40 +62,40 @@ const Page: NextPage<{ academyData: IAcademy; reviewsData: IReviews }> = ({
         </div>
       </div>
     </Layout>
-  )
-}
+  );
+};
 
-export default Page
+export default Page;
 
 export const getServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
-  const { id } = context.query
-  const token = context.req.cookies.accessToken
+  const { slug } = context.query;
+  const token = context.req.cookies.accessToken;
 
   try {
-    const academy = await fetchAcademy(id as string, token)
+    const academy = await fetchAcademy(slug as string, token);
     const reviews = await fetchReviews(
       {
-        productId: id as string,
-        productType: 'Academy',
+        productSlug: slug as string,
+        productType: "Academy",
       },
       token
-    )
+    );
 
     return {
       props: {
         academyData: JSON.parse(JSON.stringify(academy)),
         reviewsData: JSON.parse(JSON.stringify(reviews)),
       },
-    }
+    };
   } catch (e: any) {
-    console.log(e.message)
+    console.log(e.message);
     return {
       props: {
         academyData: {} as IAcademy,
         reviewsData: {} as IReviews,
       },
-    }
+    };
   }
-}
+};

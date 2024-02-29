@@ -1,20 +1,20 @@
-import CourseHead from "@/components/coursedetail/CourseHead";
-import Tabs from "@/components/coursedetail/Tabs";
-import CourseCard from "@/components/courses/CourseCard";
 import Layout from "@/components/layout/Layout";
 import { GetServerSidePropsContext, NextPage } from "next";
-import { Navigation, Pagination, Autoplay } from "swiper";
+import { Navigation, Pagination } from "swiper";
 import { useEffect, useState } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { SwiperSlide, Swiper } from "swiper/react";
-import { ICourse, ICourses } from "@/utils/type.dt";
-import CourseCardDetail from "@/components/coursedetail/CourseCardDetail";
-import { fetchCourse, fetchCourses } from "@/services/backend.services";
+import { IAcademy, IAcademies } from "@/utils/type.dt";
+import AcademyCard from "@/components/academies/AcademyCard";
+import AcademyHead from "@/components/academydetail/AcademyHead";
+import AcademyDetails from "@/components/academydetail/AcademyDetails";
+import Tabs from "@/components/academydetail/Tabs";
+import { fetchAcademies, fetchAcademy } from "@/services/backend.services";
 
-const Page: NextPage<{ courseData: ICourse; alternateCourses: ICourse[] }> = ({
-  courseData,
-  alternateCourses,
-}) => {
+const Page: NextPage<{
+  academyData: IAcademy;
+  alternateAcademies: IAcademy[];
+}> = ({ academyData, alternateAcademies }) => {
   const [showSlider, setShowSlider] = useState<boolean>(false);
 
   useEffect(() => {
@@ -25,11 +25,11 @@ const Page: NextPage<{ courseData: ICourse; alternateCourses: ICourse[] }> = ({
     <Layout>
       <div className="md:px-14 md:py-10 p-5 sm:px-10 md:relative overflow-x-hidden">
         <div className="flex flex-col md:flex-row justify-between ">
-          <CourseHead course={courseData} />
-          <CourseCardDetail course={courseData} />
+          <AcademyHead academy={academyData} />
+          <AcademyDetails academy={academyData} />
         </div>
-        <Tabs data={courseData} type="Course" course={courseData} />
-        <div className="md:mt-36 relative">
+        <Tabs data={academyData} type="Course" academy={academyData} />
+        <div className="mt-14 relative">
           <div className="mb-5">
             <h4 className="text-2xl md:text-xl text-[#321463] font-bold">
               You May Like
@@ -47,7 +47,7 @@ const Page: NextPage<{ courseData: ICourse; alternateCourses: ICourse[] }> = ({
             <div className="p-0 md:px-14">
               {showSlider && (
                 <Swiper
-                  modules={[Navigation, Pagination, Autoplay]}
+                  modules={[Navigation, Pagination]}
                   navigation={{
                     nextEl: ".icon-arrow-right",
                     prevEl: ".icon-arrow-left",
@@ -71,9 +71,9 @@ const Page: NextPage<{ courseData: ICourse; alternateCourses: ICourse[] }> = ({
                     },
                   }}
                 >
-                  {alternateCourses.map((elm, i: number) => (
-                    <SwiperSlide key={i}>
-                      <CourseCard data={elm} index={i} />
+                  {alternateAcademies.map((elm) => (
+                    <SwiperSlide key={elm._id}>
+                      <AcademyCard data={elm} />
                     </SwiperSlide>
                   ))}
                 </Swiper>
@@ -103,29 +103,28 @@ export default Page;
 export const getServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
-  const { id } = context.query;
-  const token = context.req.cookies.accessToken;
+  const { slug } = context.query;
 
   try {
-    const course = (await fetchCourse(id as string, token)) as ICourse;
+    const academy = (await fetchAcademy(slug as string)) as IAcademy;
 
-    const courses = (await fetchCourses({})) as ICourses;
-    const alternateCourses = courses.courses.filter(
-      (course) => course._id !== id
+    const academies = (await fetchAcademies({})) as IAcademies;
+    const alternateAcademies = academies.academies.filter(
+      (academy) => academy.slug !== slug
     );
 
     return {
       props: {
-        courseData: JSON.parse(JSON.stringify(course)),
-        alternateCourses,
+        academyData: JSON.parse(JSON.stringify(academy)),
+        alternateAcademies,
       },
     };
   } catch (e: any) {
     console.log(e.message);
     return {
       props: {
-        courseData: {},
-        alternateCourses: [],
+        academyData: {},
+        alternateAcademies: [],
       },
     };
   }
