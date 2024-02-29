@@ -1,33 +1,107 @@
-import LessonFormInstance from '@/components/coursedetail/lesson/LessonFormInstance'
+import LessonForm from '@/components/coursedetail/lesson/LessonForm'
 import LessonHeader from '@/components/coursedetail/lesson/LessonHeader'
 import DashboardLayout from '@/components/dashboard/dashboardLayout/DashboardLayout'
-import { fetchCourse } from '@/services/backend.services'
+import Button from '@/components/reusableComponents/Button'
+import { fetchCourse, orderCourseLessons } from '@/services/backend.services'
 import { ILesson } from '@/utils/type.dt'
 import { GetServerSidePropsContext, NextPage } from 'next'
+import { useEffect, useState } from 'react'
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
+import { toast } from 'react-toastify'
 
-const Page: NextPage<{ courseId: string; lessons: ILesson[] }> = ({
+const Page: NextPage<{ courseId: string; lessonsData: ILesson[] }> = ({
   courseId,
-  lessons,
+  lessonsData,
 }) => {
-  return (
-    <DashboardLayout>
-      <LessonHeader
-        headerHead="Create Lesson"
-        headerBody="Create lesson for your Course"
-      />
-      <div className="space-y-6">
-        <LessonFormInstance courseId={courseId} type="create" accordionState />
+  const [lessonsOrder, setLessonsOrder] = useState<string[]>([])
+  const [lessons, setLessons] = useState<ILesson[]>(lessonsData)
+  const [loaded, setLoaded] = useState<boolean>(false)
 
-        {lessons.map((lesson: ILesson, i: number) => (
-          <LessonFormInstance
-            key={i}
-            lesson={lesson}
-            courseId={courseId}
-            type="edit"
-          />
-        ))}
-      </div>
-    </DashboardLayout>
+  const onDragEnd = (result: any) => {
+    if (!result.destination) return
+    const sourceIndex = result.source.index
+    const destinationIndex = result.destination.index
+
+    const newLessons = [...lessons]
+    const [removed] = newLessons.splice(sourceIndex, 1)
+    newLessons.splice(destinationIndex, 0, removed)
+    setLessons(newLessons)
+    setLessonsOrder(newLessons.map((lesson) => lesson._id))
+  }
+
+  const handleReorder = async () => {
+    await toast.promise(
+      new Promise<void>((resolve, reject) => {
+        orderCourseLessons(courseId, { lessonsIds: lessonsOrder })
+          .then((result) => {
+            setLessonsOrder([])
+            resolve(result)
+          })
+          .catch((error) => {
+            reject(error)
+          })
+      }),
+      {
+        pending: 'Reordering...',
+        success: 'Reordered successfully 👌',
+        error: 'Encountered error 🤯',
+      }
+    )
+  }
+
+  useEffect(() => {
+    setLoaded(true)
+  }, [])
+
+  return (
+    loaded && (
+      <DashboardLayout>
+        <LessonHeader
+          headerHead="Create Lesson"
+          headerBody="Create lesson for your Course"
+        />
+        <div className="space-y-6">
+          <LessonForm courseId={courseId} type="create" accordionState />
+
+          <DragDropContext onDragEnd={onDragEnd}>
+            <Droppable droppableId="lesson-list">
+              {(provided) => (
+                <div {...provided.droppableProps} ref={provided.innerRef}>
+                  {lessons.map((lesson: ILesson, i: number) => (
+                    <Draggable
+                      key={lesson._id}
+                      draggableId={lesson._id}
+                      index={i}
+                    >
+                      {(provided) => (
+                        <div
+                          ref={provided.innerRef}
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                        >
+                          <LessonForm
+                            lesson={lesson}
+                            courseId={courseId}
+                            type="edit"
+                          />
+                        </div>
+                      )}
+                    </Draggable>
+                  ))}
+                  {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
+          </DragDropContext>
+        </div>
+
+        {lessonsOrder.length > 0 && (
+          <Button onClick={handleReorder} variant="pink">
+            Reorder
+          </Button>
+        )}
+      </DashboardLayout>
+    )
   )
 }
 
@@ -45,7 +119,7 @@ export const getServerSideProps = async (
 
     return {
       props: {
-        lessons: JSON.parse(JSON.stringify(courseLessons)) as ILesson,
+        lessonsData: JSON.parse(JSON.stringify(courseLessons)) as ILesson,
         courseId,
       },
     }
@@ -53,7 +127,7 @@ export const getServerSideProps = async (
     console.log(e.message)
     return {
       props: {
-        lessons: [],
+        lessonsData: [],
         courseId,
       },
     }
