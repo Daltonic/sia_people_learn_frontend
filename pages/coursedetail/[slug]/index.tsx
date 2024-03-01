@@ -7,14 +7,20 @@ import { Navigation, Pagination, Autoplay } from "swiper";
 import { useEffect, useState } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { SwiperSlide, Swiper } from "swiper/react";
-import { ICourse, ICourses } from "@/utils/type.dt";
+import { ICourse, ICourses, IReviews } from "@/utils/type.dt";
 import CourseCardDetail from "@/components/coursedetail/CourseCardDetail";
-import { fetchCourse, fetchCourses } from "@/services/backend.services";
+import {
+  fetchCourse,
+  fetchCourses,
+  fetchReviews,
+} from "@/services/backend.services";
+import ReviewSection from "@/components/blogs/ReviewSection";
 
-const Page: NextPage<{ courseData: ICourse; alternateCourses: ICourse[] }> = ({
-  courseData,
-  alternateCourses,
-}) => {
+const Page: NextPage<{
+  courseData: ICourse;
+  alternateCourses: ICourse[];
+  reviewsData: IReviews;
+}> = ({ courseData, alternateCourses, reviewsData }) => {
   const [showSlider, setShowSlider] = useState<boolean>(false);
 
   useEffect(() => {
@@ -93,6 +99,7 @@ const Page: NextPage<{ courseData: ICourse; alternateCourses: ICourse[] }> = ({
             </button>
           </div>
         </div>
+        <ReviewSection reviewsData={reviewsData} />
       </div>
     </Layout>
   );
@@ -114,10 +121,19 @@ export const getServerSideProps = async (
       (course) => course.slug !== slug
     );
 
+    const reviews = await fetchReviews(
+      {
+        productSlug: slug as string,
+        productType: "Course",
+      },
+      token
+    );
+
     return {
       props: {
         courseData: JSON.parse(JSON.stringify(course)),
         alternateCourses,
+        reviewsData: reviews,
       },
     };
   } catch (e: any) {
@@ -126,6 +142,7 @@ export const getServerSideProps = async (
       props: {
         courseData: {},
         alternateCourses: [],
+        reviewsData: {},
       },
     };
   }

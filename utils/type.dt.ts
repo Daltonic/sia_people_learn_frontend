@@ -158,6 +158,8 @@ export interface IUser {
   subscriptions: string[];
   subscribedCourses: string[];
   subscribedAcademies: string[];
+  reviewedAcademies: string[];
+  reviewedCourses: string[];
   requests: {
     _id: string;
     requestType: "UserUpgradeRequent" | "UserDowngradeRequest";
