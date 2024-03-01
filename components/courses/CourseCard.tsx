@@ -28,7 +28,7 @@ const CourseCard: React.FC<ComponentProps> = ({ data, index }) => {
         <div className="py-2">
           <div className="flex items-center justify-between md:text-xs gap-4">
             <div className="flex items-center justify-start gap-[1px]">
-              <ViewRating value={data.rating || 4} />
+              <ViewRating value={data.rating || 0} />
               <p className="text-[#4F547B] pb-[1px]">
                 ({data.reviewsCount || 0})
               </p>

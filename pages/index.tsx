@@ -14,8 +14,9 @@ import {
   fetchBooks,
   fetchCourses,
   fetchPosts,
+  fetchSiteSettings,
 } from "@/services/backend.services";
-import { IAcademies, ICourses, IPosts } from "@/utils/type.dt";
+import { IAcademies, ICourses, IPosts, ISiteSettings } from "@/utils/type.dt";
 import { NextPage } from "next";
 
 export const metadata = {
@@ -27,11 +28,12 @@ const Page: NextPage<{
   coursesData: ICourses;
   booksData: ICourses;
   postsData: IPosts;
-}> = ({ academiesData, coursesData, booksData, postsData }) => {
+  settingsData: ISiteSettings;
+}> = ({ academiesData, coursesData, booksData, postsData, settingsData }) => {
   return (
     <Layout>
       <main className="overflow-x-hidden">
-        <Hero />
+        <Hero settingsData={settingsData} />
         <Features />
         <CoursesSlider coursesObj={coursesData} />
         <HowItWorks />
@@ -57,6 +59,7 @@ export const getServerSideProps = async () => {
     const books = await fetchBooks({ type: "Book" });
 
     const posts = await fetchPosts({ parentsOnly: "true" });
+    const settings = await fetchSiteSettings();
 
     return {
       props: {
@@ -64,6 +67,7 @@ export const getServerSideProps = async () => {
         coursesData: JSON.parse(JSON.stringify(courses)),
         booksData: JSON.parse(JSON.stringify(books)),
         postsData: JSON.parse(JSON.stringify(posts)),
+        settingsData: JSON.parse(JSON.stringify(settings)) as ISiteSettings,
       },
     };
   } catch (e: any) {
@@ -74,6 +78,7 @@ export const getServerSideProps = async () => {
         coursesData: {} as any,
         booksData: {} as any,
         postsData: {} as any,
+        settingsData: {} as ISiteSettings,
       },
     };
   }

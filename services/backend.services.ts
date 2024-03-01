@@ -1083,6 +1083,52 @@ const createReview = async (
   }
 };
 
+const createSiteSettings = async (
+  data: { bannerUrl: string; bannerCaption: string; bannerText: string },
+  token: string
+): Promise<any> => {
+  const url = `${BASE_URI}/site-settings/create`;
+
+  try {
+    const config = {
+      method: "PATCH",
+      url,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      data,
+    };
+
+    const response = await axios.request(config);
+    return Promise.resolve(response.data);
+  } catch (error) {
+    reportError(error);
+    return Promise.reject(error);
+  }
+};
+
+const fetchSiteSettings = async () => {
+  const url = `${BASE_URI}/site-settings`;
+
+  const config = {
+    method: "GET",
+    url,
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  try {
+    const response = await axios.request(config);
+    return Promise.resolve(response.data);
+  } catch (error) {
+    console.log(error);
+    reportError(error);
+    return Promise.reject(error);
+  }
+};
+
 export {
   createPost,
   updatePost,
@@ -1128,4 +1174,6 @@ export {
   publishPost,
   createReview,
   orderCourseLessons,
+  createSiteSettings,
+  fetchSiteSettings,
 };

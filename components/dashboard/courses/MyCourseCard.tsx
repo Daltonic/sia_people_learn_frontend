@@ -41,7 +41,7 @@ const MyCourseCard: React.FC<ComponentProps> = ({ product, productType }) => {
             </p>
 
             <div className="flex items-center justify-start gap-[1px]">
-              <ViewRating value={product.productId.rating || 4} />
+              <ViewRating value={product.productId.rating || 0} />
             </div>
           </div>
           <Link

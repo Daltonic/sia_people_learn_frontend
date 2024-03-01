@@ -11,6 +11,7 @@ import { deleteAcademy, submitAcademy } from "@/services/backend.services";
 import { useDispatch } from "react-redux";
 import { genericActions } from "@/store/slices/genericSlice";
 import { IAcademy } from "@/utils/type.dt";
+import { ViewRating } from "@/components/reusableComponents/Rating";
 
 interface ComponentProps {
   data: IAcademy;
@@ -105,15 +106,8 @@ const AcademyCard: React.FC<ComponentProps> = ({ data }) => {
           <div className="flex items-center justify-between md:md:text-xs gap-4">
             <p className="text-[#4F547B]">{academy.userId.firstName}</p>
 
-            <div className="flex items-center gap-1">
-              <p className="text-[#E59819]">{academy.rating}</p>
-              <div className="flex items-center">
-                {rating.map((itm, i: number) => (
-                  <div key={i} className="text-[#E59819]">
-                    <IoIosStar />
-                  </div>
-                ))}
-              </div>
+            <div className="flex justify-start gap-[1px]">
+              <ViewRating value={academy.rating || 0} />
             </div>
           </div>
 
