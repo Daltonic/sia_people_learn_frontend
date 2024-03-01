@@ -4,17 +4,23 @@ import { Navigation, Pagination } from "swiper";
 import { useEffect, useState } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { SwiperSlide, Swiper } from "swiper/react";
-import { IAcademy, IAcademies } from "@/utils/type.dt";
+import { IAcademy, IAcademies, IReviews } from "@/utils/type.dt";
 import AcademyCard from "@/components/academies/AcademyCard";
 import AcademyHead from "@/components/academydetail/AcademyHead";
 import AcademyDetails from "@/components/academydetail/AcademyDetails";
 import Tabs from "@/components/academydetail/Tabs";
-import { fetchAcademies, fetchAcademy } from "@/services/backend.services";
+import {
+  fetchAcademies,
+  fetchAcademy,
+  fetchReviews,
+} from "@/services/backend.services";
+import ReviewSection from "@/components/blogs/ReviewSection";
 
 const Page: NextPage<{
   academyData: IAcademy;
   alternateAcademies: IAcademy[];
-}> = ({ academyData, alternateAcademies }) => {
+  reviewsData: IReviews;
+}> = ({ academyData, alternateAcademies, reviewsData }) => {
   const [showSlider, setShowSlider] = useState<boolean>(false);
 
   useEffect(() => {
@@ -93,6 +99,7 @@ const Page: NextPage<{
             </button>
           </div>
         </div>
+        <ReviewSection reviewsData={reviewsData} showReviewForm={false} />
       </div>
     </Layout>
   );
@@ -113,10 +120,16 @@ export const getServerSideProps = async (
       (academy) => academy.slug !== slug
     );
 
+    const reviews = await fetchReviews({
+      productSlug: slug as string,
+      productType: "Academy",
+    });
+
     return {
       props: {
         academyData: JSON.parse(JSON.stringify(academy)),
         alternateAcademies,
+        reviewsData: JSON.parse(JSON.stringify(reviews)),
       },
     };
   } catch (e: any) {
@@ -125,6 +138,7 @@ export const getServerSideProps = async (
       props: {
         academyData: {},
         alternateAcademies: [],
+        reviewsData: {},
       },
     };
   }

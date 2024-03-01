@@ -69,8 +69,12 @@ const Page: NextPage<{ courseData: ICourse; reviewsData: IReviews }> = ({
             <LessonAccordion course={courseData} lessons={courseData.lessons} />
           </div>
 
-          <ReviewForm productId={courseData._id} productType="Course" />
-          <ReviewSection reviewsData={reviewsData} />
+          <ReviewSection
+            reviewsData={reviewsData}
+            showReviewForm={true}
+            productId={courseData._id}
+            productType="Course"
+          />
         </div>
 
         <div className="hidden sm:flex md:w-[30%] my-4 md:mt-0">

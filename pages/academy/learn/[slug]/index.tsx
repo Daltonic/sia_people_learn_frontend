@@ -53,8 +53,12 @@ const Page: NextPage<{ academyData: IAcademy; reviewsData: IReviews }> = ({
             className="mt-2 md:mt-5 text-[#4F547B]"
           />
 
-          <ReviewForm productId={academyData._id} productType="Academy" />
-          <ReviewSection reviewsData={reviewsData} />
+          <ReviewSection
+            reviewsData={reviewsData}
+            productId={academyData._id}
+            productType="Academy"
+            showReviewForm={true}
+          />
         </div>
 
         <div className="md:w-[30%] mt-4 md:mt-0">
