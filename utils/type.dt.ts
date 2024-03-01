@@ -1,6 +1,7 @@
 export interface IAcademy {
   _id: string;
   name: string;
+  slug: string;
   description: string;
   overview: string;
   imageUrl: string | null;
@@ -43,6 +44,7 @@ export interface IAcademies {
 export interface ICourse {
   _id: string;
   name: string;
+  slug: string;
   price: number;
   description: string;
   overview: string;
@@ -108,6 +110,7 @@ export interface IPost {
     imgUrl?: string;
   };
   title: string;
+  slug: string;
   overview: string;
   description: string;
   imageUrl?: string;
@@ -193,6 +196,7 @@ export interface IUserSubscription {
   productId: {
     _id: string;
     name: string;
+    slug: string;
     difficulty: "Beginner" | "Intermediate" | "Advanced";
     overview: string;
     description: string;
@@ -281,7 +285,7 @@ export interface FetchPostsParams {
 }
 
 export interface FetchReviewsParams {
-  productId?: string;
+  productSlug: string;
   productType?: "Academy" | "Course";
   approved?: "true" | "false";
   page?: number;

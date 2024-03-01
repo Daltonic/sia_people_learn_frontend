@@ -1,25 +1,25 @@
-import Layout from '@/components/layout/Layout'
-import { GetServerSidePropsContext, NextPage } from 'next'
-import { ICourse, ILesson, RootState } from '@/utils/type.dt'
-import { fetchCourse, fetchLesson } from '@/services/backend.services'
-import LearnLesson from '@/components/coursedetail/lesson/LearnLesson'
-import { useSelector } from 'react-redux'
-import { useRouter } from 'next/router'
-import { useEffect } from 'react'
+import Layout from "@/components/layout/Layout";
+import { GetServerSidePropsContext, NextPage } from "next";
+import { ICourse, ILesson, RootState } from "@/utils/type.dt";
+import { fetchCourse, fetchLesson } from "@/services/backend.services";
+import LearnLesson from "@/components/coursedetail/lesson/LearnLesson";
+import { useSelector } from "react-redux";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 const Page: NextPage<{ lessonData: ILesson; courseData: ICourse }> = ({
   lessonData,
   courseData,
 }) => {
   // if (!lessonData) return;
-  const { userData } = useSelector((states: RootState) => states.userStates)
-  const router = useRouter()
+  const { userData } = useSelector((states: RootState) => states.userStates);
+  const router = useRouter();
 
   useEffect(() => {
     if (!userData) {
-      router.push('/login')
+      router.push("/login");
     }
-  }, [userData, router])
+  }, [userData, router]);
 
   return (
     <Layout>
@@ -27,35 +27,35 @@ const Page: NextPage<{ lessonData: ILesson; courseData: ICourse }> = ({
         <LearnLesson lesson={lessonData} course={courseData} />
       </div>
     </Layout>
-  )
-}
+  );
+};
 
-export default Page
+export default Page;
 
 export const getServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
-  const { id, courseId } = context.query
-  const token = context.req.cookies.accessToken
+  const { id, course } = context.query;
+  const token = context.req.cookies.accessToken;
 
   try {
-    const lesson = await fetchLesson(id as string, token as string)
+    const lesson = await fetchLesson(id as string, token as string);
 
-    const course = await fetchCourse(courseId as string, token)
+    const courseData = await fetchCourse(course as string, token);
 
     return {
       props: {
         lessonData: JSON.parse(JSON.stringify(lesson)) as ILesson,
-        courseData: JSON.parse(JSON.stringify(course)) as ICourse,
+        courseData: JSON.parse(JSON.stringify(courseData)) as ICourse,
       },
-    }
+    };
   } catch (e: any) {
-    console.log(e.message)
+    console.log(e.message);
     return {
       props: {
         lessonData: null,
         courseData: {} as ICourse,
       },
-    }
+    };
   }
-}
+};

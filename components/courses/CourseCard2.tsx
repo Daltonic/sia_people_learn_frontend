@@ -1,8 +1,7 @@
 import { ICourse, RootState } from "@/utils/type.dt";
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import { IoIosStar } from "react-icons/io";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { cartActions } from "@/store/slices/cartSlice";
 import { ViewRating } from "../reusableComponents/Rating";
@@ -12,13 +11,6 @@ interface Props {
 }
 
 const CourseCard: React.FC<Props> = ({ course }) => {
-  const [rating, setRating] = useState<string[]>([]);
-
-  useEffect(() => {
-    const newRating = Array(5).fill("star");
-    setRating(newRating);
-  }, [course]);
-
   const { cartCourseItems, cartAmount } = useSelector(
     (states: RootState) => states.cartStates
   );
@@ -61,7 +53,7 @@ const CourseCard: React.FC<Props> = ({ course }) => {
           <Link
             className="w-full h-36 md:w-[28%]"
             key={course._id}
-            href={`/coursedetail/${course._id}`}
+            href={`/coursedetail/${course.slug}`}
           >
             <Image
               width={500}
@@ -83,7 +75,7 @@ const CourseCard: React.FC<Props> = ({ course }) => {
 
               <Link
                 key={course._id}
-                href={`/coursedetail/${course._id}`}
+                href={`/coursedetail/${course.slug}`}
                 className="text-violet-950 text-lg font-medium capitalize self-stretch"
               >
                 {course.name}

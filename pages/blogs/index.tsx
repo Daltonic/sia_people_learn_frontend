@@ -70,7 +70,7 @@ const Page: NextPage<{ postsData: IPosts }> = ({ postsData }) => {
                       <div className="w-full">
                         <Link
                           className="linkCustom"
-                          href={`/blogs/${post._id}`}
+                          href={`/blogs/${post.slug}`}
                         >
                           <div className="">
                             <Image
@@ -123,6 +123,7 @@ export const getServerSideProps = async (
       page: Number(page),
       filter: filter as FetchPostsParams["filter"],
       category: category as string,
+      parentsOnly: "true",
     });
 
     return {

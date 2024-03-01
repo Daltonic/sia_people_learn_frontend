@@ -19,8 +19,8 @@ const MyCourseCard: React.FC<ComponentProps> = ({ product, productType }) => {
             className="linkCustom"
             href={
               productType === "Course"
-                ? `/course/learn/${product.productId._id}`
-                : `/academy/learn/${product.productId._id}`
+                ? `/course/learn/${product.productId.slug}`
+                : `/academy/learn/${product.productId.slug}`
             }
           >
             <Image
@@ -46,7 +46,11 @@ const MyCourseCard: React.FC<ComponentProps> = ({ product, productType }) => {
           </div>
           <Link
             className="linkCustom"
-            href={`/course/learn/${product.productId._id}`}
+            href={
+              productType === "Course"
+                ? `/course/learn/${product.productId.slug}`
+                : `/academy/learn/${product.productId.slug}`
+            }
           >
             <p className="line-clamp-2 md:text-sm font-medium text-[#321463] mt-2">
               {" "}

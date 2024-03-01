@@ -22,11 +22,11 @@ export default Page;
 export const getServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
-  const { id } = context.query;
+  const { slug } = context.query;
   const token = context.req.cookies.accessToken;
 
   try {
-    const course = await fetchCourse(id as string, token);
+    const course = await fetchCourse(slug as string, token);
 
     return {
       props: {
