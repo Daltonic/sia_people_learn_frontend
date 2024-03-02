@@ -165,32 +165,27 @@ export const instructorSidebarItems = [
     iconClass: <PlayButtonSVG />,
     text: "My Courses",
   },
+
   {
     id: 5,
-    href: "/(dashboard)/reviews",
-    iconClass: <MessagesSVG />,
-    text: "Reviews",
-  },
-  {
-    id: 6,
     href: "/(dashboard)/wishlist",
     iconClass: <BookmarkSVG />,
     text: "WishLists",
   },
   {
-    id: 7,
+    id: 6,
     href: "/(dashboard)/myBlogs",
     iconClass: <GrNotes />,
     text: "My Blogs",
   },
   {
-    id: 8,
+    id: 7,
     href: "/(dashboard)/createBlog",
     iconClass: <BookmarkSVG />,
     text: "Create Blog",
   },
   {
-    id: 9,
+    id: 8,
     href: "/(dashboard)/settings",
     iconClass: <SettingsSVG />,
     text: "Settings",

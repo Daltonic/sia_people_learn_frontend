@@ -60,13 +60,15 @@ const MyCourseCard: React.FC<ComponentProps> = ({ data, type }) => {
     >
       <div className="">
         <div className="h-28 relative">
-          <Image
-            width={100}
-            height={100}
-            className="rounded-lg object-cover h-full w-full"
-            src={course.imageUrl || "/images/general/cardimg.svg"}
-            alt="image"
-          />
+          <Link href={`/course/${course.slug}`}>
+            <Image
+              width={100}
+              height={100}
+              className="rounded-lg object-cover h-full w-full"
+              src={course.imageUrl || "/images/general/cardimg.svg"}
+              alt="image"
+            />
+          </Link>
 
           <div className="absolute top-1 right-2">
             <Dropdown>

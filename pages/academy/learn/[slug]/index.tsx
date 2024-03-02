@@ -3,14 +3,17 @@ import { GetServerSidePropsContext, NextPage } from "next";
 import Image from "next/image";
 import { IAcademy, IReviews } from "@/utils/type.dt";
 import ReviewSection from "@/components/blogs/ReviewSection";
-import ReviewForm from "@/components/blogs/ReviewForm";
 import { fetchAcademy, fetchReviews } from "@/services/backend.services";
 import CoursesAccordion from "@/components/courses/CoursesAccordion";
+import { useSearchParams } from "next/navigation";
 
 const Page: NextPage<{ academyData: IAcademy; reviewsData: IReviews }> = ({
   academyData,
   reviewsData,
 }) => {
+  const searchParams = useSearchParams();
+
+  const subscriptionId = searchParams.get("sub") as string;
   return (
     <Layout>
       <div className="w-full p-5 md:p-10 md:flex justify-between items-start gap-5">
@@ -29,16 +32,6 @@ const Page: NextPage<{ academyData: IAcademy; reviewsData: IReviews }> = ({
             <span className="text-[#321463] text-2xl font-medium capitalize">
               {academyData.name}
             </span>
-
-            {/* {lessonsOrder.length > 0 && (
-              <Button
-                className="flex justify-start items-center space-x-2"
-                variant="pink"
-              >
-                <span>Reorder</span>
-                <SlRefresh />
-              </Button>
-            )} */}
           </div>
 
           <div className="my-4">
@@ -62,7 +55,10 @@ const Page: NextPage<{ academyData: IAcademy; reviewsData: IReviews }> = ({
         </div>
 
         <div className="md:w-[30%] mt-4 md:mt-0">
-          <CoursesAccordion academy={academyData} />
+          <CoursesAccordion
+            academy={academyData}
+            subscriptionId={subscriptionId}
+          />
         </div>
       </div>
     </Layout>

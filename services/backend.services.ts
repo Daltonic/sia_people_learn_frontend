@@ -767,7 +767,11 @@ const fetchReviews = async (query: FetchReviewsParams, token?: string) => {
   }
 };
 
-const fetchLesson = async (lessonId: string, token: string) => {
+const fetchLesson = async (
+  lessonId: string,
+  token: string,
+  subscriptionId?: string
+) => {
   const url = `${BASE_URI}/lessons/${lessonId}`;
 
   const config = {
@@ -777,6 +781,7 @@ const fetchLesson = async (lessonId: string, token: string) => {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
+    params: { subscriptionId },
   };
 
   try {
@@ -1129,6 +1134,27 @@ const fetchSiteSettings = async () => {
   }
 };
 
+const approveReview = async (reviewId: string, token: string): Promise<any> => {
+  const url = `${BASE_URI}/reviews/approve/${reviewId}`;
+
+  const config = {
+    method: "PUT",
+    url,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  try {
+    const response = await axios.request(config);
+    return Promise.resolve(response.status);
+  } catch (error) {
+    reportError(error);
+    return Promise.reject(error);
+  }
+};
+
 export {
   createPost,
   updatePost,
@@ -1176,4 +1202,5 @@ export {
   orderCourseLessons,
   createSiteSettings,
   fetchSiteSettings,
+  approveReview,
 };

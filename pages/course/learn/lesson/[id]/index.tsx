@@ -35,11 +35,15 @@ export default Page;
 export const getServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
-  const { id, course } = context.query;
+  const { id, course, sub } = context.query;
   const token = context.req.cookies.accessToken;
 
   try {
-    const lesson = await fetchLesson(id as string, token as string);
+    const lesson = await fetchLesson(
+      id as string,
+      token as string,
+      sub as string
+    );
 
     const courseData = await fetchCourse(course as string, token);
 

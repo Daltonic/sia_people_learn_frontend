@@ -19,11 +19,11 @@ export default Page;
 export const getServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
-  const { id } = context.query;
+  const { id, sub } = context.query;
   const token = context.req.cookies.accessToken as string;
 
   try {
-    const lesson = await fetchLesson(id as string, token);
+    const lesson = await fetchLesson(id as string, token, sub as string);
 
     return {
       props: {

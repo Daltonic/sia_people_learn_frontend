@@ -12,9 +12,15 @@ interface Props {
   course: ICourse;
   lessons: ILesson[];
   lessonId?: string;
+  subscriptionId: string;
 }
 
-const LessonAccordion: React.FC<Props> = ({ course, lessons, lessonId }) => {
+const LessonAccordion: React.FC<Props> = ({
+  course,
+  lessons,
+  lessonId,
+  subscriptionId,
+}) => {
   const { userData } = useSelector((states: RootState) => states.userStates);
   const router = useRouter();
 
@@ -45,7 +51,7 @@ const LessonAccordion: React.FC<Props> = ({ course, lessons, lessonId }) => {
             key={index}
             href={{
               pathname: `/course/learn/lesson/${lesson._id}`,
-              query: { course: course.slug },
+              query: { course: course.slug, sub: subscriptionId },
             }}
             className={`flex item-center gap-3 text-[#4F547B] md:text-sm p-2 rounded-sm cursor-pointer ${
               lesson._id === lessonId ? "bg-slate-200" : "bg-slate-50"
