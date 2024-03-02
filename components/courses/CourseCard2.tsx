@@ -67,7 +67,7 @@ const CourseCard: React.FC<Props> = ({ course }) => {
           <div className="md:ml-3 flex flex-col items-stretch md:w-[70%] mt-3 md:mt-0">
             <div className="flex flex-col gap-1.5 my-auto md:px-5 items-start">
               <div className="flex justify-start gap-[1px]">
-                <ViewRating value={course.rating || 4} />
+                <ViewRating value={course.rating || 0} />
                 <p className="text-[#4F547B] text-sm">
                   ({course.reviewsCount || 0})
                 </p>

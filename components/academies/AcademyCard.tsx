@@ -27,13 +27,13 @@ const AcademyCard: React.FC<ComponentProps> = ({ data }) => {
         <div className="py-2">
           <div className="flex items-center justify-between md:text-xs gap-4">
             <div className="flex justify-start gap-[1px]">
-              <ViewRating value={data.rating || 4} />
+              <ViewRating value={data.rating || 0} />
               <p className="text-[#4F547B] text-sm">
                 ({data.reviewsCount || 0})
               </p>
             </div>
             <p className="text-[10px] bg-[#6440FB12] text-[#1A064F] rounded-md px-1">
-              Courses ({data.courses.length})
+              Courses ({data.courses.length || 0})
             </p>
           </div>
 

@@ -341,6 +341,7 @@ export interface IWishlist {
   productType: "Course" | "Academy";
   productId: {
     _id: string;
+    slug: string;
     difficulty: "Beginner" | "Intermediate" | "Advanced";
     description: string;
     name: string;
@@ -350,6 +351,7 @@ export interface IWishlist {
     imageUrl?: string;
     rating?: number;
     reviews?: any[];
+    reviewsCount?: number;
     userId: {
       firstName: string;
       lastName: string;
@@ -366,4 +368,10 @@ export interface CreateReviewBody {
   productType: "Academy" | "Course";
   comment: string;
   starRating: number;
+}
+
+export interface ISiteSettings {
+  bannerUrl: string | null;
+  bannerText: string;
+  bannerCaption: string;
 }

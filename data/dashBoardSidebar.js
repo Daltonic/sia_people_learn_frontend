@@ -134,7 +134,7 @@ export const adminSidebarItems = [
   },
   {
     id: 5,
-    href: "/(dashboard)/settings",
+    href: "/(dashboard)/site-settings",
     iconClass: <SettingsSVG />,
     text: "Settings",
   },
