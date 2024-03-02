@@ -1155,6 +1155,30 @@ const approveReview = async (reviewId: string, token: string): Promise<any> => {
   }
 };
 
+const sendMessage = async (body: {
+  name: string;
+  email: string;
+  message: string;
+}) => {
+  const url = `${BASE_URI}/messages/send`;
+  const config = {
+    method: "POST",
+    url,
+    headers: {
+      "Content-Type": "application/json",
+    },
+    data: body,
+  };
+
+  try {
+    const response = await axios.request(config);
+    return Promise.resolve(response.status);
+  } catch (error: any) {
+    reportError(error);
+    return Promise.reject(error);
+  }
+};
+
 export {
   createPost,
   updatePost,
@@ -1203,4 +1227,5 @@ export {
   createSiteSettings,
   fetchSiteSettings,
   approveReview,
+  sendMessage,
 };
