@@ -49,10 +49,10 @@ export default Page;
 export const getServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
-  const { id } = context.query;
+  const { slug } = context.query;
 
   try {
-    const academy = await fetchAcademy(id as string);
+    const academy = await fetchAcademy(slug as string);
 
     return {
       props: {
