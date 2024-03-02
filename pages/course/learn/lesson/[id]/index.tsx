@@ -4,16 +4,19 @@ import { ICourse, ILesson, RootState } from "@/utils/type.dt";
 import { fetchCourse, fetchLesson } from "@/services/backend.services";
 import LearnLesson from "@/components/coursedetail/lesson/LearnLesson";
 import { useSelector } from "react-redux";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 const Page: NextPage<{ lessonData: ILesson; courseData: ICourse }> = ({
   lessonData,
   courseData,
 }) => {
-  // if (!lessonData) return;
   const { userData } = useSelector((states: RootState) => states.userStates);
   const router = useRouter();
+
+  if (!lessonData) {
+    router.push("/(dashboard)/dashboard");
+  }
 
   useEffect(() => {
     if (!userData) {
