@@ -1,8 +1,8 @@
 import { ChangeEvent, SyntheticEvent, useState } from "react";
 import Button from "../reusableComponents/Button";
 import InputField from "../reusableComponents/InputField";
-import emailJs from "@emailjs/browser";
 import { toast } from "react-toastify";
+import { sendMessage } from "@/services/backend.services";
 
 const Hero: React.FC = () => {
   const [formInput, setFormInput] = useState<{
@@ -34,28 +34,15 @@ const Hero: React.FC = () => {
     const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
     const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
     const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
-
+    const { name, email, message } = formInput;
     await toast.promise(
       new Promise<void>((resolve, reject) => {
-        emailJs
-          .send(
-            serviceId!,
-            templateId!,
-            {
-              from_name: formInput.name,
-              to_name: "Sia People Learn",
-              from_email: formInput.email,
-              to_email: "emma.osademe@gmail.com",
-              message: formInput.message,
-            },
-            { publicKey: publicKey! }
-          )
-          .then(() => {
+        sendMessage({ name, email, message })
+          .then((res) => {
             setSubmitting(false),
               setFormInput({ name: "", email: "", message: "" });
             resolve();
           })
-
           .catch((error) => {
             setSubmitting(false);
             console.log(error);
