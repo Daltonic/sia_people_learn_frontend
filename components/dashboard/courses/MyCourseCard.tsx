@@ -17,11 +17,13 @@ const MyCourseCard: React.FC<ComponentProps> = ({ product, productType }) => {
         <div className="h-28">
           <Link
             className="linkCustom"
-            href={
-              productType === "Course"
-                ? `/course/learn/${product.productId.slug}`
-                : `/academy/learn/${product.productId.slug}`
-            }
+            href={{
+              pathname:
+                productType === "Course"
+                  ? `/course/learn/${product.productId.slug}`
+                  : `/academy/learn/${product.productId.slug}`,
+              query: { sub: product._id },
+            }}
           >
             <Image
               width={500}
@@ -46,11 +48,13 @@ const MyCourseCard: React.FC<ComponentProps> = ({ product, productType }) => {
           </div>
           <Link
             className="linkCustom"
-            href={
-              productType === "Course"
-                ? `/course/learn/${product.productId.slug}`
-                : `/academy/learn/${product.productId.slug}`
-            }
+            href={{
+              pathname:
+                productType === "Course"
+                  ? `/course/learn/${product.productId.slug}`
+                  : `/academy/learn/${product.productId.slug}`,
+              query: { sub: product._id },
+            }}
           >
             <p className="line-clamp-2 md:text-sm font-medium text-[#321463] mt-2">
               {" "}

@@ -59,13 +59,15 @@ const AcademyCard: React.FC<ComponentProps> = ({ data }) => {
     >
       <div className="">
         <div className="h-28 relative">
-          <Image
-            width={100}
-            height={100}
-            className="rounded-lg object-cover h-full w-full"
-            src={academy.imageUrl || "/images/general/cardimg.svg"}
-            alt="image"
-          />
+          <Link href={`/academy/${academy.slug}`}>
+            <Image
+              width={100}
+              height={100}
+              className="rounded-lg object-cover h-full w-full"
+              src={academy.imageUrl || "/images/general/cardimg.svg"}
+              alt="image"
+            />
+          </Link>
 
           <div className="absolute top-1 right-2">
             <Dropdown>

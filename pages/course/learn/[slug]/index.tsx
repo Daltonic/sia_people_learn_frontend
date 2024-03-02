@@ -3,13 +3,13 @@ import { GetServerSidePropsContext, NextPage } from "next";
 import Image from "next/image";
 import { ICourse, IReviews, RootState } from "@/utils/type.dt";
 import ReviewSection from "@/components/blogs/ReviewSection";
-import ReviewForm from "@/components/blogs/ReviewForm";
 import LessonAccordion from "@/components/lesson/LessonAccordion";
 import { fetchCourse, fetchReviews } from "@/services/backend.services";
 import Button from "@/components/reusableComponents/Button";
 import { MdOutlineModeEditOutline } from "react-icons/md";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
+import { useSearchParams } from "next/navigation";
 
 const Page: NextPage<{ courseData: ICourse; reviewsData: IReviews }> = ({
   courseData,
@@ -17,6 +17,9 @@ const Page: NextPage<{ courseData: ICourse; reviewsData: IReviews }> = ({
 }) => {
   const { userData } = useSelector((states: RootState) => states.userStates);
   const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const subscriptionId = searchParams.get("sub") as string;
 
   return (
     <Layout>
@@ -66,7 +69,11 @@ const Page: NextPage<{ courseData: ICourse; reviewsData: IReviews }> = ({
           />
 
           <div className="sm:hidden flex my-4">
-            <LessonAccordion course={courseData} lessons={courseData.lessons} />
+            <LessonAccordion
+              course={courseData}
+              lessons={courseData.lessons}
+              subscriptionId={subscriptionId}
+            />
           </div>
 
           <ReviewSection
@@ -78,7 +85,11 @@ const Page: NextPage<{ courseData: ICourse; reviewsData: IReviews }> = ({
         </div>
 
         <div className="hidden sm:flex md:w-[30%] my-4 md:mt-0">
-          <LessonAccordion course={courseData} lessons={courseData.lessons} />
+          <LessonAccordion
+            course={courseData}
+            lessons={courseData.lessons}
+            subscriptionId={subscriptionId}
+          />
         </div>
       </div>
     </Layout>
@@ -102,6 +113,7 @@ export const getServerSideProps = async (
       },
       token
     );
+    console.log(course);
 
     return {
       props: {
