@@ -113,7 +113,6 @@ export const getServerSideProps = async (
       },
       token
     );
-    console.log(course);
 
     return {
       props: {

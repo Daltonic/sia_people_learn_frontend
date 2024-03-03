@@ -1,12 +1,15 @@
-import React, { SyntheticEvent, useState } from "react";
+"use client";
+
+import React, { SyntheticEvent, useEffect, useState } from "react";
 import Image from "next/image";
-import { IReview, IReviews, RootState } from "@/utils/type.dt";
+import { IReview, IReviews, IUser, RootState } from "@/utils/type.dt";
 import { getTimestamp } from "@/utils";
 import { CreateRating, ViewRating } from "../reusableComponents/Rating";
 import { toast } from "react-toastify";
 import { createReview } from "@/services/backend.services";
 import Button from "@/components/reusableComponents/Button";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { userActions } from "@/store/slices/userSlice";
 
 interface Props {
   reviewsData?: IReviews;
@@ -25,19 +28,37 @@ const ReviewSection: React.FC<Props> = ({
 
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [comment, setComment] = useState<string>("");
-  const [rating, setRating] = useState<number>(4);
+  const [rating, setRating] = useState<number>(0);
+  const { setUserData } = userActions;
+  const dispatch = useDispatch();
 
   const { userData } = useSelector((states: RootState) => states.userStates);
-  // Find out if the user has reviewed the product
-  const reviewedProducts = userData
-    ? productType === "Academy"
-      ? userData.reviewedAcademies || []
-      : userData.reviewedCourses || []
-    : [];
-  const reviewed = reviewedProducts.includes(productId!);
-  const [showForm, setShowForm] = useState<boolean>(
-    showReviewForm && userData !== null && !reviewed
-  );
+
+  useEffect(() => {
+    if (!userData) {
+      const sessionUser = JSON.parse(sessionStorage.getItem("user")!);
+      if (sessionUser) {
+        dispatch(setUserData(sessionUser));
+        checkShowForm(sessionUser);
+      }
+    }
+    checkShowForm(userData!);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch, productType, setUserData, userData]);
+
+  const [showForm, setShowForm] = useState<boolean>(false);
+
+  const checkShowForm = (user: IUser) => {
+    if (!user) return;
+    const reviewedProducts =
+      productType === "Academy"
+        ? user?.reviewedAcademies || []
+        : user?.reviewedCourses || [];
+
+    const reviewed = reviewedProducts.includes(productId!);
+
+    setShowForm(showReviewForm && !reviewed);
+  };
 
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
@@ -56,9 +77,31 @@ const ReviewSection: React.FC<Props> = ({
         await createReview(reviewData, token)
           .then((res) => {
             setShowForm(false);
-            setReviews((prev) => [res, ...prev]);
-            setComment("");
-            setRating(4);
+            const newReview = {
+              ...res,
+              userId: {
+                _id: userData?._id,
+                firstName: userData?.firstName,
+                lastName: userData?.lastName,
+                imgUrl: userData?.imgUrl,
+                username: userData?.username,
+              },
+            };
+            setReviews((prev) => [newReview, ...prev]);
+
+            let reviewedAcademies =
+              userData?.reviewedAcademies || ([] as string[]);
+            let reviewedCourses = userData?.reviewedCourses || ([] as string[]);
+
+            if (productType === "Academy") {
+              reviewedAcademies = [...reviewedAcademies, productId!];
+            } else {
+              reviewedCourses = [...reviewedCourses, productId!];
+            }
+
+            const user = { ...userData!, reviewedAcademies, reviewedCourses };
+            sessionStorage.setItem("user", JSON.stringify(user));
+            setUserData(user);
             setSubmitting(false);
             resolve(res);
           })
@@ -74,6 +117,7 @@ const ReviewSection: React.FC<Props> = ({
       }
     );
   };
+
   return (
     <div className="pt-6">
       {showForm && (
@@ -118,7 +162,7 @@ const ReviewSection: React.FC<Props> = ({
               Reviews
             </h1>
             <div className="flex flex-col gap-2">
-              {reviewsData!.reviews.map((review) => (
+              {reviews.map((review) => (
                 <div
                   className="border-b-2 border-[#EEEEEE] flex gap-5 items-start py-5"
                   key={review._id}

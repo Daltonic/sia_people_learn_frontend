@@ -15,7 +15,7 @@ const CreateRating: React.FC<Props> = ({ value, handleChange, size }) => {
           value={value}
           name="rating"
           onChange={(event, newValue) => {
-            handleChange(newValue || 4);
+            handleChange(newValue || 0);
           }}
           size={size || "small"}
         />

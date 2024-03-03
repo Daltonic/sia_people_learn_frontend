@@ -114,7 +114,6 @@ const ShopCartTable: React.FC = () => {
         new Promise<void>(async (resolve, reject) => {
           await stripeCheckout(products, token)
             .then((result) => {
-              console.log(result);
               if (result.url) {
                 router.push(result.url);
               } else {
@@ -205,7 +204,8 @@ const ShopCartTable: React.FC = () => {
                 <p className="text-[#4F547B]"> ${cartAmount}</p>
               </div>
 
-              <Button variant="pink"
+              <Button
+                variant="pink"
                 className="w-full my-4"
                 onClick={handleCheckout}
               >
