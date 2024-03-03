@@ -106,7 +106,10 @@ const PostForm: React.FC<PostProps> = ({
               resolve(result)
               setSubmitting(false)
             })
-            .catch((error) => reject(error))
+            .catch((error) => {
+              setSubmitting(false)
+              reject(error)
+            })
         } else {
           updatePost(postInput, String(post?._id))
             .then((result) => {
@@ -114,7 +117,10 @@ const PostForm: React.FC<PostProps> = ({
               resolve(result)
               setSubmitting(false)
             })
-            .catch((error) => reject(error))
+            .catch((error) => {
+              setSubmitting(false)
+              reject(error)
+            })
         }
       }),
       {
