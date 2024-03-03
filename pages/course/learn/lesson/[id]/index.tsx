@@ -1,28 +1,19 @@
 import Layout from "@/components/layout/Layout";
 import { GetServerSidePropsContext, NextPage } from "next";
-import { ICourse, ILesson, RootState } from "@/utils/type.dt";
+import { ICourse, ILesson } from "@/utils/type.dt";
 import { fetchCourse, fetchLesson } from "@/services/backend.services";
 import LearnLesson from "@/components/coursedetail/lesson/LearnLesson";
-import { useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
 
 const Page: NextPage<{ lessonData: ILesson; courseData: ICourse }> = ({
   lessonData,
   courseData,
 }) => {
-  const { userData } = useSelector((states: RootState) => states.userStates);
   const router = useRouter();
 
   if (!lessonData) {
     router.push("/(dashboard)/dashboard");
   }
-
-  useEffect(() => {
-    if (!userData) {
-      router.push("/login");
-    }
-  }, [userData, router]);
 
   return (
     <Layout>
