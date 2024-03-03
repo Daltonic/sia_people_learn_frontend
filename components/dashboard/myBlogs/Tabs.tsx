@@ -101,7 +101,6 @@ const Tabs: React.FC<Props> = ({
   useEffect(() => {
     if (firstRender.current) {
       firstRender.current = false;
-      console.log("Initial");
       return;
     }
 

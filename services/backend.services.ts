@@ -24,12 +24,12 @@ const createPost = async (data: any): Promise<any> => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
       },
-      data,
+      data: data,
     };
 
     const response = await axios.request(config);
     return Promise.resolve(response.data);
-  } catch (error) {
+  } catch (error: any) {
     reportError(error);
     return Promise.reject(error);
   }

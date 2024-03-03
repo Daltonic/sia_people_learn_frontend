@@ -2,8 +2,14 @@ import Layout from "@/components/layout/Layout";
 import { GetServerSidePropsContext, NextPage } from "next";
 import { ICourse, ILesson } from "@/utils/type.dt";
 import { fetchCourse, fetchLesson } from "@/services/backend.services";
-import LearnLesson from "@/components/coursedetail/lesson/LearnLesson";
+// import LearnLesson from "@/components/coursedetail/lesson/LearnLesson";
 import { useRouter } from "next/navigation";
+import dynamic from "next/dynamic";
+
+const LearnLesson = dynamic(
+  () => import("@/components/coursedetail/lesson/LearnLesson"),
+  { ssr: false }
+);
 
 const Page: NextPage<{ lessonData: ILesson; courseData: ICourse }> = ({
   lessonData,
