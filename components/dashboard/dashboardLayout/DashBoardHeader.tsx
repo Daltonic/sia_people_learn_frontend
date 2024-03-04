@@ -113,7 +113,7 @@ const DashBoardHeader: React.FC<SidebarProps> = () => {
           </Link>
         </div>
       </div>
-      <div className="flex gap-5 md:gap-10 items-center text-[#6A7A99] text-lg relative">
+      <div className="flex gap-5 md:gap-8 items-center text-[#6A7A99] text-lg relative">
         <Link href="/shopcart" className="relative">
           <FiShoppingCart className="text-2xl text-black icon icon-basket" />
           {cartAcademyItems.length + cartCourseItems.length > 0 && (

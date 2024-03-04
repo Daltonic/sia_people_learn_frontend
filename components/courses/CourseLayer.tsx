@@ -9,7 +9,7 @@ interface ComponentProps {
 
 const CourseLayer: React.FC<ComponentProps> = ({ data }) => {
   return (
-    <div className="mt-10">
+    <div className="mt-5">
       {data.courses.map((course) => (
         <CourseCard key={course._id} course={course} />
       ))}

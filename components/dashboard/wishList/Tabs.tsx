@@ -64,6 +64,7 @@ const Tabs: React.FC<Props> = ({ academiesData, coursesData }) => {
               <EmptyComponent
                 title="No Bookmarked Course"
                 buttonText="Create One Now"
+                link="/courses"
               />
             )}
           </div>
@@ -79,6 +80,7 @@ const Tabs: React.FC<Props> = ({ academiesData, coursesData }) => {
               <EmptyComponent
                 title="No Bookmarked Academy"
                 buttonText="Create One Now"
+                link="/academies"
               />
             )}
           </div>

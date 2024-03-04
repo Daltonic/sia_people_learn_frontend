@@ -22,11 +22,11 @@ const filterOptions = [
 const Page: NextPage<{ academiesObj: IAcademies }> = ({ academiesObj }) => {
   return (
     <Layout>
-      <div className="flex justify-center">
-        <div className="flex flex-col w-[90%] mt-5 md:mt-10">
+      <div className="flex justify-center px-5 md:px-10">
+        <div className="flex flex-col mt-5 md:mt-10">
           <div>
             <PageHeader> Trending Academies</PageHeader>
-            <p className="text-slate-600 text-sm md:text-lg capitalize w-full mt-1">
+            <p className="text-slate-600 capitalize w-full mt-1">
               Explore our trending Academies in Blockchain and We3 Development.
             </p>
           </div>

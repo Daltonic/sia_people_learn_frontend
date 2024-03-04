@@ -150,6 +150,7 @@ const Tabs: React.FC<Props> = ({ academiesSubObj, coursesSubObj }) => {
                 <EmptyComponent
                   title="No Courses Subscribed"
                   buttonText="Explore Courses"
+                  link="/courses"
                 />
               )}
             </div>
@@ -169,6 +170,7 @@ const Tabs: React.FC<Props> = ({ academiesSubObj, coursesSubObj }) => {
                 <EmptyComponent
                   title="No Academies Subscribed"
                   buttonText="Explore Academies"
+                  link="/academies"
                 />
               )}
             </div>
