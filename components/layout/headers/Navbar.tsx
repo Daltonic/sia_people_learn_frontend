@@ -9,7 +9,7 @@ const Navbar: React.FC = () => {
   const router = useRouter();
   const closeMenu = () => setMenuOpen(false);
 
-  const activeLinkStyle = "text-[#c5165ccc]"; // Define the styling for active link
+  const activeLinkStyle = "text-[#c5165ccc]";
 
   return (
     <div className="">

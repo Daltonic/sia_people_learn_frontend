@@ -1,26 +1,23 @@
-import BookmarkSVG from "@/components/dashboard/dashboardSVGs/BookmarkSVG";
-import DiscoverySVG from "@/components/dashboard/dashboardSVGs/DiscoverySVG";
-import ListSVG from "@/components/dashboard/dashboardSVGs/ListSVG";
-import MessagesSVG from "@/components/dashboard/dashboardSVGs/MessagesSVG";
-import PlayButtonSVG from "@/components/dashboard/dashboardSVGs/PlayButton";
-import SettingsSVG from "@/components/dashboard/dashboardSVGs/SettingsSVG";
 import { GrNotes } from "react-icons/gr";
-import { FaRegUser } from "react-icons/fa";
+import { FaRegBookmark, FaRegCompass, FaRegUser } from "react-icons/fa";
 import { LuShoppingBag } from "react-icons/lu";
-import InstructorSVG from "@/components/dashboard/dashboardSVGs/InstructorSVG";
-import { IoCreateOutline } from "react-icons/io5";
+import { IoCreateOutline, IoSettingsOutline } from "react-icons/io5";
+import { FiPlayCircle, FiSettings } from "react-icons/fi";
+import { CiViewList } from "react-icons/ci";
+import { LiaChalkboardTeacherSolid } from "react-icons/lia";
+import { FaRegMessage } from "react-icons/fa6";
 
 export const sidebarItems = [
   {
     id: 1,
     href: "/(dashboard)/dashboard",
-    iconClass: <DiscoverySVG />,
+    iconClass: <FaRegCompass />,
     text: "Dashboard",
   },
   {
     id: 2,
     href: "/(dashboard)/myCourses",
-    iconClass: <PlayButtonSVG />,
+    iconClass: <FiPlayCircle />,
     text: "My Courses",
   },
   {
@@ -33,19 +30,19 @@ export const sidebarItems = [
   {
     id: 4,
     href: "/(dashboard)/wishlist",
-    iconClass: <BookmarkSVG />,
+    iconClass: <FaRegBookmark />,
     text: "WishLists",
   },
   {
     id: 5,
     href: "/(dashboard)/createProduct",
-    iconClass: <ListSVG />,
+    iconClass: <CiViewList />,
     text: "Create Product",
   },
   {
     id: 6,
     href: "/(dashboard)/reviews",
-    iconClass: <MessagesSVG />,
+    iconClass: <FaRegMessage />,
     text: "Reviews",
   },
   {
@@ -63,7 +60,7 @@ export const sidebarItems = [
   {
     id: 9,
     href: "/(dashboard)/settings",
-    iconClass: <SettingsSVG />,
+    iconClass: <IoSettingsOutline />,
     text: "Settings",
   },
 ];
@@ -72,13 +69,13 @@ export const userSidebarItems = [
   {
     id: 1,
     href: "/(dashboard)/myCourses",
-    iconClass: <PlayButtonSVG />,
+    iconClass: <FiPlayCircle />,
     text: "My Courses",
   },
   {
     id: 2,
     href: "/(dashboard)/wishlist",
-    iconClass: <BookmarkSVG />,
+    iconClass: <FaRegBookmark  />,
     text: "WishLists",
   },
   {
@@ -96,13 +93,13 @@ export const userSidebarItems = [
   {
     id: 5,
     href: "/becomeinstructor",
-    iconClass: <InstructorSVG />,
+    iconClass: <LiaChalkboardTeacherSolid />,
     text: "Start Teaching",
   },
   {
     id: 6,
     href: "/(dashboard)/settings",
-    iconClass: <SettingsSVG />,
+    iconClass: <IoSettingsOutline />,
     text: "Settings",
   },
 ];
@@ -111,7 +108,7 @@ export const adminSidebarItems = [
   {
     id: 1,
     href: "/(dashboard)/dashboard",
-    iconClass: <DiscoverySVG />,
+    iconClass: <FaRegCompass />,
     text: "Dashboard",
   },
   {
@@ -135,7 +132,7 @@ export const adminSidebarItems = [
   {
     id: 5,
     href: "/(dashboard)/site-settings",
-    iconClass: <SettingsSVG />,
+    iconClass: <IoSettingsOutline />,
     text: "Settings",
   },
 ];
@@ -150,26 +147,26 @@ export const instructorSidebarItems = [
   {
     id: 2,
     href: "/(dashboard)/createCourse",
-    iconClass: <ListSVG />,
+    iconClass: <CiViewList />,
     text: "Create Course",
   },
   {
     id: 3,
     href: "/(dashboard)/createAcademy",
-    iconClass: <ListSVG />,
+    iconClass: <CiViewList />,
     text: "Create Academy",
   },
   {
     id: 4,
     href: "/(dashboard)/myCourses",
-    iconClass: <PlayButtonSVG />,
+    iconClass: <FiPlayCircle />,
     text: "My Courses",
   },
 
   {
     id: 5,
     href: "/(dashboard)/wishlist",
-    iconClass: <BookmarkSVG />,
+    iconClass: <FaRegBookmark />,
     text: "WishLists",
   },
   {
@@ -181,13 +178,13 @@ export const instructorSidebarItems = [
   {
     id: 7,
     href: "/(dashboard)/createBlog",
-    iconClass: <BookmarkSVG />,
+    iconClass: <FaRegBookmark />,
     text: "Create Blog",
   },
   {
     id: 8,
     href: "/(dashboard)/settings",
-    iconClass: <SettingsSVG />,
+    iconClass: <FiSettings />,
     text: "Settings",
   },
 ];
