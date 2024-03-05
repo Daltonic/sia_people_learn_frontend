@@ -47,7 +47,7 @@ const SearchInput: React.FC<Props> = ({ route, placeholder }) => {
   }, [search, pathname, route, query, router]);
 
   return (
-    <div className="flex gap-5 items-center border border-[#E1DDDD] text-[#4F547B] rounded-md p-3 md:p-2 w-full mb-5 md:mb-0 md:w-96">
+    <div className="flex gap-5 items-center border border-[#E1DDDD] text-[#4F547B] rounded-md p-3 md:p-2 w-full mb-0 md:w-96">
       <CiSearch className="text-[#4F547B] text-xl" />
       <input
         type="text"

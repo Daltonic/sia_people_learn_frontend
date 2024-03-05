@@ -9,7 +9,7 @@ interface ComponentProps {
 
 const AcademyLayer: React.FC<ComponentProps> = ({ data }) => {
   return (
-    <div className="flex flex-col items-stretch mt-10">
+    <div className="flex flex-col items-stretch mt-5">
       {data.academies.map((academy) => (
         <AcademyCard key={academy._id} academy={academy} />
       ))}

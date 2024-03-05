@@ -119,8 +119,8 @@ const Tabs: React.FC<Props> = ({
   return (
     <div className="bg-white p-5 rounded-xl">
       <div className="">
-        <div className="flex items-center justify-between">
-          <div className="flex gap-5 items-center border border-[#E1DDDD] text-[#4F547B] rounded-md p-3 md:p-2 w-full mb-5 md:mb-0 md:w-96">
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex gap-5 items-center border border-[#E1DDDD] text-[#4F547B] rounded-md p-3 md:p-2 w-full md:w-96">
             <CiSearch className="text-[#4F547B] text-xl" />
             <input
               type="text"
@@ -184,6 +184,7 @@ const Tabs: React.FC<Props> = ({
                   <EmptyComponent
                     title="No Blogs Available"
                     buttonText="Create One Now"
+                    link="/(dashboard)/createBlog"
                   />
                 </>
               )}
@@ -200,6 +201,7 @@ const Tabs: React.FC<Props> = ({
                   <EmptyComponent
                     title="No Blogs Available"
                     buttonText="Create One Now"
+                    link="/(dashboard)/createBlog"
                   />
                 </>
               )}

@@ -26,8 +26,8 @@ const Filterlayer: React.FC<Props> = ({
   sortOptions,
 }) => {
   return (
-    <div className="md:flex-row flex flex-col md:items-center justify-between gap-5 mt-5 md:mt-16">
-      <div className="text-sm flex gap-2">
+    <div className="md:flex-row flex flex-col md:items-center justify-between gap-4 mt-5">
+      <div className="text-sm flex gap-2 ">
         <p className=" text-slate-600">Showing </p>
         <p className="font-medium text-violet-950">250</p>
         <p className=" text-slate-600"> total results</p>
