@@ -6,10 +6,10 @@ import Link from "next/link";
 
 interface Props {
   academy: IAcademy;
-  courseId?: string;
+  subscriptionId?: string;
 }
 
-const CoursesAccordion: React.FC<Props> = ({ academy, courseId }) => {
+const CoursesAccordion: React.FC<Props> = ({ academy, subscriptionId }) => {
   return (
     <div className="border rounded-md p-2 space-y-2 h-screen overflow-y-scroll">
       <div className="mb-2 text-[#9e6ded] text-lg font-medium ">
@@ -21,11 +21,10 @@ const CoursesAccordion: React.FC<Props> = ({ academy, courseId }) => {
             <Link
               key={course._id}
               href={{
-                pathname: `/course/learn/${course._id}`,
+                pathname: `/course/learn/${course.slug}`,
+                query: { sub: subscriptionId },
               }}
-              className={`flex item-center gap-3 text-[#4F547B] md:text-sm p-2 rounded-sm cursor-pointer ${
-                course._id === courseId ? "bg-slate-200" : "bg-slate-50"
-              }`}
+              className={`flex item-center gap-3 text-[#4F547B] md:text-sm p-2 rounded-sm cursor-pointer ${"bg-slate-50"}`}
             >
               <div>
                 <Image

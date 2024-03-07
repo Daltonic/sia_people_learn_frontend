@@ -42,11 +42,20 @@ export default Page;
 export const getServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
+<<<<<<< HEAD
   const { name } = context.query;
   const token = context.req.cookies.accessToken;
 
   try {
     const academy = await fetchAcademy(name as string, token);
+=======
+  const { academy: slug } = context.query;
+
+  const token = context.req.cookies.accessToken;
+
+  try {
+    const academy = await fetchAcademy(slug as string, token);
+>>>>>>> 1a92bc3baae2064580427604a0bed0fee7f7b8c2
 
     const { courses } = await fetchCourses({ instructor: "true" }, token);
     return {

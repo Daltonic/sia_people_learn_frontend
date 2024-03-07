@@ -12,7 +12,11 @@ const AcademyCard: React.FC<ComponentProps> = ({ data }) => {
   return (
     <div className=" bg-white rounded-lg w-full sm:w-80 md:w-56 h-fit border-[#EDEDED] border p-2 shadow-[#EDEDED] shadow-md ">
       <div className="">
+<<<<<<< HEAD
         <Link className="linkCustom" href={`/academies/${data.name}`}>
+=======
+        <Link className="linkCustom" href={`/academies/${data.slug}`}>
+>>>>>>> 1a92bc3baae2064580427604a0bed0fee7f7b8c2
           <div className="rounded-lg h-40 md:h-32 overflow-hidden hover:bg-black">
             <Image
               width={100}
@@ -24,24 +28,36 @@ const AcademyCard: React.FC<ComponentProps> = ({ data }) => {
           </div>
         </Link>
 
-        <div className="p-2">
+        <div className="py-2">
           <div className="flex items-center justify-between md:text-xs gap-4">
+<<<<<<< HEAD
             <div className="flex items-center justify-start gap-[1px]">
               <ViewRating value={data.rating || 0} />
               <p className="text-[#4F547B] pb-[1px]">
+=======
+            <div className="flex justify-start gap-[1px]">
+              <ViewRating value={data.rating || 0} />
+              <p className="text-[#4F547B] text-sm">
+>>>>>>> 1a92bc3baae2064580427604a0bed0fee7f7b8c2
                 ({data.reviewsCount || 0})
               </p>
             </div>
             <p className="text-[10px] bg-[#6440FB12] text-[#1A064F] rounded-md px-1">
-              Courses ({data.courses.length})
+              Courses ({data.courses.length || 0})
             </p>
           </div>
 
+<<<<<<< HEAD
           <div className=" md:text-sm font-medium text-[#321463] mt-2 mb-6">
             <Link className="linkCustom" href={`/academies/${data.name}`}>
               <div className="line-clamp-1 hover:overflow-visible">
                 {data.name}
               </div>
+=======
+          <div className=" md:text-sm font-medium text-[#321463] mt-2 h-10">
+            <Link className="linkCustom" href={`/academies/${data.slug}`}>
+              <div className="line-clamp-2">{data.name}</div>
+>>>>>>> 1a92bc3baae2064580427604a0bed0fee7f7b8c2
             </Link>
           </div>
 

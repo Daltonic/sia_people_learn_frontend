@@ -96,7 +96,7 @@ const SignPage: NextPage = () => {
           <p className="md:text-sm text-[#4F547B] mt-1">
             Already have an account?
             <Link href="/login" className="text-[#C5165D] ml-2">
-              Log in
+              Login
             </Link>
           </p>
           <div className="md:flex gap-2 items-center">
@@ -160,8 +160,7 @@ const SignPage: NextPage = () => {
           </div>
           <Button
             variant="pink"
-            className=""
-            style={{ width: "100%", marginTop: "14px", padding: "16px" }}
+            className="w-full mt-4"
             disabled={
               signupDetails.firstname === "" ||
               signupDetails.lastname === "" ||

@@ -90,7 +90,7 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ isOpen }) => {
             >
               <Link href={elm.href}>
                 <div className="flex items-center gap-2 text-xl md:text-base ">
-                  <div>
+                  <div className="text-md">
                     {elm.iconClass &&
                       React.cloneElement(elm.iconClass, {
                         color:

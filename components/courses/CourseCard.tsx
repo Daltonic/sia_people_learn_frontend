@@ -11,9 +11,9 @@ interface ComponentProps {
 
 const CourseCard: React.FC<ComponentProps> = ({ data, index }) => {
   return (
-    <div className=" bg-white rounded-lg w-full sm:w-80 md:w-56 h-fit border-[#EDEDED] border p-2 shadow-[#EDEDED] shadow-md">
+    <div className="bg-white rounded-lg w-full sm:w-80 md:w-56 h-fit border-[#EDEDED] border p-2 shadow-[#EDEDED] shadow-md">
       <>
-        <Link className="linkCustom" href={`/coursedetail/${data._id}`}>
+        <Link className="linkCustom" href={`/coursedetail/${data.slug}`}>
           <div className="rounded-lg h-40 md:h-32 overflow-hidden hover:bg-black transition duration-500 ease-in-out">
             <Image
               width={100}
@@ -25,7 +25,7 @@ const CourseCard: React.FC<ComponentProps> = ({ data, index }) => {
           </div>
         </Link>
 
-        <div className="p-2">
+        <div className="py-2">
           <div className="flex items-center justify-between md:text-xs gap-4">
             <div className="flex items-center justify-start gap-[1px]">
               <ViewRating value={data.rating || 0} />
@@ -37,11 +37,9 @@ const CourseCard: React.FC<ComponentProps> = ({ data, index }) => {
               Lessons ({data.lessons.length})
             </p>
           </div>
-          <Link className="linkCustom" href={`/coursedetail/${data._id}`}>
-            <div className=" md:text-sm font-medium text-[#321463] mt-2 mb-6">
-              <div className="line-clamp-1 hover:overflow-visible">
-                {data.name}
-              </div>
+          <Link className="linkCustom" href={`/coursedetail/${data.slug}`}>
+            <div className="md:text-sm font-medium text-[#321463] mt-2 h-10">
+              <div className="line-clamp-2">{data.name}</div>
             </div>
           </Link>
 

@@ -20,6 +20,8 @@ jobs:
           script: |
             if [ ! -d "/dockerized/containers/dappmentors_frontend" ]; then
               mkdir -p /dockerized/containers/dappmentors_frontend
+            else
+              rm -rf /dockerized/containers/dappmentors_frontend/*
             fi
 
       - name: Copy Github files to VPS

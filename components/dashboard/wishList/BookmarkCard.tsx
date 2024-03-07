@@ -1,8 +1,11 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { IoIosStar } from "react-icons/io";
 import { IWishlist } from "@/utils/type.dt";
+import { ViewRating } from "@/components/reusableComponents/Rating";
+import { toast } from "react-toastify";
+import { deleteWishlist } from "@/services/backend.services";
+import { useRouter } from "next/navigation";
 
 interface ComponentProps {
   data: IWishlist;
@@ -10,13 +13,41 @@ interface ComponentProps {
 }
 
 const BookmarkCard: React.FC<ComponentProps> = ({ data, type }) => {
+  const router = useRouter();
+  const handleDelete = async (wishlistId: string) => {
+    const token = sessionStorage.getItem("accessToken") as string;
+
+    await toast.promise(
+      new Promise<void>(async (resolve, reject) => {
+        await deleteWishlist(wishlistId, token)
+          .then((res: any) => {
+            router.refresh();
+            resolve(res);
+          })
+          .catch((error: any) => reject(error));
+      }),
+      {
+        pending: `Deleting...`,
+        success: `Wishlist deleted successfully 👌`,
+        error: "Encountered error 🤯",
+      }
+    );
+  };
+
   return (
     <div
       className="w-full sm:w-[47%] bg-white rounded-lg border-[#EDEDED] border p-2 pb-0 shadow-[#EDEDED] shadow-md"
       style={{ height: "fit-content" }}
     >
       <div className="md:flex gap-4 relative">
-        <div className="md:w-1/3 py-2">
+        <Link
+          className="md:w-1/3 py-2 linkCustom"
+          href={
+            type === "Academy"
+              ? `/academies/${data.productId.slug}`
+              : `/coursedetail/${data.productId.slug}`
+          }
+        >
           <Image
             width={100}
             height={100}
@@ -24,26 +55,20 @@ const BookmarkCard: React.FC<ComponentProps> = ({ data, type }) => {
             src={data.productId?.imageUrl || "/images/general/cardimg.svg"}
             alt="image"
           />
-        </div>
+        </Link>
 
         <div className="my-2 p-2 space-y-3 flex-1">
           <div className="flex justify-between ">
             <div className="flex items-center md:md:text-xs gap-4">
-              <div className="flex items-center gap-1">
-                <p className="text-[#E59819]">{data.productId?.rating || 5}</p>
-                <div className="flex items-center">
-                  {Array.from({ length: 5 }).map((_, i) => (
-                    <div key={i} className="text-[#E59819]">
-                      <IoIosStar />
-                    </div>
-                  ))}
-                </div>
-              </div>
+              <ViewRating value={data.productId.rating || 0} />
               <p className="text-[#4F547B]">
-                ({data.productId?.reviews?.length || 0})
+                ({data.productId?.reviewsCount || 0})
               </p>
             </div>
-            <div className="bg-white p-3 rounded-full shadow-md absolute right-0 top-0">
+            <div
+              className="bg-white p-3 rounded-full shadow-md absolute right-0 top-0 cursor-pointer"
+              onClick={() => handleDelete(data._id)}
+            >
               <Image
                 width={100}
                 height={100}
@@ -59,8 +84,8 @@ const BookmarkCard: React.FC<ComponentProps> = ({ data, type }) => {
               className="linkCustom"
               href={
                 type === "Academy"
-                  ? `/academies/${data.productId._id!}`
-                  : `/courses/${data.productId._id!}`
+                  ? `/academies/${data.productId.slug}`
+                  : `/coursedetails/${data.productId.slug}`
               }
             >
               {data.productId.name}
@@ -77,7 +102,7 @@ const BookmarkCard: React.FC<ComponentProps> = ({ data, type }) => {
                   className="w-5 h-5  md:w-3 md:h-3"
                 />
               </div>
-              <p className="md:text-xs">{data.lessonCount} lesson</p>
+              <p className="md:text-xs">{type === "Academy"} lesson</p>
             </div> */}
 
             <div className="flex items-center">
@@ -90,9 +115,7 @@ const BookmarkCard: React.FC<ComponentProps> = ({ data, type }) => {
                   className="w-5 h-5 md:w-3 md:h-3"
                 />
               </div>
-              {/* <div className="md:text-xs ">{`${Math.floor(
-                data.duration / 60
-              )}h ${Math.floor(data.duration % 60)}m`}</div> */}
+              <div className="md:text-xs ">{data.productId.duration} mins</div>
             </div>
 
             <div className="flex items-start">
@@ -132,12 +155,9 @@ const BookmarkCard: React.FC<ComponentProps> = ({ data, type }) => {
             </div>
 
             <div className="flex items-center gap-1 font-medium">
-              <p className="md:text-xs text-[#4F547B] line-through">
+              <p className="text-lg md:text-sm text-[#321463]">
                 ${data.productId.price}
               </p>
-              {/* <p className="text-lg md:text-sm text-[#321463]">
-                    ${data.discountedPrice}
-                  </p> */}
             </div>
           </div>
         </div>

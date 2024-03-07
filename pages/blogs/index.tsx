@@ -70,7 +70,11 @@ const Page: NextPage<{ postsData: IPosts }> = ({ postsData }) => {
                       <div className="w-full">
                         <Link
                           className="linkCustom"
+<<<<<<< HEAD
                           href={`/blogs/${post.title}`}
+=======
+                          href={`/blogs/${post.slug}`}
+>>>>>>> 1a92bc3baae2064580427604a0bed0fee7f7b8c2
                         >
                           <div className="">
                             <Image

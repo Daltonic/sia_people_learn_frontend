@@ -10,6 +10,10 @@ import { fetchUsers, upgradeUser } from "@/services/backend.services";
 import UsersCard from "./UsersCard";
 import LocalFilters from "@/components/reusableComponents/LocalFilter";
 import LocalPagination from "@/components/reusableComponents/LocalPagination";
+import { FaCheck, FaTimes } from "react-icons/fa";
+import { IoMdMore } from "react-icons/io";
+import Image from "next/image";
+import Link from "next/link";
 
 const sortOptions = [
   { name: "Newest", value: "newest" },
@@ -35,10 +39,26 @@ interface Props {
   initialUserObj: IUsers;
 }
 
+interface IDbUser {
+  _id: string;
+  firstName: string;
+  lastName: string;
+  username: string;
+  userType: "admin" | "instructor" | "user";
+  imgUrl?: string;
+  requests: {
+    _id: string;
+    requestType: "UserUpgradeRequent" | "UserDowngradeRequest";
+    status: "pending" | "approved" | "rejected";
+  }[];
+}
+
 const MyUsers: React.FC<Props> = ({ initialUserObj }) => {
   const dispatch = useDispatch();
   const { setUserData } = userActions;
   const { userData } = useSelector((states: RootState) => states.userStates);
+  const [dbUsers, setDbUsers] = useState<IDbUser[]>([]);
+
 
   useEffect(() => {
     if (!userData) {
@@ -163,7 +183,7 @@ const MyUsers: React.FC<Props> = ({ initialUserObj }) => {
       </div>
       <div className="bg-white rounded-lg">
         <div className="p-5 border-b border-[#EDEDED] flex flex-wrap items-center md:justify-between mb-4 ">
-          <div className="flex gap-5 items-center bg-white border border-[#E1DDDD] text-[#4F547B] rounded-md p-3 md:p-2 w-full mb-5 md:mb-0 md:w-96">
+          <div className="flex gap-5 items-center bg-white border border-[#E1DDDD] text-[#4F547B] rounded-md p-3 md:p-2 w-full mb-5 md:mb-0 md:w-80">
             <CiSearch className=" text-[#4F547B] text-xl" />
             <input
               type="text"
@@ -193,11 +213,101 @@ const MyUsers: React.FC<Props> = ({ initialUserObj }) => {
           />
         </div>
         <div className="p-5">
-          <div className="flex justify-between gap-5 w-full flex-wrap">
-            {usersObj.users.map((user) => (
-              <UsersCard key={user._id} user={user} />
-            ))}
-          </div>
+        <table className="table-auto w-full">
+            <thead>
+              <tr className="font-medium text-[#321463]">
+                <th className=" text-start">User</th>
+                <th className="">User Type</th>
+                <th className="">Requests</th>
+                <th className="">Status</th>
+                <th className="">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {usersObj.users.map((user) => (
+                <tr key={user._id}>
+                  <td className="items-center flex gap-4 mt-2">
+                    <Image
+                      width={100}
+                      height={100}
+                      className="object-cover w-10 h-10 rounded-full"
+                      src={user?.imgUrl || "/images/about/learning/1.svg"}
+                      alt="image"
+                    />
+                    <h4 className="font-medium text-[#321463]">
+                      <Link href={`/instructors/${user._id}`}>
+                        {`${user.firstName} ${user.lastName}`}
+                      </Link>
+                    </h4>
+                  </td>
+                  <td className=" text-center">
+                    <h4 className="font-medium text-[#4F547B]">
+                      {user.userType}
+                    </h4>
+                  </td>
+                  <td className="text-center ">
+                    <h4
+                      className={`font-medium text-[#4F547B ${getRequestClass(
+                        user!.requests!.length > 0
+                          ? user.requests![0].requestType
+                          : ""
+                      )}`}
+                    >
+                      {user?.requests!.length > 0
+                        ? user.requests![0].requestType
+                        : "No Request"}
+                    </h4>
+                  </td>
+                  <td className=" text-center">
+                    <h4 className="font-medium text-[#4F547B]">
+                      {user!.requests!.length
+                        ? user.requests![0].status
+                        : "N/A"}
+                    </h4>
+                  </td>
+                  <td className="">
+                    <div className="flex gap-3 justify-center items-center">
+                      <button
+                        className="p-1 text-sm rounded-full text-red-500 bg-red-100 cursor-pointer"
+                        onClick={() =>
+                          handleRequestAction(
+                            user._id!,
+                            user.requests![0]._id,
+                            "rejected"
+                          )
+                        }
+                        disabled={
+                          user.requests!.length === 0 ||
+                          user.requests![0].status !== "pending"
+                        }
+                      >
+                        <FaTimes />
+                      </button>
+                      <button
+                        className="p-1 text-sm rounded-full text-green-500 bg-green-100 cursor-pointer"
+                        onClick={() =>
+                          handleRequestAction(
+                            user._id!,
+                            user.requests![0]._id,
+                            "approved"
+                          )
+                        }
+                        disabled={
+                          user.requests!.length === 0 ||
+                          user.requests![0].status !== "pending"
+                        }
+                      >
+                        <FaCheck />
+                      </button>
+                    </div>
+                  </td>
+                  <td className="text-[#4F547B] text-xl">
+                    <IoMdMore />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
         {usersObj.numOfPages > 1 && (
           <LocalPagination

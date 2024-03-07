@@ -1,40 +1,39 @@
+import React, { SyntheticEvent, useState } from 'react'
 import Button from '@/components/reusableComponents/Button'
 import InputField from '@/components/reusableComponents/InputField'
 import TextAreaField from '@/components/reusableComponents/TextAreaField'
-import { useSelector, useDispatch } from 'react-redux'
-import { userActions } from '@/store/slices/userSlice'
-import { ILesson, RootState } from '@/utils/type.dt'
-import { useRouter } from 'next/navigation'
-import React, { useState, ChangeEvent, SyntheticEvent, useEffect } from 'react'
-import { toast } from 'react-toastify'
-import { createLesson, updateLesson } from '@/services/backend.services'
-
-import { uploaderActions } from '@/store/slices/uploaderSlice'
-import FileUploader from '@/components/reusableComponents/FileUploader'
 import { FaArrowsRotate, FaTrashCan } from 'react-icons/fa6'
 import { MdCancel, MdOutlineFileCopy } from 'react-icons/md'
+import { IoChevronDownSharp, IoChevronUpSharp } from 'react-icons/io5'
+import FileUploader from '@/components/reusableComponents/FileUploader'
 import { extractFileNameFromUrl } from '@/utils/helper'
+import { useDispatch } from 'react-redux'
+import { uploaderActions } from '@/store/slices/uploaderSlice'
+import { toast } from 'react-toastify'
+import { createLesson, updateLesson } from '@/services/backend.services'
+import { ILesson } from '@/utils/type.dt'
+import { genericActions } from '@/store/slices/genericSlice'
 
-interface LessonProps {
+interface LessonFormProps {
   lesson?: ILesson
-  courseId: string
   type: 'create' | 'edit'
+  courseId: string
+  accordionState?: boolean
 }
 
-const LessonForm: React.FC<LessonProps> = ({ lesson, courseId, type }) => {
-  const router = useRouter()
+const LessonForm: React.FC<LessonFormProps> = ({
+  lesson,
+  type,
+  courseId,
+  accordionState,
+}) => {
   const dispatch = useDispatch()
-  const { setUserData } = userActions
-  const { userData } = useSelector((states: RootState) => states.userStates)
+  const { setUploaderModal } = uploaderActions
+  const [acceptType, setAcceptType] = useState<string>('')
+  const [submitting, setSubmitting] = useState<boolean>(false)
+  const [isAccordionOpen, setIsAccordionOpen] = useState(accordionState)
+  const { setDeleteModal, setData } = genericActions
 
-  useEffect(() => {
-    if (!userData) {
-      const sessionUser = JSON.parse(sessionStorage.getItem('user')!)
-      if (sessionUser) {
-        dispatch(setUserData(sessionUser))
-      }
-    }
-  }, [dispatch, setUserData, userData])
   const [lessonDetails, setLessonDetails] = useState({
     title: lesson?.title || '',
     description: lesson?.description || '',
@@ -44,30 +43,37 @@ const LessonForm: React.FC<LessonProps> = ({ lesson, courseId, type }) => {
     order: lesson?.order || 0,
   })
 
-  const [submitting, setSubmitting] = useState<boolean>(false)
-  const [acceptType, setAcceptType] = useState<string>('')
-  const { setUploaderModal } = uploaderActions
-
-  const handleFileMount = (fileUrl: string) => {
+  const handleFileMount = (fileInfo: any) => {
     if (acceptType.includes('video')) {
-      setLessonDetails((prev) => ({
+      setLessonDetails((prev: any) => ({
         ...prev,
-        videoUrl: fileUrl,
+        duration: fileInfo.duration / 60, // converting the duration from seconds to minutes
+        videoUrl: fileInfo.url,
       }))
     } else {
-      setLessonDetails((prev) => ({
+      setLessonDetails((prev: any) => ({
         ...prev,
-        downloadableUrl: fileUrl,
+        downloadableUrl: fileInfo.url,
       }))
     }
   }
 
+  const toggleAccordion = () => {
+    setIsAccordionOpen(!isAccordionOpen)
+  }
+
+  const handleFileAttachment = (type: string) => {
+    setAcceptType(type)
+    dispatch(setUploaderModal('scale-100'))
+  }
+
   const handleChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
   ) => {
     const { name, value } = e.currentTarget
-
-    setLessonDetails((prev) => ({
+    setLessonDetails((prev: any) => ({
       ...prev,
       [name]: value,
     }))
@@ -75,7 +81,7 @@ const LessonForm: React.FC<LessonProps> = ({ lesson, courseId, type }) => {
 
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault()
-
+    
     if (type === 'create') {
       await toast.promise(
         new Promise<void>(async (resolve, reject) => {
@@ -119,7 +125,6 @@ const LessonForm: React.FC<LessonProps> = ({ lesson, courseId, type }) => {
           )
             .then((res) => {
               setSubmitting(false)
-              router.push(`/course/learn/${courseId}`)
               resolve(res)
             })
             .catch((error) => {
@@ -148,139 +153,150 @@ const LessonForm: React.FC<LessonProps> = ({ lesson, courseId, type }) => {
     setSubmitting(false)
   }
 
-  const handleFileAttachment = (type: string) => {
-    setAcceptType(type)
-    dispatch(setUploaderModal('scale-100'))
+  const onDelete = () => {
+    dispatch(setData({ ...lesson, name: lesson?.title, type: 'lesson' }))
+    dispatch(setDeleteModal('scale-100'))
   }
 
   return (
-    <div className="bg-white rounded-lg ">
-      <div className="p-5 border-b border-[#EDEDED]">
-        {!lessonDetails.videoUrl && (
+    <div className="bg-white rounded-lg shadow-md my-4">
+      <div className="p-5 flex justify-between items-center">
+        <h4>{lessonDetails?.title || 'Add New Lesson'}</h4>
+        <div>
           <Button
-            onClick={() => handleFileAttachment('video/mp4')}
-            className="text-slate-600 border border-[color:var(--border-2,#E1DDDD)]"
+            onClick={onDelete}
+            className="text-slate-600 hover:text-pink-500
+            border border-transparent"
           >
-            Add Video
+            <FaTrashCan />
           </Button>
-        )}
-
-        {lessonDetails.videoUrl && (
-          <div className="relative">
-            <div className="flex justify-start items-center space-x-2 absolute top-2 left-2">
-              <Button
-                onClick={() => handleFileAttachment('video/mp4')}
-                className="bg-black bg-opacity-25 text-white"
-              >
-                <FaArrowsRotate size={20} />
-              </Button>
-
-              <Button
-                onClick={() =>
-                  setLessonDetails((prev) => ({ ...prev, videoUrl: '' }))
-                }
-                className="bg-black bg-opacity-25 text-white"
-              >
-                <FaTrashCan size={20} />
-              </Button>
-            </div>
-            <video
-              src={lessonDetails.videoUrl}
-              width={500}
-              height={100}
-              className="h-72 w-full object-cover"
-              controls
-            />
-          </div>
-        )}
+          <Button
+            onClick={toggleAccordion}
+            className="text-slate-600 border border-transparent"
+          >
+            {isAccordionOpen ? <IoChevronDownSharp /> : <IoChevronUpSharp />}
+          </Button>
+        </div>
       </div>
 
-      <form className="p-5" onSubmit={handleSubmit}>
-        <InputField
-          label="Title"
-          name="title"
-          placeholder="Enter your product title"
-          required
-          inputType="text"
-          value={lessonDetails.title}
-          handleChange={handleChange}
-        />
-        <div className="md:flex gap-8">
-          <TextAreaField
-            label="Description"
-            id="description"
-            name="description"
-            value={lessonDetails.description}
-            handleChange={handleChange}
-          />
-        </div>
-        <div className="md:flex gap-8">
-          <InputField
-            label="Duration (in minutes)"
-            name="duration"
-            placeholder="Lesson Duration"
-            required
-            inputType="number"
-            value={lessonDetails.duration}
-            handleChange={handleChange}
-          />
-          <InputField
-            label="Order Number"
-            name="order"
-            placeholder="Enter Order"
-            required
-            inputType="number"
-            value={lessonDetails.order}
-            handleChange={handleChange}
-          />
-        </div>
-        <div className="md:flex gap-8">
-          {!lessonDetails.downloadableUrl && (
-            <Button
-              type="button"
-              onClick={() => handleFileAttachment('application/pdf, application/zip')}
-              className="text-slate-600 border border-[color:var(--border-2,#E1DDDD)]"
-            >
-              Add Downloadable
-            </Button>
-          )}
-
-          {lessonDetails.downloadableUrl && (
-            <div className="flex gap-2 items-center text-pink-600">
-              <MdOutlineFileCopy size={20} />
-
-              <div className="flex-1 flex justify-start items-center space-x-2">
-                <p>{extractFileNameFromUrl(lessonDetails.downloadableUrl)}</p>
-              </div>
-
+      {isAccordionOpen && (
+        <div>
+          <div className="p-5 pt-0 border-b border-[#EDEDED]">
+            {!lessonDetails.videoUrl && (
               <Button
-                type="button"
-                onClick={() =>
-                  setLessonDetails((prev) => ({
-                    ...prev,
-                    downloadableUrl: '',
-                  }))
-                }
+                onClick={() => handleFileAttachment('video/mp4')}
+                className="text-slate-600 border border-[color:var(--border-2,#E1DDDD)]"
               >
-                <MdCancel className="text-gray-600" />
+                Add Video
               </Button>
+            )}
+
+            {lessonDetails.videoUrl && (
+              <div className="relative">
+                <div className="flex justify-start items-center space-x-2 absolute top-2 left-2 z-40">
+                  <Button
+                    onClick={() => handleFileAttachment('video/mp4')}
+                    className="bg-black bg-opacity-25 text-white"
+                  >
+                    <FaArrowsRotate size={20} />
+                  </Button>
+
+                  <Button
+                    onClick={() =>
+                      setLessonDetails((prev: any) => ({
+                        ...prev,
+                        videoUrl: '',
+                      }))
+                    }
+                    className="bg-black bg-opacity-25 text-white"
+                  >
+                    <FaTrashCan size={20} />
+                  </Button>
+                </div>
+                <video
+                  src={lessonDetails.videoUrl}
+                  width={500}
+                  height={100}
+                  className="h-72 w-full object-cover"
+                  controls
+                />
+              </div>
+            )}
+          </div>
+
+          <form className="p-5" onSubmit={handleSubmit}>
+            <InputField
+              label="Title"
+              name="title"
+              placeholder="Enter your product title"
+              required
+              inputType="text"
+              value={lessonDetails.title}
+              handleChange={handleChange}
+            />
+            <div className="md:flex gap-8">
+              <TextAreaField
+                label="Description"
+                id="description"
+                name="description"
+                value={lessonDetails.description}
+                handleChange={handleChange}
+              />
             </div>
-          )}
+            <div className="md:flex gap-8">
+              {!lessonDetails.downloadableUrl && (
+                <Button
+                  type="button"
+                  onClick={() =>
+                    handleFileAttachment('application/pdf, application/zip')
+                  }
+                  className="text-slate-600 border border-[color:var(--border-2,#E1DDDD)]"
+                >
+                  Add Downloadable
+                </Button>
+              )}
+
+              {lessonDetails.downloadableUrl && (
+                <div className="flex gap-2 items-center text-pink-600">
+                  <MdOutlineFileCopy size={20} />
+
+                  <div className="flex-1 flex justify-start items-center space-x-2">
+                    <p>
+                      {extractFileNameFromUrl(lessonDetails.downloadableUrl)}
+                    </p>
+                  </div>
+
+                  <Button
+                    type="button"
+                    onClick={() =>
+                      setLessonDetails((prev: any) => ({
+                        ...prev,
+                        downloadableUrl: '',
+                      }))
+                    }
+                  >
+                    <MdCancel className="text-gray-600" />
+                  </Button>
+                </div>
+              )}
+            </div>
+
+            <Button variant="pink" className="mt-5" disabled={submitting}>
+              {submitting
+                ? type === 'create'
+                  ? 'Creating'
+                  : 'Updating'
+                : type === 'create'
+                ? 'Create'
+                : 'Update'}
+            </Button>
+          </form>
+          <FileUploader
+            onUploadSuccess={(response) => handleFileMount(response)}
+            accept={acceptType}
+          />
         </div>
-        <Button variant="pink" className="mt-14" disabled={submitting}>
-          {submitting
-            ? type === 'create'
-              ? 'Creating'
-              : 'Updating'
-            : type === 'create'
-            ? 'Create'
-            : 'Update'}
-        </Button>
-      </form>
-      <FileUploader
-        onUploadSuccess={(response) => handleFileMount(response.url)}
-        accept={acceptType}
-      />
+      )}
     </div>
   )
 }

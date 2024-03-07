@@ -7,6 +7,7 @@ import { toast } from 'react-toastify'
 import {
   deleteAcademy,
   deleteCourse,
+  deleteLesson,
   deletePost,
 } from '@/services/backend.services'
 
@@ -33,6 +34,10 @@ const DeleteModal: React.FC = () => {
 
     if (data && data.type === 'blog') {
       onDeleteBlog()
+    }
+
+    if (data && data.type === 'lesson') {
+      onDeleteLesson()
     }
   }
 
@@ -85,6 +90,24 @@ const DeleteModal: React.FC = () => {
       {
         pending: `Deleting...`,
         success: `Blog deleted successfully 👌`,
+        error: 'Encountered error 🤯',
+      }
+    )
+  }
+
+  const onDeleteLesson = async () => {
+    await toast.promise(
+      new Promise<void>(async (resolve, reject) => {
+        await deleteLesson(data._id)
+          .then((res: any) => {
+            close()
+            resolve(res)
+          })
+          .catch((error: any) => reject(error))
+      }),
+      {
+        pending: `Deleting...`,
+        success: `Lesson deleted successfully 👌`,
         error: 'Encountered error 🤯',
       }
     )

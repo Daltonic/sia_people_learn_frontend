@@ -53,7 +53,11 @@ const CourseCard: React.FC<Props> = ({ course }) => {
           <Link
             className="w-full h-36 md:w-[28%]"
             key={course._id}
+<<<<<<< HEAD
             href={`/coursedetail/${course.name}`}
+=======
+            href={`/coursedetail/${course.slug}`}
+>>>>>>> 1a92bc3baae2064580427604a0bed0fee7f7b8c2
           >
             <Image
               width={500}
@@ -67,7 +71,7 @@ const CourseCard: React.FC<Props> = ({ course }) => {
           <div className="md:ml-3 flex flex-col items-stretch md:w-[70%] mt-3 md:mt-0">
             <div className="flex flex-col gap-1.5 my-auto md:px-5 items-start">
               <div className="flex justify-start gap-[1px]">
-                <ViewRating value={course.rating || 4} />
+                <ViewRating value={course.rating || 0} />
                 <p className="text-[#4F547B] text-sm">
                   ({course.reviewsCount || 0})
                 </p>
@@ -75,7 +79,11 @@ const CourseCard: React.FC<Props> = ({ course }) => {
 
               <Link
                 key={course._id}
+<<<<<<< HEAD
                 href={`/coursedetail/${course.name}`}
+=======
+                href={`/coursedetail/${course.slug}`}
+>>>>>>> 1a92bc3baae2064580427604a0bed0fee7f7b8c2
                 className="text-violet-950 text-lg font-medium capitalize self-stretch"
               >
                 {course.name}

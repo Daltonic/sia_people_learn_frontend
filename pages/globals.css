@@ -12,8 +12,10 @@ body {
   overflow-x: hidden;
 }
 
-.plyr {
-  height: 553px;
+@media (min-width: 640px) {
+  .plyr {
+    height: 55vh;
+  }
 }
 
 .glassmorphism {

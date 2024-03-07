@@ -24,12 +24,12 @@ const createPost = async (data: any): Promise<any> => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
       },
-      data,
+      data: data,
     };
 
     const response = await axios.request(config);
     return Promise.resolve(response.data);
-  } catch (error) {
+  } catch (error: any) {
     reportError(error);
     return Promise.reject(error);
   }
@@ -388,6 +388,31 @@ const deleteCourse = async (courseId: string): Promise<any> => {
   }
 };
 
+const orderCourseLessons = async (
+  courseId: string,
+  data: any
+): Promise<any> => {
+  const url = `${BASE_URI}/courses/orderLessons/${courseId}`;
+
+  const config = {
+    method: "PUT",
+    url,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
+    },
+    data,
+  };
+
+  try {
+    const response = await axios.request(config);
+    return Promise.resolve(response.status);
+  } catch (error) {
+    reportError(error);
+    return Promise.reject(error);
+  }
+};
+
 const addCourseToAcademy = async (academyId: string, courseId: string) => {
   const url = `${BASE_URI}/academies/addCourse`;
 
@@ -438,8 +463,13 @@ const removeCourseFromAcademy = async (academyId: string, courseId: string) => {
   }
 };
 
+<<<<<<< HEAD
 const fetchAcademy = async (name: string, token?: string) => {
   const url = `${BASE_URI}/academies/${name}`;
+=======
+const fetchAcademy = async (slug: string, token?: string) => {
+  const url = `${BASE_URI}/academies/${slug}`;
+>>>>>>> 1a92bc3baae2064580427604a0bed0fee7f7b8c2
 
   const config = {
     method: "GET",
@@ -677,8 +707,13 @@ const fetchUserPosts = async (query: FetchPostsParams, token?: string) => {
   }
 };
 
+<<<<<<< HEAD
 const fetchPost = async (title: string, token?: string) => {
   const url = `${BASE_URI}/posts/${title}`;
+=======
+const fetchPost = async (slug: string, token?: string) => {
+  const url = `${BASE_URI}/posts/${slug}`;
+>>>>>>> 1a92bc3baae2064580427604a0bed0fee7f7b8c2
 
   const config = {
     method: "GET",
@@ -698,8 +733,13 @@ const fetchPost = async (title: string, token?: string) => {
   }
 };
 
+<<<<<<< HEAD
 const fetchCourse = async (name: string, token?: string) => {
   const url = `${BASE_URI}/courses/${name}`;
+=======
+const fetchCourse = async (slug: string, token?: string) => {
+  const url = `${BASE_URI}/courses/${slug}`;
+>>>>>>> 1a92bc3baae2064580427604a0bed0fee7f7b8c2
 
   const config = {
     method: "GET",
@@ -742,7 +782,11 @@ const fetchReviews = async (query: FetchReviewsParams, token?: string) => {
   }
 };
 
-const fetchLesson = async (lessonId: string, token: string) => {
+const fetchLesson = async (
+  lessonId: string,
+  token: string,
+  subscriptionId?: string
+) => {
   const url = `${BASE_URI}/lessons/${lessonId}`;
 
   const config = {
@@ -752,6 +796,7 @@ const fetchLesson = async (lessonId: string, token: string) => {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
+    params: { subscriptionId },
   };
 
   try {
@@ -1058,6 +1103,97 @@ const createReview = async (
   }
 };
 
+const createSiteSettings = async (
+  data: { bannerUrl: string; bannerCaption: string; bannerText: string },
+  token: string
+): Promise<any> => {
+  const url = `${BASE_URI}/site-settings/create`;
+
+  try {
+    const config = {
+      method: "PATCH",
+      url,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      data,
+    };
+
+    const response = await axios.request(config);
+    return Promise.resolve(response.data);
+  } catch (error) {
+    reportError(error);
+    return Promise.reject(error);
+  }
+};
+
+const fetchSiteSettings = async () => {
+  const url = `${BASE_URI}/site-settings`;
+
+  const config = {
+    method: "GET",
+    url,
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  try {
+    const response = await axios.request(config);
+    return Promise.resolve(response.data);
+  } catch (error) {
+    console.log(error);
+    reportError(error);
+    return Promise.reject(error);
+  }
+};
+
+const approveReview = async (reviewId: string, token: string): Promise<any> => {
+  const url = `${BASE_URI}/reviews/approve/${reviewId}`;
+
+  const config = {
+    method: "PUT",
+    url,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  try {
+    const response = await axios.request(config);
+    return Promise.resolve(response.status);
+  } catch (error) {
+    reportError(error);
+    return Promise.reject(error);
+  }
+};
+
+const sendMessage = async (body: {
+  name: string;
+  email: string;
+  message: string;
+}) => {
+  const url = `${BASE_URI}/messages/send`;
+  const config = {
+    method: "POST",
+    url,
+    headers: {
+      "Content-Type": "application/json",
+    },
+    data: body,
+  };
+
+  try {
+    const response = await axios.request(config);
+    return Promise.resolve(response.status);
+  } catch (error: any) {
+    reportError(error);
+    return Promise.reject(error);
+  }
+};
+
 export {
   createPost,
   updatePost,
@@ -1102,4 +1238,9 @@ export {
   stripeCheckout,
   publishPost,
   createReview,
+  orderCourseLessons,
+  createSiteSettings,
+  fetchSiteSettings,
+  approveReview,
+  sendMessage,
 };

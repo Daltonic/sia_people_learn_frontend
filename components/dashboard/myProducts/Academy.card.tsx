@@ -11,6 +11,7 @@ import { deleteAcademy, submitAcademy } from "@/services/backend.services";
 import { useDispatch } from "react-redux";
 import { genericActions } from "@/store/slices/genericSlice";
 import { IAcademy } from "@/utils/type.dt";
+import { ViewRating } from "@/components/reusableComponents/Rating";
 
 interface ComponentProps {
   data: IAcademy;
@@ -58,18 +59,24 @@ const AcademyCard: React.FC<ComponentProps> = ({ data }) => {
     >
       <div className="">
         <div className="h-28 relative">
-          <Image
-            width={100}
-            height={100}
-            className="rounded-lg object-cover h-full w-full"
-            src={academy.imageUrl || "/images/general/cardimg.svg"}
-            alt="image"
-          />
+          <Link href={`/academy/${academy.slug}`}>
+            <Image
+              width={100}
+              height={100}
+              className="rounded-lg object-cover h-full w-full"
+              src={academy.imageUrl || "/images/general/cardimg.svg"}
+              alt="image"
+            />
+          </Link>
 
           <div className="absolute top-1 right-2">
             <Dropdown>
               <Link
+<<<<<<< HEAD
                 href={`/academy/edit/${String(academy.name)}`}
+=======
+                href={`/academy/edit/${String(academy.slug)}`}
+>>>>>>> 1a92bc3baae2064580427604a0bed0fee7f7b8c2
                 className="p-1 hover:bg-gray-100 w-full text-left"
               >
                 Edit
@@ -77,7 +84,11 @@ const AcademyCard: React.FC<ComponentProps> = ({ data }) => {
               <Link
                 href={{
                   pathname: `/academy/courses`,
+<<<<<<< HEAD
                   query: { name: academy.name },
+=======
+                  query: { academy: academy.slug },
+>>>>>>> 1a92bc3baae2064580427604a0bed0fee7f7b8c2
                 }}
                 className="p-1 hover:bg-gray-100 w-full text-left"
               >
@@ -105,19 +116,16 @@ const AcademyCard: React.FC<ComponentProps> = ({ data }) => {
           <div className="flex items-center justify-between md:md:text-xs gap-4">
             <p className="text-[#4F547B]">{academy.userId.firstName}</p>
 
-            <div className="flex items-center gap-1">
-              <p className="text-[#E59819]">{academy.rating}</p>
-              <div className="flex items-center">
-                {rating.map((itm, i: number) => (
-                  <div key={i} className="text-[#E59819]">
-                    <IoIosStar />
-                  </div>
-                ))}
-              </div>
+            <div className="flex justify-start gap-[1px]">
+              <ViewRating value={academy.rating || 0} />
             </div>
           </div>
 
+<<<<<<< HEAD
           <Link className="linkCustom" href={`/academy/${academy.name}`}>
+=======
+          <Link className="linkCustom" href={`/academy/${academy.slug}`}>
+>>>>>>> 1a92bc3baae2064580427604a0bed0fee7f7b8c2
             <div className="md:text-sm font-medium text-[#321463] mt-2 line-clamp-2">
               {academy.name}
             </div>

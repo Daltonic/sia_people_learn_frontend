@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import EmptyComponent from "../reusableComponents/EmptyComponent";
+import Button from "../reusableComponents/Button";
 
 interface Product {
   imageUrl: string | null;
@@ -129,7 +130,7 @@ const ShopCartMobile: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className="">
       <div className="px-5 mt-10">
         {cartItems.length === 0 && (
           <div className="w-5/6 mt-10 mx-auto">
@@ -140,12 +141,12 @@ const ShopCartMobile: React.FC = () => {
           </div>
         )}
         {cartItems.length > 0 && (
-          <div className="flex flex-col gap-4 items-center justify-center">
+          <div className="">
             {cartItems.map((item, index) => (
-              <>
-                <div className="flex items-center w-full gap-5">
+              <div className="" key={index}>
+                <div className="flex justify-start items-center gap-5">
                   <Image
-                    className="w-20 rounded-md"
+                    className="w-20 h-12 rounded-md"
                     alt=""
                     width={100}
                     height={100}
@@ -154,9 +155,9 @@ const ShopCartMobile: React.FC = () => {
                   <span className="text-[#321463] font-medium">
                     {item.name}
                   </span>
-                  <span className="text-[#321463] font-medium">
+                  {/* <span className="text-[#321463] font-medium">
                     {item.type}
-                  </span>
+                  </span> */}
                 </div>
                 <div className="flex items-center justify-end gap-5">
                   <h1 className="text-start text-[#4F547B] line-through">
@@ -166,28 +167,25 @@ const ShopCartMobile: React.FC = () => {
                     ${item.price}
                   </p>
                 </div>
-              </>
+              </div>
             ))}
           </div>
         )}
       </div>
       <div className="flex flex-col items-center md:items-end w-full md:w-5/6 mt-16 px-5 md:px-0">
-        <div className="borderborder-[#EDEDED] bg-slate-50 p-5 rounded-lg w-full md:w-1/3">
-          <div className="flex justify-between border-b border-[#EDEDED] py-2">
-            <h1 className="text-[#321463] font-medium">Subtotal</h1>
-            <p className="text-[#4F547B]">${cartAmount}</p>
-          </div>
-          <div className=" flex justify-between  py-2">
+        < div className="border border-[#EDEDED] bg-slate-50 p-5 rounded-lg w-full md:w-1/3">
+          <div className=" flex justify-between  border-b border-[#EDEDED] py-2">
             <h1 className="text-[#321463] font-medium">Total </h1>
             <p className="text-[#4F547B]"> ${cartAmount}</p>
           </div>
 
-          <button
-            className="text-white text-center font-medium whitespace-nowrap bg-pink-700 justify-center items-center px-16 py-4 rounded-lg max-md:px-5 mt-6"
+
+          <Button variant="pink"
+            className="w-full my-4"
             onClick={handleCheckout}
           >
             Proceed to checkout
-          </button>
+          </Button>
         </div>
       </div>
     </div>

@@ -55,7 +55,11 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog, i, option }) => {
           <div className="absolute top-1 right-2">
             <Dropdown>
               <Link
+<<<<<<< HEAD
                 href={`/blogs/edit/${String(blog.title)}`}
+=======
+                href={`/blogs/edit/${String(blog.slug)}`}
+>>>>>>> 1a92bc3baae2064580427604a0bed0fee7f7b8c2
                 className="p-1 hover:bg-gray-100 w-full text-left"
               >
                 Edit
@@ -78,7 +82,11 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog, i, option }) => {
           </div>
         )}
 
+<<<<<<< HEAD
         <Link className="linkCustom" href={`/blogs/${blog.title}`}>
+=======
+        <Link className="linkCustom" href={`/blogs/${blog.slug}`}>
+>>>>>>> 1a92bc3baae2064580427604a0bed0fee7f7b8c2
           <div className="h-48">
             <Image
               width={100}
@@ -94,8 +102,13 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog, i, option }) => {
         <h1 className="text-[#C5165D] text-sm uppercase font-medium">
           {blog.category}
         </h1>
+<<<<<<< HEAD
         <Link className="linkCustom" href={`/blogs/${blog.title}`}>
           <h4 className="text-[#321463] font-medium md:text-sm">
+=======
+        <Link className="linkCustom" href={`/blogs/${blog.slug}`}>
+          <h4 className="text-[#321463] font-medium md:text-sm line-clamp-2">
+>>>>>>> 1a92bc3baae2064580427604a0bed0fee7f7b8c2
             {blog.title}
           </h4>
         </Link>

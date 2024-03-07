@@ -2,13 +2,25 @@ import Layout from "@/components/layout/Layout";
 import { GetServerSidePropsContext, NextPage } from "next";
 import { ICourse, ILesson } from "@/utils/type.dt";
 import { fetchCourse, fetchLesson } from "@/services/backend.services";
-import LearnLesson from "@/components/coursedetail/lesson/LearnLesson";
+// import LearnLesson from "@/components/coursedetail/lesson/LearnLesson";
+import { useRouter } from "next/navigation";
+import dynamic from "next/dynamic";
+
+const LearnLesson = dynamic(
+  () => import("@/components/coursedetail/lesson/LearnLesson"),
+  { ssr: false }
+);
 
 const Page: NextPage<{ lessonData: ILesson; courseData: ICourse }> = ({
   lessonData,
   courseData,
 }) => {
-  if (!lessonData) return;
+  const router = useRouter();
+
+  if (!lessonData) {
+    router.push("/(dashboard)/dashboard");
+  }
+
   return (
     <Layout>
       <div className="md:px-14 md:py-10 p-5 sm:p-10 overflow-x-hidden">
@@ -23,18 +35,22 @@ export default Page;
 export const getServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
-  const { id, courseId } = context.query;
+  const { id, course, sub } = context.query;
   const token = context.req.cookies.accessToken;
 
   try {
-    const lesson = await fetchLesson(id as string, token as string);
+    const lesson = await fetchLesson(
+      id as string,
+      token as string,
+      sub as string
+    );
 
-    const course = await fetchCourse(courseId as string, token);
+    const courseData = await fetchCourse(course as string, token);
 
     return {
       props: {
         lessonData: JSON.parse(JSON.stringify(lesson)) as ILesson,
-        courseData: JSON.parse(JSON.stringify(course)) as ICourse,
+        courseData: JSON.parse(JSON.stringify(courseData)) as ICourse,
       },
     };
   } catch (e: any) {

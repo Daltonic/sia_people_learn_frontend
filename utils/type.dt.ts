@@ -1,6 +1,7 @@
 export interface IAcademy {
   _id: string;
   name: string;
+  slug: string;
   description: string;
   overview: string;
   imageUrl: string | null;
@@ -43,6 +44,7 @@ export interface IAcademies {
 export interface ICourse {
   _id: string;
   name: string;
+  slug: string;
   price: number;
   description: string;
   overview: string;
@@ -108,6 +110,7 @@ export interface IPost {
     imgUrl?: string;
   };
   title: string;
+  slug: string;
   overview: string;
   description: string;
   imageUrl?: string;
@@ -155,6 +158,8 @@ export interface IUser {
   subscriptions: string[];
   subscribedCourses: string[];
   subscribedAcademies: string[];
+  reviewedAcademies: string[];
+  reviewedCourses: string[];
   requests: {
     _id: string;
     requestType: "UserUpgradeRequent" | "UserDowngradeRequest";
@@ -193,6 +198,7 @@ export interface IUserSubscription {
   productId: {
     _id: string;
     name: string;
+    slug: string;
     difficulty: "Beginner" | "Intermediate" | "Advanced";
     overview: string;
     description: string;
@@ -281,7 +287,11 @@ export interface FetchPostsParams {
 }
 
 export interface FetchReviewsParams {
+<<<<<<< HEAD
   name?: string;
+=======
+  productSlug: string;
+>>>>>>> 1a92bc3baae2064580427604a0bed0fee7f7b8c2
   productType?: "Academy" | "Course";
   approved?: "true" | "false";
   page?: number;
@@ -335,6 +345,7 @@ export interface IWishlist {
   productType: "Course" | "Academy";
   productId: {
     _id: string;
+    slug: string;
     difficulty: "Beginner" | "Intermediate" | "Advanced";
     description: string;
     name: string;
@@ -344,6 +355,7 @@ export interface IWishlist {
     imageUrl?: string;
     rating?: number;
     reviews?: any[];
+    reviewsCount?: number;
     userId: {
       firstName: string;
       lastName: string;
@@ -360,4 +372,10 @@ export interface CreateReviewBody {
   productType: "Academy" | "Course";
   comment: string;
   starRating: number;
+}
+
+export interface ISiteSettings {
+  bannerUrl: string | null;
+  bannerText: string;
+  bannerCaption: string;
 }

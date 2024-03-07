@@ -108,7 +108,11 @@ const AcademyCard: React.FC<Props> = ({ academy }) => {
         <div className="flex md:flex-row flex-col items-start">
           <Link
             key={academy._id}
+<<<<<<< HEAD
             href={`/academies/${academy.name}`}
+=======
+            href={`/academies/${academy.slug}`}
+>>>>>>> 1a92bc3baae2064580427604a0bed0fee7f7b8c2
             className="w-full  h-36 md:w-[28%]"
           >
             <Image
@@ -130,7 +134,11 @@ const AcademyCard: React.FC<Props> = ({ academy }) => {
               </div>
               <Link
                 key={academy._id}
+<<<<<<< HEAD
                 href={`/academies/${academy.name}`}
+=======
+                href={`/academies/${academy.slug}`}
+>>>>>>> 1a92bc3baae2064580427604a0bed0fee7f7b8c2
                 className="text-violet-950 text-lg font-medium capitalize self-stretch"
               >
                 {academy.name}
