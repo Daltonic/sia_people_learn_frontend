@@ -37,7 +37,7 @@ const Page: React.FC<{ usersData: IUsers }> = ({ usersData }) => {
           <div className="flex flex-col md:flex-row gap-5 md:gap-0 justify-between md:w-4/5 md:items-center">
             <div className="font-medium">
               <h4 className="text-white text-2xl">Become an Instructor at</h4>
-              <p className="text-[#C5165D] text-xl">Dapp Mentors</p>
+              <p className="text-[#C5165D] text-xl">PeopleLearn</p>
             </div>
             <Link href="/signup">
               <Button variant="pink">Create Account</Button>

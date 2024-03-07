@@ -17,7 +17,7 @@ const Page: NextPage = () => {
           Order Status
         </h1>
         <p className="text-slate-600 text-center text-md mt-3 capitalize w-full">
-        Stay updated with your order progress at Dapp Mentors, your journey is transparent and hassle-free.
+        Stay updated with your order progress at PeopleLearn, your journey is transparent and hassle-free.
         </p>
       </div>
 
