@@ -15,7 +15,7 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({ children }) => {
           <Link href="/">
             <div className="hidden md:flex items-center gap-2 cursor-pointer">
               <Image width={35} height={35} src="/images/general/logoImg.svg" alt="logo" />
-              <p className="text-white text-md">PeopleLearn</p>
+              <p className="text-white text-md">People Learn</p>
             </div>
           </Link>
           <div className="flex justify-center items-center flex-1">

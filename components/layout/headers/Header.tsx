@@ -106,7 +106,7 @@ const Header: React.FC = () => {
                 className="object-cover w-8 h-8 rounded-full"
               />
               <p className="text-[#321463] text-lg md:text-sm font-medium">
-                PeopleLearn
+                People Learn
               </p>
             </div>
           </Link>

@@ -1,12 +1,12 @@
-# PeopleLearn Frontend Documentation
-![PeopleLearn Platform](./screenshots/0.png)
+# People Learn Frontend Documentation
+![People Learn Platform](./screenshots/0.png)
 ## Overview
 
-PeopleLearn is an online learning platform that provides users with access to a variety of courses, lessons, and other educational resources. This document outlines the frontend architecture and environment setup for the PeopleLearn project. The frontend is built using React and Next.js, with Redux for state management, and it interacts with the backend services to provide a seamless user experience.
+People Learn is an online learning platform that provides users with access to a variety of courses, lessons, and other educational resources. This document outlines the frontend architecture and environment setup for the People Learn project. The frontend is built using React and Next.js, with Redux for state management, and it interacts with the backend services to provide a seamless user experience.
 
 ## Environment Variables
 
-The frontend of PeopleLearn relies on several environment variables for configuration. These variables are defined in the `.env` file and are crucial for the application's operation. Below is a list of the required environment variables with null values for the viewer to replace with their corresponding values:
+The frontend of People Learn relies on several environment variables for configuration. These variables are defined in the `.env` file and are crucial for the application's operation. Below is a list of the required environment variables with null values for the viewer to replace with their corresponding values:
 
 ### General Configuration
 
@@ -14,7 +14,7 @@ The frontend of PeopleLearn relies on several environment variables for configur
 
 ## Services
 
-The frontend of PeopleLearn consumes various backend services to provide a comprehensive learning experience. These services include:
+The frontend of People Learn consumes various backend services to provide a comprehensive learning experience. These services include:
 
 - `createPost`: Creates a new post.
 - `updatePost`: Updates an existing post.
@@ -63,12 +63,12 @@ The frontend of PeopleLearn consumes various backend services to provide a compr
 
 ## Getting Started
 
-To get started with the PeopleLearn frontend, clone the repository and install the dependencies. Then, create a `.env` file in the root directory of the project and populate it with the required environment variables as outlined above. Finally, run the application using the command `npm run dev` or `yarn dev`.
+To get started with the People Learn frontend, clone the repository and install the dependencies. Then, create a `.env` file in the root directory of the project and populate it with the required environment variables as outlined above. Finally, run the application using the command `npm run dev` or `yarn dev`.
 
 ## Contributing
 
-PeopleLearn is an open-source project. Contributions are welcome! Please read the contributing guidelines before submitting pull requests.
+People Learn is an open-source project. Contributions are welcome! Please read the contributing guidelines before submitting pull requests.
 
 ## License
 
-PeopleLearn is licensed under the MIT License. See the LICENSE file for more details.
+People Learn is licensed under the MIT License. See the LICENSE file for more details.

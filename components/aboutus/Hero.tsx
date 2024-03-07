@@ -48,7 +48,7 @@ const Hero: React.FC = () => {
             </h1>
             <p className="text-violet-950 text-base mt-3">
               Unleash your potential in blockchain and Web3 development with
-              PeopleLearn! Embark on your learning journey today and immerse
+              People Learn! Embark on your learning journey today and immerse
               yourself in our comprehensive Blockchain and Web3 Development
               Courses and Materials.
             </p>
@@ -56,7 +56,7 @@ const Hero: React.FC = () => {
               Join our vibrant community of learners and let us guide you
               through the complex landscape of Blockchain and Web3 technology.
               Take the leap towards a brighter future with us today. Don&apos;t wait,
-              start your journey with PeopleLearn now!
+              start your journey with People Learn now!
             </p>
             <Link href="/courses">
               <Button

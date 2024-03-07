@@ -20,7 +20,7 @@ import { IAcademies, ICourses, IPosts, ISiteSettings } from "@/utils/type.dt";
 import { NextPage } from "next";
 
 export const metadata = {
-  title: "Home | PeopleLearn",
+  title: "Home | People Learn",
 };
 
 const Page: NextPage<{
