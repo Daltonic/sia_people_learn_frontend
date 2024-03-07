@@ -47,7 +47,7 @@ const Tabs: React.FC = () => {
                   showMore ? "text-[#4F547B]" : "line-clamp-3 text-[#4F547B] "
                 }
               >
-                As an instructor for Dapp Mentors Academy, I bring a wealth of
+                As an instructor for PeopleLearn Academy, I bring a wealth of
                 experience and knowledge in the realm of Web3 and Blockchain
                 technologies. My background includes extensive research and
                 hands-on experience in developing decentralized applications

@@ -42,7 +42,7 @@ const Testimonials: React.FC<{ backgroundComponent?: boolean }> = ({
       <div className="w-[99%] md:w-1/2 ">
         <div className="text-center ">
           <h2 className="text-[#321463] font-bold text-2xl">Testimonials</h2>
-          <p className="text-[#4F547B] text-sm">See what people are saying about Dapp Mentors.</p>
+          <p className="text-[#4F547B] text-sm">See what people are saying about PeopleLearn.</p>
         </div>
 
         <div className="mt-5 ">

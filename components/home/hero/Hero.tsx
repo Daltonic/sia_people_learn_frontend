@@ -28,7 +28,7 @@ const Hero: React.FC<Props> = ({ settingsData }) => {
           </p>
           <h1 className="font-medium text-2xl sm:text-4xl md:text-5xl text-white mt-2 sm:mt-6 md:mt-8 sm:leading-[50px]">
             {settingsData?.bannerText ||
-              "Embark on Your Blockchain Education Journey with Dapp Mentors"}
+              "Embark on Your Blockchain Education Journey with PeopleLearn"}
           </h1>
           <div className="flex justify-between sm:justify-start gap-4 mt-2 sm:mt-6 md:mt-8">
             <div className="">

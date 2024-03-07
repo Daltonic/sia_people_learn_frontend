@@ -18,11 +18,11 @@ const LearnNewSkill: React.FC = ({}) => {
           <h1 className="text-violet-950 text-5xl font-bold md:text-4xl">
             <span className="text-pink-700">  Master New</span>
             <span className="text-violet-950 ml-2">
-             Skills on Your Own Terms with Dapp Mentors
+             Skills on Your Own Terms with PeopleLearn
             </span>
           </h1>
           <p className="text-violet-950 text-base leading-7 self-stretch my-3 max-md:max-w-full">
-          Empower your learning journey with Dapp Mentors, master new skills at your own pace, and unlock your full potential.
+          Empower your learning journey with PeopleLearn, master new skills at your own pace, and unlock your full potential.
           </p>
           <Link href="/courses">
             <Button variant="pink">Join Free</Button>
@@ -90,7 +90,7 @@ const LearnNewSkill: React.FC = ({}) => {
             Become a Student
           </h1>
           <p className="text-violet-950 text-base my-4">
-          Join Dapp Mentors Today! Start Your Journey Towards Mastering Blockchain and Web3 Development.
+          Join PeopleLearn Today! Start Your Journey Towards Mastering Blockchain and Web3 Development.
           </p>
           <Link href="/signup">
             <Button variant="pinkoutline">Apply Now</Button>
