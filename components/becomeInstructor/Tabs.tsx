@@ -54,7 +54,7 @@ const Tabs: React.FC = () => {
           )}
           {activeTab === 2 && (
             <p>
-              At PeopleLearn Academy, we believe in the power of collaboration and open communication. As an instructor, you will adhere to our strict rules designed to ensure a positive learning environment. These rules include maintaining professionalism, providing clear and accurate information, and promoting respectful interactions among students.
+              At People Learn Academy, we believe in the power of collaboration and open communication. As an instructor, you will adhere to our strict rules designed to ensure a positive learning environment. These rules include maintaining professionalism, providing clear and accurate information, and promoting respectful interactions among students.
             </p>
           )}
           {activeTab === 3 && (

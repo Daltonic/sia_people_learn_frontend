@@ -107,7 +107,7 @@ const DashBoardHeader: React.FC<SidebarProps> = () => {
                 alt="logo"
               />
               <p className="text-[#321463] text-lg md:text-md font-medium">
-                PeopleLearn
+                People Learn
               </p>
             </div>
           </Link>

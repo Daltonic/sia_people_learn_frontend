@@ -22,7 +22,7 @@ const Footer: React.FC = () => {
                 />
               </Link>
               <p className="text-[#321463] font-semibold text-lg md:text-md md:font-medium">
-                PeopleLearn
+                People Learn
               </p>
             </div>
             <p className="text-[#4F547B] md:text-sm mt-2">
@@ -110,7 +110,7 @@ const Footer: React.FC = () => {
         </section>
       </div>
       <div className="md:pl-28 md:flex justify-between text-sm text-[#4F547B] md:px-10 mt-8">
-        <p>© 2023 PeopleLearn. All Right Reserved.</p>
+        <p>© 2023 People Learn. All Right Reserved.</p>
         <p className="mt-2 md:mt-0">Supported by a Sia Foundation grant.</p>
       </div>
     </div>

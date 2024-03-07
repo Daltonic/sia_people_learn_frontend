@@ -35,7 +35,7 @@ const Page: NextPage = () => {
                     alt="logo"
                   />
                   <p className="text-[#321463] text-md font-medium">
-                    PeopleLearn
+                    People Learn
                   </p>
                 </div>
               </Link>
