@@ -45,9 +45,8 @@ const Academy: React.FC<ComponentProps> = ({ data, index }) => {
   };
 
   return (
-    <div className="w-full sm:w-[47%] md:w-[48%] h-44 bg-white rounded-lg border-[#EDEDED] border p-2 shadow-[#EDEDED] shadow-md">
-      <div className="md:flex items-center gap-4 w-full h-full">
-        <div className="md:w-28 h-full">
+    <div className="w-full sm:w-[47%] h-fit sm:h-[21rem] md:h-44 bg-white rounded-lg border-[#EDEDED] border p-2 shadow-[#EDEDED] shadow-md md:flex items-center gap-4">
+        <div className="md:w-28 h-40 md:h-full">
           <Link className="linkCustom" href={`/academies/${data.slug}`}>
             <Image
               width={100}
@@ -143,7 +142,6 @@ const Academy: React.FC<ComponentProps> = ({ data, index }) => {
             )}
           </div>
         </div>
-      </div>
     </div>
   );
 };
