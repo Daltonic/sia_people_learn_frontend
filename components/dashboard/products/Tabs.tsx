@@ -174,7 +174,7 @@ const Tabs: React.FC<Props> = ({ academiesData, coursesData, booksData }) => {
   }, [search, currentPage, sort, difficulty, deleted, approved]);
 
   return (
-    <div className="bg-white p-5 rounded-xl">
+    <div className="bg-white p-5 rounded-xl h-full">
       <div className="mb-4">
         <div className="flex gap-5 items-center border border-[#E1DDDD] text-[#4F547B] rounded-md p-3 md:p-2 w-full md:w-80">
           <CiSearch className="text-[#4F547B] text-xl" />
@@ -186,8 +186,7 @@ const Tabs: React.FC<Props> = ({ academiesData, coursesData, booksData }) => {
             onChange={(e) => setSearch(e.target.value)}
           />
         </div>
-        <div className="flex border items-center justify-end gap-5">
-
+        <div className="flex items-center justify-between gap-5 mt-2 overflow-x-auto">
           <LocalFilters
             label="Filter"
             options={filterOptions}
@@ -200,8 +199,6 @@ const Tabs: React.FC<Props> = ({ academiesData, coursesData, booksData }) => {
             currFilter={deleted}
             setCurrFilter={setDeleted}
           />
-        </div>
-        <div className="flex gap-5 ">
           <LocalFilters
             label="Filter"
             options={booleanOptions}
@@ -214,10 +211,10 @@ const Tabs: React.FC<Props> = ({ academiesData, coursesData, booksData }) => {
             currFilter={sort}
             setCurrFilter={setSort}
           />
-
         </div>
       </div>
-      <div className="flex space-x-5 border-b mt-5">
+
+      <div className="flex space-x-5 border-b">
         <button
           onClick={() => handleTabClick(1)}
           className={`py-2 border-b-4 transition-colors duration-300 text-[#4F547B] font-medium ${activeTab === 1
@@ -250,25 +247,26 @@ const Tabs: React.FC<Props> = ({ academiesData, coursesData, booksData }) => {
         </button>
       </div>
 
-      <div className="py-4 text-[#4F547B]">
+      <div className="py-4 text-[#4F547B] w-1/2 sm:w-full">
         {activeTab === 1 && (
-          <div className="flex p-5 gap-8 w-full flex-wrap">
-            {coursesObj.courses.length > 0 ? (
+          <div className="flex-col sm:flex-row flex justify-between gap-5 w-full flex-wrap">
+            {coursesObj &&
+              coursesObj.courses &&
+              coursesObj.courses.length > 0 ? (
               coursesObj.courses.map((elm, i: number) => (
                 <Courses data={elm} index={i} key={i} />
               ))
             ) : (
-              <>
-                <EmptyComponent
-                  title="No Courses Available"
-                  buttonText="Create One Now"
-                />
-              </>
-            )}
+              <EmptyComponent
+                title="No Courses Available"
+                buttonText="Create One Now"
+              />
+            )
+            }
           </div>
         )}
         {activeTab === 2 && (
-          <div className="flex p-5 gap-5 w-full flex-wrap">
+          <div className="flex gap-5 w-full flex-wrap">
             {booksObj.courses.length > 0 ? (
               booksObj.courses.map((elm, i: number) => (
                 <Books data={elm} index={i} key={i} />
@@ -284,7 +282,7 @@ const Tabs: React.FC<Props> = ({ academiesData, coursesData, booksData }) => {
           </div>
         )}
         {activeTab === 3 && (
-          <div className="flex p-5 gap-8 w-full flex-wrap">
+          <div className="flex gap-8 w-full flex-wrap">
             {academiesObj.academies.length > 0 ? (
               academiesObj.academies.map((elm, i: number) => (
                 <Academy data={elm} index={i} key={i} />

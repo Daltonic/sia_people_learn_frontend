@@ -69,10 +69,10 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
   }, [cartAcademyItems.length, dispatch, setCartAcademyItems]);
 
   return (
-    <div className="bg-white overflow-hidden">
+    <div className="flex flex-col min-h-screen bg-white overflow-hidden">
       <DashBoardHeader />
-      <div className="flex justify-between md:pr-5">
-        <div className=" md:sticky md:top-6 md:h-full">
+      <div className="flex justify-between md:pr-5 flex-grow">
+        <div className="md:sticky md:top-6 md:h-full">
           <DashBoardSidebar isOpen={sidebarOpen} />
         </div>
         <main className="flex-1 bg-[#F7F8FB] px-0 py-5 sm:px-10 md:py-12 md:rounded-xl">
@@ -81,6 +81,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
       </div>
       <DashBoardFooter />
     </div>
+
   );
 };
 
