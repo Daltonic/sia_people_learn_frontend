@@ -12,7 +12,7 @@ const Modal: FC<ModalProps> = ({ isOpen, onClose, children }) => {
   }
  
   return (
-    <div className="right-4 top-16 absolute shadow shadow-gray-300 p-6 w-56 h-40 rounded  bg-white ">
+    <div className="right-0 top-14 absolute shadow shadow-gray-300 p-6 w-56 h-44 rounded  bg-white ">
     <div 
       className=" cursor-pointer" 
       onClick={onClose}

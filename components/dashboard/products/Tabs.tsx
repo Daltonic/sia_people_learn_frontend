@@ -174,7 +174,7 @@ const Tabs: React.FC<Props> = ({ academiesData, coursesData, booksData }) => {
   }, [search, currentPage, sort, difficulty, deleted, approved]);
 
   return (
-    <div className="bg-white p-5 rounded-xl h-full">
+    <div className="bg-white p-5 rounded-xl h-full w-full">
       <div className="mb-4">
         <div className="flex gap-5 items-center border border-[#E1DDDD] text-[#4F547B] rounded-md p-3 md:p-2 w-full md:w-80">
           <CiSearch className="text-[#4F547B] text-xl" />
@@ -186,7 +186,7 @@ const Tabs: React.FC<Props> = ({ academiesData, coursesData, booksData }) => {
             onChange={(e) => setSearch(e.target.value)}
           />
         </div>
-        <div className="flex items-center justify-between gap-5 mt-2 overflow-x-auto">
+        <div className="flex items-center justify-between gap-5 mt-2 overflow-x-scroll">
           <LocalFilters
             label="Filter"
             options={filterOptions}
@@ -247,7 +247,7 @@ const Tabs: React.FC<Props> = ({ academiesData, coursesData, booksData }) => {
         </button>
       </div>
 
-      <div className="py-4 text-[#4F547B] w-1/2 sm:w-full">
+      <div className="py-4 text-[#4F547B] w-full">
         {activeTab === 1 && (
           <div className="flex-col sm:flex-row flex justify-between gap-5 w-full flex-wrap">
             {coursesObj &&
