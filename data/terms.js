@@ -2,17 +2,17 @@ export const terms  = [
     {
       id: 1,
       title: "Services",
-      content: " Dapp Mentors provides a platform for blockchain and web3 development services, offering a wide range of educational resources, consultancy services, and products, including but not limited to courses, books, and bundled courses (Academy) that are sold on a one-time or subscription basis. By engaging with our services, you agree to abide by and comply with the terms and conditions outlined in this Agreement.",
+      content: " People Learn provides a platform for blockchain and web3 development services, offering a wide range of educational resources, consultancy services, and products, including but not limited to courses, books, and bundled courses (Academy) that are sold on a one-time or subscription basis. By engaging with our services, you agree to abide by and comply with the terms and conditions outlined in this Agreement.",
     },
     {
       id: 2,
       title: "Payments",
-      content: " You acknowledge and agree to pay the fees associated with the selected service or product. The applicable fee is clearly stated on the Dapp Mentors website, pricing page, or communicated directly to you. Payment must be made in advance of receiving the service or product.",
+      content: " You acknowledge and agree to pay the fees associated with the selected service or product. The applicable fee is clearly stated on the People Learn website, pricing page, or communicated directly to you. Payment must be made in advance of receiving the service or product.",
     },
     {
       id: 3,
       title: "No Refund Policy",
-      content: "Dapp Mentors operates on a strict no refund policy. Once you have paid the fee, it is considered non-refundable. This policy applies regardless of any circumstances, including but not limited to dissatisfaction with the services, changes in personal circumstances, or technical issues.",
+      content: "People Learn operates on a strict no refund policy. Once you have paid the fee, it is considered non-refundable. This policy applies regardless of any circumstances, including but not limited to dissatisfaction with the services, changes in personal circumstances, or technical issues.",
     },
     {
       id: 4,
@@ -27,12 +27,12 @@ export const terms  = [
     {
       id: 6,
       title: "Termination of Services",
-      content: "Dapp Mentors reserves the right to terminate or suspend services to any customer found to be in violation of the terms of this Agreement. Conduct deemed unacceptable by the Company, including but not limited to the violation of intellectual property rights, harassment, or any form of abusive behavior, may result in immediate termination of services.",
+      content: "People Learn reserves the right to terminate or suspend services to any customer found to be in violation of the terms of this Agreement. Conduct deemed unacceptable by the Company, including but not limited to the violation of intellectual property rights, harassment, or any form of abusive behavior, may result in immediate termination of services.",
     },
     {
       id: 7,
       title: "Changes to Terms and Conditions",
-      content: "Dapp Mentors may, at its sole discretion, modify these Terms and Conditions. You will be notified of any changes, and continued use of our services after the modification constitutes acceptance of the updated terms. It is advisable to periodically review the Terms and Conditions for any changes.",
+      content: "People Learn may, at its sole discretion, modify these Terms and Conditions. You will be notified of any changes, and continued use of our services after the modification constitutes acceptance of the updated terms. It is advisable to periodically review the Terms and Conditions for any changes.",
     },
   ];
   

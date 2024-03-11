@@ -10,7 +10,7 @@ const CTA: React.FC = () => {
           <h4 className="text-white text-2xl">
             Become a part of the global learning community at
           </h4>
-          <p className="text-[#C5165D] text-xl">Dapp Mentors Academy</p>
+          <p className="text-[#C5165D] text-xl">People Learn Academy</p>
         </div>
         <Link href="/courses">
         <Button variant='pink'>  Subscribe & Learn</Button></Link>

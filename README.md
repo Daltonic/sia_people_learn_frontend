@@ -1,45 +1,74 @@
-# Monthly Project Report (January 2024)
+# People Learn Frontend Documentation
+![People Learn Platform](./screenshots/0.png)
+## Overview
 
-## Summary
+People Learn is an online learning platform that provides users with access to a variety of courses, lessons, and other educational resources. This document outlines the frontend architecture and environment setup for the People Learn project. The frontend is built using React and Next.js, with Redux for state management, and it interacts with the backend services to provide a seamless user experience.
 
-This report outlines the progress of the project in January 2024, highlighting key accomplishments, challenges faced, and planned actions for the upcoming month.
+## Environment Variables
 
-## Highlights
+The frontend of People Learn relies on several environment variables for configuration. These variables are defined in the `.env` file and are crucial for the application's operation. Below is a list of the required environment variables with null values for the viewer to replace with their corresponding values:
 
-In January, we achieved significant milestones:
+### General Configuration
 
-* Successfully integrated API endpoints with the frontend.
-* Implemented critical services:
-  - Stripe payment service
-  - Email service
-  - Sia Renterd service (currently on Zen Testnet, pending mainnet release).
+- `NEXT_PUBLIC_BACKEND_URI`: The base URL of the backend API.
 
-![Renterd Zen Testnet File Uploads](https://i.ibb.co/NCjP4WV/Screenshot-2024-02-02-at-1-38-35-PM.png)
+## Services
 
-These advancements marked the transition from backend integration to refinement, testing, and deployment stages.
+The frontend of People Learn consumes various backend services to provide a comprehensive learning experience. These services include:
 
-## Ongoing Work
+- `createPost`: Creates a new post.
+- `updatePost`: Updates an existing post.
+- `deletePost`: Deletes a post.
+- `publishPost`: Publishes a post.
+- `updateAcademy`: Updates an academy.
+- `login`: Authenticates a user.
+- `logout`: Logs out a user.
+- `createAccount`: Registers a new user.
+- `createAcademy`: Creates a new academy.
+- `createCourse`: Creates a new course.
+- `updateCourse`: Updates an existing course.
+- `createLesson`: Creates a new lesson.
+- `updateLesson`: Updates an existing lesson.
+- `submitCourse`: Submits a course for approval.
+- `deleteCourse`: Deletes a course.
+- `addCourseToAcademy`: Adds a course to an academy.
+- `removeCourseFromAcademy`: Removes a course from an academy.
+- `fetchAcademy`: Fetches details of an academy.
+- `fetchCourses`: Fetches a list of courses.
+- `deleteAcademy`: Deletes an academy.
+- `submitAcademy`: Submits an academy for approval.
+- `approveAcademy`: Approves an academy.
+- `approveCourse`: Approves a course.
+- `fetchAcademies`: Fetches a list of academies.
+- `fetchBooks`: Fetches a list of books.
+- `fetchPosts`: Fetches a list of posts.
+- `fetchPost`: Fetches details of a post.
+- `fetchCourse`: Fetches details of a course.
+- `fetchReviews`: Fetches a list of reviews.
+- `fetchLesson`: Fetches details of a lesson.
+- `deleteLesson`: Deletes a lesson.
+- `fetchUsers`: Fetches a list of users.
+- `upgradeUser`: Upgrades a user's account.
+- `fetchUserSubscriptions`: Fetches a user's subscriptions.
+- `fetchUserPosts`: Fetches a user's posts.
+- `upgradeUserRequest`: Requests an account upgrade.
+- `stripeSubscription`: Subscribes a user to a Stripe plan.
+- `uploadFile`: Uploads a file to the Sia storage service.
+- `createWishlist`: Creates a new wishlist.
+- `deleteWishlist`: Deletes a wishlist.
+- `fetchWishlists`: Fetches a user's wishlists.
+- `stripeCheckout`: Initiates a Stripe checkout session.
+- `publishPost`: Publishes a post.
+- `createReview`: Creates a new review.
 
-The team is currently focusing on refining, testing, and deploying the services to ensure optimal functionality.
+## Getting Started
 
-## Achievements
+To get started with the People Learn frontend, clone the repository and install the dependencies. Then, create a `.env` file in the root directory of the project and populate it with the required environment variables as outlined above. Finally, run the application using the command `npm run dev` or `yarn dev`.
 
-* [Seamless integration of API endpoints with the frontend](https://shorturl.at/kuO48).
-* [Implementation of critical services](https://shorturl.at/isX48): 
-   - [Stripe payment service](https://github.com/Daltonic/sia_people_learn_backend/tree/main/src/resources/processors)
-   - Email service
-   - Sia Renterd service
+## Contributing
 
+People Learn is an open-source project. Contributions are welcome! Please read the contributing guidelines before submitting pull requests.
 
-## Challenges
-* Challenges arose while testing the Sia Renterd API on Zen Testnet due to limitations of the API documentation.
-* Initial difficulties integrating Stripe as the payment processor.
+## License
 
-## Next Steps
-
-In February, we aim to:
-
-* Finalize the project.
-* Host the Project online.
-* Launch the Renterd Service on the Mainnet.
-* Replace the old system with the new one.
+People Learn is licensed under the MIT License. See the LICENSE file for more details.
