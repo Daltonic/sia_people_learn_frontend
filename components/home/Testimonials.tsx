@@ -39,7 +39,7 @@ const Testimonials: React.FC<{ backgroundComponent?: boolean }> = ({
   return (
     <section className="flex justify-center relative z-10 mx-10 py-16">
 
-      <div className="w-[99%] md:w-1/2 ">
+      <div className="w-[99%] md:w-1/2">
         <div className="text-center ">
           <h2 className="text-[#321463] font-bold text-2xl">Testimonials</h2>
           <p className="text-[#4F547B] text-sm">See what people are saying about People Learn.</p>
@@ -93,7 +93,7 @@ const Testimonials: React.FC<{ backgroundComponent?: boolean }> = ({
               </Swiper>
             )}
 
-            <div className="flex justify-between flex-wrap gap-5 sm:justify-center mt-5 h-14">
+            <div className="flex justify-between flex-wrap gap-5 sm:justify-center mt-5">
               {paginationImages.map((elm, i: number) => (
                 <div
                   key={i}
