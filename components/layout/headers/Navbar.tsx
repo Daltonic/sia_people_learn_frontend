@@ -28,7 +28,7 @@ const Navbar: React.FC = () => {
             >
               <FaTimes />
             </button>
-            <ul className="fixed top-0 left-0 h-full bg-white text-[#321463] font-medium text-xl w-[85%]">
+            <ul className="fixed top-0 left-0 h-full bg-white text-[#321463] font-medium text-lg w-[85%]">
               <div className="flex justify-between border-b border-[#e7ecfa] p-5 mb-8">
                 <p>
                   <Link href="/login">Log in</Link>
@@ -37,7 +37,7 @@ const Navbar: React.FC = () => {
                   <Link href="/signup">Sign Up</Link>
                 </p>
               </div>
-              <div className="text-2xl font-medium space-y-8 p-5">
+              <div className="text-xl font-medium space-y-8 p-5">
                 <NavItem href="/academies" activeLinkStyle={activeLinkStyle} currentPath={router.pathname}>Academies</NavItem>
                 <NavItem href="/courses" activeLinkStyle={activeLinkStyle} currentPath={router.pathname}>Courses</NavItem>
                 <NavItem href="/blogs" activeLinkStyle={activeLinkStyle} currentPath={router.pathname}>Blogs</NavItem>

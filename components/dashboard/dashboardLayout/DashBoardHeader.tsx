@@ -84,7 +84,7 @@ const DashBoardHeader: React.FC<SidebarProps> = () => {
 
   return (
     <div
-      className="flex justify-between items-center p-5 sm:px-10 sticky h-20 top-0 w-full z-50 bg-white"
+      className="flex justify-between items-center p-5 sm:px-10 sticky sm:h-20 top-0 w-full z-50 bg-white"
       onClick={isOpen ? closeSidebar : undefined}
     >
       <div className="flex gap-4 items-center">
@@ -92,10 +92,10 @@ const DashBoardHeader: React.FC<SidebarProps> = () => {
           className="block md:hidden text-[#321463] text-3xl"
           onClick={toggleSidebar}
         >
-          <FaBarsStaggered />
+          <FaBarsStaggered size={24} />
           <div className="">
-        <DashBoardSidebar isOpen={isOpen} />
-      </div>
+            <DashBoardSidebar isOpen={isOpen} />
+          </div>
         </div>
         <div>
           <Link href="/">
@@ -157,7 +157,7 @@ const DashBoardHeader: React.FC<SidebarProps> = () => {
           </Modal>
         </div>
       </div>
-    
+
     </div>
   );
 };
