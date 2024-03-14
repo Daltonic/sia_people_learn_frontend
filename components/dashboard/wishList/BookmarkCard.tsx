@@ -51,7 +51,7 @@ const BookmarkCard: React.FC<ComponentProps> = ({ data, type }) => {
           <Image
             width={100}
             height={100}
-            className="rounded-lg object-cover h-full w-full"
+            className="rounded-lg object-cover h-32 sm:h-full w-full"
             src={data.productId?.imageUrl || "/images/general/cardimg.svg"}
             alt="image"
           />

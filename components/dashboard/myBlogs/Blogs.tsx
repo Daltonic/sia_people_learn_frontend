@@ -14,7 +14,7 @@ const Blogs: React.FC<Props> = ({
   return (
     <div className="">
       <DashboardHeading
-        title="Blogs"
+        title="My Blogs"
         description="Access your blogs, create new blogs, and view all blogs"
       />
       <Tabs

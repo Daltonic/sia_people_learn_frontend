@@ -55,11 +55,11 @@ const MyCourseCard: React.FC<ComponentProps> = ({ data, type }) => {
 
   return (
     <div
-      className="bg-white rounded-lg w-full sm:w-80 md:w-48 h-54
+      className="bg-white rounded-lg w-full sm:w-80 md:w-52 h-54
     border-[#EDEDED] border-1 p-2 shadow-[#EDEDED] shadow"
     >
       <div className="">
-        <div className="h-28 relative">
+        <div className="h-32 relative">
           <Link href={`/course/${course.slug}`}>
             <Image
               width={100}

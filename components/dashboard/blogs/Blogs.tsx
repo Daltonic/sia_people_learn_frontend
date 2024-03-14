@@ -27,7 +27,7 @@ interface Props {
 }
 
 const Blogs: React.FC<Props> = ({ postsData }) => {
-  
+
   const dispatch = useDispatch();
   const { setUserData } = userActions;
   const { userData } = useSelector((states: RootState) => states.userStates);
@@ -88,45 +88,47 @@ const Blogs: React.FC<Props> = ({ postsData }) => {
       return () => clearTimeout(delaydebounceFn);
     } else {
       updateSearch();
-    }
+    } 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search, currentPage, sort, deleted, published]);
 
   return (
     <>
       <DashboardHeading title="Blogs" description="View and Manage all Blogs" />
-      <div className="bg-white p-5 rounded-xl">
-        <div className="flex flex-wrap items-center gap-5 md:justify-between mb-4">
-          <div className="flex gap-5 items-center border border-[#E1DDDD] text-[#4F547B] rounded-md p-3 md:p-2 w-full md:w-96">
+      <div className="bg-white p-5 sm:rounded-xl w-screen sm:w-full">
+        <div className="mb-8">
+          <div className="flex gap-5 items-center border border-[#E1DDDD] text-[#4F547B] rounded-md p-3 md:p-2 w-full md:w-80">
             <CiSearch className="text-[#4F547B] text-xl" />
             <input
               type="text"
               placeholder="Search Blogs Here..."
-              className="focus:outline-none w-full text-sm"
+              className="focus:outline-none w-full text-sm bg-transparent"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
           </div>
-          <LocalFilters
-            label="Filter"
-            options={booleanOptions}
-            currFilter={published}
-            setCurrFilter={setPublished}
-          />
-          <LocalFilters
-            label="Filter"
-            options={booleanOptions}
-            currFilter={deleted}
-            setCurrFilter={setDeleted}
-          />
-          <LocalFilters
-            label="Order By"
-            options={sortOptions}
-            currFilter={sort}
-            setCurrFilter={setSort}
-          />
+          <div className="flex items-center justify-start gap-5 mt-3 overflow-x-auto w-full">
+            <LocalFilters
+              label="Filter"
+              options={booleanOptions}
+              currFilter={published}
+              setCurrFilter={setPublished}
+            />
+            <LocalFilters
+              label="Filter"
+              options={booleanOptions}
+              currFilter={deleted}
+              setCurrFilter={setDeleted}
+            />
+            <LocalFilters
+              label="Order By"
+              options={sortOptions}
+              currFilter={sort}
+              setCurrFilter={setSort}
+            />
+          </div>
         </div>
-        <div className="flex justify-between gap-5 w-full flex-wrap">
+        <div className="flex gap-5 w-full flex-wrap">
           {postsObj.posts &&
             postsObj.posts.map((post, index) => (
               <BlogCard key={post._id} blog={post} i={index} />

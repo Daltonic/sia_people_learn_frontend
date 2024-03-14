@@ -3,7 +3,7 @@ import { FaRegBookmark, FaRegCompass, FaRegUser } from "react-icons/fa";
 import { LuShoppingBag } from "react-icons/lu";
 import { IoCreateOutline, IoSettingsOutline } from "react-icons/io5";
 import { FiPlayCircle, FiSettings } from "react-icons/fi";
-import { CiViewList } from "react-icons/ci";
+import { BiSolidEdit } from "react-icons/bi";
 import { LiaChalkboardTeacherSolid } from "react-icons/lia";
 import { FaRegMessage } from "react-icons/fa6";
 
@@ -36,7 +36,7 @@ export const sidebarItems = [
   {
     id: 5,
     href: "/(dashboard)/createProduct",
-    iconClass: <CiViewList />,
+    iconClass: <BiSolidEdit size={20} />,
     text: "Create Product",
   },
   {
@@ -141,50 +141,50 @@ export const instructorSidebarItems = [
   {
     id: 1,
     href: "/(dashboard)/myProducts",
-    iconClass: <LuShoppingBag />,
+    iconClass: <LuShoppingBag size={18} />,
     text: "My Products",
   },
   {
     id: 2,
     href: "/(dashboard)/createCourse",
-    iconClass: <CiViewList />,
+    iconClass: <BiSolidEdit size={20} />,
     text: "Create Course",
   },
   {
     id: 3,
     href: "/(dashboard)/createAcademy",
-    iconClass: <CiViewList />,
+    iconClass: <BiSolidEdit size={20} />,
     text: "Create Academy",
   },
   {
     id: 4,
     href: "/(dashboard)/myCourses",
-    iconClass: <FiPlayCircle />,
+    iconClass: <FiPlayCircle size={20} />,
     text: "My Courses",
   },
 
   {
     id: 5,
     href: "/(dashboard)/wishlist",
-    iconClass: <FaRegBookmark />,
+    iconClass: <FaRegBookmark size={18} />,
     text: "WishLists",
   },
   {
     id: 6,
     href: "/(dashboard)/myBlogs",
-    iconClass: <GrNotes />,
+    iconClass: <GrNotes size={18} />,
     text: "My Blogs",
   },
   {
     id: 7,
     href: "/(dashboard)/createBlog",
-    iconClass: <FaRegBookmark />,
+    iconClass:  <BiSolidEdit size={20} />,
     text: "Create Blog",
   },
   {
     id: 8,
     href: "/(dashboard)/settings",
-    iconClass: <FiSettings />,
+    iconClass: <FiSettings size={20} />,
     text: "Settings",
   },
 ];

@@ -14,6 +14,7 @@ import { RootState } from "@/utils/type.dt";
 import Cookies from "universal-cookie";
 import { toast } from "react-toastify";
 import { logout } from "@/services/backend.services";
+import Image from "next/image";
 
 interface DashboardSidebarProps {
   isOpen: boolean;
@@ -73,23 +74,36 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ isOpen }) => {
 
   return (
     <div
-      className={`px-6 pt-14 space-y-3 fixed top-0 left-0 h-full overflow-auto transform ease-in-out transition-all duration-300 bg-white ${
-        isOpen ? "translate-x-0" : "-translate-x-full "
-      } md:translate-x-0 md:static md:block z-10 w-4/5 sm:w-1/2 md:w-fit`}
+      className={`p-6 space-y-5 fixed top-0 left-0 h-full overflow-auto transform ease-in-out transition-all duration-300 bg-white ${isOpen ? "translate-x-0" : "-translate-x-full "
+        } md:translate-x-0 md:static md:block z-10 w-4/5 sm:w-1/2 md:w-fit`}
     >
-      <div className="">
+      <div className="md:hidden">
+        <Link href="/">
+          <div className="flex items-center gap-2 cursor-pointer">
+            <Image
+              width={25}
+              height={25}
+              src="/images/general/logoImg.svg"
+              alt="logo"
+            />
+            <p className="text-[#321463] text-lg md:text-md font-medium">
+              People Learn
+            </p>
+          </div>
+        </Link>
+      </div>
+      <div className="mt-16">
         {sidebarItems &&
           sidebarItems.map((elm, i) => (
             <div
               key={i}
-              className={`py-2 pl-4 w-56 md:w-48 pr-5 font-medium rounded-xl ${
-                router.pathname === elm.href
+              className={`py-2 pl-4 w-56 md:w-48 pr-5 font-medium rounded-xl ${router.pathname === elm.href
                   ? "text-white bg-[#C5165D]"
                   : "text-[#4F547B]"
-              }`}
+                }`}
             >
               <Link href={elm.href}>
-                <div className="flex items-center gap-2 text-xl md:text-base ">
+                <div className="flex items-center gap-2 text-xl md:text-base">
                   <div className="text-md">
                     {elm.iconClass &&
                       React.cloneElement(elm.iconClass, {

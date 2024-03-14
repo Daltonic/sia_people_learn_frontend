@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { FaRegMoon } from "react-icons/fa";
-import { CiMaximize2 } from "react-icons/ci";
-import { HiOutlineBell, HiOutlineShoppingBag } from "react-icons/hi2";
-import { HiOutlineMail } from "react-icons/hi";
 import { FaBarsStaggered } from "react-icons/fa6";
 import DashBoardSidebar from "./DashBoardSidebar";
 import Modal from "@/components/reusableComponents/Modal";
@@ -84,7 +80,7 @@ const DashBoardHeader: React.FC<SidebarProps> = () => {
 
   return (
     <div
-      className="flex justify-between items-center p-5 sm:px-10 sticky sm:h-20 top-0 w-full z-50 bg-white"
+      className="flex justify-between items-center p-5 sm:px-10 sticky h-16 sm:h-20 top-0 w-full z-50 bg-white"
       onClick={isOpen ? closeSidebar : undefined}
     >
       <div className="flex gap-4 items-center">
