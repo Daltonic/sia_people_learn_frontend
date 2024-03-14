@@ -55,7 +55,7 @@ const Tabs: React.FC<Props> = ({ academiesData, coursesData }) => {
 
       <div className="py-4 text-[#4F547B]">
         {activeTab === 1 && (
-          <div className="flex justify-between gap-5 w-full flex-wrap">
+          <div className="flex justify-start gap-5 w-full flex-wrap">
             {subbedCourses && subbedCourses.length > 0 ? (
               subbedCourses.map((elm) => (
                 <BookmarkCard data={elm} key={elm._id} type={"Course"} />

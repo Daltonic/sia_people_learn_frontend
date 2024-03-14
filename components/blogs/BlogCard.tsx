@@ -46,7 +46,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog, i, option }) => {
 
   return (
     <div
-      className="w-full sm:w-[48%] md:w-52 mb-6"
+      className="w-full sm:w-[48%] md:w-48 mb-6"
       data-aos="fade-left"
       data-aos-duration={(i + 1) * 500}
     >
@@ -79,7 +79,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog, i, option }) => {
         )}
 
         <Link className="linkCustom" href={`/blogs/${blog.slug}`}>
-          <div className="h-48">
+          <div className="h-32">
             <Image
               width={100}
               height={100}

@@ -31,7 +31,7 @@ const Dropdown: React.FC<LayoutProps> = ({ children }) => {
   }, [])
 
   return (
-    <div className="relative" ref={dropdownRef}>
+    <div className="relative z-20" ref={dropdownRef}>
       <div
         onClick={toggleDropdown}
         className="text-[#6A7A99] bg-white p-1 text-xl

@@ -22,7 +22,7 @@ const filterOptions = [
 const Page: NextPage<{ coursesObj: ICourses }> = ({ coursesObj }) => {
   return (
     <Layout>
-      <div className="flex justify-center px-5 sm:px-10">
+      <div className="flex justify-center px-5 sm:px-10 w-screen md:w-full">
         <div className="flex flex-col mt-5 md:mt-10">
           <div>
             <PageHeader> Trending courses</PageHeader>

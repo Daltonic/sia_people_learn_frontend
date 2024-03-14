@@ -52,7 +52,7 @@ const SearchInput: React.FC<Props> = ({ route, placeholder }) => {
       <input
         type="text"
         placeholder={placeholder}
-        className="focus:outline-none w-full text-sm"
+        className="focus:outline-none w-full text-sm bg-transparent"
         value={search}
         onChange={(e) => setSearch(e.target.value)}
       />

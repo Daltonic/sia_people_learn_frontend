@@ -12,9 +12,9 @@ interface ComponentProps {
 
 const MyCourseCard: React.FC<ComponentProps> = ({ product, productType }) => {
   return (
-    <div className="bg-white rounded-lg w-full sm:w-[48%] md:w-48 h-60 p-2 border-[#EDEDED] border shadow-[#EDEDED] shadow-xl">
+    <div className="bg-white rounded-lg w-full sm:w-[48%] md:w-52 h-60 p-2 border-[#EDEDED] border shadow-[#EDEDED] shadow-xl">
       <div className="">
-        <div className="h-28">
+        <div className="h-32">
           <Link
             className="linkCustom"
             href={{
