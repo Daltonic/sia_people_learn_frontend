@@ -47,7 +47,7 @@ const CourseCard: React.FC<Props> = ({ course }) => {
   };
 
   return (
-    <div className=" flex md:flex-row flex-col w-full border-b border-[#EDEDED] py-5">
+    <div className="flex md:flex-row flex-col w-full sm:w-80 md:w-full border-b border-[#EDEDED] py-5">
       <div className="flex flex-col items-stretch md:w-4/5">
         <div className="flex md:flex-row flex-col items-start">
           <Link

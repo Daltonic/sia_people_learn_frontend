@@ -218,7 +218,7 @@ const Tabs: React.FC<Props> = ({ academiesData, coursesData, booksData }) => {
 
         <div className="py-4 text-[#4F547B]">
           {activeTab === 1 && (
-            <div className="flex justify-start gap-5 w-full flex-wrap">
+            <div className="flex justify-start gap-4 w-full flex-wrap">
               {coursesObj &&
               coursesObj.courses &&
               coursesObj.courses.length > 0 ? (
@@ -235,7 +235,7 @@ const Tabs: React.FC<Props> = ({ academiesData, coursesData, booksData }) => {
           )}
 
           {activeTab === 2 && (
-            <div className="flex justify-between gap-5 w-full flex-wrap">
+            <div className="flex justify-start gap-4 w-full flex-wrap">
               {booksObj.courses && booksObj.courses.length > 0 ? (
                 booksObj.courses.map((elm, i: number) => (
                   <MyCourseCard data={elm} key={i} type="Book" />
@@ -249,7 +249,7 @@ const Tabs: React.FC<Props> = ({ academiesData, coursesData, booksData }) => {
             </div>
           )}
           {activeTab === 3 && (
-            <div className="flex justify-between gap-5 w-full flex-wrap">
+            <div className="flex justify-start gap-4 w-full flex-wrap">
               {academiesObj.academies && academiesObj.academies.length > 0 ? (
                 academiesObj.academies.map((elm, i: number) => (
                   <AcademyCard data={elm as IAcademy} key={elm._id} />

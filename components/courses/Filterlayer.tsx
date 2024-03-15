@@ -26,16 +26,10 @@ const Filterlayer: React.FC<Props> = ({
   sortOptions,
 }) => {
   return (
-    <div className="md:flex-row flex flex-col md:items-center justify-between gap-4 mt-5">
-      <div className="text-sm flex gap-2">
-        <p className=" text-slate-600">Showing </p>
-        <p className="font-medium text-violet-950">250</p>
-        <p className=" text-slate-600"> total results</p>
-      </div>
-
+    <div className="md:flex-row flex flex-col md:items-center justify-between gap-1 mt-2 w-full">
       <SearchInput placeholder={searchPlaceholder} route={route} />
 
-      <div className="flex items-center gap-2 md:gap-4 overflow-x-auto">
+      <div className="flex items-center gap-4 md:gap-8 overflow-x-auto" >
         <div>
           {filterLabel && filterOptions && (
             <Filters
@@ -45,11 +39,9 @@ const Filterlayer: React.FC<Props> = ({
             />
           )}
         </div>
-        <div>
           {sortOptions && sortLabel && (
             <Filters options={sortOptions} label={sortLabel} type="filter" />
           )}
-        </div>
       </div>
     </div>
   )
