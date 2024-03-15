@@ -12,6 +12,7 @@ import { useSelector } from "react-redux";
 import { convertStringToDate } from "@/utils";
 import { toast } from "react-toastify";
 import { deleteAcademy, submitAcademy } from "@/services/backend.services";
+import { ViewRating } from "../reusableComponents/Rating";
 
 interface ComponentProps {
   academy: IAcademy;
@@ -126,16 +127,13 @@ const AcademyHead: React.FC<ComponentProps> = ({ academy }) => {
       </div>
       <div className="flex flex-col gap-2.5 mt-3 w-full ">
         <div className="flex items-center gap-2">
-          <p className="text-[#E59819]">{academy.rating}0</p>
-          <div className="flex items-center">
-            {rating.map((itm, i: number) => (
-              <div key={i} className="text-[#E59819]">
-                <IoIosStar className="md:text-sm text-[#E59819] mx-0.5" />
-              </div>
-            ))}
-          </div>
-          <div className="text-[#4F547B]">
-            ({academy.reviews ? academy?.reviews.length : 0})
+        <div className="flex items-center justify-between w-full md:text-xs gap-4">
+            <div className="flex items-center justify-start gap-[1px]">
+              <ViewRating value={academy.rating || 0} />
+              <p className="text-[#4F547B] pb-[1px]">
+              ({academy.reviews ? academy?.reviews.length : 0})
+              </p>
+            </div>
           </div>
         </div>
         <h1 className="text-violet-950 text-2xl md:text-3xl font-medium md:leading-10 capitalize">
@@ -145,19 +143,9 @@ const AcademyHead: React.FC<ComponentProps> = ({ academy }) => {
           {academy.overview}
         </div>
 
-        <div className="flex flex-col md:text-sm gap-5">
-          <div className=" flex items-center gap-1">
-            <Image
-              width={14}
-              height={14}
-              src="/images/home/coursesCards/icons/1.svg"
-              alt="lessons"
-            />
-            <p className="md:text-sm text-[#4F547B]">
-              {academy.courses ? academy.courses.length : 0} courses
-            </p>
-
-            <div className="flex items-center">
+        <div className="flex flex-col md:text-sm gap-1 sm:gap-3">
+          {/* <div className="flex items-center flex-wrap justify-between sm:justify-start md:gap-10 flex-shrink-0">
+            <div className="flex items-center gap-1">
               <div className="mr-1">
                 <Image
                   width={14}
@@ -167,30 +155,31 @@ const AcademyHead: React.FC<ComponentProps> = ({ academy }) => {
                 />
               </div>
               <div className="md:text-sm text-[#4F547B]">
-                {academy.duration}
+                {`${Math.floor(
+                  academy.duration / 60
+                )}h ${Math.floor(academy.duration % 60)}m`}
               </div>
             </div>
 
-            <div className="flex items-center">
+            <div className="flex items-center gap-1">
               <div className="mr-2 md:mr-1">
                 <Image
-                  width={100}
-                  height={100}
+                  width={14}
+                  height={14}
                   src="/images/home/coursesCards/icons/3.svg"
                   alt="difficulty"
-                  className="w-5 h-5  md:w-3 md:h-3"
                 />
               </div>
               <div className="md:text-sm text-[#4F547B]">
                 {academy.difficulty}
               </div>
             </div>
-            <div className="flex gap-3 items-center text-[#4F547B]">
+            <div className="flex gap-1 items-center text-[#4F547B]">
               <MdOutlineRateReview className="w-5" />
               <div className="md:text-sm ">{academy.reviewsCount}</div>
             </div>
-          </div>
-          <div className="flex gap-5  items-center">
+          </div> */}
+          <div className="flex flex-wrap sm:gap-5 items-center">
             <p className="md:text-sm text-[#4F547B]">
               Created on {convertStringToDate(academy.createdAt)}
             </p>

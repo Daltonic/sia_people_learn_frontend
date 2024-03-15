@@ -88,11 +88,10 @@ const Header: React.FC = () => {
 
   return (
     <header
-      className={`px-5 py-3 sm:px-10 lg:px-20 sticky top-0 w-full z-50 ${
-        isScrolled
+      className={`px-5 py-3 sm:px-10 lg:px-20 sticky top-0 w-full z-50 ${isScrolled
           ? "bg-white shadow-md shadow-purple-900/10"
           : "bg-transparent"
-      }`}
+        }`}
     >
       <div>
         <div className="flex justify-between items-center">
@@ -113,7 +112,7 @@ const Header: React.FC = () => {
 
           <div className="hidden md:flex">
             <form onSubmit={handleSubmit}>
-              <div className="flex bg-[#F7F8FB] pl-5 py-2 pr-2 rounded-md w-80 lg:w-[10rem]">
+              <div className="flex bg-[#F7F8FB] pl-5 py-2 pr-2 rounded-md w-96 lg:w-[10rem]">
                 <input
                   required
                   type="text"
@@ -121,7 +120,7 @@ const Header: React.FC = () => {
                   className="bg-transparent flex-1 placeholder:text-[#4F547B] placeholder:text-sm focus:outline-none"
                 />
                 <button type="submit">
-                  <CiSearch className="text-[#1A064F] font-semiboldtext-xl" />
+                  <CiSearch className="text-[#1A064F] font-medium text-xl" />
                 </button>
               </div>
             </form>
@@ -132,7 +131,7 @@ const Header: React.FC = () => {
             <Link href="/shopcart" className="relative">
               <FiShoppingCart className="text-2xl text-black icon icon-basket" />
               {cartAcademyItems.length + cartCourseItems.length > 0 && (
-                <div className="absolute w-3.5 h-3.5 text-white bg-red-500 text-[10px] flex justify-center items-center bottom-5 left-5 p-[2px] rounded-full">
+                <div className="absolute w-3.5 h-3.5 text-white bg-red-500 text-[10px] flex justify-center items-center bottom-5 left-5 p-[2px] rounded-full animate-bounce">
                   {cartAcademyItems.length + cartCourseItems.length}
                 </div>
               )}
@@ -152,7 +151,7 @@ const Header: React.FC = () => {
                     <div className="text-white bg-[#C5165D] text-[16px] flex items-center justify-center h-8 w-8 p-1 rounded-full">{`${userData?.firstName[0].toUpperCase()}${userData?.lastName[0].toUpperCase()}`}</div>
                   )}
                 </div>
- 
+
                 <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
                   <Link
                     href={`/(dashboard)/dashboard`}

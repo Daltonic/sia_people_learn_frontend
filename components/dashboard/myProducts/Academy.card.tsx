@@ -58,12 +58,12 @@ const AcademyCard: React.FC<ComponentProps> = ({ data }) => {
     border-[#EDEDED] border-1 p-2 shadow-[#EDEDED] shadow"
     >
       <div className="">
-        <div className="h-32 relative">
+        <div className="h-32 relative rounded-lg  overflow-hidden hover:bg-black transition-opacity delay-1000 hover:ease-in">
           <Link href={`/academy/${academy.slug}`}>
             <Image
               width={100}
               height={100}
-              className="rounded-lg object-cover h-full w-full"
+              className="rounded-lg object-cover h-full w-full hover:opacity-70"
               src={academy.imageUrl || "/images/general/cardimg.svg"}
               alt="image"
             />

@@ -14,11 +14,11 @@ const CourseCard: React.FC<ComponentProps> = ({ data, index }) => {
     <div className="bg-white rounded-lg w-full sm:w-80 md:w-56 h-fit border-[#EDEDED] border p-2 shadow-[#EDEDED] shadow-md">
       <>
         <Link className="linkCustom" href={`/coursedetail/${data.slug}`}>
-          <div className="rounded-lg h-40 md:h-32 overflow-hidden hover:bg-black transition duration-500 ease-in-out">
+          <div className="rounded-lg h-40 md:h-32 overflow-hidden hover:bg-black transition-opacity delay-1000 hover:ease-in">
             <Image
               width={100}
               height={100}
-              className="rounded-lg h-full w-full object-cover hover:opacity-70 transition duration-500 ease-in-out"
+              className="rounded-lg h-full w-full object-cover hover:opacity-70"
               src={data.imageUrl || "/images/general/cardimg.svg"}
               alt="image"
             />
