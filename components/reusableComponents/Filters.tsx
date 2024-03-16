@@ -27,7 +27,7 @@ const Filters: React.FC<Props> = ({ label, options, type }) => {
     router.push(newUrl, { scroll: false });
   };
   return (
-    <div className="flex gap-2 items-center flex-1 text-sm">
+    <div className="flex gap-2 items-center flex-1 text-sm flex-shrink-0 min-w-fit">
       <label className="text-violet-950 font-medium ">{label}</label>
       <select
         className="text-slate-600 border focus:outline-none border-[color:var(--border-2,#E1DDDD)] w-28 justify-center mt-3 p-3 py-1.5 rounded-lg items-start mb-2"

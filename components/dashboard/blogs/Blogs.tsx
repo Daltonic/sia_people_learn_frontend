@@ -93,7 +93,7 @@ const Blogs: React.FC<Props> = ({ postsData }) => {
   }, [search, currentPage, sort, deleted, published]);
 
   return (
-    <>
+    <div>
       <DashboardHeading title="Blogs" description="View and Manage all Blogs" />
       <div className="bg-white p-5 sm:rounded-xl w-screen sm:w-full">
         <div className="mb-8">
@@ -142,7 +142,7 @@ const Blogs: React.FC<Props> = ({ postsData }) => {
           />
         )}
       </div>
-    </>
+    </div>
   );
 };
 

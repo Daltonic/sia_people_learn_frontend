@@ -9,7 +9,7 @@ interface ComponentProps {
 
 const CourseLayer: React.FC<ComponentProps> = ({ data }) => {
   return (
-    <div className="mt-5">
+    <div className="mt-5 flex flex-col sm:flex-row sm:flex-wrap sm:justify-between md:justify-start md:flex-nowrap md:flex-col">
       {data.courses.map((course) => (
         <CourseCard key={course._id} course={course} />
       ))}

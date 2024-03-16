@@ -109,7 +109,7 @@ const AcademyCard: React.FC<Props> = ({ academy }) => {
           <Link
             key={academy._id}
             href={`/academies/${academy.slug}`}
-            className="w-full  h-36 md:w-[28%]"
+            className="w-full h-36 sm:h-52 md:h-36 md:w-[28%]"
           >
             <Image
               width={500}

@@ -203,12 +203,14 @@ export interface IUserSubscription {
     overview: string;
     description: string;
     rating: number;
+    reviewsCount?: number;
     imageUrl?: string;
     email: string;
     userId: {
       _id: string;
       firstName: string;
       lastName: string;
+      imgUrl?: string;
     };
   };
   currentCourse: any[];

@@ -13,11 +13,11 @@ const AcademyCard: React.FC<ComponentProps> = ({ data }) => {
     <div className=" bg-white rounded-lg w-full sm:w-80 md:w-56 h-fit border-[#EDEDED] border p-2 shadow-[#EDEDED] shadow-md ">
       <div className="">
         <Link className="linkCustom" href={`/academies/${data.slug}`}>
-          <div className="rounded-lg h-40 md:h-32 overflow-hidden hover:bg-black">
+          <div className="rounded-lg h-40 md:h-32  hover:bg-black transition-opacity delay-1000 hover:ease-in w-full">
             <Image
               width={100}
               height={100}
-              className="rounded-lg h-full w-full object-cover hover:opacity-70"
+              className="rounded-lg h-full w-full object-cover hover:opacity-85"
               src={data.imageUrl || "/images/general/cardimg.svg"}
               alt="image"
             />

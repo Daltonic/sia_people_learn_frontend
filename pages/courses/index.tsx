@@ -22,22 +22,22 @@ const filterOptions = [
 const Page: NextPage<{ coursesObj: ICourses }> = ({ coursesObj }) => {
   return (
     <Layout>
-      <div className="flex justify-center px-5 sm:px-10 w-screen md:w-full">
+      <div className="flex justify-center px-5 sm:px-10 ">
         <div className="flex flex-col mt-5 md:mt-10">
           <div>
             <PageHeader> Trending courses</PageHeader>
-            <p className="text-slate-600 capitalize w-full mt-1">
+            <p className="text-slate-600 capitalize mt-1">
               Explore our trending courses in Blockchain and We3 Development.
             </p>
           </div>
-          <Filterlayer
-            searchPlaceholder="Search Courses Here..."
-            route="/courses"
-            filterLabel="Difficulty"
-            filterOptions={filterOptions}
-            sortLabel="Order By"
-            sortOptions={sortOptions}
-          />
+            <Filterlayer
+              searchPlaceholder="Search Courses Here..."
+              route="/courses"
+              filterLabel="Difficulty"
+              filterOptions={filterOptions}
+              sortLabel="Order By"
+              sortOptions={sortOptions}
+            />
           <CourseLayer data={coursesObj} />
           {coursesObj.numOfPages > 1 && (
             <Pagination totalPages={coursesObj.numOfPages} />
