@@ -4,6 +4,7 @@ import { IoIosStar } from "react-icons/io";
 import Image from "next/image";
 import { ICourse } from "@/utils/type.dt";
 import { convertStringToDate } from "@/utils";
+import { ViewRating } from "../reusableComponents/Rating";
 
 interface ComponentProps {
   course: ICourse;
@@ -31,25 +32,20 @@ const CourseHead: React.FC<ComponentProps> = ({ course }) => {
           ))}
       </div>
       <div className="flex flex-col gap-2.5 md:gap-5 mt-3 md:mt-0">
-        <div className="text-violet-950 text-2xl md:text-3xl font-medium md:leading-10 capitalize self-stretch w-full max-md:max-w-full md:mt-4">
+        <div className="flex items-center justify-start gap-[1px]">
+          <ViewRating value={course.rating || 0} />
+          <p className="text-[#4F547B] pb-[1px]">
+            ({course.reviews ? course?.reviews.length : 0})
+          </p>
+        </div>
+        <div className="text-violet-950 text-2xl md:text-3xl font-medium md:leading-10 capitalize self-stretch w-full max-md:max-w-full">
           {course.name}
         </div>
-        <div className="text-[#4F547B] text-base leading-7 self-stretch w-full max-md:max-w-full md:mt-2">
+        <div className="text-[#4F547B] text-base leading-7 self-stretch w-full max-md:max-w-full">
           {course.overview}
         </div>
 
         <div className="flex flex-col md:flex-row md:items-center md:text-sm gap-3">
-          <div className="flex items-center gap-2">
-            <p className="text-[#E59819]">{course.rating}</p>
-            <div className="flex items-center">
-              {rating.map((itm, i: number) => (
-                <div key={i} className="text-[#E59819]">
-                  <IoIosStar className="md:text-sm text-[#E59819] mx-0.5" />
-                </div>
-              ))}
-            </div>
-            <div className="text-[#4F547B]">({course.reviewsCount})</div>
-          </div>
           <div className=" flex items-center gap-1">
             <Image
               width={14}
@@ -94,6 +90,9 @@ const CourseHead: React.FC<ComponentProps> = ({ course }) => {
           <p className="md:text-sm text-[#4F547B]">
             {course.userId?.firstName} {course.userId?.lastName}
           </p>
+          <p className="text-2xl font-medium text-[#321463] ml-10">
+              ${course.price}
+            </p>
         </div>
       </div>
     </div>

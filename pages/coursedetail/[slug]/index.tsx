@@ -35,7 +35,7 @@ const Page: NextPage<{
           <CourseCardDetail course={courseData} />
         </div>
         <Tabs data={courseData} type="Course" course={courseData} />
-        <div className="md:mt-36 relative">
+        <div className="mt-8 relative">
           <div className="mb-5">
             <h4 className="text-2xl md:text-xl text-[#321463] font-bold">
               You May Like

@@ -208,7 +208,7 @@ const AcademyHead: React.FC<ComponentProps> = ({ academy }) => {
               ${academy.price}
             </p>
           </div>
-        </div>
+        </div> 
       </div>
     </div>
   );
