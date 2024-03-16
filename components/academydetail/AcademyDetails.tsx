@@ -229,12 +229,11 @@ const AcademyDetails: React.FC<ComponentProps> = ({ academy }) => {
   return (
     <div className="bg-white w-full sm:w-3/5 mx-auto md:mx-0 md:w-[25%] md:right-10 md:top-0 md:absolute md:border border-[#EDEDED] p-2 space-y-2 mt-10 rounded-md z-10">
       <div className="relative flex justify-center items-center">
-        <div className="w-full">
+        <div className="w-full h-40">
           <Image
             width={250}
             height={250}
-            style={{ height: "30%", width: "100%" }}
-            className="rounded-md w-full"
+            className="rounded-md w-full h-full"
             src={academy.imageUrl || "/images/general/shape.svg"}
             alt="image"
           />
@@ -321,7 +320,9 @@ const AcademyDetails: React.FC<ComponentProps> = ({ academy }) => {
               />
               <p className="text-[#321463]">Duration</p>
             </div>
-            <p className="text-[#4F547B]">{academy.duration}</p>
+            <div className="text-[#4F547B]">{`${Math.floor(
+              academy.duration / 60
+            )}h ${Math.floor(academy.duration % 60)}m`}</div>
           </div>
           <div className="flex justify-between items-center border-b py-2 border-[#EDEDED]">
             <div className="flex gap-2 items-center">

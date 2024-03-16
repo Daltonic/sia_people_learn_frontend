@@ -10,9 +10,9 @@ const Tabs: React.FC = () => {
   }
 
   return (
-    <div className="flex justify-center w-full">
+    <div className="flex justify-center w-full md:h-screen">
       <div className="w-full md:w-4/5 px-5 sm:px-10 md:px-0 h-46">
-        <div className="flex space-x-3 sm:space-x-5 border-b">
+        <div className="flex space-x-3 sm:space-x-5 border-b overflow-x-auto">
           <button
             onClick={() => handleTabClick(1)}
             className={`py-2 border-b-4 transition-colors duration-300 text-[#4F547B] font-medium ${

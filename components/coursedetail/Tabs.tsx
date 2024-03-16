@@ -20,9 +20,9 @@ const Tabs: React.FC<ComponentProps> = ({ course, type, data }) => {
   };
 
   return (
-    <div className="flex justify-center mt-10 md:w-[70%]">
-      <div className=" w-full">
-        <div className="flex space-x-5 border-b text-lg md:text-md">
+    <div className="flex justify-center mt-10 md:w-[57%] h-64 overflow-y-auto">
+      <div className="w-full">
+        <div className="flex space-x-5 border-b text-lg md:text-md overflow-x-auto">
           <button
             onClick={() => handleTabClick(1)}
             className={`py-2 border-b-4 transition-colors duration-300 text-[#4F547B] font-medium ${
@@ -72,9 +72,6 @@ const Tabs: React.FC<ComponentProps> = ({ course, type, data }) => {
         <div className="py-4 md:mt-4">
           {activeTab === 1 && (
             <div>
-              <h4 className="text-xl md:text-lg text-[#321463] font-medium mb-3">
-                Description
-              </h4>
               <div
                 dangerouslySetInnerHTML={{ __html: course.description }}
                 className={
@@ -127,7 +124,7 @@ const Tabs: React.FC<ComponentProps> = ({ course, type, data }) => {
             </div>
           )}
           {activeTab === 4 && (
-            <div>
+            <div className="">
               {course.lessons.map((lesson) => (
                 <Link key={lesson._id} href={`/course/lesson/${lesson._id}`}>
                   <div

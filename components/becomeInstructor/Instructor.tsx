@@ -2,18 +2,11 @@ import Link from "next/link";
 import Button from "../reusableComponents/Button";
 
 const Instructor: React.FC = () => {
-  const backgroundImageUrl = "/images/instructors/instructor.svg";
-
-  const divStyle = {
-    backgroundImage: `url(${backgroundImageUrl})`,
-    backgroundPosition: "top",
-  };
   return (
     <div className="bg-[#F7F8FB] flex justify-center py-10 px-5 sm:px-10 md:p-20 w-full">
       <div className="w-full md:w-5/6 flex flex-col md:flex-row justify-between md:items-center items-start">
         <div
-          style={divStyle}
-          className="h-[25rem] border w-full md:w-[25rem] md:rounded-full bg-cover relative"
+          className="h-60 rounded-md sm:h-[25rem] border w-full md:w-[25rem] md:rounded-full bg-cover relative bg-[url(/images/instructors/instructor.svg)]"
         >
           <div className="hidden md:block bg-white absolute -bottom-5 -right-10 w-56 pt-10 p-5 rounded-lg">
             <p className="text-md text-[#321463] font-medium">

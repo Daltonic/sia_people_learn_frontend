@@ -184,12 +184,11 @@ const CourseCardDetail: React.FC<ComponentProps> = ({ course }) => {
   return (
     <div className="bg-white w-full md:w-[25%] md:right-10 md:top-0 md:absolute md:border border-[#EDEDED] p-2 space-y-2 mt-10 md:mt-0 rounded-md z-10">
       <div className="relative flex justify-center items-center">
-        <div className="w-full">
+        <div className="w-full h-40">
           <Image
             width={250}
             height={250}
-            style={{ height: "30%", width: "100%" }}
-            className="rounded-md w-full"
+            className="rounded-md w-full h-full"
             src={course.imageUrl || "/images/general/cardimg.svg"}
             alt="image"
           />
@@ -227,8 +226,8 @@ const CourseCardDetail: React.FC<ComponentProps> = ({ course }) => {
             {purchased
               ? "Already subscribed"
               : canBookmarked
-              ? `Bookmark ${course.type}`
-              : "Remove bookmark"}
+                ? `Bookmark ${course.type}`
+                : "Remove bookmark"}
           </Button>
 
           <Link href="/shopcart">
@@ -260,7 +259,9 @@ const CourseCardDetail: React.FC<ComponentProps> = ({ course }) => {
               src="/images/cardInfo/clock.svg"
               alt="image"
             />
-            <p className="text-[#321463]">Duration</p>
+            <div className="text-[#4F547B]">{`${Math.floor(
+              course.duration / 60
+            )}h ${Math.floor(course.duration % 60)}m`}</div>
           </div>
           <p className="text-[#4F547B]">{course.duration}</p>
         </div>

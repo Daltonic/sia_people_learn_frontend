@@ -20,9 +20,9 @@ const Tabs: React.FC<ComponentProps> = ({ academy, type, data }) => {
   }
 
   return (
-    <div className="flex justify-center mt-10 md:w-[57%]">
-      <div className=" w-full">
-        <div className="flex space-x-5 border-b text-lg md:text-md">
+    <div className="flex justify-center mt-10 md:w-[57%]  h-64 overflow-y-auto">
+      <div className="w-full">
+        <div className="flex space-x-5 border-b text-lg md:text-md overflow-x-auto">
           <button
             onClick={() => handleTabClick(1)}
             className={`py-2 border-b-4 transition-colors duration-300 text-[#4F547B] font-medium ${
@@ -110,9 +110,6 @@ const Tabs: React.FC<ComponentProps> = ({ academy, type, data }) => {
           )}
           {activeTab === 3 && (
             <div className="mt-15">
-              <h4 className="text-xl md:text-lg text-[#321463] font-medium mb-3 md:mb-5">
-                Requirements
-              </h4>
               <ul className="space-y-5 md:pt-15">
                 {academy.requirements.map((requirement, index) => (
                   <div key={index} className="flex items-center gap-2 md:gap-5">

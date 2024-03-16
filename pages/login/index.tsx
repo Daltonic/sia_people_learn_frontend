@@ -107,7 +107,7 @@ const LoginPage: NextPage = () => {
   return (
     <AuthLayout>
       <div className="flex justify-center w-full items-center md:mt-16">
-        <div className="bg-white p-5 sm:p-10 w-full md:w-[60%] rounded-md">
+        <div className="bg-white p-5 sm:p-8 w-full md:w-[65%] rounded-md">
           <form onSubmit={handleSubmit}>
             <h3 className="font-medium text-3xl text-[#321463]">Login</h3>
             <p className="md:text-sm text-[#4F547B] mt-1">
@@ -156,7 +156,7 @@ const LoginPage: NextPage = () => {
           <p className="font-medium text-md text-[#321463] text-center mt-2">
             Or sign in using
           </p>
-          <div className="flex flex-col md:flex-row items-center md:items-end gap-2 mt-2 space-y-2">
+          <div className="flex flex-col md:flex-row items-center md:items-end gap-5 mt-2 space-y-2">
             <a
               href={`${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/sessions/login/google`}
               style={{ width: "100%" }}
