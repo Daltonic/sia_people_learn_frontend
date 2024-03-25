@@ -1,52 +1,52 @@
-"use client";
-import { NextPage } from "next";
-import Button from "@/components/reusableComponents/Button";
-import InputField from "@/components/reusableComponents/InputField";
-import AuthLayout from "@/components/layout/authLayout/AuthenticationLayout";
-import Link from "next/link";
-import { ChangeEvent, SyntheticEvent, useState } from "react";
-import { toast } from "react-toastify";
-import { createAccount } from "@/services/backend.services";
+'use client'
+import { NextPage } from 'next'
+import Button from '@/components/reusableComponents/Button'
+import InputField from '@/components/reusableComponents/InputField'
+import AuthLayout from '@/components/layout/authLayout/AuthenticationLayout'
+import Link from 'next/link'
+import { ChangeEvent, SyntheticEvent, useState } from 'react'
+import { toast } from 'react-toastify'
+import { createAccount } from '@/services/backend.services'
 
 const SignPage: NextPage = () => {
   const [signupDetails, setSignupDetails] = useState({
-    firstname: "",
-    lastname: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-  });
+    firstname: '',
+    lastname: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+  })
 
-  const [submitting, setSubmitting] = useState<boolean>(false);
+  const [submitting, setSubmitting] = useState<boolean>(false)
 
   // todo: a function to validate that password and confirm password are same
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.currentTarget;
+    const { name, value } = e.currentTarget
 
     setSignupDetails((prevDetails) => ({
       ...prevDetails,
       [name]: value,
-    }));
-  };
+    }))
+  }
 
   const handleSubmit = async (e: SyntheticEvent) => {
-    e.preventDefault();
+    e.preventDefault()
 
-    setSubmitting(true);
+    setSubmitting(true)
 
     const { firstname, lastname, email, password, confirmPassword } =
-      signupDetails;
+      signupDetails
     if (password !== confirmPassword) {
-      alert("Passwords do not match");
-      setSubmitting(false);
-      return;
+      alert('Passwords do not match')
+      setSubmitting(false)
+      return
     }
 
     if (password.length < 8) {
-      setSubmitting(false);
-      alert("Password must be atleast 8 characters");
-      return;
+      setSubmitting(false)
+      alert('Password must be atleast 8 characters')
+      return
     }
 
     await toast.promise(
@@ -56,34 +56,34 @@ const SignPage: NextPage = () => {
           lastName: lastname,
           email,
           password,
-        });
+        })
         if (status === 201) {
-          afterAccountCreation();
-          resolve();
+          afterAccountCreation()
+          resolve()
         } else {
-          afterAccountCreation();
-          reject();
+          afterAccountCreation()
+          reject()
         }
       }),
       {
-        pending: "Creating your account...",
+        pending: 'Creating your account...',
         success:
-          "Account successfully created 👌\nCheck your email to verify your account",
-        error: "Encountered error 🤯",
+          'Account successfully created 👌\nCheck your email to verify your account',
+        error: 'Encountered error 🤯',
       }
-    );
-  };
+    )
+  }
 
   const afterAccountCreation = () => {
-    setSubmitting(false);
+    setSubmitting(false)
     setSignupDetails({
-      firstname: "",
-      lastname: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
-    });
-  };
+      firstname: '',
+      lastname: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+    })
+  }
 
   return (
     <AuthLayout>
@@ -153,29 +153,33 @@ const SignPage: NextPage = () => {
           </div>
 
           <div className="flex gap-2 my-2">
-            <input type="checkbox" name="" id="" />
+            <input type="checkbox" name="" id="" required />
             <p className="md:text-sm text-[#4F547B]">
-              Accept the Terms and Privacy Policy
+              I accept the{' '}
+              <Link href={'/terms'} className="text-pink-600">
+                Terms of Service
+              </Link>{' '}
+              for using this platform.
             </p>
           </div>
           <Button
             variant="pink"
             className="w-full mt-4"
             disabled={
-              signupDetails.firstname === "" ||
-              signupDetails.lastname === "" ||
-              signupDetails.email === "" ||
-              signupDetails.password === "" ||
-              signupDetails.confirmPassword === "" ||
+              signupDetails.firstname === '' ||
+              signupDetails.lastname === '' ||
+              signupDetails.email === '' ||
+              signupDetails.password === '' ||
+              signupDetails.confirmPassword === '' ||
               submitting
             }
           >
-            {submitting ? "Registering" : "Register"}
+            {submitting ? 'Registering' : 'Register'}
           </Button>
         </form>
       </div>
     </AuthLayout>
-  );
-};
+  )
+}
 
 export default SignPage
