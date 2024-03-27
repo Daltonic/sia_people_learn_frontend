@@ -55,7 +55,10 @@ const Footer: React.FC = () => {
                 <Link href="/helpCenter">Help Center</Link>
               </p>
               <p className="hover:text-[#C5165D]">
-                <Link href="/terms">Terms</Link>
+                <Link href="/terms">Terms of Service</Link>
+              </p>
+              <p className="hover:text-[#C5165D]">
+                <Link href="/policies">Privacy Policies</Link>
               </p>
              
             </div>
