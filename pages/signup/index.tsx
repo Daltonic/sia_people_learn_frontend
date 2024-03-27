@@ -158,8 +158,11 @@ const SignPage: NextPage = () => {
               I accept the{' '}
               <Link href={'/terms'} className="text-pink-600">
                 Terms of Service
+              </Link>{' and '}
+              <Link href={'/policies'} className="text-pink-600">
+                Privacy Policy
               </Link>{' '}
-              for using this platform.
+              of peoplelearn.
             </p>
           </div>
           <Button

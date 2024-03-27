@@ -2,7 +2,7 @@
 import Layout from '@/components/layout/Layout'
 import { NextPage } from 'next'
 
-const termsData = [
+const terms = [
   {
     title: 'Introduction',
     content: `Welcome to PeopleLearn, an online learning platform powered by blockchain technology. These Terms of Service ("ToS") govern your use of the PeopleLearn platform and its services. By accessing or using PeopleLearn, you agree to comply with these ToS.`,
@@ -99,7 +99,7 @@ const Page: NextPage = () => {
           </p>
         </div>
         <div className="md:w-3/5 px-5 sm:px-10 md:px-0 my-10 md:my-16 space-y-10">
-          {termsData.map((term, i) => (
+          {terms.map((term, i) => (
             <div key={i}>
               <h1 className="text-pink-600 font-semibold text-2xl mb-2">
                 {i + 1}. {term.title}
