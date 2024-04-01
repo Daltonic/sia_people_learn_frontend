@@ -32,7 +32,7 @@ const Page: NextPage<{
     <>
       {courseData && (
         <Head>
-          <title>{courseData.name} | Course Details | PeopleLearn</title>
+          <title>{courseData.name} | PeopleLearn</title>
           <meta
             name="description"
             content={`View details for ${courseData.name}, a course on PeopleLearn. Explore course information here.`}
@@ -40,11 +40,11 @@ const Page: NextPage<{
           <meta property="og:type" content="website" />
           <meta
             property="og:url"
-            content={`https://peoplelearn.io/dashboard/products/courses/view/${courseData.slug}`}
+            content={`https://peoplelearn.io/coursedetail/${courseData.slug}`}
           />
           <meta
             property="og:title"
-            content={`${courseData.name} Course Details | PeopleLearn`}
+            content={`${courseData.name} PeopleLearn`}
           />
           <meta
             property="og:description"
@@ -55,7 +55,7 @@ const Page: NextPage<{
           <meta name="twitter:site" content="@peoplelearn" />
           <meta
             name="twitter:title"
-            content={`${courseData.name} Course Details | PeopleLearn`}
+            content={`${courseData.name} PeopleLearn`}
           />
           <meta
             name="twitter:description"
