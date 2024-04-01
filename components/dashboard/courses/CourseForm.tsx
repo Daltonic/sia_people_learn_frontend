@@ -193,7 +193,7 @@ const CourseForm: React.FC<{ course?: ICourse; type: "create" | "update" }> = ({
           type: productDetails.productType as "Book" | "Course",
         })
           .then((res) => {
-            router.push("/(dashboard)/myProducts");
+            router.push("/(dashboard)/products/personal");
             setSubmitting(false);
             resetForm();
             resolve(res);
@@ -230,7 +230,7 @@ const CourseForm: React.FC<{ course?: ICourse; type: "create" | "update" }> = ({
           course?._id!
         )
           .then((res) => {
-            router.push("/(dashboard)/myProducts");
+            router.push("/(dashboard)/products/personal");
             setSubmitting(false);
             resolve(res);
           })

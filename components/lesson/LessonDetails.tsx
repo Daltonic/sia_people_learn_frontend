@@ -17,7 +17,7 @@ const LessonDetails: React.FC<ComponentProps> = ({ lesson }) => {
     <div className="flex justify-between">
       <div className=" md:w-[55%]">
         <div className="flex gap-5">
-          <Link href={`/course/edit/${String(lesson._id)}`}>
+          <Link href={`/(dashboard)/products/courses/edit/${String(lesson._id)}`}>
             <button className="text-white flex gap-2 items-center text-xs font-medium bg-sky-400 p-2 rounded-md">
               Edit
               <FiEdit2 />

@@ -67,7 +67,7 @@ const Instructorform: React.FC = () => {
         new Promise<void>(async (resolve, reject) => {
           const status = await upgradeUserRequest(instructorInput, token);
           if (status === 200 || status === 201) {
-            router.push("/(dashboard)/myCourses");
+            router.push("/(dashboard)/purchases");
             setInstructorDetails({
               specialization: "",
               tutorialsLinks: "",

@@ -1,56 +1,56 @@
-"use client";
-import React from "react";
-import Image from "next/image";
-import Link from "next/link";
-import { useEffect, useState } from "react";
-import { IoIosStar } from "react-icons/io";
-import Dropdown from "@/components/reusableComponents/Dropdown";
-import { toast } from "react-toastify";
-import { useRouter } from "next/router";
-import { deleteAcademy, submitAcademy } from "@/services/backend.services";
-import { useDispatch } from "react-redux";
-import { genericActions } from "@/store/slices/genericSlice";
-import { IAcademy } from "@/utils/type.dt";
-import { ViewRating } from "@/components/reusableComponents/Rating";
+'use client'
+import React from 'react'
+import Image from 'next/image'
+import Link from 'next/link'
+import { useEffect, useState } from 'react'
+import { IoIosStar } from 'react-icons/io'
+import Dropdown from '@/components/reusableComponents/Dropdown'
+import { toast } from 'react-toastify'
+import { useRouter } from 'next/router'
+import { deleteAcademy, submitAcademy } from '@/services/backend.services'
+import { useDispatch } from 'react-redux'
+import { genericActions } from '@/store/slices/genericSlice'
+import { IAcademy } from '@/utils/type.dt'
+import { ViewRating } from '@/components/reusableComponents/Rating'
 
 interface ComponentProps {
-  data: IAcademy;
+  data: IAcademy
 }
 
 const AcademyCard: React.FC<ComponentProps> = ({ data }) => {
-  const [rating, setRating] = useState<string[]>([]);
-  const router = useRouter();
-  const dispatch = useDispatch();
-  const { setDeleteModal, setData } = genericActions;
-  const [academy, setAcademy] = useState<IAcademy>(data);
+  const [rating, setRating] = useState<string[]>([])
+  const router = useRouter()
+  const dispatch = useDispatch()
+  const { setDeleteModal, setData } = genericActions
+  const [academy, setAcademy] = useState<IAcademy>(data)
 
   useEffect(() => {
-    const newRating = Array(5).fill("star");
-    setRating(newRating);
-  }, [academy.rating]);
+    const newRating = Array(5).fill('star')
+    setRating(newRating)
+  }, [academy.rating])
 
   const handleSubmit = async () => {
     await toast.promise(
       new Promise<void>(async (resolve, reject) => {
         await submitAcademy(academy._id)
           .then((res: any) => {
-            setAcademy(res);
-            resolve(res);
+            setAcademy(res)
+            resolve(res)
           })
-          .catch((error: any) => reject(error));
+          .catch((error: any) => reject(error))
       }),
       {
         pending: `Submitting...`,
         success: `Academy submitted successfully 👌`,
-        error: "Encountered error 🤯",
+        error: 'Encountered error 🤯',
       }
-    );
-  };
+    )
+  }
 
   const onDelete = () => {
-    dispatch(setData({ ...academy, type: "academy" }));
-    dispatch(setDeleteModal("scale-100"));
-  };
+    dispatch(setData({ ...academy, type: 'academy' }))
+    dispatch(setDeleteModal('scale-100'))
+  }
 
   return (
     <div
@@ -58,13 +58,13 @@ const AcademyCard: React.FC<ComponentProps> = ({ data }) => {
     border-[#EDEDED] border-1 p-2 shadow-[#EDEDED] shadow"
     >
       <div className="">
-        <div className="h-32 relative rounded-lg  overflow-hidden hover:bg-black transition-opacity delay-1000 hover:ease-in">
+        <div className="h-32 relative rounded-lg hover:bg-black transition-opacity delay-1000 hover:ease-in">
           <Link href={`/academy/${academy.slug}`}>
             <Image
               width={100}
               height={100}
               className="rounded-lg object-cover h-full w-full hover:opacity-70"
-              src={academy.imageUrl || "/images/general/cardimg.svg"}
+              src={academy.imageUrl || '/images/general/cardimg.svg'}
               alt="image"
             />
           </Link>
@@ -78,13 +78,10 @@ const AcademyCard: React.FC<ComponentProps> = ({ data }) => {
                 Edit
               </Link>
               <Link
-                href={{
-                  pathname: `/academy/courses`,
-                  query: { academy: academy.slug },
-                }}
+                href={`/academy/courses/${String(academy.slug)}`}
                 className="p-1 hover:bg-gray-100 w-full text-left"
               >
-                Add Courses
+                Courses
               </Link>
               {!academy.submitted && (
                 <button
@@ -121,7 +118,7 @@ const AcademyCard: React.FC<ComponentProps> = ({ data }) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default AcademyCard;
+export default AcademyCard

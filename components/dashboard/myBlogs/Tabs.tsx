@@ -182,7 +182,7 @@ const Tabs: React.FC<Props> = ({
                   <EmptyComponent
                     title="No Blogs Available"
                     buttonText="Create One Now"
-                    link="/(dashboard)/createBlog"
+                    link="/(dashboard)/blogs/create"
                   />
                 </>
               )}
@@ -199,7 +199,7 @@ const Tabs: React.FC<Props> = ({
                   <EmptyComponent
                     title="No Blogs Available"
                     buttonText="Create One Now"
-                    link="/(dashboard)/createBlog"
+                    link="/(dashboard)/blogs/create"
                   />
                 </>
               )}

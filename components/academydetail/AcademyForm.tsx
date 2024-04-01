@@ -191,7 +191,7 @@ const AcademyForm: React.FC<AcademyProps> = ({ academy, type }) => {
         new Promise<void>((resolve, reject) => {
           createAcademy(academyInput)
             .then((result) => {
-              router.push('/(dashboard)/myProducts')
+              router.push('/(dashboard)/products/personal')
               setSubmitting(false)
               resolve(result)
             })
@@ -211,7 +211,7 @@ const AcademyForm: React.FC<AcademyProps> = ({ academy, type }) => {
         new Promise<void>((resolve, reject) => {
           updateAcademy(academyInput, String(academy?._id!))
             .then((result) => {
-              router.push('/(dashboard)/myProducts')
+              router.push('/(dashboard)/products/personal')
               setSubmitting(false)
               resolve(result)
             })
