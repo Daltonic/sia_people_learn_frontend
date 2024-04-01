@@ -1,10 +1,10 @@
-"use client";
+'use client'
 
-import Image from "next/image";
-import Link from "next/link";
-import React from "react";
-import { footerData2, footerData3 } from "@/data/footer";
-import SocialMediaIcons from "@/components/reusableComponents/SocialMediaIcons";
+import Image from 'next/image'
+import Link from 'next/link'
+import React from 'react'
+import { footerData2, footerData3 } from '@/data/footer'
+import SocialMediaIcons from '@/components/reusableComponents/SocialMediaIcons'
 
 const Footer: React.FC = () => {
   return (
@@ -49,9 +49,6 @@ const Footer: React.FC = () => {
             </h1>
             <div className="space-y-2 text-[#4F547B] text-sm ">
               <p className="hover:text-[#C5165D]">
-                <Link href="/pricing">Pricing</Link>
-              </p>
-              <p className="hover:text-[#C5165D]">
                 <Link href="/helpCenter">Help Center</Link>
               </p>
               <p className="hover:text-[#C5165D]">
@@ -60,7 +57,6 @@ const Footer: React.FC = () => {
               <p className="hover:text-[#C5165D]">
                 <Link href="/policies">Privacy Policies</Link>
               </p>
-             
             </div>
           </div>
           <div>
@@ -68,7 +64,7 @@ const Footer: React.FC = () => {
               USEFUL LINKS
             </h1>
             <div className="space-y-2 text-[#4F547B] text-sm ">
-            <p className="hover:text-[#C5165D]">
+              <p className="hover:text-[#C5165D]">
                 <Link href="/instructor">Instructor</Link>
               </p>
               <p className="hover:text-[#C5165D]">
@@ -78,7 +74,11 @@ const Footer: React.FC = () => {
           </div>
           <div className="md:mt-8">
             {footerData2.map((elm, i: number) => (
-              <Link href={elm.link} key={i} className="flex items-center gap-2 md:gap-1 mt-2">
+              <Link
+                href={elm.link}
+                key={i}
+                className="flex items-center gap-2 md:gap-1 mt-2"
+              >
                 <Image
                   width={16}
                   height={16}
@@ -92,12 +92,15 @@ const Footer: React.FC = () => {
           </div>
           <div>
             <h1 className="text-[#321463] text-lg font-semibold md:text-sm mb-3 md:mb-4 md:font-medium">
-              {" "}
+              {' '}
               RESOURCES
             </h1>
             {footerData3.map((elm, i: number) => (
               <div key={i}>
-                <Link href={elm.link} className="flex items-center gap-2 md:gap-1 mt-2">
+                <Link
+                  href={elm.link}
+                  className="flex items-center gap-2 md:gap-1 mt-2"
+                >
                   <Image
                     width={16}
                     height={16}
@@ -117,7 +120,7 @@ const Footer: React.FC = () => {
         <p className="mt-2 md:mt-0">Supported by a Sia Foundation grant.</p>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Footer;
+export default Footer
