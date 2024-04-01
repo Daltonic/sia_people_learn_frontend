@@ -59,7 +59,7 @@ const MyCourseCard: React.FC<ComponentProps> = ({ data, type }) => {
     border-[#EDEDED] border-1 p-2 shadow-[#EDEDED] shadow"
     >
       <div className="">
-        <div className="h-32 relative rounded-lg overflow-hidden hover:bg-black transition-opacity delay-1000 hover:ease-in">
+        <div className="h-32 relative rounded-lg hover:bg-black transition-opacity delay-1000 hover:ease-in">
           <Link href={`/course/${course.slug}`}>
             <Image
               width={100}
@@ -73,7 +73,7 @@ const MyCourseCard: React.FC<ComponentProps> = ({ data, type }) => {
           <div className="absolute top-1 right-2">
             <Dropdown>
               <Link
-                href={`/course/edit/${String(course.slug)}`}
+                href={`/(dashboard)/products/courses/edit/${String(course.slug)}`}
                 className="p-1 hover:bg-gray-100 w-full text-left"
               >
                 Edit

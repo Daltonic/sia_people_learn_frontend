@@ -55,7 +55,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog, i, option }) => {
           <div className="absolute top-1 right-2">
             <Dropdown>
               <Link
-                href={`/blogs/edit/${String(blog.slug)}`}
+                href={`/(dashboard)/blogs/edit/${String(blog.slug)}`}
                 className="p-1 hover:bg-gray-100 w-full text-left"
               >
                 Edit

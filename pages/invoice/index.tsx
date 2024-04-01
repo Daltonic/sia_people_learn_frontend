@@ -1,9 +1,9 @@
-"use client";
-import Button from "@/components/reusableComponents/Button";
-import { NextPage } from "next";
-import Image from "next/image";
-import Link from "next/link";
-import { SlPrinter } from "react-icons/sl";
+'use client'
+import Button from '@/components/reusableComponents/Button'
+import { NextPage } from 'next'
+import Image from 'next/image'
+import Link from 'next/link'
+import { SlPrinter } from 'react-icons/sl'
 
 const Page: NextPage = () => {
   return (
@@ -13,10 +13,10 @@ const Page: NextPage = () => {
           <Button
             variant="pink"
             style={{
-              display: "flex",
-              gap: "6px",
-              alignItems: "center",
-              padding: "8px 30px",
+              display: 'flex',
+              gap: '6px',
+              alignItems: 'center',
+              padding: '8px 30px',
             }}
           >
             <SlPrinter />
@@ -98,22 +98,30 @@ const Page: NextPage = () => {
                 </thead>
                 <tbody className=" ">
                   <tr className="border-b border-[#F5F7FE] text-left">
-                    <td className="w-10 py-2 md:py-4 pl-5 md:pl-10">Standard Plan</td>
+                    <td className="w-10 py-2 md:py-4 pl-5 md:pl-10">
+                      Standard Plan
+                    </td>
                     <td className="w-10 py-2 md:py-4 pl-10">$443.00 </td>
                     <td className="w-10 py-2 md:py-4 pl-10">$921.80 </td>
                     <td className="w-10 py-2 md:py-4 pl-10">$9243</td>
                   </tr>
                   <tr className="border-b border-[#F5F7FE] text-left">
-                    <td className="w-10 py-2 md:py-4 pl-5 md:pl-10 text-left">Extra Plan</td>
+                    <td className="w-10 py-2 md:py-4 pl-5 md:pl-10 text-left">
+                      Extra Plan
+                    </td>
                     <td className="w-10 py-2 md:py-4 pl-10">$423.00 </td>
                     <td className="w-10 py-2 md:py-4 pl-10">$912.80 </td>
                     <td className="w-10 py-2 md:py-4 pl-10">$5943</td>
                   </tr>
                   <tr className="border-b border-[#F5F7FE] text-left">
-                    <td className="w-10 py-2 md:py-4 pl-5 md:pl-10 text-left text-[#321463] text-lg font-medium">Total Due</td>
+                    <td className="w-10 py-2 md:py-4 pl-5 md:pl-10 text-left text-[#321463] text-lg font-medium">
+                      Total Due
+                    </td>
                     <td className="w-10 py-2 md:py-4 pl-10"> </td>
                     <td className="w-10 py-2 md:py-4 pl-10"> </td>
-                    <td className="w-10 py-2 md:py-4 pl-10 text-[#321463] text-lg font-medium">$9943</td>
+                    <td className="w-10 py-2 md:py-4 pl-10 text-[#321463] text-lg font-medium">
+                      $9943
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -134,7 +142,7 @@ const Page: NextPage = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Page;
+export default Page

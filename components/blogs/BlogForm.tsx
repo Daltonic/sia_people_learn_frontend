@@ -102,7 +102,7 @@ const PostForm: React.FC<PostProps> = ({
             .then((result) => {
               const redirectUrl = parentId
                 ? `/blogs/${parentId}`
-                : "/(dashboard)/myBlogs";
+                : "/(dashboard)/blogs/personal";
               router.push(redirectUrl);
               resetForm();
               resolve(result);
@@ -115,7 +115,7 @@ const PostForm: React.FC<PostProps> = ({
         } else {
           updatePost(postInput, String(post?._id))
             .then((result) => {
-              router.push("/(dashboard)/myBlogs");
+              router.push("/(dashboard)/blogs/personal");
               resolve(result);
               setSubmitting(false);
             })

@@ -35,7 +35,7 @@ const AcademyHead: React.FC<ComponentProps> = ({ academy }) => {
         const status = await submitAcademy(academy._id);
 
         if (status === 200) {
-          router.push("/(dashboard)/myProducts");
+          router.push("/(dashboard)/products/personal");
           resolve();
         } else {
           reject();
@@ -55,7 +55,7 @@ const AcademyHead: React.FC<ComponentProps> = ({ academy }) => {
         const status = await deleteAcademy(academy._id);
 
         if (status === 200) {
-          router.push("/(dashboard)/myProducts");
+          router.push("/(dashboard)/products/personal");
           resolve();
         } else {
           reject();

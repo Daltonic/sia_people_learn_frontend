@@ -16,15 +16,15 @@ export const sidebarItems = [
   },
   {
     id: 2,
-    href: "/(dashboard)/myCourses",
+    href: "/(dashboard)/purchases",
     iconClass: <FiPlayCircle size={18} />,
-    text: "My Courses",
+    text: "My Purchase",
   },
   {
     id: 3,
-    href: "/(dashboard)/myProducts",
+    href: "/(dashboard)/products/personal",
     iconClass: <LuShoppingBag size={16} />,
-    text: "My Products",
+    text: "Personal",
   },
 
   {
@@ -68,9 +68,9 @@ export const sidebarItems = [
 export const userSidebarItems = [
   {
     id: 1,
-    href: "/(dashboard)/myCourses",
+    href: "/(dashboard)/purchases",
     iconClass: <FiPlayCircle size={18} />,
-    text: "My Courses",
+    text: "My Purchase",
   },
   {
     id: 2,
@@ -80,13 +80,13 @@ export const userSidebarItems = [
   },
   {
     id: 3,
-    href: "/(dashboard)/myBlogs",
+    href: "/(dashboard)/blogs/personal",
     iconClass: <GrNotes size={16} />,
     text: "My Blogs",
   },
   {
     id: 4,
-    href: "/(dashboard)/createBlog",
+    href: "/(dashboard)/blogs/create",
     iconClass: <IoCreateOutline size={18} />,
     text: "Create Blog",
   },
@@ -140,27 +140,27 @@ export const adminSidebarItems = [
 export const instructorSidebarItems = [
   {
     id: 1,
-    href: "/(dashboard)/myProducts",
+    href: "/(dashboard)/products/personal",
     iconClass: <LuShoppingBag size={16} />,
-    text: "My Products",
+    text: "Personal",
   },
   {
     id: 2,
-    href: "/(dashboard)/createCourse",
+    href: "/(dashboard)/products/courses/create",
     iconClass: <BiSolidEdit size={18} />,
     text: "Create Course",
   },
   {
     id: 3,
-    href: "/(dashboard)/createAcademy",
+    href: "/(dashboard)/products/academies/create",
     iconClass: <BiSolidEdit size={18} />,
     text: "Create Academy",
   },
   {
     id: 4,
-    href: "/(dashboard)/myCourses",
+    href: "/(dashboard)/purchases",
     iconClass: <FiPlayCircle size={18} />,
-    text: "My Courses",
+    text: "My Purchase",
   },
 
   {
@@ -171,13 +171,13 @@ export const instructorSidebarItems = [
   },
   {
     id: 6,
-    href: "/(dashboard)/myBlogs",
+    href: "/(dashboard)/blogs/personal",
     iconClass: <GrNotes size={16} />,
     text: "My Blogs",
   },
   {
     id: 7,
-    href: "/(dashboard)/createBlog",
+    href: "/(dashboard)/blogs/create",
     iconClass:  <BiSolidEdit size={18} />,
     text: "Create Blog",
   },

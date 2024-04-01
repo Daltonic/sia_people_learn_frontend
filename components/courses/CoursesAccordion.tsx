@@ -11,7 +11,7 @@ interface Props {
 
 const CoursesAccordion: React.FC<Props> = ({ academy, subscriptionId }) => {
   return (
-    <div className="border rounded-md p-2 space-y-2 h-screen overflow-y-scroll">
+    <div className="border rounded-md p-2 space-y-2 md:h-[55vh] overflow-y-scroll w-full">
       <div className="mb-2 text-[#9e6ded] text-lg font-medium ">
         Academy Courses
       </div>
