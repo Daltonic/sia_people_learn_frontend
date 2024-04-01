@@ -35,7 +35,7 @@ const Page: React.FC = () => {
         />
         <meta
           property="og:image"
-          content="https://file.dappmentors.duckdns.org/download/image/1709464016436__evSf.jpeg"
+          content="https://file.dappmentors.duckdns.org/download/image/1709450883536__fcix.png"
         />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@peoplelearn" />
@@ -49,7 +49,7 @@ const Page: React.FC = () => {
         />
         <meta
           name="twitter:image"
-          content="https://file.dappmentors.duckdns.org/download/image/1709464016436__evSf.jpeg"
+          content="https://file.dappmentors.duckdns.org/download/image/1709450883536__fcix.png"
         />
       </Head>
 

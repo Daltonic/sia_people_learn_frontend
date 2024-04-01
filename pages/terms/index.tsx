@@ -1,6 +1,7 @@
 'use client'
 import Layout from '@/components/layout/Layout'
 import { NextPage } from 'next'
+import Head from 'next/head'
 
 const terms = [
   {
@@ -88,36 +89,68 @@ const terms = [
 
 const Page: NextPage = () => {
   return (
-    <Layout>
-      <div className="flex flex-col items-center">
-        <div className="px-5 mt-10 text-center">
-          <h1 className="text-pink-600 text-3xl md:text-4xl font-bold">
-            Terms of Service
-          </h1>
-          <p className="text-slate-600 text-md mt-3 capitalize">
-            This ToS for PeopleLearn was last updated on 25 Mar, 2024.
-          </p>
-        </div>
-        <div className="md:w-3/5 px-5 sm:px-10 md:px-0 my-10 md:my-16 space-y-10">
-          {terms.map((term, i) => (
-            <div key={i}>
-              <h1 className="text-pink-600 font-semibold text-2xl mb-2">
-                {i + 1}. {term.title}
-              </h1>
-              <div className="text-lg">
-                <p className="text-[#4F547B]">{term.content}</p>
-                {term.items && (
-                  <div
-                    className="text-[#4F547B] space-y-1 mt-4"
-                    dangerouslySetInnerHTML={{ __html: term.items }}
-                  />
-                )}
+    <>
+      <Head>
+        <title>Terms of Service | People Learn</title>
+        <meta
+          name="description"
+          content="Read the Terms of Service for People Learn. Understand how to use our platform and what rules apply."
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://peoplelearn.io/terms" />
+        <meta property="og:title" content="Terms of Service | People Learn" />
+        <meta
+          property="og:description"
+          content="Read the Terms of Service for People Learn. Understand how to use our platform and what rules apply."
+        />
+        <meta
+          property="og:image"
+          content="https://file.dappmentors.duckdns.org/download/image/1709450883536__fcix.png"
+        />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@peoplelearn" />
+        <meta name="twitter:title" content="Terms of Service | People Learn" />
+        <meta
+          name="twitter:description"
+          content="Read the Terms of Service for People Learn. Understand how to use our platform and what rules apply."
+        />
+        <meta
+          name="twitter:image"
+          content="https://file.dappmentors.duckdns.org/download/image/1709450883536__fcix.png"
+        />
+      </Head>
+
+      <Layout>
+        <div className="flex flex-col items-center">
+          <div className="px-5 mt-10 text-center">
+            <h1 className="text-pink-600 text-3xl md:text-4xl font-bold">
+              Terms of Service
+            </h1>
+            <p className="text-slate-600 text-md mt-3 capitalize">
+              This ToS for PeopleLearn was last updated on 25 Mar, 2024.
+            </p>
+          </div>
+          <div className="md:w-3/5 px-5 sm:px-10 md:px-0 my-10 md:my-16 space-y-10">
+            {terms.map((term, i) => (
+              <div key={i}>
+                <h1 className="text-pink-600 font-semibold text-2xl mb-2">
+                  {i + 1}. {term.title}
+                </h1>
+                <div className="text-lg">
+                  <p className="text-[#4F547B]">{term.content}</p>
+                  {term.items && (
+                    <div
+                      className="text-[#4F547B] space-y-1 mt-4"
+                      dangerouslySetInnerHTML={{ __html: term.items }}
+                    />
+                  )}
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </div>
-    </Layout>
+      </Layout>
+    </>
   )
 }
 

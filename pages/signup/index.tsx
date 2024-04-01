@@ -7,6 +7,7 @@ import Link from 'next/link'
 import { ChangeEvent, SyntheticEvent, useState } from 'react'
 import { toast } from 'react-toastify'
 import { createAccount } from '@/services/backend.services'
+import Head from 'next/head'
 
 const SignPage: NextPage = () => {
   const [signupDetails, setSignupDetails] = useState({
@@ -86,102 +87,135 @@ const SignPage: NextPage = () => {
   }
 
   return (
-    <AuthLayout>
-      <div className="flex justify-center items-center w-full h-full md:mt-16">
-        <form
-          className="bg-white p-5 md:p-10 w-full md:w-4/5 rounded-md "
-          onSubmit={handleSubmit}
-        >
-          <h3 className="font-medium text-3xl text-[#321463]">Sign Up</h3>
-          <p className="md:text-sm text-[#4F547B] mt-1">
-            Already have an account?
-            <Link href="/login" className="text-[#C5165D] ml-2">
-              Login
-            </Link>
-          </p>
-          <div className="md:flex gap-2 items-center">
-            <InputField
-              label="Firstname"
-              name="firstname"
-              placeholder="John Doe"
-              required
-              inputType="text"
-              handleChange={handleChange}
-              value={signupDetails.firstname}
-            />
-            <InputField
-              label="Lastname"
-              name="lastname"
-              placeholder="John Doe"
-              required
-              inputType="text"
-              handleChange={handleChange}
-              value={signupDetails.lastname}
-            />
-          </div>
-          <InputField
-            label="Email"
-            name="email"
-            placeholder="youremail@domain.com"
-            required
-            inputType="email"
-            handleChange={handleChange}
-            value={signupDetails.email}
-          />
-          <div className="md:flex gap-2 items-center">
-            <InputField
-              label="Password"
-              name="password"
-              placeholder="********"
-              required
-              inputType="password"
-              handleChange={handleChange}
-              value={signupDetails.password}
-              isPassword
-            />
+    <>
+      <Head>
+        <title>Sign Up | People Learn</title>
+        <meta
+          name="description"
+          content="Create an account with People Learn. Join our community and start learning today."
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://peoplelearn.io/signup" />
+        <meta property="og:title" content="Sign Up | People Learn" />
+        <meta
+          property="og:description"
+          content="Create an account with People Learn. Join our community and start learning today."
+        />
+        <meta
+          property="og:image"
+          content="https://file.dappmentors.duckdns.org/download/image/1709450883536__fcix.png"
+        />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@peoplelearn" />
+        <meta name="twitter:title" content="Sign Up | People Learn" />
+        <meta
+          name="twitter:description"
+          content="Create an account with People Learn. Join our community and start learning today."
+        />
+        <meta
+          name="twitter:image"
+          content="https://file.dappmentors.duckdns.org/download/image/1709450883536__fcix.png"
+        />
+      </Head>
 
-            <InputField
-              label="Confirm Password"
-              name="confirmPassword"
-              placeholder="********"
-              required
-              inputType="password"
-              handleChange={handleChange}
-              value={signupDetails.confirmPassword}
-              isPassword
-            />
-          </div>
-
-          <div className="flex gap-2 my-2">
-            <input type="checkbox" name="" id="" required />
-            <p className="md:text-sm text-[#4F547B]">
-              I accept the{' '}
-              <Link href={'/terms'} className="text-pink-600">
-                Terms of Service
-              </Link>{' and '}
-              <Link href={'/policies'} className="text-pink-600">
-                Privacy Policy
-              </Link>{' '}
-              of peoplelearn.
-            </p>
-          </div>
-          <Button
-            variant="pink"
-            className="w-full mt-4"
-            disabled={
-              signupDetails.firstname === '' ||
-              signupDetails.lastname === '' ||
-              signupDetails.email === '' ||
-              signupDetails.password === '' ||
-              signupDetails.confirmPassword === '' ||
-              submitting
-            }
+      <AuthLayout>
+        <div className="flex justify-center items-center w-full h-full md:mt-16">
+          <form
+            className="bg-white p-5 md:p-10 w-full md:w-4/5 rounded-md "
+            onSubmit={handleSubmit}
           >
-            {submitting ? 'Registering' : 'Register'}
-          </Button>
-        </form>
-      </div>
-    </AuthLayout>
+            <h3 className="font-medium text-3xl text-[#321463]">Sign Up</h3>
+            <p className="md:text-sm text-[#4F547B] mt-1">
+              Already have an account?
+              <Link href="/login" className="text-[#C5165D] ml-2">
+                Login
+              </Link>
+            </p>
+            <div className="md:flex gap-2 items-center">
+              <InputField
+                label="Firstname"
+                name="firstname"
+                placeholder="John Doe"
+                required
+                inputType="text"
+                handleChange={handleChange}
+                value={signupDetails.firstname}
+              />
+              <InputField
+                label="Lastname"
+                name="lastname"
+                placeholder="John Doe"
+                required
+                inputType="text"
+                handleChange={handleChange}
+                value={signupDetails.lastname}
+              />
+            </div>
+            <InputField
+              label="Email"
+              name="email"
+              placeholder="youremail@domain.com"
+              required
+              inputType="email"
+              handleChange={handleChange}
+              value={signupDetails.email}
+            />
+            <div className="md:flex gap-2 items-center">
+              <InputField
+                label="Password"
+                name="password"
+                placeholder="********"
+                required
+                inputType="password"
+                handleChange={handleChange}
+                value={signupDetails.password}
+                isPassword
+              />
+
+              <InputField
+                label="Confirm Password"
+                name="confirmPassword"
+                placeholder="********"
+                required
+                inputType="password"
+                handleChange={handleChange}
+                value={signupDetails.confirmPassword}
+                isPassword
+              />
+            </div>
+
+            <div className="flex gap-2 my-2">
+              <input type="checkbox" name="" id="" required />
+              <p className="md:text-sm text-[#4F547B]">
+                I accept the{' '}
+                <Link href={'/terms'} className="text-pink-600">
+                  Terms of Service
+                </Link>
+                {' and '}
+                <Link href={'/policies'} className="text-pink-600">
+                  Privacy Policy
+                </Link>{' '}
+                of peoplelearn.
+              </p>
+            </div>
+            <Button
+              variant="pink"
+              className="w-full mt-4"
+              disabled={
+                signupDetails.firstname === '' ||
+                signupDetails.lastname === '' ||
+                signupDetails.email === '' ||
+                signupDetails.password === '' ||
+                signupDetails.confirmPassword === '' ||
+                submitting
+              }
+            >
+              {submitting ? 'Registering' : 'Register'}
+            </Button>
+          </form>
+        </div>
+      </AuthLayout>
+    </>
   )
 }
 
