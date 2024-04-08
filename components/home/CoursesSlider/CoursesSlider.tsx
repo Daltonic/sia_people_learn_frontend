@@ -1,20 +1,19 @@
-"use client";
+'use client'
 
-import React, { useEffect, useState } from "react";
-
-import CourseCard from "../../courses/CourseCard";
-import { Navigation, Pagination, Autoplay } from "swiper";
-import { Swiper, SwiperSlide } from "swiper/react";
-import Link from "next/link";
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
-import { ICourses } from "@/utils/type.dt";
-import AllButton from "@/components/reusableComponents/AllButton";
+import React, { useEffect, useState } from 'react'
+import { Navigation, Pagination, Autoplay } from 'swiper'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import Link from 'next/link'
+import { FaArrowLeft, FaArrowRight } from 'react-icons/fa'
+import { ICourses } from '@/utils/type.dt'
+import AllButton from '@/components/reusableComponents/AllButton'
+import MyCourseCard from '@/components/dashboard/myProducts/MyCourseCard'
 
 const CoursesSlider: React.FC<{ coursesObj: ICourses }> = ({ coursesObj }) => {
-  const [showSlider, setShowSlider] = useState(false);
+  const [showSlider, setShowSlider] = useState(false)
   useEffect(() => {
-    setShowSlider(true);
-  }, []);
+    setShowSlider(true)
+  }, [])
 
   return (
     <section className="relative z-10 md:mx-10 lg:mx-20">
@@ -31,13 +30,10 @@ const CoursesSlider: React.FC<{ coursesObj: ICourses }> = ({ coursesObj }) => {
           </div>
 
           <div className="">
-            <Link
-              href="/courses"
-            >
+            <Link href="/courses">
               <AllButton> All Courses</AllButton>
             </Link>
           </div>
-
         </div>
 
         <div className="mt-14">
@@ -52,8 +48,8 @@ const CoursesSlider: React.FC<{ coursesObj: ICourses }> = ({ coursesObj }) => {
                 <Swiper
                   modules={[Navigation, Pagination, Autoplay]}
                   navigation={{
-                    nextEl: ".icon-arrow-right",
-                    prevEl: ".icon-arrow-left",
+                    nextEl: '.icon-arrow-right',
+                    prevEl: '.icon-arrow-left',
                   }}
                   spaceBetween={20}
                   slidesPerView={1}
@@ -80,7 +76,7 @@ const CoursesSlider: React.FC<{ coursesObj: ICourses }> = ({ coursesObj }) => {
                   {coursesObj.courses &&
                     coursesObj.courses.map((elm, i: number) => (
                       <SwiperSlide key={i}>
-                        <CourseCard data={elm} index={i} />
+                        <MyCourseCard data={elm} type="Course" />
                       </SwiperSlide>
                     ))}
                 </Swiper>
@@ -102,7 +98,7 @@ const CoursesSlider: React.FC<{ coursesObj: ICourses }> = ({ coursesObj }) => {
         </div>
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default CoursesSlider;
+export default CoursesSlider

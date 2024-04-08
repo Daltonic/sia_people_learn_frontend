@@ -1,15 +1,13 @@
-"use client";
-import React, { useState } from "react";
-import { coursesData } from "@/data/courses";
-import CourseCard from "../courses/CourseCard";
+'use client'
+import React, { useState } from 'react'
 
 const Tabs: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<number>(1);
-  const [showMore, setShowMore] = useState(false);
+  const [activeTab, setActiveTab] = useState<number>(1)
+  const [showMore, setShowMore] = useState(false)
 
   const handleTabClick = (tabNumber: number) => {
-    setActiveTab(tabNumber);
-  };
+    setActiveTab(tabNumber)
+  }
 
   return (
     <div className="flex justify-center px-5 sm:px-10 md:px-0">
@@ -19,8 +17,8 @@ const Tabs: React.FC = () => {
             onClick={() => handleTabClick(1)}
             className={`py-2 border-b-4 transition-colors duration-300 text-[#4F547B] font-medium ${
               activeTab === 1
-                ? "border-[#C5165D] text-[#C5165D]"
-                : "border-transparent hover:border-gray-200"
+                ? 'border-[#C5165D] text-[#C5165D]'
+                : 'border-transparent hover:border-gray-200'
             }`}
             type="button"
           >
@@ -30,8 +28,8 @@ const Tabs: React.FC = () => {
             onClick={() => handleTabClick(2)}
             className={`py-2 border-b-4 transition-colors duration-300 text-[#4F547B] font-medium ${
               activeTab === 2
-                ? "border-[#C5165D] text-[#C5165D]"
-                : "border-transparent hover:border-gray-200"
+                ? 'border-[#C5165D] text-[#C5165D]'
+                : 'border-transparent hover:border-gray-200'
             }`}
             type="button"
           >
@@ -44,7 +42,7 @@ const Tabs: React.FC = () => {
             <div>
               <p
                 className={
-                  showMore ? "text-[#4F547B]" : "line-clamp-3 text-[#4F547B] "
+                  showMore ? 'text-[#4F547B]' : 'line-clamp-3 text-[#4F547B] '
                 }
               >
                 As an instructor for People Learn Academy, I bring a wealth of
@@ -68,7 +66,7 @@ const Tabs: React.FC = () => {
                 each other. My ultimate goal is to equip students with the
                 knowledge and skills they need to excel in the world of Web3 and
                 Blockchain.
-              </p>{" "}
+              </p>{' '}
               <button
                 onClick={() => setShowMore(!showMore)}
                 className="mt-2  text-[#C5165D] "
@@ -87,7 +85,7 @@ const Tabs: React.FC = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Tabs;
+export default Tabs

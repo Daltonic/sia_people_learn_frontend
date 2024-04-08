@@ -1,6 +1,5 @@
 import CourseHead from '@/components/coursedetail/CourseHead'
 import Tabs from '@/components/coursedetail/Tabs'
-import CourseCard from '@/components/courses/CourseCard'
 import Layout from '@/components/layout/Layout'
 import { GetServerSidePropsContext, NextPage } from 'next'
 import { Navigation, Pagination, Autoplay } from 'swiper'
@@ -16,6 +15,7 @@ import {
 } from '@/services/backend.services'
 import ReviewSection from '@/components/blogs/ReviewSection'
 import Head from 'next/head'
+import MyCourseCard from '@/components/dashboard/myProducts/MyCourseCard'
 
 const Page: NextPage<{
   courseData: ICourse
@@ -116,7 +116,7 @@ const Page: NextPage<{
                   >
                     {alternateCourses.map((elm, i: number) => (
                       <SwiperSlide key={i}>
-                        <CourseCard data={elm} index={i} />
+                        <MyCourseCard data={elm} type="Course" />
                       </SwiperSlide>
                     ))}
                   </Swiper>
