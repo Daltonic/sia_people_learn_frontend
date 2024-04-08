@@ -5,7 +5,6 @@ import { useEffect, useState } from 'react'
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa'
 import { SwiperSlide, Swiper } from 'swiper/react'
 import { IAcademy, IAcademies, IReviews } from '@/utils/type.dt'
-import AcademyCard from '@/components/academies/AcademyCard'
 import AcademyHead from '@/components/academydetail/AcademyHead'
 import AcademyDetails from '@/components/academydetail/AcademyDetails'
 import Tabs from '@/components/academydetail/Tabs'
@@ -16,6 +15,7 @@ import {
 } from '@/services/backend.services'
 import ReviewSection from '@/components/blogs/ReviewSection'
 import Head from 'next/head'
+import MyCourseCard from '@/components/dashboard/myProducts/MyCourseCard'
 
 const Page: NextPage<{
   academyData: IAcademy
@@ -116,7 +116,7 @@ const Page: NextPage<{
                   >
                     {alternateAcademies.map((elm) => (
                       <SwiperSlide key={elm._id}>
-                        <AcademyCard data={elm} />
+                        <MyCourseCard data={elm} type="Academy" />
                       </SwiperSlide>
                     ))}
                   </Swiper>

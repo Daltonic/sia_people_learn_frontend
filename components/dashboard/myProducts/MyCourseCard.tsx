@@ -1,57 +1,67 @@
-"use client";
-import React from "react";
-import Image from "next/image";
-import Link from "next/link";
-import { useEffect, useState } from "react";
-import { IoIosStar, IoMdMore } from "react-icons/io";
-import Dropdown from "@/components/reusableComponents/Dropdown";
-import { toast } from "react-toastify";
-import { useRouter } from "next/router";
-import { submitCourse } from "@/services/backend.services";
-import { useDispatch } from "react-redux";
-import { genericActions } from "@/store/slices/genericSlice";
-import { ICourse } from "@/utils/type.dt";
-import { ViewRating } from "@/components/reusableComponents/Rating";
+'use client'
+import React from 'react'
+import Image from 'next/image'
+import Link from 'next/link'
+import { useEffect, useState } from 'react'
+import Dropdown from '@/components/reusableComponents/Dropdown'
+import { toast } from 'react-toastify'
+import { submitCourse } from '@/services/backend.services'
+import { useDispatch } from 'react-redux'
+import { genericActions } from '@/store/slices/genericSlice'
+import { IAcademy, ICourse } from '@/utils/type.dt'
+import { ViewRating } from '@/components/reusableComponents/Rating'
 
 interface ComponentProps {
-  data: ICourse;
-  type: "Book" | "Course";
+  data: ICourse | IAcademy
+  type: 'Book' | 'Course' | 'Academy'
+  owner?: boolean
 }
 
-const MyCourseCard: React.FC<ComponentProps> = ({ data, type }) => {
-  const [rating, setRating] = useState<string[]>([]);
-  const dispatch = useDispatch();
-  const { setDeleteModal, setData } = genericActions;
+function isIAcademy(data: ICourse | IAcademy): data is IAcademy {
+  return (data as IAcademy).courses !== undefined
+}
 
-  const [course, setCourse] = useState<ICourse>(data);
+const MyCourseCard: React.FC<ComponentProps> = ({ data, type, owner }) => {
+  const [rating, setRating] = useState<string[]>([])
+  const dispatch = useDispatch()
+  const { setDeleteModal, setData } = genericActions
+
+  const [course, setCourse] = useState<ICourse>(data as ICourse)
+  const [academy, setAcademy] = useState<IAcademy>(data as IAcademy)
 
   useEffect(() => {
-    const newRating = Array(5).fill("star");
-    setRating(newRating);
-  }, [course.rating]);
+    if (isIAcademy(data)) {
+      setAcademy(data)
+    }
+  }, [data])
+
+  useEffect(() => {
+    const newRating = Array(5).fill('star')
+    setRating(newRating)
+  }, [data.rating])
 
   const handleSubmit = async () => {
     await toast.promise(
       new Promise<void>(async (resolve, reject) => {
-        await submitCourse({ submitted: true }, course._id)
+        await submitCourse({ submitted: true }, data._id)
           .then((res: any) => {
-            setCourse(res);
-            resolve(res);
+            setCourse(res)
+            resolve(res)
           })
-          .catch((error: any) => reject(error));
+          .catch((error: any) => reject(error))
       }),
       {
         pending: `Submitting...`,
         success: `Course submitted successfully 👌`,
-        error: "Encountered error 🤯",
+        error: 'Encountered error 🤯',
       }
-    );
-  };
+    )
+  }
 
   const onDelete = () => {
-    dispatch(setData({ ...course, type: "course" }));
-    dispatch(setDeleteModal("scale-100"));
-  };
+    dispatch(setData({ ...course, type: 'course' }))
+    dispatch(setDeleteModal('scale-100'))
+  }
 
   return (
     <div
@@ -60,79 +70,196 @@ const MyCourseCard: React.FC<ComponentProps> = ({ data, type }) => {
     >
       <div className="">
         <div className="h-32 relative rounded-lg hover:bg-black transition-opacity delay-1000 hover:ease-in">
-          <Link href={`/course/${course.slug}`}>
+          <Link
+            href={
+              type !== 'Academy'
+                ? `/course/${data.slug}`
+                : `/academies/${data.slug}`
+            }
+          >
             <Image
               width={100}
               height={100}
               className="rounded-lg object-cover h-full w-full  hover:opacity-70"
-              src={course.imageUrl || "/images/general/cardimg.svg"}
+              src={data.imageUrl || '/images/general/cardimg.svg'}
               alt="image"
             />
           </Link>
 
-          <div className="absolute top-1 right-2">
-            <Dropdown>
-              <Link
-                href={`/(dashboard)/products/courses/edit/${String(course.slug)}`}
-                className="p-1 hover:bg-gray-100 w-full text-left"
-              >
-                Edit
-              </Link>
-              <Link
-                href={{
-                  pathname: `/course/learn/${String(course.slug)}`,
-                }}
-                className="p-1 hover:bg-gray-100 w-full text-left"
-              >
-                Lessons
-              </Link>
-              <Link
-                href={{
-                  pathname: `/course/lesson/create`,
-                  query: {
-                    course: course.slug,
-                  },
-                }}
-                className="p-1 hover:bg-gray-100 w-full text-left"
-              >
-                Add Lessons
-              </Link>
-              {!course.submitted && (
-                <button
-                  onClick={handleSubmit}
+          {owner && type !== 'Academy' && (
+            <div className="absolute top-1 right-2">
+              <Dropdown>
+                <Link
+                  href={`/(dashboard)/products/courses/edit/${String(
+                    data.slug
+                  )}`}
                   className="p-1 hover:bg-gray-100 w-full text-left"
                 >
-                  Submit
+                  Edit
+                </Link>
+                <Link
+                  href={{
+                    pathname: `/course/learn/${String(data.slug)}`,
+                  }}
+                  className="p-1 hover:bg-gray-100 w-full text-left"
+                >
+                  Lessons
+                </Link>
+                <Link
+                  href={{
+                    pathname: `/course/lesson/create`,
+                    query: {
+                      course: data.slug,
+                    },
+                  }}
+                  className="p-1 hover:bg-gray-100 w-full text-left"
+                >
+                  Add Lessons
+                </Link>
+                {!data.submitted && (
+                  <button
+                    onClick={handleSubmit}
+                    className="p-1 hover:bg-gray-100 w-full text-left"
+                  >
+                    Submit
+                  </button>
+                )}
+
+                <button
+                  onClick={onDelete}
+                  className="p-1 hover:bg-gray-100 w-full text-left"
+                >
+                  Delete
                 </button>
-              )}
-
-              <button
-                onClick={onDelete}
-                className="p-1 hover:bg-gray-100 w-full text-left"
-              >
-                Delete
-              </button>
-            </Dropdown>
-          </div>
-        </div>
-        <div className="my-2 p-2 space-y-2">
-          <div className="flex items-center justify-between md:md:text-xs gap-4">
-            <p className="text-[#4F547B]">{course.userId.firstName}</p>
-
-            <div className="flex justify-start gap-[1px]">
-              <ViewRating value={course.rating || 0} />
+              </Dropdown>
             </div>
+          )}
+
+          {owner && type === 'Academy' && (
+            <div className="absolute top-1 right-2">
+              <Dropdown>
+                <Link
+                  href={`/academy/edit/${String(data.slug)}`}
+                  className="p-1 hover:bg-gray-100 w-full text-left"
+                >
+                  Edit
+                </Link>
+                <Link
+                  href={`/academy/courses/${String(data.slug)}`}
+                  className="p-1 hover:bg-gray-100 w-full text-left"
+                >
+                  Courses
+                </Link>
+                {!data.submitted && (
+                  <button
+                    onClick={handleSubmit}
+                    className="p-1 hover:bg-gray-100 w-full text-left"
+                  >
+                    Submit
+                  </button>
+                )}
+
+                <button
+                  onClick={onDelete}
+                  className="p-1 hover:bg-gray-100 w-full text-left"
+                >
+                  Delete
+                </button>
+              </Dropdown>
+            </div>
+          )}
+        </div>
+        <div className="my-2 py-2 space-y-2">
+          <div className="flex items-center justify-between md:text-xs gap-4">
+            <div className="flex items-center justify-start gap-[1px]">
+              <ViewRating value={data.rating || 0} />
+              <p className="text-[#4F547B] pb-[1px]">
+                ({data.reviewsCount || 0})
+              </p>
+            </div>
+            {type === 'Course' && (
+              <p className="text-[10px] bg-[#6440FB12] text-[#1A064F] rounded-md px-1">
+                Lessons ({course.lessons.length})
+              </p>
+            )}
+            {type === 'Academy' && (
+              <p className="text-[10px] bg-[#6440FB12] text-[#1A064F] rounded-md px-1">
+                Courses ({academy.courses?.length})
+              </p>
+            )}
           </div>
 
-          <Link className="linkCustom" href={`/course/${course.slug}`}>
-            <div className="md:text-sm font-medium text-[#321463] mt-2 line-clamp-2">
-              {course.name}
+          <Link className="linkCustom" href={`/course/${data.slug}`}>
+            <div className="md:text-sm font-medium text-[#321463] mt-2 h-10">
+              <div className="line-clamp-2">{data.name}</div>
             </div>
           </Link>
+
+          <div className="flex justify-between items-center my-2 border-b border-[#EDEDED] pb-1">
+            <div className="flex items-center">
+              <div className="mr-2 md:mr-1">
+                <Image
+                  width={100}
+                  height={100}
+                  src="/images/home/coursesCards/icons/2.svg"
+                  alt="icon"
+                  className="w-5 h-5 md:w-3 md:h-3"
+                />
+              </div>
+              <div className="md:text-xs ">{`${Math.floor(
+                data.duration / 60
+              )}h ${Math.floor(data.duration % 60)}m`}</div>
+            </div>
+
+            <div className="flex items-start">
+              <div className="mr-2 md:mr-1">
+                <Image
+                  width={100}
+                  height={100}
+                  src="/images/home/coursesCards/icons/3.svg"
+                  alt="icon"
+                  className="w-5 h-5  md:w-3 md:h-3"
+                />
+              </div>
+              <div className="md:text-xs">{data.difficulty}</div>
+            </div>
+          </div>
+
+          <div className="flex justify-between items-center bottom-0 mb-0">
+            <div className="flex items-center gap-2">
+              {data.userId.imgUrl ? (
+                <Image
+                  width={10}
+                  height={10}
+                  src={data.userId.imgUrl || '/images/courseCard/card1.svg'}
+                  alt="image"
+                  className="object-cover rounded-full w-8 h-8"
+                />
+              ) : (
+                <div className="rounded-full w-8 h-8 text-white px-4 bg-[#C5165D] text-sm flex items-center justify-center">
+                  {data.userId.firstName[0]}
+                  {data.userId.lastName[0]}
+                </div>
+              )}
+
+              <p className="md:text-xs text-[#4F547B]">
+                {data.userId.firstName} {data.userId.lastName}
+              </p>
+            </div>
+
+            <div className="flex items-center gap-1">
+              <p className="md:text-xs text-[#4F547B] line-through">
+                ${data.price}
+              </p>
+              <p className="text-lg md:text-sm medium text-[#321463]">
+                ${data.price}
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default MyCourseCard;
+export default MyCourseCard
