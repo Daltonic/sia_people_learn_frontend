@@ -1,97 +1,96 @@
-"use client";
+'use client'
 
-import React, { FormEvent, useEffect, useState } from "react";
-import Image from "next/image";
-import Link from "next/link";
-import { CiSearch } from "react-icons/ci";
-import Navbar from "@/components/layout/headers/Navbar";
-import { FiShoppingCart } from "react-icons/fi";
-import Button from "@/components/reusableComponents/Button";
-import { useSelector, useDispatch } from "react-redux";
-import { userActions } from "@/store/slices/userSlice";
-import Modal from "@/components/reusableComponents/Modal";
-import PowerSVG from "@/components/dashboard/dashboardSVGs/PowerSVG";
-import { useRouter } from "next/navigation";
-import { RootState } from "@/utils/type.dt";
-import Cookies from "universal-cookie";
-import { toast } from "react-toastify";
-import { logout } from "@/services/backend.services";
+import React, { FormEvent, useEffect, useState } from 'react'
+import Image from 'next/image'
+import Link from 'next/link'
+import { CiSearch } from 'react-icons/ci'
+import Navbar from '@/components/layout/headers/Navbar'
+import { FiShoppingCart } from 'react-icons/fi'
+import Button from '@/components/reusableComponents/Button'
+import { useSelector, useDispatch } from 'react-redux'
+import { userActions } from '@/store/slices/userSlice'
+import Modal from '@/components/reusableComponents/Modal'
+import PowerSVG from '@/components/dashboard/dashboardSVGs/PowerSVG'
+import { useRouter } from 'next/navigation'
+import { RootState } from '@/utils/type.dt'
+import Cookies from 'universal-cookie'
+import { toast } from 'react-toastify'
+import { logout } from '@/services/backend.services'
 
 const Header: React.FC = () => {
-  const dispatch = useDispatch();
-  const { setUserData } = userActions;
-  const { userData } = useSelector((states: RootState) => states.userStates);
-  const { cartCourseItems, cartAcademyItems } = useSelector(
-    (states: RootState) => states.cartStates
-  );
-  const cookies = new Cookies();
+  const dispatch = useDispatch()
+  const { setUserData } = userActions
+  const { userData } = useSelector((states: RootState) => states.userStates)
+  const { cartItems } = useSelector((states: RootState) => states.cartStates)
+  const cookies = new Cookies()
 
-  const [showModal, setShowModal] = useState(false);
-  const router = useRouter();
+  const [showModal, setShowModal] = useState(false)
+  const router = useRouter()
   const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-  };
-  const [isScrolled, setIsScrolled] = useState(false);
+    e.preventDefault()
+  }
+  const [isScrolled, setIsScrolled] = useState(false)
 
   useEffect(() => {
     if (!userData) {
-      const sessionUser = JSON.parse(sessionStorage.getItem("user")!);
+      const sessionUser = JSON.parse(sessionStorage.getItem('user')!)
       if (sessionUser) {
-        dispatch(setUserData(sessionUser));
+        dispatch(setUserData(sessionUser))
       }
     }
-  }, [dispatch, setUserData, userData]);
+  }, [dispatch, setUserData, userData])
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrolled = window.scrollY > 0;
+      const scrolled = window.scrollY > 0
       if (scrolled !== isScrolled) {
-        setIsScrolled(scrolled);
+        setIsScrolled(scrolled)
       }
-    };
+    }
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener('scroll', handleScroll, { passive: true })
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [isScrolled]);
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [isScrolled])
 
   const handleToggleModal = () => {
-    setShowModal((prevShowModal) => !prevShowModal);
-  };
+    setShowModal((prevShowModal) => !prevShowModal)
+  }
 
   const handleLogout = async () => {
-    router.push("/");
+    router.push('/')
 
     await toast.promise(
       new Promise<void>(async (resolve, reject) => {
-        const status = await logout();
+        const status = await logout()
 
         if (status === 200) {
-          resolve();
-          sessionStorage.removeItem("accessToken");
-          sessionStorage.removeItem("user");
-          cookies.remove("accessToken");
-          dispatch(setUserData(null));
+          resolve()
+          sessionStorage.removeItem('accessToken')
+          sessionStorage.removeItem('user')
+          cookies.remove('accessToken')
+          dispatch(setUserData(null))
         } else {
-          reject();
+          reject()
         }
       }),
       {
-        pending: "Logging out...",
-        success: "Logged out successfully 👌",
-        error: "Encountered error 🤯",
+        pending: 'Logging out...',
+        success: 'Logged out successfully 👌',
+        error: 'Encountered error 🤯',
       }
-    );
-  };
+    )
+  }
 
   return (
     <header
-      className={`px-5 py-3 sm:px-10 lg:px-20 sticky top-0 w-full z-50 ${isScrolled
-          ? "bg-white shadow-md shadow-purple-900/10"
-          : "bg-transparent"
-        }`}
+      className={`px-5 py-3 sm:px-10 lg:px-20 sticky top-0 w-full z-50 ${
+        isScrolled
+          ? 'bg-white shadow-md shadow-purple-900/10'
+          : 'bg-transparent'
+      }`}
     >
       <div>
         <div className="flex justify-between items-center">
@@ -130,9 +129,9 @@ const Header: React.FC = () => {
             <Navbar />
             <Link href="/shopcart" className="relative">
               <FiShoppingCart className="text-2xl text-black icon icon-basket" />
-              {cartAcademyItems.length + cartCourseItems.length > 0 && (
+              {cartItems.length > 0 && (
                 <div className="absolute w-3.5 h-3.5 text-white bg-red-500 text-[10px] flex justify-center items-center bottom-5 left-5 p-[2px] rounded-full animate-bounce">
-                  {cartAcademyItems.length + cartCourseItems.length}
+                  {cartItems.length}
                 </div>
               )}
             </Link>
@@ -185,7 +184,7 @@ const Header: React.FC = () => {
         </div>
       </div>
     </header>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header

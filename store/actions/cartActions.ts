@@ -1,29 +1,14 @@
-import { CartState, IAcademy, ICourse } from "@/utils/type.dt";
-import { PayloadAction } from "@reduxjs/toolkit";
+import { CartState, IAcademy, ICourse } from '@/utils/type.dt'
+import { PayloadAction } from '@reduxjs/toolkit'
 
 export const cartActions = {
-  setCartAcademyItems: (
+  setCartItems: (
     states: CartState,
-    action: PayloadAction<IAcademy[]>
+    action: PayloadAction<(ICourse | IAcademy)[]>
   ) => {
-    states.cartAcademyItems = action.payload;
-  },
-  setCartAcademyItem: (
-    states: CartState,
-    action: PayloadAction<IAcademy | null>
-  ) => {
-    states.cartAcademyItem = action.payload;
-  },
-  setCartCourseItems: (states: CartState, action: PayloadAction<ICourse[]>) => {
-    states.cartCourseItems = action.payload;
-  },
-  setCartCourseItem: (
-    states: CartState,
-    action: PayloadAction<ICourse | null>
-  ) => {
-    states.cartCourseItem = action.payload;
+    states.cartItems = action.payload
   },
   setCartAmount: (states: CartState, action: PayloadAction<number>) => {
-    states.cartAmount = action.payload;
+    states.cartAmount = action.payload
   },
-};
+}

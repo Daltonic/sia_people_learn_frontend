@@ -1,147 +1,138 @@
-"use client";
-import React, { useEffect, useState } from "react";
-import {
-  ICourse,
-  IUserSubscriptions,
-  IWishlist,
-  RootState,
-} from "@/utils/type.dt";
-import Image from "next/image";
-import Button from "../reusableComponents/Button";
-import Link from "next/link";
-import { useDispatch, useSelector } from "react-redux";
-import { cartActions } from "@/store/slices/cartSlice";
-import SocialMediaIcons from "../reusableComponents/SocialMediaIcons";
-import { usePathname, useRouter } from "next/navigation";
-import { toast } from "react-toastify";
+'use client'
+import React, { useEffect, useState } from 'react'
+import { ICourse, IWishlist, RootState } from '@/utils/type.dt'
+import Image from 'next/image'
+import Button from '../reusableComponents/Button'
+import Link from 'next/link'
+import { useDispatch, useSelector } from 'react-redux'
+import { cartActions } from '@/store/slices/cartSlice'
+import SocialMediaIcons from '../reusableComponents/SocialMediaIcons'
+import { usePathname, useRouter } from 'next/navigation'
+import { toast } from 'react-toastify'
 import {
   createWishlist,
   deleteWishlist,
   fetchWishlists,
-} from "@/services/backend.services";
+} from '@/services/backend.services'
 
 interface ComponentProps {
-  course: ICourse;
+  course: ICourse
 }
 
 const CourseCardDetail: React.FC<ComponentProps> = ({ course }) => {
-  const router = useRouter();
-  const pathname = usePathname();
-  const { cartCourseItems, cartAmount } = useSelector(
+  const router = useRouter()
+  const pathname = usePathname()
+  const { cartItems, cartAmount } = useSelector(
     (states: RootState) => states.cartStates
-  );
-  const { setCartCourseItems, setCartAmount } = cartActions;
-  const { userData } = useSelector((states: RootState) => states.userStates);
-  const dispatch = useDispatch();
-  const [purchased, setPurchased] = useState<boolean>(false);
-  const [canBookmarked, setCanBookmarked] = useState<boolean>(true);
-  const [bookmarked, setBookmarked] = useState<IWishlist | null>(null);
+  )
+  const { setCartItems, setCartAmount } = cartActions
+  const { userData } = useSelector((states: RootState) => states.userStates)
+  const dispatch = useDispatch()
+  const [purchased, setPurchased] = useState<boolean>(false)
+  const [canBookmarked, setCanBookmarked] = useState<boolean>(true)
+  const [bookmarked, setBookmarked] = useState<IWishlist | null>(null)
   const [buttonText, setButtonText] = useState<string>(() => {
-    const currentCourse = cartCourseItems.find(
-      (item) => item._id === course._id
-    );
-    return currentCourse ? "Remove from Cart" : "Add to Cart";
-  });
+    const currentCourse = cartItems.find((item) => item._id === course._id)
+    return currentCourse ? 'Remove from Cart' : 'Add to Cart'
+  })
 
   // Fetch bookmarked courses when userData changes
   useEffect(() => {
-    if (!userData) return;
+    if (!userData) return
 
-    const isSubscribed = userData.subscribedCourses.includes(course?._id!);
+    const isSubscribed = userData.subscribedCourses.includes(course?._id!)
     if (isSubscribed) {
-      setPurchased(true);
-      return;
+      setPurchased(true)
+      return
     }
     // If bookmarked courses is returned, search through both bookmarked courses and subscribed courses to ensure that neither contains present course
 
     const fetchSavedCourses = async () => {
-      const token = sessionStorage.getItem("accessToken") as string;
+      const token = sessionStorage.getItem('accessToken') as string
 
       try {
         const courses = (await fetchWishlists(
-          { productType: "Course" },
+          { productType: 'Course' },
           token
-        )) as IWishlist[];
+        )) as IWishlist[]
 
         if (courses) {
           const wishCourse = courses.find(
             (wish) => wish.productId._id === course._id
-          );
+          )
 
           if (wishCourse) {
-            setBookmarked(wishCourse);
+            setBookmarked(wishCourse)
           }
           if (wishCourse || isSubscribed) {
-            setCanBookmarked(false);
+            setCanBookmarked(false)
           }
         } else {
           if (isSubscribed) {
-            setCanBookmarked(false);
+            setCanBookmarked(false)
           }
         }
       } catch (e: any) {
-        console.log(e.message);
+        console.log(e.message)
       }
-    };
-    fetchSavedCourses();
-  }, [course?._id, userData]);
+    }
+    fetchSavedCourses()
+  }, [course?._id, userData])
 
   // Add or remove item from cart
   const handleAddToCart = () => {
-    const cartCourse = cartCourseItems.find((item) => item._id === course._id);
-    if (cartCourse) {
-      const updatedCourses = cartCourseItems.filter(
-        (item) => item._id !== course._id
-      );
-      dispatch(setCartCourseItems(updatedCourses));
-      sessionStorage.setItem("sessionCourses", JSON.stringify(updatedCourses));
-      setButtonText("Add To Cart");
-      const newCartAmount = cartAmount - course.price;
-      sessionStorage.setItem("cartAmount", JSON.stringify(newCartAmount));
-      dispatch(setCartAmount(newCartAmount));
+    const cartItem = cartItems.find((item) => item._id === course._id)
+    if (cartItem) {
+      const updatedItems = cartItems.filter((item) => item._id !== course._id)
+      dispatch(setCartItems(updatedItems))
+      sessionStorage.setItem('sessionCartItems', JSON.stringify(updatedItems))
+      setButtonText('Add To Cart')
+      const newCartAmount = cartAmount - course.price
+      sessionStorage.setItem('cartAmount', JSON.stringify(newCartAmount))
+      dispatch(setCartAmount(newCartAmount))
     } else {
-      const updatedCourses = [...cartCourseItems, course];
-      dispatch(setCartCourseItems(updatedCourses));
-      sessionStorage.setItem("sessionCourses", JSON.stringify(updatedCourses));
-      setButtonText("Remove from Cart");
-      const newCartAmount = cartAmount + course.price;
-      sessionStorage.setItem("cartAmount", JSON.stringify(newCartAmount));
-      dispatch(setCartAmount(newCartAmount));
+      const updatedItems = [...cartItems, course]
+      dispatch(setCartItems(updatedItems))
+      sessionStorage.setItem('sessionCartItems', JSON.stringify(updatedItems))
+      setButtonText('Remove from Cart')
+      const newCartAmount = cartAmount + course.price
+      sessionStorage.setItem('cartAmount', JSON.stringify(newCartAmount))
+      dispatch(setCartAmount(newCartAmount))
     }
-  };
+  }
 
   // Creating a bookmark
   const handleAddToWishlist = async () => {
-    const token = sessionStorage.getItem("accessToken") as string;
+    const token = sessionStorage.getItem('accessToken') as string
 
     await toast.promise(
       new Promise<void>((resolve, reject) => {
         createWishlist(
-          { productType: "Course", productId: course._id },
+          { productType: 'Course', productId: course._id },
           token
         ).then((wishlist) => {
           if (wishlist) {
-            setCanBookmarked(false);
-            setBookmarked(wishlist);
-            resolve(wishlist);
+            setCanBookmarked(false)
+            setBookmarked(wishlist)
+            resolve(wishlist)
           } else {
-            reject();
+            reject()
           }
-        });
+        })
       }),
       {
-        pending: "Adding to Wishlist",
-        success: "Successfully saved 👌",
-        error: "Encountered error 🤯",
+        pending: 'Adding to Wishlist',
+        success: 'Successfully saved 👌',
+        error: 'Encountered error 🤯',
       }
-    );
-  };
+    )
+  }
 
   // Remove from Bookmarks
   const handleRemoveFromWishlist = async (isSubscribed: boolean) => {
-    if (!bookmarked) return; // Return if the course had not been bookmarked
+    if (!bookmarked) return // Return if the course had not been bookmarked
 
-    const token = sessionStorage.getItem("accessToken") as string;
+    const token = sessionStorage.getItem('accessToken') as string
 
     await toast.promise(
       new Promise<void>((resolve, reject) => {
@@ -149,37 +140,37 @@ const CourseCardDetail: React.FC<ComponentProps> = ({ course }) => {
           if (status === 200) {
             // Now that the bookmark has been deleted,  reset the bookmark to true if the user is not currently subscribed to the course
             if (!isSubscribed) {
-              setCanBookmarked(true);
+              setCanBookmarked(true)
             }
-            setBookmarked(null);
-            resolve(status);
+            setBookmarked(null)
+            resolve(status)
           } else {
-            reject();
+            reject()
           }
-        });
+        })
       }),
       {
-        pending: "Removing from Wishlist",
-        success: "Successfully saved 👌",
-        error: "Encountered error 🤯",
+        pending: 'Removing from Wishlist',
+        success: 'Successfully saved 👌',
+        error: 'Encountered error 🤯',
       }
-    );
-  };
+    )
+  }
 
   const handleBookmarkAction = () => {
     if (!userData) {
-      sessionStorage.setItem("prevPath", pathname);
-      router.push("/login");
-      return;
+      sessionStorage.setItem('prevPath', pathname)
+      router.push('/login')
+      return
     }
-    const isSubscribed = userData!.subscribedCourses.includes(course?._id!);
-    if (isSubscribed) return;
+    const isSubscribed = userData!.subscribedCourses.includes(course?._id!)
+    if (isSubscribed) return
     if (canBookmarked) {
-      handleAddToWishlist();
+      handleAddToWishlist()
     } else {
-      handleRemoveFromWishlist(isSubscribed);
+      handleRemoveFromWishlist(isSubscribed)
     }
-  };
+  }
 
   return (
     <div className="bg-white w-full md:w-[25%] md:right-10 md:top-0 md:absolute md:border border-[#EDEDED] p-2 space-y-2 mt-10 md:mt-0 rounded-md z-10">
@@ -189,12 +180,12 @@ const CourseCardDetail: React.FC<ComponentProps> = ({ course }) => {
             width={250}
             height={250}
             className="rounded-md w-full h-full"
-            src={course.imageUrl || "/images/general/cardimg.svg"}
+            src={course.imageUrl || '/images/general/cardimg.svg'}
             alt="image"
           />
         </div>
         <div className="p-4 bg-[#C5165D] rounded-full absolute">
-          {" "}
+          {' '}
           <Image
             width={12}
             height={12}
@@ -224,10 +215,10 @@ const CourseCardDetail: React.FC<ComponentProps> = ({ course }) => {
             onClick={handleBookmarkAction}
           >
             {purchased
-              ? "Already subscribed"
+              ? 'Already subscribed'
               : canBookmarked
-                ? `Bookmark ${course.type}`
-                : "Remove bookmark"}
+              ? `Bookmark ${course.type}`
+              : 'Remove bookmark'}
           </Button>
 
           <Link href="/shopcart">
@@ -283,7 +274,7 @@ const CourseCardDetail: React.FC<ComponentProps> = ({ course }) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default CourseCardDetail;
+export default CourseCardDetail
