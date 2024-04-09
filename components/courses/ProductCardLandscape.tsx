@@ -23,67 +23,39 @@ const ProductCardLandscape: React.FC<Props> = ({ data, type }) => {
   const [course, setCourse] = useState<ICourse>(data as ICourse)
   const [academy, setAcademy] = useState<IAcademy>(data as IAcademy)
 
-  const { cartCourseItems, cartAcademyItems, cartAmount } = useSelector(
+  const { cartItems, cartAmount } = useSelector(
     (states: RootState) => states.cartStates
   )
-  const { setCartCourseItems, setCartAcademyItems, setCartAmount } = cartActions
+  const { setCartItems, setCartAmount } = cartActions
   const dispatch = useDispatch()
   const [buttonText, setButtonText] = useState<string>(() => {
-    const currentCourse = cartCourseItems.find((item) => item._id === data._id)
-    return currentCourse ? 'Remove from Cart' : 'Add to Cart'
+    const currentItem = cartItems.find((item) => item._id === data._id)
+    return currentItem ? 'Remove from Cart' : 'Add to Cart'
   })
 
-  const addCourseToCart = () => {
-    const cartCourse = cartCourseItems.find((item) => item._id === data._id)
-    if (cartCourse) {
-      const updatedCourses = cartCourseItems.filter(
-        (item) => item._id !== data._id
+  const addToCart = () => {
+    const cartItem = cartItems.find(
+      (item: ICourse | IAcademy) => item._id === data._id
+    )
+
+    if (cartItem) {
+      const updatedItems = cartItems.filter(
+        (item: ICourse | IAcademy) => item._id !== data._id
       )
-      dispatch(setCartCourseItems(updatedCourses))
-      sessionStorage.setItem('sessionCourses', JSON.stringify(updatedCourses))
+      dispatch(setCartItems(updatedItems))
+
+      sessionStorage.setItem('sessionCartItems', JSON.stringify(updatedItems))
       setButtonText('Add To Cart')
       const newCartAmount = cartAmount - data.price
       sessionStorage.setItem('cartAmount', JSON.stringify(newCartAmount))
       dispatch(setCartAmount(newCartAmount))
     } else {
       // Ensure only ICourse objects are included
-      const updatedCourses = cartCourseItems.filter(
-        (item) => 'type' in item && 'lessons' in item
-      )
-      updatedCourses.push(data as ICourse) // Assuming 'data' is an ICourse object
-      dispatch(setCartCourseItems(updatedCourses))
-      sessionStorage.setItem('sessionCourses', JSON.stringify(updatedCourses))
+      const updatedItems = [...cartItems, data]
+      dispatch(setCartItems(updatedItems))
+      sessionStorage.setItem('sessionCartItems', JSON.stringify(updatedItems))
       setButtonText('Remove from Cart')
       const newCartAmount = cartAmount + data.price
-      sessionStorage.setItem('cartAmount', JSON.stringify(newCartAmount))
-      dispatch(setCartAmount(newCartAmount))
-    }
-  }
-
-  const addAcademyToCart = () => {
-    const cartCourse = cartAcademyItems.find((item) => item._id === academy._id)
-    if (cartCourse) {
-      const updatedAcademies = cartAcademyItems.filter(
-        (item) => item._id !== academy._id
-      )
-      dispatch(setCartAcademyItems(updatedAcademies))
-      setButtonText('Add To Cart')
-      sessionStorage.setItem(
-        'sessionAcademies',
-        JSON.stringify(updatedAcademies)
-      )
-      const newCartAmount = cartAmount - academy.price
-      sessionStorage.setItem('cartAmount', JSON.stringify(newCartAmount))
-      dispatch(setCartAmount(newCartAmount))
-    } else {
-      const updatedAcademies = [...cartAcademyItems, academy]
-      dispatch(setCartAcademyItems(updatedAcademies))
-      setButtonText('Remove from Cart')
-      sessionStorage.setItem(
-        'sessionAcademies',
-        JSON.stringify(updatedAcademies)
-      )
-      const newCartAmount = cartAmount + academy.price
       sessionStorage.setItem('cartAmount', JSON.stringify(newCartAmount))
       dispatch(setCartAmount(newCartAmount))
     }
@@ -245,7 +217,7 @@ const ProductCardLandscape: React.FC<Props> = ({ data, type }) => {
         <div className="flex items-center justify-between gap-5 mt-3 text-pink-700">
           {type !== 'Academy' && (
             <button
-              onClick={addCourseToCart}
+              onClick={addToCart}
               className="font-medium bg-violet-600 bg-opacity-10 justify-center h-12 px-3 rounded-lg"
             >
               {buttonText}
@@ -254,7 +226,7 @@ const ProductCardLandscape: React.FC<Props> = ({ data, type }) => {
 
           {type === 'Academy' && academy.validity === 0 && (
             <button
-              onClick={addAcademyToCart}
+              onClick={addToCart}
               className="font-medium bg-violet-600 bg-opacity-10 justify-center h-12 px-3 rounded-lg"
             >
               {buttonText}

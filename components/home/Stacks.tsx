@@ -64,7 +64,9 @@ const Stacks: React.FC = () => {
               >
                 {skillsOne.map((elm, i: number) => (
                   <SwiperSlide key={i}>
-                    <div className="bg-white overflow-visible p-4 rounded-md py-5 h-40 sm:h-32 mx-auto sm:mx-0 w-60 sm:w-36 border border-[#EDEDED] shadow-md shadow-[#EDEDED] flex items-center justify-center">
+                    <div className="bg-white overflow-hidden p-4 rounded-md py-5 h-40
+                    sm:h-32 mx-auto sm:mx-0 w-60 sm:w-36 border border-[#EDEDED]
+                    shadow-md shadow-[#EDEDED] flex items-center justify-center">
                       <div
                         className="flex flex-col items-center"
                         data-aos="fade-left"

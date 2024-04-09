@@ -1,113 +1,56 @@
-"use client";
+'use client'
 
-import { cartActions } from "@/store/slices/cartSlice";
-import {
-  ICourse,
-  IUserSubscription,
-  IUserSubscriptions,
-  RootState,
-} from "@/utils/type.dt";
-import Image from "next/image";
-import { LiaTimesSolid } from "react-icons/lia";
-import { useDispatch, useSelector } from "react-redux";
-import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import EmptyComponent from "../reusableComponents/EmptyComponent";
-import { toast } from "react-toastify";
-import { stripeCheckout } from "@/services/backend.services";
-import { FaTimes } from "react-icons/fa";
-import Button from "../reusableComponents/Button";
-
-interface Product {
-  imageUrl: string | null;
-  name: string;
-  type: "Academy" | "Course" | "Book";
-  price: number;
-  discountedPrice: number;
-  _id: string;
-}
+import { cartActions } from '@/store/slices/cartSlice'
+import { RootState } from '@/utils/type.dt'
+import Image from 'next/image'
+import { useDispatch, useSelector } from 'react-redux'
+import { usePathname, useRouter } from 'next/navigation'
+import EmptyComponent from '../reusableComponents/EmptyComponent'
+import { toast } from 'react-toastify'
+import { stripeCheckout } from '@/services/backend.services'
+import { FaTimes } from 'react-icons/fa'
+import Button from '../reusableComponents/Button'
+import Link from 'next/link'
 
 const ShopCartTable: React.FC = () => {
-  const router = useRouter();
-  const pathname = usePathname();
-  const { setCartAcademyItems, setCartCourseItems, setCartAmount } =
-    cartActions;
-  const dispatch = useDispatch();
-  const { cartAcademyItems, cartCourseItems, cartAmount } = useSelector(
+  const router = useRouter()
+  const pathname = usePathname()
+  const { setCartItems, setCartAmount } = cartActions
+  const dispatch = useDispatch()
+  const { cartItems, cartAmount } = useSelector(
     (states: RootState) => states.cartStates
-  );
+  )
 
-  const { userData } = useSelector((states: RootState) => states.userStates);
+  const { userData } = useSelector((states: RootState) => states.userStates)
 
-  const cartItems: Product[] = [];
+  const handleRemoveFromCart = (_id: string, price: number) => {
+    const updatedItems = cartItems.filter((item) => item._id !== _id)
+    dispatch(setCartItems(updatedItems))
 
-  cartAcademyItems.forEach((item) =>
-    cartItems.push({
-      imageUrl: item?.imageUrl,
-      name: item.name,
-      type: "Academy",
-      price: item.price,
-      discountedPrice: item.price,
-      _id: item._id,
-    })
-  );
-
-  cartCourseItems.forEach((item) => {
-    cartItems.push({
-      imageUrl: item?.imageUrl,
-      name: item.name,
-      type: "Course",
-      price: item.price,
-      discountedPrice: item.price,
-      _id: item._id,
-    });
-  });
-
-  const handleRemoveFromCart = (
-    _id: string,
-    type: "Academy" | "Course" | "Book",
-    price: number
-  ) => {
-    if (type === "Academy") {
-      const updatedAcademies = cartAcademyItems.filter(
-        (item) => item._id !== _id
-      );
-      dispatch(setCartAcademyItems(updatedAcademies));
-      sessionStorage.setItem(
-        "sessionAcademies",
-        JSON.stringify(updatedAcademies)
-      );
-      const currentAmount = cartAmount - price;
-      sessionStorage.setItem("cartAmount", JSON.stringify(currentAmount));
-      dispatch(setCartAmount(currentAmount));
-    } else {
-      const updatedCourses = cartCourseItems.filter((item) => item._id !== _id);
-      dispatch(setCartCourseItems(updatedCourses));
-      sessionStorage.setItem("sessionCourses", JSON.stringify(updatedCourses));
-      const currentAmount = cartAmount - price;
-      sessionStorage.setItem("cartAmount", JSON.stringify(currentAmount));
-      dispatch(setCartAmount(currentAmount));
-    }
-  };
+    sessionStorage.setItem('sessionCartItems', JSON.stringify(updatedItems))
+    const currentAmount = cartAmount - price
+    sessionStorage.setItem('cartAmount', JSON.stringify(currentAmount))
+    dispatch(setCartAmount(currentAmount))
+  }
 
   const handleCheckout = async () => {
     if (!userData) {
-      sessionStorage.setItem("prevPath", pathname);
-      router.push("/login");
+      sessionStorage.setItem('prevPath', pathname)
+      router.push('/login')
     }
 
     const products: {
-      productId: string;
-      productType: "Course" | "Academy";
-    }[] = [];
+      productId: string
+      productType: 'Course' | 'Academy'
+    }[] = []
     for (let item of cartItems) {
       products.push({
         productId: item._id,
-        productType: item.type === "Academy" ? "Academy" : "Course",
-      });
+        productType: (item.type as 'Course' | 'Academy') || 'Academy',
+      })
     }
 
-    const token = sessionStorage.getItem("accessToken") as string;
+    const token = sessionStorage.getItem('accessToken') as string
 
     try {
       await toast.promise(
@@ -115,28 +58,28 @@ const ShopCartTable: React.FC = () => {
           await stripeCheckout(products, token)
             .then((result) => {
               if (result.url) {
-                router.push(result.url);
+                router.push(result.url)
               } else {
-                router.push("/payment-successful");
+                router.push('/payment-successful')
               }
 
-              resolve(result);
+              resolve(result)
             })
             .catch((error) => {
-              console.log(error);
-              reject(error);
-            });
+              console.log(error)
+              reject(error)
+            })
         }),
         {
           pending: `Processing...`,
           success: `Payment successful 👌`,
-          error: "Encountered error 🤯",
+          error: 'Encountered error 🤯',
         }
-      );
+      )
     } catch (e: any) {
-      console.log(e.message);
+      console.log(e.message)
     }
-  };
+  }
 
   return (
     <div
@@ -165,29 +108,36 @@ const ShopCartTable: React.FC = () => {
             <tbody>
               {cartItems.map((item, i) => (
                 <tr key={i} className="border-b border-[#EDEDED]">
-                  <td className="flex items-center gap-5 pl-10 py-2 w-fit px-5">
-                    <Image
-                      className="w-20 h-14 rounded-md"
-                      alt=""
-                      width={100}
-                      height={100}
-                      src={item.imageUrl || "/images/general/shape.svg"}
-                    />
-                    <span className="text-[#321463] font-medium">
-                      {item.name}
-                    </span>
+                  <td className="py-2 w-fit px-5">
+                    <Link
+                      className="flex items-center gap-5 pl-10"
+                      href={
+                        item.type !== 'Academy'
+                          ? `/course/${item.slug}`
+                          : `/academies/${item.slug}`
+                      }
+                    >
+                      <Image
+                        className="w-20 h-14 object-cover rounded-md"
+                        alt=""
+                        width={100}
+                        height={100}
+                        src={item.imageUrl || '/images/general/shape.svg'}
+                      />
+                      <span className="text-[#321463] font-medium">
+                        {item.name}
+                      </span>
+                    </Link>
                   </td>
                   <td className="w-1/6 px-10 text-start text-[#4F547B]">
-                    {item.type}
+                    {item.type ? item.type : 'Academy'}
                   </td>
                   <td className="w-1/6 px-10 text-start text-[#4F547B]">
                     ${item.price}
                   </td>
                   <td className="w-1/6 px-16 text-base text-[#1A3454]">
                     <div
-                      onClick={() =>
-                        handleRemoveFromCart(item._id, item.type, item.price)
-                      }
+                      onClick={() => handleRemoveFromCart(item._id, item.price)}
                       className="cursor-pointer flex justify-center"
                     >
                       <FaTimes className="w-full" />
@@ -216,7 +166,7 @@ const ShopCartTable: React.FC = () => {
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default ShopCartTable;
+export default ShopCartTable

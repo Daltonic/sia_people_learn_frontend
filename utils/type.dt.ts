@@ -14,6 +14,7 @@ export interface IAcademy {
   deleted: boolean
   orderCount: number
   rating: number | null
+  type?: 'Academy'
   reviews: {
     starRating: number
     comment: string
@@ -137,10 +138,7 @@ export interface IPosts {
 }
 
 export interface CartState {
-  cartAcademyItems: IAcademy[]
-  cartAcademyItem: IAcademy | null
-  cartCourseItems: ICourse[]
-  cartCourseItem: ICourse | null
+  cartItems: (ICourse | IAcademy)[]
   cartAmount: number
 }
 

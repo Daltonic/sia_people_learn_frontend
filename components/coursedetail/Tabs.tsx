@@ -1,23 +1,22 @@
-"use client";
-import React, { useState } from "react";
-import { FaCheck, FaCircle } from "react-icons/fa";
-import { ICourse } from "@/utils/type.dt";
-import Image from "next/image";
-import Link from "next/link";
+'use client'
+import React, { useState } from 'react'
+import { FaCheck, FaCircle } from 'react-icons/fa'
+import { ICourse } from '@/utils/type.dt'
+import Image from 'next/image'
 
 interface ComponentProps {
-  course: ICourse;
-  data: any;
-  type: "lesson" | "Book" | "Course";
+  course: ICourse
+  data: any
+  type: 'lesson' | 'Book' | 'Course'
 }
 
 const Tabs: React.FC<ComponentProps> = ({ course, type, data }) => {
-  const [activeTab, setActiveTab] = useState<number>(1);
-  const [showMore, setShowMore] = useState(false);
+  const [activeTab, setActiveTab] = useState<number>(1)
+  const [showMore, setShowMore] = useState(false)
 
   const handleTabClick = (tabNumber: number) => {
-    setActiveTab(tabNumber);
-  };
+    setActiveTab(tabNumber)
+  }
 
   return (
     <div className="flex justify-center mt-10 md:w-[57%] h-64 overflow-y-auto">
@@ -27,8 +26,8 @@ const Tabs: React.FC<ComponentProps> = ({ course, type, data }) => {
             onClick={() => handleTabClick(1)}
             className={`py-2 border-b-4 transition-colors duration-300 text-[#4F547B] font-medium ${
               activeTab === 1
-                ? "border-[#C5165D] text-[#C5165D]"
-                : "border-transparent hover:border-gray-200"
+                ? 'border-[#C5165D] text-[#C5165D]'
+                : 'border-transparent hover:border-gray-200'
             }`}
             type="button"
           >
@@ -38,8 +37,8 @@ const Tabs: React.FC<ComponentProps> = ({ course, type, data }) => {
             onClick={() => handleTabClick(2)}
             className={`py-2 border-b-4 transition-colors duration-300 text-[#4F547B] font-medium ${
               activeTab === 2
-                ? "border-[#C5165D] text-[#C5165D]"
-                : "border-transparent hover:border-gray-200"
+                ? 'border-[#C5165D] text-[#C5165D]'
+                : 'border-transparent hover:border-gray-200'
             }`}
             type="button"
           >
@@ -49,8 +48,8 @@ const Tabs: React.FC<ComponentProps> = ({ course, type, data }) => {
             onClick={() => handleTabClick(3)}
             className={`py-2 border-b-4 transition-colors duration-300 text-[#4F547B] font-medium ${
               activeTab === 3
-                ? "border-[#C5165D] text-[#C5165D]"
-                : "border-transparent hover:border-gray-200"
+                ? 'border-[#C5165D] text-[#C5165D]'
+                : 'border-transparent hover:border-gray-200'
             }`}
             type="button"
           >
@@ -60,8 +59,8 @@ const Tabs: React.FC<ComponentProps> = ({ course, type, data }) => {
             onClick={() => handleTabClick(4)}
             className={`py-2 border-b-4 transition-colors duration-300 text-[#4F547B] font-medium ${
               activeTab === 4
-                ? "border-[#C5165D] text-[#C5165D]"
-                : "border-transparent hover:border-gray-200"
+                ? 'border-[#C5165D] text-[#C5165D]'
+                : 'border-transparent hover:border-gray-200'
             }`}
             type="button"
           >
@@ -75,14 +74,14 @@ const Tabs: React.FC<ComponentProps> = ({ course, type, data }) => {
               <div
                 dangerouslySetInnerHTML={{ __html: course.description }}
                 className={
-                  showMore ? "text-[#4F547B]" : "line-clamp-3 text-[#4F547B]"
+                  showMore ? 'text-[#4F547B]' : 'line-clamp-3 text-[#4F547B]'
                 }
               />
               <button
                 onClick={() => setShowMore(!showMore)}
                 className="mt-2  text-[#C5165D] "
               >
-                {showMore ? "View Less" : "View More"}
+                {showMore ? 'View Less' : 'View More'}
               </button>
             </div>
           )}
@@ -126,7 +125,7 @@ const Tabs: React.FC<ComponentProps> = ({ course, type, data }) => {
           {activeTab === 4 && (
             <div className="">
               {course.lessons.map((lesson) => (
-                <Link key={lesson._id} href={`/course/lesson/${lesson._id}`}>
+                <div key={lesson._id}>
                   <div
                     key={lesson._id}
                     className="flex gap-2 items-center mb-2"
@@ -135,7 +134,7 @@ const Tabs: React.FC<ComponentProps> = ({ course, type, data }) => {
                       <Image
                         height={100}
                         width={100}
-                        src={course.imageUrl || "/images/courseCard/card4.svg"}
+                        src={course.imageUrl || '/images/courseCard/card4.svg'}
                         alt="course image"
                         className="w-20 h-12 overflow-hidden object-cover rounded-md"
                       />
@@ -144,14 +143,14 @@ const Tabs: React.FC<ComponentProps> = ({ course, type, data }) => {
                       {lesson.title}
                     </h2>
                   </div>
-                </Link>
+                </div>
               ))}
             </div>
           )}
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Tabs;
+export default Tabs

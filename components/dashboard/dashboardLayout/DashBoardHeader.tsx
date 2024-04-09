@@ -1,82 +1,80 @@
-import React, { useEffect, useState } from "react";
-import Link from "next/link";
-import Image from "next/image";
-import { FaBarsStaggered } from "react-icons/fa6";
-import DashBoardSidebar from "./DashBoardSidebar";
-import Modal from "@/components/reusableComponents/Modal";
-import PowerSVG from "../dashboardSVGs/PowerSVG";
-import { useRouter } from "next/navigation";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "@/utils/type.dt";
-import { userActions } from "@/store/slices/userSlice";
-import Cookies from "universal-cookie";
-import { toast } from "react-toastify";
-import { logout } from "@/services/backend.services";
-import { FiShoppingCart } from "react-icons/fi";
+import React, { useEffect, useState } from 'react'
+import Link from 'next/link'
+import Image from 'next/image'
+import { FaBarsStaggered } from 'react-icons/fa6'
+import DashBoardSidebar from './DashBoardSidebar'
+import Modal from '@/components/reusableComponents/Modal'
+import PowerSVG from '../dashboardSVGs/PowerSVG'
+import { useRouter } from 'next/navigation'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from '@/utils/type.dt'
+import { userActions } from '@/store/slices/userSlice'
+import Cookies from 'universal-cookie'
+import { toast } from 'react-toastify'
+import { logout } from '@/services/backend.services'
+import { FiShoppingCart } from 'react-icons/fi'
 
-type SidebarProps = {};
+type SidebarProps = {}
 
 const DashBoardHeader: React.FC<SidebarProps> = () => {
-  const dispatch = useDispatch();
-  const { setUserData } = userActions;
-  const { userData } = useSelector((states: RootState) => states.userStates);
+  const dispatch = useDispatch()
+  const { setUserData } = userActions
+  const { userData } = useSelector((states: RootState) => states.userStates)
 
-  const cookies = new Cookies();
+  const cookies = new Cookies()
 
-  const [isOpen, setIsOpen] = useState(false);
-  const [showModal, setShowModal] = useState(false);
+  const [isOpen, setIsOpen] = useState(false)
+  const [showModal, setShowModal] = useState(false)
 
-  const router = useRouter();
+  const router = useRouter()
 
   useEffect(() => {
     if (!userData) {
-      const sessionUser = JSON.parse(sessionStorage.getItem("user")!);
+      const sessionUser = JSON.parse(sessionStorage.getItem('user')!)
       if (sessionUser) {
-        dispatch(setUserData(sessionUser));
+        dispatch(setUserData(sessionUser))
       }
     }
-  }, [dispatch, setUserData, userData]);
+  }, [dispatch, setUserData, userData])
 
   const handleToggleModal = () => {
-    setShowModal((prevShowModal) => !prevShowModal);
-  };
+    setShowModal((prevShowModal) => !prevShowModal)
+  }
 
   const toggleSidebar = () => {
-    setIsOpen((prevIsOpen) => !prevIsOpen);
-  };
+    setIsOpen((prevIsOpen) => !prevIsOpen)
+  }
 
   const closeSidebar = () => {
-    setIsOpen(false);
-  };
+    setIsOpen(false)
+  }
 
   const handleLogout = async () => {
-    router.push("/");
+    router.push('/')
 
     await toast.promise(
       new Promise<void>(async (resolve, reject) => {
-        const status = await logout();
+        const status = await logout()
 
         if (status === 200) {
-          resolve();
-          sessionStorage.removeItem("accessToken");
-          sessionStorage.removeItem("user");
-          cookies.remove("accessToken");
-          dispatch(setUserData(null));
+          resolve()
+          sessionStorage.removeItem('accessToken')
+          sessionStorage.removeItem('user')
+          cookies.remove('accessToken')
+          dispatch(setUserData(null))
         } else {
-          reject();
+          reject()
         }
       }),
       {
-        pending: "Logging out...",
-        success: "Logged out successfully 👌",
-        error: "Encountered error 🤯",
+        pending: 'Logging out...',
+        success: 'Logged out successfully 👌',
+        error: 'Encountered error 🤯',
       }
-    );
-  };
+    )
+  }
 
-  const { cartCourseItems, cartAcademyItems } = useSelector(
-    (states: RootState) => states.cartStates
-  );
+  const { cartItems } = useSelector((states: RootState) => states.cartStates)
 
   return (
     <div
@@ -112,9 +110,9 @@ const DashBoardHeader: React.FC<SidebarProps> = () => {
       <div className="flex gap-5 md:gap-8 items-center text-[#6A7A99] text-lg relative">
         <Link href="/shopcart" className="relative">
           <FiShoppingCart className="text-2xl text-black icon icon-basket" />
-          {cartAcademyItems.length + cartCourseItems.length > 0 && (
+          {cartItems.length > 0 && (
             <div className="absolute w-3.5 h-3.5 text-white bg-red-500 text-[10px] flex justify-center items-center bottom-5 left-5 p-[2px] rounded-full">
-              {cartAcademyItems.length + cartCourseItems.length}
+              {cartItems.length}
             </div>
           )}
         </Link>
@@ -153,9 +151,8 @@ const DashBoardHeader: React.FC<SidebarProps> = () => {
           </Modal>
         </div>
       </div>
-
     </div>
-  );
-};
+  )
+}
 
-export default DashBoardHeader;
+export default DashBoardHeader

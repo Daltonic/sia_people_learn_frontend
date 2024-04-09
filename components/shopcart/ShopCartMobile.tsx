@@ -1,133 +1,84 @@
-"use client";
+'use client'
 
-import { cartActions } from "@/store/slices/cartSlice";
-import { RootState } from "@/utils/type.dt";
-import Image from "next/image";
-import { LiaTimesSolid } from "react-icons/lia";
-import { useDispatch, useSelector } from "react-redux";
-import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import EmptyComponent from "../reusableComponents/EmptyComponent";
-import Button from "../reusableComponents/Button";
-
-interface Product {
-  imageUrl: string | null;
-  name: string;
-  type: "Academy" | "Course" | "Book";
-  price: number;
-  discountedPrice: number;
-  _id: string;
-}
+import { cartActions } from '@/store/slices/cartSlice'
+import { RootState } from '@/utils/type.dt'
+import Image from 'next/image'
+import { useDispatch, useSelector } from 'react-redux'
+import { usePathname, useRouter } from 'next/navigation'
+import EmptyComponent from '../reusableComponents/EmptyComponent'
+import Button from '../reusableComponents/Button'
+import { toast } from 'react-toastify'
+import { stripeCheckout } from '@/services/backend.services'
+import { FaTimes } from 'react-icons/fa'
+import Link from 'next/link'
 
 const ShopCartMobile: React.FC = () => {
-  const router = useRouter();
-  const pathname = usePathname();
-  const { setCartAcademyItems, setCartCourseItems, setCartAmount } =
-    cartActions;
-  const dispatch = useDispatch();
-  const { cartAcademyItems, cartCourseItems, cartAmount } = useSelector(
+  const router = useRouter()
+  const pathname = usePathname()
+  const { setCartItems, setCartAmount } = cartActions
+  const dispatch = useDispatch()
+  const { cartItems, cartAmount } = useSelector(
     (states: RootState) => states.cartStates
-  );
-  const { userData } = useSelector((states: RootState) => states.userStates);
+  )
+  const { userData } = useSelector((states: RootState) => states.userStates)
 
-  const cartItems: Product[] = [];
+  const handleRemoveFromCart = (_id: string, price: number) => {
+    const updatedItems = cartItems.filter((item) => item._id !== _id)
+    dispatch(setCartItems(updatedItems))
 
-  cartAcademyItems.forEach((item) =>
-    cartItems.push({
-      imageUrl: item?.imageUrl,
-      name: item.name,
-      type: "Academy",
-      price: item.price,
-      discountedPrice: item.price,
-      _id: item._id,
-    })
-  );
+    sessionStorage.setItem('sessionCartItems', JSON.stringify(updatedItems))
+    const currentAmount = cartAmount - price
+    sessionStorage.setItem('cartAmount', JSON.stringify(currentAmount))
+    dispatch(setCartAmount(currentAmount))
+  }
 
-  cartCourseItems.forEach((item) => {
-    cartItems.push({
-      imageUrl: item?.imageUrl,
-      name: item.name,
-      type: "Course",
-      price: item.price,
-      discountedPrice: item.price,
-      _id: item._id,
-    });
-  });
-
-  const handleRemoveFromCart = (
-    _id: string,
-    type: "Academy" | "Course" | "Book",
-    price: number
-  ) => {
-    if (type === "Academy") {
-      const updatedAcademies = cartAcademyItems.filter(
-        (item) => item._id !== _id
-      );
-      dispatch(setCartAcademyItems(updatedAcademies));
-      sessionStorage.setItem(
-        "sessionAcademies",
-        JSON.stringify(updatedAcademies)
-      );
-      const currentAmount = cartAmount - price;
-      sessionStorage.setItem("cartAmount", JSON.stringify(currentAmount));
-      dispatch(setCartAmount(currentAmount));
-    } else {
-      const updatedCourses = cartCourseItems.filter((item) => item._id !== _id);
-      dispatch(setCartCourseItems(updatedCourses));
-      sessionStorage.setItem("sessionCourses", JSON.stringify(updatedCourses));
-      const currentAmount = cartAmount - price;
-      sessionStorage.setItem("cartAmount", JSON.stringify(currentAmount));
-      dispatch(setCartAmount(currentAmount));
-    }
-  };
-
-  const handleCheckout = () => {
+  const handleCheckout = async () => {
     if (!userData) {
-      sessionStorage.setItem("prevPath", pathname);
-      router.push("/login");
+      sessionStorage.setItem('prevPath', pathname)
+      router.push('/login')
     }
-    const checkout = async () => {
-      const requestDetails = {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
-        },
-      };
 
-      try {
-        const products: {
-          productId: string;
-          productType: "Course" | "Academy";
-        }[] = [];
-        for (let item of cartItems) {
-          products.push({
-            productId: item._id,
-            productType: item.type === "Academy" ? "Academy" : "Course",
-          });
+    const products: {
+      productId: string
+      productType: 'Course' | 'Academy'
+    }[] = []
+    for (let item of cartItems) {
+      products.push({
+        productId: item._id,
+        productType: (item.type as 'Course' | 'Academy') || 'Academy',
+      })
+    }
+
+    const token = sessionStorage.getItem('accessToken') as string
+
+    try {
+      await toast.promise(
+        new Promise<void>(async (resolve, reject) => {
+          await stripeCheckout(products, token)
+            .then((result) => {
+              if (result.url) {
+                router.push(result.url)
+              } else {
+                router.push('/payment-successful')
+              }
+
+              resolve(result)
+            })
+            .catch((error) => {
+              console.log(error)
+              reject(error)
+            })
+        }),
+        {
+          pending: `Processing...`,
+          success: `Payment successful 👌`,
+          error: 'Encountered error 🤯',
         }
-        const subscriptionBody = {
-          products,
-          paymentType: "Stripe",
-        };
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URI}/api/v1/processors/stripe/checkout`,
-          { ...requestDetails, body: JSON.stringify(subscriptionBody) }
-        );
-        if (response.status === 400) {
-          const message = await response.text();
-          alert(message);
-        } else {
-          const result = await response.json();
-          console.log(result);
-          router.push(result.url);
-        }
-      } catch (e: any) {
-        console.log(e.message);
-      }
-    };
-    checkout();
-  };
+      )
+    } catch (e: any) {
+      console.log(e.message)
+    }
+  }
 
   return (
     <div className="">
@@ -143,23 +94,43 @@ const ShopCartMobile: React.FC = () => {
         {cartItems.length > 0 && (
           <div className="">
             {cartItems.map((item, index) => (
-              <div className="" key={index}>
-                <div className="flex justify-start items-center gap-5">
+              <div
+                className="border border-gray-300 rounded-md mb-4 relative z-20"
+                key={index}
+              >
+                <div className="absolute top-1 right-2">
+                  <div
+                    onClick={() => handleRemoveFromCart(item._id, item.price)}
+                    className="text-[#6A7A99] bg-white p-1 text-xl
+                    rounded-md cursor-pointer border"
+                  >
+                    <FaTimes />
+                  </div>
+                </div>
+                <Link
+                  href={
+                    item.type !== 'Academy'
+                      ? `/course/${item.slug}`
+                      : `/academies/${item.slug}`
+                  }
+                  className="flex flex-col justify-center items-center gap-3"
+                >
                   <Image
-                    className="w-20 h-12 rounded-md"
+                    className="w-full h-24 object-cover rounded-md"
                     alt=""
                     width={100}
                     height={100}
-                    src={item.imageUrl || "/images/general/shape.svg"}
+                    src={item.imageUrl || '/images/general/shape.svg'}
                   />
                   <span className="text-[#321463] font-medium">
                     {item.name}
                   </span>
-                  {/* <span className="text-[#321463] font-medium">
-                    {item.type}
-                  </span> */}
-                </div>
-                <div className="flex items-center justify-end gap-5">
+                  <span className="text-[#111112] font-medium">
+                    {item.type ? item.type : 'Academy'}
+                  </span>
+                </Link>
+
+                <div className="flex flex-col items-center justify-center pb-4">
                   <h1 className="text-start text-[#4F547B] line-through">
                     ${item.price}
                   </h1>
@@ -173,14 +144,14 @@ const ShopCartMobile: React.FC = () => {
         )}
       </div>
       <div className="flex flex-col items-center md:items-end w-full md:w-5/6 mt-16 px-5 md:px-0">
-        < div className="border border-[#EDEDED] bg-slate-50 p-5 rounded-lg w-full md:w-1/3">
+        <div className="border border-[#EDEDED] bg-slate-50 p-5 rounded-lg w-full md:w-1/3">
           <div className=" flex justify-between  border-b border-[#EDEDED] py-2">
             <h1 className="text-[#321463] font-medium">Total </h1>
             <p className="text-[#4F547B]"> ${cartAmount}</p>
           </div>
 
-
-          <Button variant="pink"
+          <Button
+            variant="pink"
             className="w-full my-4"
             onClick={handleCheckout}
           >
@@ -189,7 +160,7 @@ const ShopCartMobile: React.FC = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default ShopCartMobile;
+export default ShopCartMobile

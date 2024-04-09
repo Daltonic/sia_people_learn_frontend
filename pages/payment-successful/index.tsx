@@ -10,22 +10,14 @@ import { useDispatch } from 'react-redux'
 const Page: NextPage = () => {
   const dispatch = useDispatch()
 
-  const { setCartAcademyItems, setCartCourseItems, setCartAmount } = cartActions
+  const { setCartItems, setCartAmount } = cartActions
 
   useEffect(() => {
-    dispatch(setCartCourseItems([]))
-    sessionStorage.removeItem('sessionCourses')
-  }, [dispatch, setCartCourseItems])
-
-  useEffect(() => {
-    dispatch(setCartAcademyItems([]))
-    sessionStorage.removeItem('sessionAcademies')
-  }, [dispatch, setCartAcademyItems])
-
-  useEffect(() => {
+    dispatch(setCartItems([]))
+    sessionStorage.removeItem('sessionCartItems')
     dispatch(setCartAmount(0))
     sessionStorage.removeItem('cartAmount')
-  }, [dispatch, setCartAmount])
+  }, [dispatch, setCartItems, setCartAmount])
 
   return (
     <>
@@ -51,7 +43,10 @@ const Page: NextPage = () => {
         />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@peoplelearn" />
-        <meta name="twitter:title" content="Payment successful | People Learn" />
+        <meta
+          name="twitter:title"
+          content="Payment successful | People Learn"
+        />
         <meta
           name="twitter:description"
           content="We're sorry, but your payment was successful. Please try again or contact our support team for assistance."
