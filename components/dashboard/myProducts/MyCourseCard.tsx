@@ -5,7 +5,11 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import Dropdown from '@/components/reusableComponents/Dropdown'
 import { toast } from 'react-toastify'
-import { submitCourse } from '@/services/backend.services'
+import {
+  approveAcademy,
+  approveCourse,
+  submitCourse,
+} from '@/services/backend.services'
 import { useDispatch } from 'react-redux'
 import { genericActions } from '@/store/slices/genericSlice'
 import { IAcademy, ICourse } from '@/utils/type.dt'
@@ -15,13 +19,19 @@ interface ComponentProps {
   data: ICourse | IAcademy
   type: 'Book' | 'Course' | 'Academy'
   owner?: boolean
+  admin?: boolean
 }
 
 function isIAcademy(data: ICourse | IAcademy): data is IAcademy {
   return (data as IAcademy).courses !== undefined
 }
 
-const MyCourseCard: React.FC<ComponentProps> = ({ data, type, owner }) => {
+const MyCourseCard: React.FC<ComponentProps> = ({
+  data,
+  type,
+  owner,
+  admin,
+}) => {
   const [rating, setRating] = useState<string[]>([])
   const dispatch = useDispatch()
   const { setDeleteModal, setData } = genericActions
@@ -32,8 +42,10 @@ const MyCourseCard: React.FC<ComponentProps> = ({ data, type, owner }) => {
   useEffect(() => {
     if (isIAcademy(data)) {
       setAcademy(data)
+    } else {
+      setCourse(data)
     }
-  }, [data])
+  }, [data, data.approved])
 
   useEffect(() => {
     const newRating = Array(5).fill('star')
@@ -45,7 +57,7 @@ const MyCourseCard: React.FC<ComponentProps> = ({ data, type, owner }) => {
       new Promise<void>(async (resolve, reject) => {
         await submitCourse({ submitted: true }, data._id)
           .then((res: any) => {
-            setCourse(res)
+            data.submitted = true
             resolve(res)
           })
           .catch((error: any) => reject(error))
@@ -53,6 +65,42 @@ const MyCourseCard: React.FC<ComponentProps> = ({ data, type, owner }) => {
       {
         pending: `Submitting...`,
         success: `Course submitted successfully 👌`,
+        error: 'Encountered error 🤯',
+      }
+    )
+  }
+
+  const handleCourseApproval = async () => {
+    await toast.promise(
+      new Promise<void>(async (resolve, reject) => {
+        await approveCourse(data._id)
+          .then((res: any) => {
+            data.approved = true
+            resolve(res)
+          })
+          .catch((error: any) => reject(error))
+      }),
+      {
+        pending: `Approving...`,
+        success: `Course approved successfully 👌`,
+        error: 'Encountered error 🤯',
+      }
+    )
+  }
+
+  const handleAcademyApprove = async () => {
+    await toast.promise(
+      new Promise<void>(async (resolve, reject) => {
+        await approveAcademy(data._id)
+          .then((res: any) => {
+            data.approved = true
+            resolve(res)
+          })
+          .catch((error: any) => reject(error))
+      }),
+      {
+        pending: `Approving...`,
+        success: `Academy approved successfully 👌`,
         error: 'Encountered error 🤯',
       }
     )
@@ -78,8 +126,8 @@ const MyCourseCard: React.FC<ComponentProps> = ({ data, type, owner }) => {
             }
           >
             <Image
-              width={100}
-              height={100}
+              width={200}
+              height={200}
               className="rounded-lg object-cover h-full w-full  hover:opacity-70"
               src={data.imageUrl || '/images/general/cardimg.svg'}
               alt="image"
@@ -164,6 +212,36 @@ const MyCourseCard: React.FC<ComponentProps> = ({ data, type, owner }) => {
                   className="p-1 hover:bg-gray-100 w-full text-left"
                 >
                   Delete
+                </button>
+              </Dropdown>
+            </div>
+          )}
+
+          {admin && (
+            <div className="absolute top-1 right-2">
+              <Dropdown>
+                {!data.approved && (
+                  <>
+                    {type !== 'Academy' && (
+                      <button
+                        onClick={handleCourseApproval}
+                        className="p-1 hover:bg-gray-100 w-full text-left"
+                      >
+                        Approve
+                      </button>
+                    )}
+                    {type === 'Academy' && (
+                      <button
+                        onClick={handleAcademyApprove}
+                        className="p-1 hover:bg-gray-100 w-full text-left"
+                      >
+                        Approve
+                      </button>
+                    )}
+                  </>
+                )}
+                <button className="p-1 hover:bg-gray-100 w-full text-left">
+                  Button
                 </button>
               </Dropdown>
             </div>

@@ -143,7 +143,6 @@ const Tabs: React.FC<Props> = ({ academiesSubObj, coursesSubObj }) => {
                     data={sub.productId}
                     key={i}
                     type="Course"
-                    owner
                   />
                 ))
               ) : (
@@ -163,7 +162,6 @@ const Tabs: React.FC<Props> = ({ academiesSubObj, coursesSubObj }) => {
                     data={sub.productId}
                     key={i}
                     type="Academy"
-                    owner
                   />
                 ))
               ) : (
