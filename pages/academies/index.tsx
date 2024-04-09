@@ -3,10 +3,10 @@ import Filterlayer from '@/components/courses/Filterlayer'
 import Layout from '@/components/layout/Layout'
 import { GetServerSidePropsContext, NextPage } from 'next'
 import { FetchProductsParams, IAcademies } from '@/utils/type.dt'
-import AcademyLayer from '@/components/academies/AcademyLayer'
 import Pagination from '@/components/reusableComponents/Pagination'
 import { fetchAcademies } from '@/services/backend.services'
 import Head from 'next/head'
+import ProductCardLandscape from '@/components/courses/ProductCardLandscape'
 
 const sortOptions = [
   { name: 'Newest', value: 'newest' },
@@ -54,7 +54,7 @@ const Page: NextPage<{ academiesObj: IAcademies }> = ({ academiesObj }) => {
       </Head>
 
       <Layout>
-        <div className="flex justify-center px-5 md:px-10">
+        <div className="fflex justify-center mx-auto w-11/12 sm:w-3/4">
           <div className="flex flex-col mt-5 md:mt-10">
             <div>
               <PageHeader> Trending Academies</PageHeader>
@@ -71,7 +71,17 @@ const Page: NextPage<{ academiesObj: IAcademies }> = ({ academiesObj }) => {
               sortLabel="Order By"
               sortOptions={sortOptions}
             />
-            <AcademyLayer data={academiesObj} />
+
+            <div className="mt-5 flex flex-col sm:flex-row sm:flex-wrap sm:justify-between md:justify-start md:flex-nowrap md:flex-col">
+              {academiesObj.academies.map((academy) => (
+                <ProductCardLandscape
+                  key={academy._id}
+                  data={academy}
+                  type="Academy"
+                />
+              ))}
+            </div>
+
             {academiesObj.numOfPages > 1 && (
               <Pagination totalPages={academiesObj.numOfPages} />
             )}

@@ -1,7 +1,5 @@
-import AcademiesSlider from '@/components/home/AcademySlider/AcademiesSlider'
 import BlogList from '@/components/home/BlogList'
 import CTA from '@/components/home/CTA'
-import CoursesSlider from '@/components/home/CoursesSlider/CoursesSlider'
 import HowItWorks from '@/components/home/HowItWorks'
 import Newsletter from '@/components/home/Newsletter'
 import Stacks from '@/components/home/Stacks'
@@ -19,6 +17,7 @@ import {
 import { IAcademies, ICourses, IPosts, ISiteSettings } from '@/utils/type.dt'
 import { NextPage } from 'next'
 import Head from 'next/head'
+import ProductsSlider from '@/components/home/ProductsSlider'
 
 export const metadata = {
   title: 'Home | People Learn',
@@ -67,9 +66,9 @@ const Page: NextPage<{
         <main className="overflow-x-hidden">
           <Hero settingsData={settingsData} />
           <Features />
-          <CoursesSlider coursesObj={coursesData} />
+          <ProductsSlider data={coursesData.courses} type="Course" />
           <HowItWorks />
-          <AcademiesSlider academyObj={academiesData} />
+          <ProductsSlider data={academiesData.academies} type="Academy" />
           <CTA />
           <Testimonials />
           <Stacks />

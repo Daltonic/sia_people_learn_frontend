@@ -13,7 +13,7 @@ import { CiSearch } from 'react-icons/ci'
 import LocalPagination from '@/components/reusableComponents/LocalPagination'
 import LocalFilters from '@/components/reusableComponents/LocalFilter'
 import { fetchAcademies, fetchCourses } from '@/services/backend.services'
-import MyCourseCard from '../myProducts/MyCourseCard'
+import ProductCardPortrait from './ProductCardPortrait'
 
 interface Props {
   academiesData: IAcademies
@@ -221,7 +221,7 @@ const Tabs: React.FC<Props> = ({ academiesData, coursesData, booksData }) => {
               coursesObj.courses &&
               coursesObj.courses.length > 0 ? (
                 coursesObj.courses.map((elm, i: number) => (
-                  <MyCourseCard data={elm} key={i} type="Course" owner />
+                  <ProductCardPortrait data={elm} key={i} type="Course" owner />
                 ))
               ) : (
                 <EmptyComponent
@@ -236,7 +236,7 @@ const Tabs: React.FC<Props> = ({ academiesData, coursesData, booksData }) => {
             <div className="flex justify-start gap-4 w-full flex-wrap">
               {booksObj.courses && booksObj.courses.length > 0 ? (
                 booksObj.courses.map((elm, i: number) => (
-                  <MyCourseCard data={elm} key={i} type="Book" owner />
+                  <ProductCardPortrait data={elm} key={i} type="Book" owner />
                 ))
               ) : (
                 <EmptyComponent
@@ -250,7 +250,7 @@ const Tabs: React.FC<Props> = ({ academiesData, coursesData, booksData }) => {
             <div className="flex justify-start gap-4 w-full flex-wrap">
               {academiesObj.academies && academiesObj.academies.length > 0 ? (
                 academiesObj.academies.map((elm, i: number) => (
-                  <MyCourseCard data={elm} key={i} type="Academy" />
+                  <ProductCardPortrait data={elm} key={i} type="Academy" />
                 ))
               ) : (
                 <EmptyComponent

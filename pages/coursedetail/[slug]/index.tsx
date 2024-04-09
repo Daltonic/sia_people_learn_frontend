@@ -15,7 +15,7 @@ import {
 } from '@/services/backend.services'
 import ReviewSection from '@/components/blogs/ReviewSection'
 import Head from 'next/head'
-import MyCourseCard from '@/components/dashboard/myProducts/MyCourseCard'
+import ProductCardPortrait from '@/components/dashboard/myProducts/ProductCardPortrait'
 
 const Page: NextPage<{
   courseData: ICourse
@@ -116,7 +116,7 @@ const Page: NextPage<{
                   >
                     {alternateCourses.map((elm, i: number) => (
                       <SwiperSlide key={i}>
-                        <MyCourseCard data={elm} type="Course" />
+                        <ProductCardPortrait data={elm} type="Course" />
                       </SwiperSlide>
                     ))}
                   </Swiper>

@@ -11,7 +11,7 @@ import EmptyComponent from '@/components/reusableComponents/EmptyComponent'
 import LocalFilters from '@/components/reusableComponents/LocalFilter'
 import LocalPagination from '@/components/reusableComponents/LocalPagination'
 import { fetchUserSubscriptions } from '@/services/backend.services'
-import MyCourseCard from '../myProducts/MyCourseCard'
+import ProductCardPortrait from '../myProducts/ProductCardPortrait'
 
 const sortOptions = [
   { name: 'Newest', value: 'newest' },
@@ -139,11 +139,10 @@ const Tabs: React.FC<Props> = ({ academiesSubObj, coursesSubObj }) => {
               {coursesSubs.subscriptions &&
               coursesSubs.subscriptions.length > 0 ? (
                 coursesSubs.subscriptions.map((sub, i: number) => (
-                  <MyCourseCard
+                  <ProductCardPortrait
                     data={sub.productId}
                     key={i}
                     type="Course"
-                    owner
                   />
                 ))
               ) : (
@@ -159,11 +158,10 @@ const Tabs: React.FC<Props> = ({ academiesSubObj, coursesSubObj }) => {
               {academiesSubs.subscriptions &&
               academiesSubs.subscriptions.length > 0 ? (
                 academiesSubs.subscriptions.map((sub, i: number) => (
-                  <MyCourseCard
+                  <ProductCardPortrait
                     data={sub.productId}
                     key={i}
                     type="Academy"
-                    owner
                   />
                 ))
               ) : (
