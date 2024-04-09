@@ -81,8 +81,8 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog, i, option }) => {
         <Link className="linkCustom" href={`/blogs/${blog.slug}`}>
           <div className="h-32">
             <Image
-              width={100}
-              height={100}
+              width={200}
+              height={200}
               src={blog.imageUrl || "/images/general/cardimg.svg"}
               alt="image"
               className="rounded-lg w-full h-full object-cover"

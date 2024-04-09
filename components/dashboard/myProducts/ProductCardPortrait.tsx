@@ -26,7 +26,7 @@ function isIAcademy(data: ICourse | IAcademy): data is IAcademy {
   return (data as IAcademy).courses !== undefined
 }
 
-const MyCourseCard: React.FC<ComponentProps> = ({
+const ProductCardPortrait: React.FC<ComponentProps> = ({
   data,
   type,
   owner,
@@ -340,4 +340,4 @@ const MyCourseCard: React.FC<ComponentProps> = ({
   )
 }
 
-export default MyCourseCard
+export default ProductCardPortrait

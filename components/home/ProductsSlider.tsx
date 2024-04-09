@@ -5,11 +5,19 @@ import { Navigation, Pagination, Autoplay } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import Link from 'next/link'
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa'
-import { ICourses } from '@/utils/type.dt'
+import { IAcademy, ICourse } from '@/utils/type.dt'
 import AllButton from '@/components/reusableComponents/AllButton'
-import MyCourseCard from '@/components/dashboard/myProducts/MyCourseCard'
+import ProductCardPortrait from '@/components/dashboard/myProducts/ProductCardPortrait'
 
-const CoursesSlider: React.FC<{ coursesObj: ICourses }> = ({ coursesObj }) => {
+interface ComponentProps {
+  data: ICourse[] | IAcademy[]
+  type: 'Course' | 'Academy'
+}
+
+const ProductsSlider: React.FC<ComponentProps> = ({ data, type }) => {
+  const [courses, setCourses] = useState<ICourse[]>(data as ICourse[])
+  const [academies, setAcademies] = useState<IAcademy[]>(data as IAcademy[])
+
   const [showSlider, setShowSlider] = useState(false)
   useEffect(() => {
     setShowSlider(true)
@@ -21,7 +29,7 @@ const CoursesSlider: React.FC<{ coursesObj: ICourses }> = ({ coursesObj }) => {
         <div className="flex flex-col sm:flex-row gap-4 md:gap-0 justify-between md:items-center">
           <div>
             <h2 className="text-[#321463] font-bold text-2xl">
-              Trending courses
+              Trending {type === 'Academy' ? 'Academies' : 'Courses'}
             </h2>
 
             <p className="text-[#4F547B] text-xs">
@@ -73,10 +81,19 @@ const CoursesSlider: React.FC<{ coursesObj: ICourses }> = ({ coursesObj }) => {
                     },
                   }}
                 >
-                  {coursesObj.courses &&
-                    coursesObj.courses.map((elm, i: number) => (
+                  {type !== 'Academy' &&
+                    courses &&
+                    courses.map((elm, i: number) => (
                       <SwiperSlide key={i}>
-                        <MyCourseCard data={elm} type="Course" />
+                        <ProductCardPortrait data={elm} type="Course" />
+                      </SwiperSlide>
+                    ))}
+
+                  {type === 'Academy' &&
+                    academies &&
+                    academies.map((elm, i: number) => (
+                      <SwiperSlide key={i}>
+                        <ProductCardPortrait data={elm} type="Academy" />
                       </SwiperSlide>
                     ))}
                 </Swiper>
@@ -101,4 +118,4 @@ const CoursesSlider: React.FC<{ coursesObj: ICourses }> = ({ coursesObj }) => {
   )
 }
 
-export default CoursesSlider
+export default ProductsSlider

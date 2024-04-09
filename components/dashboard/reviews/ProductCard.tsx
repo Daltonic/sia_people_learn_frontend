@@ -10,7 +10,7 @@ interface ComponentProps {
   type: "Academy" | "Book" | "Course";
 }
 
-const MyCourseCard: React.FC<ComponentProps> = ({ data, type }) => {
+const ProductCardPortrait: React.FC<ComponentProps> = ({ data, type }) => {
   const [rating, setRating] = useState<string[]>([]);
 
   useEffect(() => {
@@ -64,4 +64,4 @@ const MyCourseCard: React.FC<ComponentProps> = ({ data, type }) => {
   );
 };
 
-export default MyCourseCard;
+export default ProductCardPortrait;

@@ -1,5 +1,4 @@
 import PageHeader from '@/components/reusableComponents/PageHeader'
-import CourseLayer from '@/components/courses/CourseLayer'
 import Filterlayer from '@/components/courses/Filterlayer'
 import Layout from '@/components/layout/Layout'
 import { GetServerSidePropsContext, NextPage } from 'next'
@@ -7,6 +6,7 @@ import { FetchProductsParams, ICourses } from '@/utils/type.dt'
 import Pagination from '@/components/reusableComponents/Pagination'
 import { fetchCourses } from '@/services/backend.services'
 import Head from 'next/head'
+import ProductCardLandscape from '@/components/courses/ProductCardLandscape'
 
 const sortOptions = [
   { name: 'Newest', value: 'newest' },
@@ -54,7 +54,7 @@ const Page: NextPage<{ coursesObj: ICourses }> = ({ coursesObj }) => {
       </Head>
 
       <Layout>
-        <div className="flex justify-center px-5 sm:px-10 ">
+        <div className="flex justify-center mx-auto w-11/12 sm:w-3/4 ">
           <div className="flex flex-col mt-5 md:mt-10">
             <div>
               <PageHeader> Trending courses</PageHeader>
@@ -70,7 +70,16 @@ const Page: NextPage<{ coursesObj: ICourses }> = ({ coursesObj }) => {
               sortLabel="Order By"
               sortOptions={sortOptions}
             />
-            <CourseLayer data={coursesObj} />
+            <div className="mt-5 flex flex-col sm:flex-row sm:flex-wrap sm:justify-between md:justify-start md:flex-nowrap md:flex-col">
+              {coursesObj.courses.map((course) => (
+                <ProductCardLandscape
+                  key={course._id}
+                  data={course}
+                  type="Course"
+                />
+              ))}
+            </div>
+
             {coursesObj.numOfPages > 1 && (
               <Pagination totalPages={coursesObj.numOfPages} />
             )}
