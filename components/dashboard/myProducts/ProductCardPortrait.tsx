@@ -267,7 +267,14 @@ const ProductCardPortrait: React.FC<ComponentProps> = ({
             )}
           </div>
 
-          <Link className="linkCustom" href={`/course/${data.slug}`}>
+          <Link
+            className="linkCustom"
+            href={
+              type !== 'Academy'
+                ? `/course/${data.slug}`
+                : `/academies/${data.slug}`
+            }
+          >
             <div className="md:text-sm font-medium text-[#321463] mt-2 h-10">
               <div className="line-clamp-2">{data.name}</div>
             </div>

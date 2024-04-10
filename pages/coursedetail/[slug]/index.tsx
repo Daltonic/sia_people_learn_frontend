@@ -7,7 +7,6 @@ import { useEffect, useState } from 'react'
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa'
 import { SwiperSlide, Swiper } from 'swiper/react'
 import { ICourse, ICourses, IReviews } from '@/utils/type.dt'
-import CourseCardDetail from '@/components/coursedetail/CourseCardDetail'
 import {
   fetchCourse,
   fetchCourses,
@@ -16,6 +15,7 @@ import {
 import ReviewSection from '@/components/blogs/ReviewSection'
 import Head from 'next/head'
 import ProductCardPortrait from '@/components/dashboard/myProducts/ProductCardPortrait'
+import ProductDetailCard from '@/components/coursedetail/ProductDetailCard'
 
 const Page: NextPage<{
   courseData: ICourse
@@ -69,7 +69,7 @@ const Page: NextPage<{
         <div className="md:px-14 md:py-10 p-5 sm:px-10 md:relative overflow-x-hidden">
           <div className="flex flex-col md:flex-row justify-between ">
             <CourseHead course={courseData} />
-            <CourseCardDetail course={courseData} />
+            <ProductDetailCard data={courseData} type="Course" />
           </div>
           <Tabs data={courseData} type="Course" course={courseData} />
           <div className="mt-8 relative">
