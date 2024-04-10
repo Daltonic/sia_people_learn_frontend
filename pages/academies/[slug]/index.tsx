@@ -6,7 +6,6 @@ import { FaArrowLeft, FaArrowRight } from 'react-icons/fa'
 import { SwiperSlide, Swiper } from 'swiper/react'
 import { IAcademy, IAcademies, IReviews } from '@/utils/type.dt'
 import AcademyHead from '@/components/academydetail/AcademyHead'
-import AcademyDetails from '@/components/academydetail/AcademyDetails'
 import Tabs from '@/components/academydetail/Tabs'
 import {
   fetchAcademies,
@@ -16,6 +15,7 @@ import {
 import ReviewSection from '@/components/blogs/ReviewSection'
 import Head from 'next/head'
 import ProductCardPortrait from '@/components/dashboard/myProducts/ProductCardPortrait'
+import ProductDetailCard from '@/components/coursedetail/ProductDetailCard'
 
 const Page: NextPage<{
   academyData: IAcademy
@@ -69,7 +69,7 @@ const Page: NextPage<{
         <div className="md:px-14 md:py-10 p-5 sm:px-10 md:relative overflow-x-hidden">
           <div className="flex flex-col md:flex-row justify-between ">
             <AcademyHead academy={academyData} />
-            <AcademyDetails academy={academyData} />
+            <ProductDetailCard data={academyData} type="Academy" />
           </div>
           <Tabs data={academyData} type="Course" academy={academyData} />
           <div className="mt-14 relative">

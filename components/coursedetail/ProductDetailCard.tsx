@@ -1,6 +1,6 @@
 'use client'
 import React, { useEffect, useState } from 'react'
-import { ICourse, IWishlist, RootState } from '@/utils/type.dt'
+import { IAcademy, ICourse, IWishlist, RootState } from '@/utils/type.dt'
 import Image from 'next/image'
 import Button from '../reusableComponents/Button'
 import Link from 'next/link'
@@ -13,13 +13,15 @@ import {
   createWishlist,
   deleteWishlist,
   fetchWishlists,
+  stripeSubscription,
 } from '@/services/backend.services'
 
 interface ComponentProps {
-  course: ICourse
+  data: ICourse | IAcademy
+  type: 'Course' | 'Academy' | 'Book'
 }
 
-const CourseCardDetail: React.FC<ComponentProps> = ({ course }) => {
+const ProductDetailCard: React.FC<ComponentProps> = ({ data, type }) => {
   const router = useRouter()
   const pathname = usePathname()
   const { cartItems, cartAmount } = useSelector(
@@ -32,20 +34,23 @@ const CourseCardDetail: React.FC<ComponentProps> = ({ course }) => {
   const [canBookmarked, setCanBookmarked] = useState<boolean>(true)
   const [bookmarked, setBookmarked] = useState<IWishlist | null>(null)
   const [buttonText, setButtonText] = useState<string>(() => {
-    const currentCourse = cartItems.find((item) => item._id === course._id)
-    return currentCourse ? 'Remove from Cart' : 'Add to Cart'
+    const currentItem = cartItems.find((item) => item._id === data._id)
+    return currentItem ? 'Remove from Cart' : 'Add to Cart'
   })
+
+  const [course, setCourse] = useState<ICourse>(data as ICourse)
+  const [academy, setAcademy] = useState<IAcademy>(data as IAcademy)
 
   // Fetch bookmarked courses when userData changes
   useEffect(() => {
     if (!userData) return
 
-    const isSubscribed = userData.subscribedCourses.includes(course?._id!)
+    const isSubscribed = userData.subscribedCourses.includes(data?._id!)
     if (isSubscribed) {
       setPurchased(true)
       return
     }
-    // If bookmarked courses is returned, search through both bookmarked courses and subscribed courses to ensure that neither contains present course
+    // If bookmarked courses is returned, search through both bookmarked courses and subscribed courses to ensure that neither contains present data
 
     const fetchSavedCourses = async () => {
       const token = sessionStorage.getItem('accessToken') as string
@@ -58,7 +63,7 @@ const CourseCardDetail: React.FC<ComponentProps> = ({ course }) => {
 
         if (courses) {
           const wishCourse = courses.find(
-            (wish) => wish.productId._id === course._id
+            (wish) => wish.productId._id === data._id
           )
 
           if (wishCourse) {
@@ -77,27 +82,57 @@ const CourseCardDetail: React.FC<ComponentProps> = ({ course }) => {
       }
     }
     fetchSavedCourses()
-  }, [course?._id, userData])
+  }, [data?._id, userData])
 
   // Add or remove item from cart
   const handleAddToCart = () => {
-    const cartItem = cartItems.find((item) => item._id === course._id)
+    const cartItem = cartItems.find((item) => item._id === data._id)
     if (cartItem) {
-      const updatedItems = cartItems.filter((item) => item._id !== course._id)
+      const updatedItems = cartItems.filter((item) => item._id !== data._id)
       dispatch(setCartItems(updatedItems))
       sessionStorage.setItem('sessionCartItems', JSON.stringify(updatedItems))
       setButtonText('Add To Cart')
-      const newCartAmount = cartAmount - course.price
+      const newCartAmount = cartAmount - data.price
       sessionStorage.setItem('cartAmount', JSON.stringify(newCartAmount))
       dispatch(setCartAmount(newCartAmount))
     } else {
-      const updatedItems = [...cartItems, course]
+      const updatedItems = [...cartItems, data]
       dispatch(setCartItems(updatedItems))
       sessionStorage.setItem('sessionCartItems', JSON.stringify(updatedItems))
       setButtonText('Remove from Cart')
-      const newCartAmount = cartAmount + course.price
+      const newCartAmount = cartAmount + data.price
       sessionStorage.setItem('cartAmount', JSON.stringify(newCartAmount))
       dispatch(setCartAmount(newCartAmount))
+    }
+  }
+
+  const handleSubscribe = async () => {
+    if (!userData) {
+      sessionStorage.setItem('prevPath', pathname)
+      router.push('/login')
+    }
+
+    try {
+      const token = sessionStorage.getItem('accessToken') as string
+      await toast.promise(
+        new Promise<void>(async (resolve, reject) => {
+          await stripeSubscription(academy._id, token)
+            .then((result) => {
+              router.push(result.url)
+              resolve(result)
+            })
+            .catch((error) => {
+              reject(error)
+            })
+        }),
+        {
+          pending: 'Subscribing...',
+          success: 'Subscribed successfully 👌',
+          error: 'Encountered error 🤯',
+        }
+      )
+    } catch (e: any) {
+      console.log(e.message)
     }
   }
 
@@ -108,7 +143,7 @@ const CourseCardDetail: React.FC<ComponentProps> = ({ course }) => {
     await toast.promise(
       new Promise<void>((resolve, reject) => {
         createWishlist(
-          { productType: 'Course', productId: course._id },
+          { productType: 'Course', productId: data._id },
           token
         ).then((wishlist) => {
           if (wishlist) {
@@ -130,7 +165,7 @@ const CourseCardDetail: React.FC<ComponentProps> = ({ course }) => {
 
   // Remove from Bookmarks
   const handleRemoveFromWishlist = async (isSubscribed: boolean) => {
-    if (!bookmarked) return // Return if the course had not been bookmarked
+    if (!bookmarked) return // Return if the data had not been bookmarked
 
     const token = sessionStorage.getItem('accessToken') as string
 
@@ -138,7 +173,7 @@ const CourseCardDetail: React.FC<ComponentProps> = ({ course }) => {
       new Promise<void>((resolve, reject) => {
         deleteWishlist(bookmarked._id, token).then((status) => {
           if (status === 200) {
-            // Now that the bookmark has been deleted,  reset the bookmark to true if the user is not currently subscribed to the course
+            // Now that the bookmark has been deleted,  reset the bookmark to true if the user is not currently subscribed to the data
             if (!isSubscribed) {
               setCanBookmarked(true)
             }
@@ -163,7 +198,7 @@ const CourseCardDetail: React.FC<ComponentProps> = ({ course }) => {
       router.push('/login')
       return
     }
-    const isSubscribed = userData!.subscribedCourses.includes(course?._id!)
+    const isSubscribed = userData!.subscribedCourses.includes(data?._id!)
     if (isSubscribed) return
     if (canBookmarked) {
       handleAddToWishlist()
@@ -177,10 +212,10 @@ const CourseCardDetail: React.FC<ComponentProps> = ({ course }) => {
       <div className="relative flex justify-center items-center">
         <div className="w-full h-40">
           <Image
-            width={250}
+            width={500}
             height={250}
-            className="rounded-md w-full h-full"
-            src={course.imageUrl || '/images/general/cardimg.svg'}
+            className="rounded-md w-full h-full object-cover"
+            src={data.imageUrl || '/images/general/cardimg.svg'}
             alt="image"
           />
         </div>
@@ -196,18 +231,28 @@ const CourseCardDetail: React.FC<ComponentProps> = ({ course }) => {
       </div>
       <div className="px-2 space-y-2">
         <div className="flex items-center justify-between">
-          <p className="text-2xl text-[#321463]">${course.price}</p>
-          <p className="text-sm text-[#4F547B] line-through">${course.price}</p>
+          <p className="text-2xl text-[#321463]">${data.price}</p>
+          <p className="text-sm text-[#4F547B] line-through">${data.price}</p>
         </div>
 
         <div className="block ">
-          <Button
-            variant="pink"
-            className="w-full mb-3"
-            onClick={handleAddToCart}
-          >
-            {buttonText}
-          </Button>
+          {academy.validity === 0 ? (
+            <Button
+              variant="pink"
+              className="w-full mb-3"
+              onClick={handleAddToCart}
+            >
+              {buttonText}
+            </Button>
+          ) : (
+            <Button
+              variant="pink"
+              className="w-full mb-3"
+              onClick={handleSubscribe}
+            >
+              Subscribe
+            </Button>
+          )}
 
           <Button
             variant="pinkoutline"
@@ -217,15 +262,29 @@ const CourseCardDetail: React.FC<ComponentProps> = ({ course }) => {
             {purchased
               ? 'Already subscribed'
               : canBookmarked
-              ? `Bookmark ${course.type}`
+              ? `Bookmark ${data.type ? data.type : 'Academy'}`
               : 'Remove bookmark'}
           </Button>
 
-          <Link href="/shopcart">
-            <Button variant="pinkoutline" className="w-full">
-              Proceed to Cart
-            </Button>
-          </Link>
+          {type === 'Academy' && academy.validity === 0 && (
+            <Link href="/shopcart">
+              <Button variant="pinkoutline" className="w-full">
+                Proceed to Cart
+              </Button>
+            </Link>
+          )}
+
+          {type === 'Academy' && academy.validity !== 0 && (
+            <p className="text-[#4F547B] text-md text-center mt-4">
+              {academy.validity === 1
+                ? `Renews Every ${academy.validity} Month`
+                : academy.validity === 3
+                ? `Renews Every ${academy.validity} Months`
+                : academy.validity === 6
+                ? `Renews Every ${academy.validity} Months`
+                : `Renews Every ${academy.validity} Months`}
+            </p>
+          )}
         </div>
 
         <div className="flex justify-between items-center border-b py-2 border-[#EDEDED]">
@@ -239,7 +298,11 @@ const CourseCardDetail: React.FC<ComponentProps> = ({ course }) => {
             />
             <p className="text-[#321463]">Lessons</p>
           </div>
-          <p className="text-[#4F547B]">{course.lessons?.length}</p>
+          {type === 'Course' ? (
+            <p className="text-[#4F547B]">{course.lessons?.length}</p>
+          ) : (
+            <p className="text-[#4F547B]">{academy.courses?.length}</p>
+          )}
         </div>
         <div className="flex justify-between items-center border-b py-2 border-[#EDEDED]">
           <div className="flex gap-2 items-center">
@@ -251,10 +314,10 @@ const CourseCardDetail: React.FC<ComponentProps> = ({ course }) => {
               alt="image"
             />
             <div className="text-[#4F547B]">{`${Math.floor(
-              course.duration / 60
-            )}h ${Math.floor(course.duration % 60)}m`}</div>
+              data.duration / 60
+            )}h ${Math.floor(data.duration % 60)}m`}</div>
           </div>
-          <p className="text-[#4F547B]">{course.duration}</p>
+          <p className="text-[#4F547B]">{data.duration}</p>
         </div>
         <div className="flex justify-between items-center border-b py-2 border-[#EDEDED]">
           <div className="flex gap-2 items-center">
@@ -267,7 +330,7 @@ const CourseCardDetail: React.FC<ComponentProps> = ({ course }) => {
             />
             <p className="text-[#321463]">Skill level</p>
           </div>
-          <p className="text-[#4F547B]">{course.difficulty}</p>
+          <p className="text-[#4F547B]">{data.difficulty}</p>
         </div>
         <div className="flex justify-center py-2">
           <SocialMediaIcons />
@@ -277,4 +340,4 @@ const CourseCardDetail: React.FC<ComponentProps> = ({ course }) => {
   )
 }
 
-export default CourseCardDetail
+export default ProductDetailCard
