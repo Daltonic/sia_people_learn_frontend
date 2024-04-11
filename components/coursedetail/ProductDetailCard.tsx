@@ -143,7 +143,10 @@ const ProductDetailCard: React.FC<ComponentProps> = ({ data, type }) => {
     await toast.promise(
       new Promise<void>((resolve, reject) => {
         createWishlist(
-          { productType: 'Course', productId: data._id },
+          {
+            productType: type !== 'Academy' ? 'Course' : 'Academy',
+            productId: data._id,
+          },
           token
         ).then((wishlist) => {
           if (wishlist) {
@@ -171,7 +174,11 @@ const ProductDetailCard: React.FC<ComponentProps> = ({ data, type }) => {
 
     await toast.promise(
       new Promise<void>((resolve, reject) => {
-        deleteWishlist(bookmarked._id, token).then((status) => {
+        deleteWishlist(
+          bookmarked._id,
+          type !== 'Academy' ? 'Course' : 'Academy',
+          token
+        ).then((status) => {
           if (status === 200) {
             // Now that the bookmark has been deleted,  reset the bookmark to true if the user is not currently subscribed to the data
             if (!isSubscribed) {
@@ -313,11 +320,11 @@ const ProductDetailCard: React.FC<ComponentProps> = ({ data, type }) => {
               src="/images/cardInfo/clock.svg"
               alt="image"
             />
-            <div className="text-[#4F547B]">{`${Math.floor(
-              data.duration / 60
-            )}h ${Math.floor(data.duration % 60)}m`}</div>
+            <div className="text-[#4F547B]">Duration</div>
           </div>
-          <p className="text-[#4F547B]">{data.duration}</p>
+          <p className="text-[#4F547B]">{`${Math.floor(
+            data.duration / 60
+          )}h ${Math.floor(data.duration % 60)}m`}</p>
         </div>
         <div className="flex justify-between items-center border-b py-2 border-[#EDEDED]">
           <div className="flex gap-2 items-center">

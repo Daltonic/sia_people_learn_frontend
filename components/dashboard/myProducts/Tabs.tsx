@@ -250,7 +250,7 @@ const Tabs: React.FC<Props> = ({ academiesData, coursesData, booksData }) => {
             <div className="flex justify-start gap-4 w-full flex-wrap">
               {academiesObj.academies && academiesObj.academies.length > 0 ? (
                 academiesObj.academies.map((elm, i: number) => (
-                  <ProductCardPortrait data={elm} key={i} type="Academy" />
+                  <ProductCardPortrait data={elm} key={i} type="Academy" owner />
                 ))
               ) : (
                 <EmptyComponent

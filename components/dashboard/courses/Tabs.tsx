@@ -27,7 +27,7 @@ const Tabs: React.FC<Props> = ({ academiesSubObj, coursesSubObj }) => {
   const dispatch = useDispatch()
   const { setUserData } = userActions
   const { userData } = useSelector((states: RootState) => states.userStates)
-  
+
   useEffect(() => {
     if (!userData) {
       const sessionUser = JSON.parse(sessionStorage.getItem('user')!)
@@ -143,6 +143,7 @@ const Tabs: React.FC<Props> = ({ academiesSubObj, coursesSubObj }) => {
                     data={sub.productId}
                     key={i}
                     type="Course"
+                    buyer
                   />
                 ))
               ) : (
@@ -162,6 +163,7 @@ const Tabs: React.FC<Props> = ({ academiesSubObj, coursesSubObj }) => {
                     data={sub.productId}
                     key={i}
                     type="Academy"
+                    buyer
                   />
                 ))
               ) : (
