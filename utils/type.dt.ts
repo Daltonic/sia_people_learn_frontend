@@ -34,6 +34,7 @@ export interface IAcademy {
   }
   createdAt: string
   updatedAt: string
+  wishId?: string
 }
 
 export interface IAcademies {
@@ -77,6 +78,7 @@ export interface ICourse {
   }
   createdAt: string
   updatedAt: string
+  wishId?: string
 }
 
 export interface ICourses {
@@ -142,6 +144,13 @@ export interface CartState {
   cartAmount: number
 }
 
+export interface ProductState {
+  courses: ICourse[]
+  academies: IAcademy[]
+  course: ICourse | null
+  academy: IAcademy | null
+}
+
 export interface IUser {
   firstName: string
   lastName: string
@@ -188,6 +197,7 @@ export interface RootState {
   userStates: UserState
   uploaderStates: UploaderState
   genericStates: GenericState
+  productStates: ProductState
 }
 
 export interface IUserSubscription {
@@ -322,27 +332,7 @@ export interface FetchUserSubscriptionsParams {
 export interface IWishlist {
   _id: string
   productType: 'Course' | 'Academy'
-  productId: {
-    _id: string
-    slug: string
-    difficulty: 'Beginner' | 'Intermediate' | 'Advanced'
-    description: string
-    name: string
-    duration: number
-    price: number
-    overview: string
-    imageUrl?: string
-    rating?: number
-    reviews?: any[]
-    reviewsCount?: number
-    userId: {
-      firstName: string
-      lastName: string
-      username: string
-      _id: string
-      imgUrl?: string
-    }
-  }
+  productId: ICourse | IAcademy
   createdAt: string
 }
 

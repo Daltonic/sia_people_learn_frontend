@@ -24,7 +24,7 @@ export const sidebarItems = [
     id: 3,
     href: "/(dashboard)/products/personal",
     iconClass: <LuShoppingBag size={16} />,
-    text: "Personal",
+    text: "Products",
   },
 
   {
@@ -142,7 +142,7 @@ export const instructorSidebarItems = [
     id: 1,
     href: "/(dashboard)/products/personal",
     iconClass: <LuShoppingBag size={16} />,
-    text: "Personal",
+    text: "Products",
   },
   {
     id: 2,

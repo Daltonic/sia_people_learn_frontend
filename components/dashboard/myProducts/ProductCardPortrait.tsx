@@ -8,18 +8,24 @@ import { toast } from 'react-toastify'
 import {
   approveAcademy,
   approveCourse,
+  deleteWishlist,
+  fetchWishlists,
   submitCourse,
 } from '@/services/backend.services'
 import { useDispatch } from 'react-redux'
 import { genericActions } from '@/store/slices/genericSlice'
-import { IAcademy, ICourse } from '@/utils/type.dt'
+import { IAcademy, ICourse, IWishlist } from '@/utils/type.dt'
 import { ViewRating } from '@/components/reusableComponents/Rating'
+import { FaBookmark } from 'react-icons/fa'
+import { productActions } from '@/store/slices/productSlice'
 
 interface ComponentProps {
   data: ICourse | IAcademy
   type: 'Book' | 'Course' | 'Academy'
   owner?: boolean
   admin?: boolean
+  buyer?: boolean
+  wishId?: string
 }
 
 function isIAcademy(data: ICourse | IAcademy): data is IAcademy {
@@ -31,10 +37,13 @@ const ProductCardPortrait: React.FC<ComponentProps> = ({
   type,
   owner,
   admin,
+  buyer,
+  wishId,
 }) => {
   const [rating, setRating] = useState<string[]>([])
   const dispatch = useDispatch()
   const { setDeleteModal, setData } = genericActions
+  const { setCourses, setAcademies } = productActions
 
   const [course, setCourse] = useState<ICourse>(data as ICourse)
   const [academy, setAcademy] = useState<IAcademy>(data as IAcademy)
@@ -101,6 +110,44 @@ const ProductCardPortrait: React.FC<ComponentProps> = ({
       {
         pending: `Approving...`,
         success: `Academy approved successfully 👌`,
+        error: 'Encountered error 🤯',
+      }
+    )
+  }
+
+  const removeBookmark = async (wishlistId: string) => {
+    const token = sessionStorage.getItem('accessToken') as string
+
+    await toast.promise(
+      new Promise<void>(async (resolve, reject) => {
+        await deleteWishlist(
+          wishlistId,
+          type !== 'Academy' ? 'Course' : 'Academy',
+          token
+        )
+          .then(async (res: any) => {
+            let wishes: IWishlist[] = await fetchWishlists(
+              { productType: type as 'Course' | 'Academy' },
+              token
+            )
+            const wishedData = wishes.map(({ productId, _id }) => ({
+              ...productId,
+              wishId: _id,
+            }))
+
+            if (type !== 'Academy') {
+              dispatch(setCourses(wishedData as ICourse[]))
+            } else {
+              dispatch(setAcademies(wishedData as IAcademy[]))
+            }
+
+            resolve(res)
+          })
+          .catch((error: any) => reject(error))
+      }),
+      {
+        pending: `Removing...`,
+        success: `Successfully removed 👌`,
         error: 'Encountered error 🤯',
       }
     )
@@ -244,6 +291,48 @@ const ProductCardPortrait: React.FC<ComponentProps> = ({
                   Button
                 </button>
               </Dropdown>
+            </div>
+          )}
+
+          {buyer && type !== 'Academy' && (
+            <div className="absolute top-1 right-2">
+              <Dropdown>
+                <Link
+                  href={{
+                    pathname: `/course/learn/${String(data.slug)}`,
+                  }}
+                  className="p-1 hover:bg-gray-100 w-full text-left"
+                >
+                  Lessons
+                </Link>
+              </Dropdown>
+            </div>
+          )}
+
+          {buyer && type === 'Academy' && (
+            <div className="absolute top-1 right-2">
+              <Dropdown>
+                <Link
+                  href={{
+                    pathname: `/academy/courses/${String(data.slug)}`,
+                  }}
+                  className="p-1 hover:bg-gray-100 w-full text-left"
+                >
+                  Courses
+                </Link>
+              </Dropdown>
+            </div>
+          )}
+
+          {data.wishId && (
+            <div className="absolute top-1 right-2 z-20">
+              <button
+                onClick={() => removeBookmark(String(data.wishId))}
+                className="text-[#C5165D] bg-white p-1 text-xl
+              rounded-md cursor-pointer border"
+              >
+                <FaBookmark />
+              </button>
             </div>
           )}
         </div>
