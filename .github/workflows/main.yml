@@ -18,10 +18,10 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            if [ ! -d "/dockerized/containers/dappmentors_frontend" ]; then
-              mkdir -p /dockerized/containers/dappmentors_frontend
+            if [ ! -d "/dockerized/containers/peoplelearn_frontend" ]; then
+              mkdir -p /dockerized/containers/peoplelearn_frontend
             else
-              rm -rf /dockerized/containers/dappmentors_frontend/*
+              rm -rf /dockerized/containers/peoplelearn_frontend/*
             fi
 
       - name: Copy Github files to VPS
@@ -31,7 +31,7 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           source: "./"
-          target: "/dockerized/containers/dappmentors_frontend"
+          target: "/dockerized/containers/peoplelearn_frontend"
 
       - name: Create .env file
         uses: appleboy/ssh-action@v0.1.3
@@ -40,8 +40,9 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cat << EOF > /dockerized/containers/dappmentors_frontend/.env
+            cat << EOF > /dockerized/containers/peoplelearn_frontend/.env
             NEXT_PUBLIC_BACKEND_URI=${{ secrets.NEXT_PUBLIC_BACKEND_URI }}
+            NEXT_PUBLIC_UPLOAD_URI=${{ secrets.NEXT_PUBLIC_UPLOAD_URI }}
             EOF
 
   build_image:
@@ -58,8 +59,8 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             export DOCKER_BUILDKIT=1
-            cd /dockerized/containers/dappmentors_frontend
-            docker build -t dma_frontend_image .
+            cd /dockerized/containers/peoplelearn_frontend
+            docker build -t peoplelearn_frontend_image .
 
   stop_and_start_container:
     needs: build_image
@@ -74,8 +75,8 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            docker stop dma_frontend_instance || true
-            docker rm dma_frontend_instance || true
+            docker stop peoplelearn_frontend_instance || true
+            docker rm peoplelearn_frontend_instance || true
 
       - name: Run new Docker container
         uses: appleboy/ssh-action@v0.1.3
@@ -84,7 +85,7 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            docker run -d --name dma_frontend_instance --restart unless-stopped -p ${{secrets.PORT}}:3000 -v dma_frontend_volume:/data dma_frontend_image
+            docker run -d --name peoplelearn_frontend_instance --restart unless-stopped -p ${{secrets.PORT}}:3000 -v peoplelearn_frontend_volume:/data peoplelearn_frontend_image
 
   clean_up_except_the_latest:
     needs: stop_and_start_container
@@ -100,9 +101,9 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             # Get the latest image ID
-            latest_image_id=$(docker images 'dma_frontend_image*' --format "{{.ID}}" | head -n1)
+            latest_image_id=$(docker images 'peoplelearn_frontend_image*' --format "{{.ID}}" | head -n1)
             # Remove all images except the latest one
-            docker images 'dma_frontend_image*' --format "{{.ID}}" | grep -v "$latest_image_id" | xargs --no-run-if-empty docker rmi
+            docker images 'peoplelearn_frontend_image*' --format "{{.ID}}" | grep -v "$latest_image_id" | xargs --no-run-if-empty docker rmi
 
       - name: Remove untagged Docker images
         uses: appleboy/ssh-action@v0.1.3

@@ -1,5 +1,3 @@
-import { store } from '@/store'
-import { productActions } from '@/store/slices/productSlice'
 import {
   CreateReviewBody,
   FetchPostsParams,
@@ -7,17 +5,13 @@ import {
   FetchReviewsParams,
   FetchUserSubscriptionsParams,
   FetchUsersParams,
-  IAcademy,
-  ICourse,
   IPost,
-  IWishlist,
   UpgradeUserBody,
   UpgradeUserRequestBody,
 } from '@/utils/type.dt'
 import axios, { AxiosProgressEvent, AxiosRequestConfig } from 'axios'
 
 const BASE_URI = process.env.NEXT_PUBLIC_BACKEND_URI + '/api/v1'
-const { setAcademies, setCourses } = productActions
 
 const createPost = async (data: any): Promise<any> => {
   const url = `${BASE_URI}/posts/create`
@@ -969,7 +963,7 @@ const uploadFile = async (
   file: File,
   onProgress: (progressEvent: AxiosProgressEvent) => void
 ): Promise<any> => {
-  const url = `https://file.dappmentors.duckdns.org/upload`
+  const url = process.env.NEXT_PUBLIC_UPLOAD_URI + '/upload'
   // const url = `http://localhost:8000/upload`
   const formData = new FormData()
   formData.append('file', file)
